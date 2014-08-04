@@ -1,0 +1,11 @@
+﻿;!@Install@!UTF-8!
+Title="DriverPack Solution Installer"
+Progress="yes"
+GUIFlags=""
+OverwriteMode="0"
+;InstallPath="%temp%"
+ExtractPathText="Select extraction path"
+ExtractPathTitle="DriverPack Solution Installer"
+ExtractCancelText="Cancel"
+RunProgram="%%T\\DRPSuPacker\\DriverPackSetup.exe"
+;!@InstallEnd@!

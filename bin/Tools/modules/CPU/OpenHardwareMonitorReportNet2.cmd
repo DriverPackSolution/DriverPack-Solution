@@ -1,0 +1,1 @@
+tools\modules\CPU\OpenHardwareMonitorReportNet2.exe > "%temp%\drp\cpu.txt"

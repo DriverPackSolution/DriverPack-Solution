@@ -1,0 +1,136 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>About DriverPack Solution</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta HTTP-EQUIV="MSThemeCompatible" content="yes">
+
+<script type="text/javascript" src="modules\init.js"></script>
+<script type="text/javascript" src="modules\variables.js"></script>
+<script type="text/javascript" src="config.js"></script>
+<script type="text/javascript">
+var oMyObject = window.dialogArguments;
+var lang = oMyObject.lang;
+
+document.write('<script type="text/javascript" src="language\\en.js"><\/script>');
+document.write('<script type="text/javascript" src="language\\' + lang + '.js"><\/script>');
+function l(text) { document.write(text); }
+</script>
+<script type="text/javascript">
+	function checkUpdate() {
+		if (document.getElementById('newPro').innerHTML.indexOf(about_connecting) != -1) {
+			document.getElementById('newPro').innerHTML = about_noconnection;
+		}
+	}
+	setTimeout('checkUpdate();',5000);
+
+	// Change size
+	function resizer() {
+		var sezer = document.getElementById('sizer').getBoundingClientRect();
+		//var width = sezer.right+15;
+		var height = sezer.bottom+25;
+		window.dialogHeight = height + "px";
+	}
+</script>
+
+<style type="text/css">
+a:link {
+	color: #0000d0;
+}
+a:visited {
+	color: #0000d0;
+}
+</style>
+
+<HTA:APPLICATION ID="dpa_license"
+	application="yes"
+	applicationName="DriverPack Autorun"
+	border="dialog"
+	borderStyle="normal"
+	caption="yes"
+	contextMenu="yes"
+	icon="./tools/Icon.ico"
+	innerBorder="no"
+	maximizeButton="no"
+	minimizeButton="no"
+	navigable="yes"
+	scroll="no"
+	scrollFlat="no"
+	selection="no"
+	showInTaskBar="no"
+	singleInstance="no"
+	sysMenu="yes"
+	version="0.1"
+	windowState="normal"/>
+
+</head>
+
+<body
+	style="background-color:#ece9d8; font-size:9pt; font-family:Microsoft Sans Serif; margin:5px; margin-right:15px;"
+	onload="resizer(); document.getElementById('Button5').focus();"
+>
+	<h3
+		align="center"
+		style="margin:0px;padding:0px;"
+	>DriverPack Solution <script>l(version + " " + verType);</script></h3>
+
+	<img
+		src="modules\blank.gif"
+		style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='ico\about\logo.png')"
+		width="128"
+		height="128"
+		style="float:left;"
+	>
+
+	<div style="margin-top:10px;text-align:justify;">
+		<script>l(about_description1);</script><br>
+		<script>l(about_description2);</script>
+	</div>
+
+	<br>
+
+	<div style="font-size:18px;">
+		<script>l(about_author)</script><br>
+		<span style="font-size:12px;">
+			<b><script>l(about_thanks1)</script></b>: <script>l(about_thanks2)</script>
+		</span>
+	</div>
+
+	<br>
+
+	<div>
+		<script>l(about_website)</script> <a href="http://drp.su/" onclick="return goToUrl('http://drp.su/');">http://drp.su/</a> <br>
+		<script>l(about_forums)</script> <a href="http://forum.drp.su/" onclick="return goToUrl('http://forum.drp.su/');">http://forum.drp.su/</a> <br>
+		<script>l(about_license)</script> <a href="http://drp.su/about/licence/" onclick="return goToUrl('http://drp.su/about/licence');">http://drp.su/about/licence/</a> <br>
+	</div>
+
+	<br>
+
+	<br>
+	<br>
+
+	<table style="font-size:9pt; float:left;">
+		<tr>
+			<td><i><script>l(about_currentversion)</script></i></td>
+			<td><i>DRP Su <script>document.write(version + " " + verType);</script> (build: <script>l(buildDate);l(", "+revis)</script>)</i></td>
+		</tr>
+		<tr>
+			<td><i><script>l(about_availableversion)</script></i></td>
+			<td><span id="newPro"><script>l(about_connecting)</script></span></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><span id="newHome"></span></td>
+		</tr>
+	</table>
+
+	<br><br><br>
+	<div align="right">
+		<script>
+			document.write('<input id="Button5" type="button" value="' + about_close +
+				'"; onclick="self.close();" style="width: 104px; height: 32px;"/>');
+		</script>
+	</div>
+	<div id="sizer"></div>
+	<script type="text/javascript" src="http://drp.su/update/about/"></script>
+</body>
+</html>
