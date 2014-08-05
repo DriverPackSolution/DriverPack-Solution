@@ -4,13 +4,13 @@ DriverPack-Solution
 DriverPack Solution - это самая популярная программа для автоматической настройки компьютера. Драйверы, Софт, Диагностика.
 
 
-Сайт: http://drp.su/
+* Сайт: http://drp.su/
 
-Форум: http://community.drp.su/
+* Форум: http://community.drp.su/
 
-вКонтакте: http://vk.com/driverpacksolution
+* вКонтакте: http://vk.com/driverpacksolution
 
-FaceBook: https://www.facebook.com/DriverPack.Solution.Russia или https://www.facebook.com/DriverPack.Solution
+* FaceBook: https://www.facebook.com/DriverPack.Solution.Russia или https://www.facebook.com/DriverPack.Solution
 
 
 Хотите помочь с разработкой DRP?
