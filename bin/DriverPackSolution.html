@@ -1,7 +1,7 @@
-<!--[if gt IE 6]>
+<!--[if !(IE 6)]><!-->
 <!DOCTYPE html>
-<![endif]-->
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!--<![endif]-->
+<html>
 <head>
 <title>DriverPack Solution</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -21,7 +21,7 @@ To debug run: \bin\runDebugMode.js
 <link rel="shortcut icon" href="tools\Icon.ico" type="image/x-icon" />
 <meta http-equiv="X-UA-Compatible" content="requiresActiveX=true" />
 <noscript>
-	<meta http-equiv="refresh" content="5;URL='http://drp.su/error/noscript/'">
+	<meta http-equiv="refresh" content="10;URL='http://drp.su/error/noscript/'">
 </noscript>
 
 <script type="text/javascript" src="tools\modules\init.js"></script>
@@ -106,20 +106,23 @@ To debug run: \bin\runDebugMode.js
 
     <!-- Bootstrap -->
     <link href="tools\modules\bootstrap\css\bootstrap.min.css" rel="stylesheet">
-    <link href="tools\modules\bootstrap\css\bootstrap-responsive.min1.css" rel="stylesheet">
 
 	<script src="tools\modules\bootstrap\js\bootstrap.min.js"></script>
 	<!--[if IE 6]>
-		<link href="tools\modules\bootstrap\ie6.css" rel="stylesheet">
+		<link href="Tools\modules\bootstrap\ie6.css" rel="stylesheet">
 		<style type="text/css">
 			input{ width:auto !important; }
 			.panel-top { width:200px; }
 			.panel {
 				position:absolute !important;
 			}
+			.modal {
+				position:absolute;
+			}
 		</style>
     <![endif]-->
 	<!-- Bootstrap -->
+
 	
 	
 <link href="tools\modules\font-awesome\css\font-awesome.min.css" rel="stylesheet">
@@ -2344,8 +2347,12 @@ var table_key = [];
 		//ToDo: In IE10 is not possible to get the command line, so you need to do through WMI. And do not check the condition on Windows to version IE.
 		//window.attachEvent('onload',function () {
 			refresh();
+		if (!fso.FolderExists(WshShell.ExpandEnvironmentStrings("%WinDir%\\Logs"))) {
+			fso.CreateFolder(WshShell.ExpandEnvironmentStrings("%WinDir%\\Logs"));
+			fso.CreateFolder(WshShell.ExpandEnvironmentStrings("%WinDir%\\Logs\\DRPLog"));
+		}
 		var logFolder = WshShell.ExpandEnvironmentStrings("%WinDir%\\Logs\\DRPLog\\");
-		var ScreenShotCopy = "Tools\\modules\\bugreport\\copyoldlogs.bat"
+		var ScreenShotCopy = "Tools\\modules\\bugreport\\copyoldlogs.bat";
 		var ScreenShotDRP = "Tools\\modules\\bugreport\\boxcutter.exe -f " + WshShell.ExpandEnvironmentStrings("%TEMP%\\DRP.png");
 		var ScreenShotDPS = "Tools\\modules\\bugreport\\boxcutter.exe -f " + WshShell.ExpandEnvironmentStrings("%TEMP%\\DPS.png");
 		//});

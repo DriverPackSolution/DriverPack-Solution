@@ -30,7 +30,7 @@ infobar_programm = function(){
 	if (program_count > 0) {
 		infobar(
 			"<div class='program_title'>" + misc_inst5 + ":</div>",
-			"<div class='program_infobar_content'><b>" + program_count + "</b> - " + morfolog('infobar_programmAvailable',program_count) + ".<br><button class='infobar_button btn btn-success all_programs_download' onclick='all_programs_download()' style='float:left;'>"+infobar_buttonInstAll+"</button></div>",
+			"<div class='program_infobar_content'><b>" + program_count + "</b> - " + morfolog('infobar_programmAvailable',program_count) + ".<br><button class='infobar_button btn btn-success all_programs_download' onclick='all_programs_download();return false;' style='float:left;'>"+infobar_buttonInstAll+"</button></div>",
 			'red'
 		);
 	}
@@ -51,89 +51,91 @@ infobar_programm = function(){
 
 
 graphicsRender();
-getPrograms();
+$(document).ready(function(){
+	getPrograms();
+});
 
 
 function getPrograms() {
-	$(window).load(function(){
-		$.ajax({
-			url: "http://test-st.drp.su/admin/index.php?r=response",
-			dataType: 'jsonp',
-			type: 'POST',
-			crossDomain: true,
-			cache: false,
-			contentType: 'text/json; charset=utf-8',
-			//Request with the data about the drivers
-			success: function (json) {
-				
-				softJson = json;
-				for (var i = 0; i < json.length; i++) {
-					if (json[i]['Registry_' + system_version] != "") {
-						if (!checkProgramExistence(json[i]['Registry_' + system_version])) {
-							if (!driver_exists(json[i]['URL'], programsPath)) {
-								
-								if ((!json[i]['Lang']) || (json[i]['Lang'].indexOf(lang) != -1) || (isRusLang && (json[i]['Lang'].indexOf('rus') != -1)) ){
-								
-									$('.programs table').append("<tr class='approved'>" +
-										"<td style='width: 10px'><input type='checkbox' checked><img src='tools\\ico\\button\\0.png'> </td>" +
-										//I am storing the URL of the drivers in the ID of TD to have a pretty easy access.
-										"<td class='program_td' style='width: 63%; text-align:left' data-id='" + json[i]['URL'] + "' data-keys='" + json[i]['Keys'] + "'>" + json[i]['Name'] + "</td>" +
-										//Just a size of the file that was returned by the get_size function
-										"<td class='program_size' style='width: 30%'>" + get_size(json[i]['URL']) + "</td>" +
-										"</tr>");
+	
+	$.ajax({
+		url: "http://test-st.drp.su/admin/index.php?r=response",
+		dataType: 'jsonp',
+		type: 'POST',
+		crossDomain: true,
+		cache: false,
+		contentType: 'text/json; charset=utf-8',
+		//Request with the data about the drivers
+		success: function (json) {
+			
+			softJson = json;
+			for (var i = 0; i < json.length; i++) {
+				if (json[i]['Registry_' + system_version] != "") {
+					if (!checkProgramExistence(json[i]['Registry_' + system_version])) {
+						if (!driver_exists(json[i]['URL'], programsPath)) {
+							
+							if ((!json[i]['Lang']) || (json[i]['Lang'].indexOf(lang) != -1) || (isRusLang && (json[i]['Lang'].indexOf('rus') != -1)) ){
+							
+								$('.programs table').append("<tr class='approved'>" +
+									"<td width='50'><input type='checkbox' checked><img src='tools\\ico\\button\\0.png'></td>" +
+									//I am storing the URL of the drivers in the ID of TD to have a pretty easy access.
+									"<td class='program_td' style='width: 63%; text-align:left' data-id='" + json[i]['URL'] + "' data-keys='" + json[i]['Keys'] + "'>" + json[i]['Name'] + "</td>" +
+									//Just a size of the file that was returned by the get_size function
+									"<td class='program_size' style='width: 30%'>" + get_size(json[i]['URL']) + "</td>" +
+									"</tr>");
 
-								}
-								
 							}
+							
 						}
 					}
 				}
-				if(!fso.FileExists(uninstallerPath)){
-				$('.programs table').append("<tr class='approved'>" +
-					"<td style='width: 10px'><input type='checkbox' class='install_shortcuts' checked><img src='tools\\ico\\button\\0.png'> </td>" +
-					//I am storing the URL of the drivers in the ID of TD to have a pretty easy access.
-					"<td class='program_shortcuts' style='width: 63%; text-align:left'>" +(rusLang?'Установка ярлыков':'Install shorcuts')+"</td>" +
-					//Just a size of the file that was returned by the get_size function
-					"<td class='shortcut_size' style='width: 30%'></td>" +
-					"</tr>");
-				}
-	/*
-
-				$('.programs table').after("<div class='btn-group' style='margin: 20px 0;'>"+
-						"<a href='#' style='font-size: 14px' class='shortcuts_install btn btn-info'>Установить ярлыки</a>"+
-						"</div>");
-	*/
-
-
-				if($('.approved').length > 0){
-					$('.programs table').after("<div class='programs_install' style='margin-top: 20px;'><!--<img src='tools\\ico\\5.png'>--> <a href='#' style='font-size: 14px' class='btn btn-success programs_download'>" + infobar_buttonInst + " <span class='programs_sum'></span></a></div>");
-					program_recalculate();
-				} else {
-					//$('.program_title').html('123');
-				}
-			},
-			error: function(jqXHR, exception) {
-				if (jqXHR.status === 0) {
-					alert('AJAX Error: Not connect.n Verify Network.');
-				} else if (jqXHR.status == 404) {
-					alert('AJAX Error: Requested page not found. [404]');
-				} else if (jqXHR.status == 500) {
-					alert('AJAX Error: Internal Server Error [500].');
-				} else if (exception === 'parsererror') {
-					alert('AJAX Error: Requested JSON parse failed.');
-					getPrograms();
-					return false;
-				} else if (exception === 'timeout') {
-					alert('AJAX Error: Time out error.');
-				} else if (exception === 'abort') {
-					alert('AJAX Error: Ajax request aborted.');
-				} else {
-					alert('AJAX Error: Uncaught Error.n' + jqXHR.responseText);
-				}
-				debugger;
 			}
-		});
+			if(!fso.FileExists(uninstallerPath)){
+			$('.programs table').append("<tr class='approved'>" +
+				"<td width='50'><input type='checkbox' class='install_shortcuts' checked><img src='tools\\ico\\button\\0.png'></td>" +
+				//I am storing the URL of the drivers in the ID of TD to have a pretty easy access.
+				"<td class='program_shortcuts' style='width: 63%; text-align:left'>" +(rusLang?'Установка ярлыков':'Install shorcuts')+"</td>" +
+				//Just a size of the file that was returned by the get_size function
+				"<td class='shortcut_size' style='width: 30%'></td>" +
+				"</tr>");
+			}
+/*
+
+			$('.programs table').after("<div class='btn-group' style='margin: 20px 0;'>"+
+					"<a href='#' style='font-size: 14px' class='shortcuts_install btn btn-info'>Установить ярлыки</a>"+
+					"</div>");
+*/
+
+
+			if($('.approved').length > 0){
+				$('.programs table').after("<div class='programs_install' style='margin-top: 20px;'><!--<img src='tools\\ico\\5.png'>--> <a href='#' style='font-size: 14px' class='btn btn-success programs_download'>" + infobar_buttonInst + " <span class='programs_sum'></span></a></div>");
+				program_recalculate();
+			} else {
+				//$('.program_title').html('123');
+			}
+		},
+		error: function(jqXHR, exception) {
+			if (jqXHR.status === 0) {
+				alert('AJAX Error: Not connect.n Verify Network.');
+			} else if (jqXHR.status == 404) {
+				alert('AJAX Error: Requested page not found. [404]');
+			} else if (jqXHR.status == 500) {
+				alert('AJAX Error: Internal Server Error [500].');
+			} else if (exception === 'parsererror') {
+				alert('AJAX Error: Requested JSON parse failed.');
+				getPrograms();
+				return false;
+			} else if (exception === 'timeout') {
+				alert('AJAX Error: Time out error.');
+			} else if (exception === 'abort') {
+				alert('AJAX Error: Ajax request aborted.');
+			} else {
+				alert('AJAX Error: Uncaught Error.n' + jqXHR.responseText);
+			}
+			debugger;
+		}
 	});
+	
 }
 
 function program_recalculate() {
@@ -258,6 +260,25 @@ function tabProgram_OnClick(){
 	});
 }
 
+
+
+
+
+function all_programs_download() {
+	$('.programs table input:checkbox').attr('checked', true);
+	
+	try{
+		$('.programs_download').click();
+	}
+	catch (Ex){ debugger; }
+}
+
+
+
+
+
+
+
 $(document).ready(function () {
 	
 	tabProgram_OnClick();
@@ -347,14 +368,6 @@ $(document).ready(function () {
 	});
 	
 	
-	function all_programs_download() {
-		$('.programs table input:checkbox').attr('checked', true);
-		
-		try{
-			$('.programs_download').click();
-		}
-		catch (Ex){ debugger; }
-	}
 
 
 	$('.programs').on('click', '.programs_download', function () {

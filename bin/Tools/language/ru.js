@@ -230,7 +230,7 @@ about_close =   		"Закрыть";
 infobar_tabInstall =	"Установка";
 infobar_tabUpdate = 	"Обновление";
 infobar_tabDriver =		"Драйверы";
-infobar_tabProgramm = 	"Программы";
+infobar_tabProgramm = 	"Софт";
 infobar_advanced =  	"Разное";
 infobar_tabSearch = 	"Поиск";
 infobar_tabOnline = 	"Онлайн";
@@ -279,13 +279,13 @@ infobar_hideDetails =   "Скрывать детали";
 infobar_programInstall = "Начинаем установку программ";
 
 infobar_noDriverpacksTitle = "Отсутствуют базы драйверов";
-infobar_noDriverpacks = "Вы используете Lite версию программы. В этом режиме <b>можно скачивать</b> недостающие драйверы из Интернета, но <b>нельзя обновлять устаревшие</b>. Для постоянной работы рекомендуется скачать полную версию <a href=\"http://drp.su/\" target=\"_blank\" onclick=\"goToUrl(\'http://drp.su/\');return false;\">DriverPack Solution</a>.";
+infobar_noDriverpacks = "Вы используете Online версию программы. В этом режиме <b>можно скачивать</b> недостающие драйверы из Интернета, но <b>нельзя обновлять устаревшие</b>. Для постоянной работы рекомендуется скачать полную версию <a href=\"http://drp.su/\" target=\"_blank\" onclick=\"goToUrl(\'http://drp.su/\');return false;\">DriverPack Solution</a>.";
 infobar_noProgramTitle = "Отсутствуют программы";
-infobar_noProgram = "Вы используете Lite версию <b>без возможности установки программ</b>. Для постоянной работы рекомендуется скачать полную версию <a href=\"http://drp.su/\" target=\"_blank\" onclick=\"goToUrl(\'http://drp.su/\');return false;\">DriverPack Solution</a>.";
+infobar_noProgram = "Вы используете Online версию <b>без возможности установки программ</b>. Для постоянной работы рекомендуется скачать полную версию <a href=\"http://drp.su/\" target=\"_blank\" onclick=\"goToUrl(\'http://drp.su/\');return false;\">DriverPack Solution</a>.";
 
 
 bugreport_titleDialog = "<b>В ходе работы программы возникла ошибка. Чтобы помочь разработчикам в устранении проблемы, отправьте им отчёт об ошибке.</b><br>Ознакомьтесь с политикой конфиденциальности на <a href='http://drp.su/privacy/' onclick='return goToUrl(\"http://drp.su/privacy/\")'>drp.su/privacy/</a>";
-bugreport_titleWin =	"<b>Если при работе программы или в ходе установки драйверов возникла ошибка, то при помощи этого инструмента вы сможете создать файл отчёта и отправить его разработчикам на <a href='http://forum.drp.su/showthread.php?t=4244' onclick='return goToUrl(\"http://forum.drp.su/showthread.php?t=4244\")'>forum.drp.su</a></b><br>Ознакомьтесь с политикой конфиденциальности на <a href='http://drp.su/privacy/' onclick='return goToUrl(\"http://drp.su/privacy/\")'>drp.su/privacy/</a>";
+bugreport_titleWin =	"<b>Если при работе программы или в ходе установки драйверов возникла ошибка, то при помощи этого инструмента вы сможете создать файл отчёта и отправить его разработчикам на <a href='http://community.drp.su/showthread.php?t=4244' onclick='return goToUrl(\"http://community.drp.su/showthread.php?t=4244\")'>community.drp.su</a></b><br>Ознакомьтесь с политикой конфиденциальности на <a href='http://drp.su/privacy/' onclick='return goToUrl(\"http://drp.su/privacy/\")'>drp.su/privacy/</a>";
 
 bugreport_options = 	"Параметры отчёта";
 bugreport_include = 	"Включить в отчёт";
@@ -360,7 +360,7 @@ Confirm_StartInst = 	"Начать установку";
 Confirm_ResotorePoint = "Создать контрольную точку восстановления";
 Confirm_licenseAgree = 	"Принять условия лицензионных соглашений выбранного ПО. <a href='http://drp.su/ru/about/licence/' onclick=\"goToUrl('http://drp.su/ru/about/licence/'); return false;\">Подробнее...</a>";
 
-isBeta = "Это тестовая сборка! Если в процессе использования обнаружатся проблемы, то убедитесь, что используете последнюю версию (на сайте <a href=\"#\" onclick=\"return goToUrl(\'http://code.google.com/p/driverpacksolution/\');\">code.google.com</a>). После чего обязательно опишите проблему на форуме: <a href=\"#\" onclick=\"return goToUrl(\'http://forum.drp.su/\');\">forum.drp.su</a>. Это очень поможет нам!";
+isBeta = "Это тестовая сборка! Если в процессе использования обнаружатся проблемы, то убедитесь, что используете последнюю версию (на сайте <a href=\"#\" onclick=\"return goToUrl(\'https://github.com/DriverPackSolution/DriverPack-Solution\');\">GitHub</a>). После чего обязательно опишите проблему на форуме: <a href=\"#\" onclick=\"return goToUrl(\'http://community.drp.su/\');\">community.drp.su</a>. Это очень поможет нам!";
 isNotFullDriverpacks = "<b>Внимание!!!</b> В состав этой версии DriverPack Solution входят не все драйверы. Остальные драйверы будет предложено докачать из Интернета. Для частого использования рекомендуем загрузить полную версию через <a href=\"http://drp.su/\" target=\"_blank\" onclick=\"downloadDRP(); return false;\">Конфигуратор обновлений</a>";
 infobar_downloadFull = "Скачать полную версию (бесплатно)";
 infobar_buy = "Купить на DVD";

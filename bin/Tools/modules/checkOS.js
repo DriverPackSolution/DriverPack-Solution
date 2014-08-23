@@ -2,7 +2,7 @@
 var colItems = objWMIService.ExecQuery("SELECT * FROM Win32_OperatingSystem","WQL");
 var enumItems = new Enumerator(colItems);
 var objShell = new ActiveXObject("Shell.Application");
-var current_dir = getFullPath();
+var current_dir = decodeURIComponent(getFullPath());
 WshShell.CurrentDirectory = current_dir;
 var OSVersion = 5;
 var OSVersionSP = 0;

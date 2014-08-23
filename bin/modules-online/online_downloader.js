@@ -191,10 +191,13 @@ function sendPost(url, not_installed, installed) {
 						parsed_url = json.not_installed[i][0];
 						if (!driver_exists(parsed_url, 'tools//DRIVERS')) {
 							if (parsed_url.indexOf("Touchpad") == -1) {
-								f.WriteLine("RECIEVED DRIVER - " + json.not_installed[i][2] + " URL -" + parsed_url);
+								try {
+									f.WriteLine("RECIEVED DRIVER - " + json.not_installed[i][2] + " URL -" + parsed_url);
+								}
+								catch(e) { }
 								//Forming the table with drivers
 								$('#driver_online table').append("<tr class='driver_approved'>" +
-									"<td style='width: 10px'><input type='checkbox' checked><img src='tools\\ico\\button\\0.png'> </td>" +
+									"<td width='50'><input type='checkbox' checked><img src='tools\\ico\\button\\0.png'></td>" +
 									//I am storing the URL of the drivers in the ID of TD to have a pretty easy access.
 									"<td class='driver_url' style='width: 63%; text-align:left' id='" + parsed_url + "'>" + json.not_installed[i][2] + "</td>" +
 									//Just a size of the file that was returned by the get_size function
@@ -219,9 +222,12 @@ function sendPost(url, not_installed, installed) {
 							parsed_url = json.installed[i][0];
 							if (!driver_exists(parsed_url, driversPath)) {
 								if (parsed_url.indexOf("Touchpad") == -1) {
-									f.WriteLine("RECIEVED DRIVER - " + json.installed[i][2] + " URL -" + parsed_url);
+									try {
+										f.WriteLine("RECIEVED DRIVER - " + json.installed[i][2] + " URL -" + parsed_url);
+									}
+									catch(e) { }
 									$('#driver_online table').append("<tr class='driver_approved'>" +
-										"<td style='width: 10px'><input type='checkbox' checked><img src='tools\\ico\\button\\0.png'> </td>" +
+										"<td width='50'><input type='checkbox' checked><img src='tools\\ico\\button\\0.png'></td>" +
 										//I am storing the URL of the drivers in the ID of TD to have a pretty easy access.
 										"<td class='driver_url' style='width: 83%; text-align:left' id='" + parsed_url + "'>" + json.installed[i][2] + "</td>" +
 										//Just a size of the file that was returned by the get_size function
@@ -233,7 +239,10 @@ function sendPost(url, not_installed, installed) {
 						}
 
 					}
-					f.Close();
+					try {
+						f.Close();
+					}
+					catch(e) { }
 				}
 
 				//Check if all of the drivers were downloaded
@@ -259,8 +268,9 @@ function sendPost(url, not_installed, installed) {
 				} else if (jqXHR.status == 500) {
 					alert('AJAX Error: Internal Server Error [500].');
 				} else if (exception === 'parsererror') {
-					setTimeout(online_downloader_init,5000);
-					alert('AJAX Error: Requested JSON parse failed.');
+					//setTimeout(online_downloader_init,5000);
+					//alert('AJAX Error: Requested JSON parse failed.');
+					refresh();
 					return false;
 				} else if (exception === 'timeout') {
 					alert('AJAX Error: Time out error.');
@@ -318,10 +328,12 @@ function sizeConvert(folderSize,unit) {
  */
 function get_size(url) {
 	var StatusFile = logFolder + 'WgetStatus-' + randomNumber(1,9999999999) + '.txt';
+	//alert(StatusFile);
 	
     WshShell.run('"tools\\wget.exe" --spider -o "' + StatusFile + '" ' + url, 0, true);
 	var ret = ' ' + sizeConvert(get_info(StatusFile, /Length: (.+) \(/),'MB') +' Mb';
 	if (ret.indexOf('NaN') != -1) { ret = 'null'; }
+	//alert(ret);
 	
     return ret;
 }
@@ -367,7 +379,7 @@ function recalculate() {
 			
 		infobar(
 				"<div class='program_title'>" + manual_con_findDrv + "</div>",
-				"<div class='program_infobar_content'><b>" + number + "</b> - " + morfolog('infobar_infoDriverAvailable',number) + "<br><button class='infobar_button btn btn-success all_drivers_download' onclick='all_drivers_download()' style='float:left'>"+infobar_buttonRunAll+"</button></div>",
+				"<div class='program_infobar_content'><b>" + number + "</b> - " + morfolog('infobar_infoDriverAvailable',number) + "<br><button class='infobar_button btn btn-success all_drivers_download' onclick='all_drivers_download(); return false;' style='float:left'>"+infobar_buttonRunAll+"</button></div>",
 				'red'
 			);
 			
@@ -402,6 +414,61 @@ function tabSearch_OnClick(){
 
 
 
+
+
+
+
+
+
+
+
+function all_drivers_download() {
+	$('#driver_online input:checkbox').attr('checked', true);
+	
+	
+	var instSoft = false;
+	//if (confirm(misc_inst1 + "?")) { instSoft = true; }
+	/*
+	var btn = WshShell.Popup(misc_inst1 + "?", 60, "DriverPack Solution", 0x3 + 0x20);
+	switch(btn) {
+		// Cancel button pressed.
+		case 2:
+			return false;
+			break;
+		// Yes button pressed.
+		case 6:
+			instSoft = true;
+			break;
+		// No button pressed.
+		case 7:
+			instSoft = false;
+			break;
+		// Timed out.
+		case -1:
+		   return false;
+		   break;
+	}
+	*/
+	
+
+	try{
+		$('.drivers_download').click();
+	}
+	catch (Ex){ debugger; }
+	
+	if (instSoft) {
+		try{
+			$('.programs_download').click();
+		}
+		catch (Ex){ debugger; }
+	}
+
+}
+
+
+
+
+
 $('document').ready(function () {
 	
 	tabSearch_OnClick();
@@ -431,48 +498,7 @@ $('document').ready(function () {
      recalculate();
      });*/
 
-    function all_drivers_download() {
-        $('#driver_online input:checkbox').attr('checked', true);
-		
-		
-		var instSoft = false;
-		//if (confirm(misc_inst1 + "?")) { instSoft = true; }
-		/*
-		var btn = WshShell.Popup(misc_inst1 + "?", 60, "DriverPack Solution", 0x3 + 0x20);
-		switch(btn) {
-			// Cancel button pressed.
-			case 2:
-				return false;
-				break;
-			// Yes button pressed.
-			case 6:
-				instSoft = true;
-				break;
-			// No button pressed.
-			case 7:
-				instSoft = false;
-				break;
-			// Timed out.
-			case -1:
-			   return false;
-			   break;
-		}
-		*/
-		
 
-        try{
-			$('.drivers_download').click();
-        }
-		catch (Ex){ debugger; }
-		
-		if (instSoft) {
-			try{
-				$('.programs_download').click();
-			}
-			catch (Ex){ debugger; }
-		}
-
-    }
     /*
      $('#driver_online').on('click', '.uncheck', function () {
      $('#driver_online input:checkbox').attr('checked', false);

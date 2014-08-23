@@ -59,22 +59,55 @@ DRPinstall = {
 			' </div>' +
 			'</div>'
 		);
+		
+		
+		if (IEVers<=6){
+			$('body').append(
+				'<style type="text/css">' +
+				'.modal {' +
+				'	position:absolute;' +
+				'	top:25%;' +
+				'}' +
+				'#modalOverlay {' +
+				'	position:absolute;' +
+				'	top:expression(eval(document.body.scrollTop) + "px");' +
+				'	z-index:1001;' +
+				'	width:100%;' +
+				'	height: 100%;' +
+				'	background-color:#000;' +
+				'	filter: alpha(opacity=80);' +
+				'}' +
+				'</style>' +
+				'<div id="modalOverlay"></div>'
+			);
+		}
+		
 		$('#myModal').modal('show');
 		$('#licence-accept').focus();
         $('#licence-accept').on('click', function () {
+			
 			$('#myModal').modal('hide');
 			WshShell.RegWrite('HKCU\\SOFTWARE\\drpsu\\LicenceAccept',version,'REG_SZ');
+			
+			if (IEVers<=6){
+				$('#modalOverlay').hide();
+			}
+			
 		});
+		
 		$('#chk_licence').on('change', function () {
+			
 			if ($('#chk_licence').attr('checked')=='checked') {
 				$('#licence-accept').removeAttr('disabled');
 			}
 			else {
 				$('#licence-accept').attr('disabled','disabled');
 			}
+			
 		});
 		
 		$('#myModal').on('hidden.bs.modal', function (e) {
+			
 			if ($('#chk_DRPOnlineInstall').attr('checked')=='checked') {
 			
 				setTimeout(function(){
@@ -82,6 +115,7 @@ DRPinstall = {
 				},0);
 				
 			}
+			
 		});
 		
 	},
@@ -102,7 +136,13 @@ DRPinstall = {
 		
 		//Fullpath
 		fullpath1 = current_dir;
-		if (fullpath1.indexOf('\\bin') != -1) { fullpath1 = fullpath1.replace('\\bin',''); }
+		if (fullpath1.indexOf('\\bin') != -1) {
+			fullpath1 = fullpath1.replace('\\bin','');
+		}
+		
+		if (fullpath1.charAt(fullpath1.length-1) == '\\') {
+			var fullpath1 = fullpath1.substring(0,fullpath1.length-1);
+		}
 		
 		return fullpath1;
 		
@@ -202,10 +242,8 @@ DRPinstall = {
 		
 		
 		//Start copy DRP in ProgramFiles
-		var fullpath = this.GetFullPath();
-		var copyFrom = fullpath.substring(0,fullpath.length-1);
+		var copyFrom = this.GetFullPath();
 		WshShell.Run('xcopy "' + copyFrom + '" "' + this.options.InstallDir + '\\" /S /E /Y /EXCLUDE:'+exclude_file,0,false);
-		
 	}
 }
 
