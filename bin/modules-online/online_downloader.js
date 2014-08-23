@@ -248,7 +248,7 @@ function sendPost(url, not_installed, installed) {
 				//Check if all of the drivers were downloaded
 				if ($('.driver_approved').length > 0) {
 					$('#driver_online table').after("<div class='install' style='margin-top: 20px;'>" +
-						"<a href='#' class=' btn btn-success drivers_download'>" + infobar_buttonInst + " " +
+						"<a href='#' class='btn btn-success drivers_download'>" + infobar_buttonInst + " " +
 						"<span class='sum'></span>" +
 						"</a>" +
 						"</div>");
@@ -361,17 +361,16 @@ function recalculate() {
     $('.size').each(function (index, element) {
         if ($(element).parent().hasClass('driver_approved')) {
             if ($(element).html() != 'null' && $(element).html() != drv_notKnown) {
-                sum += parseFloat($(element).html().slice(1, -2));
-
+				var this_prog_size = parseFloat($(element).html().slice(1, -2));
+				sum += (isNaN(this_prog_size)?0:this_prog_size);
             } else {
                 $(element).html(drv_notKnown);
                 $(element).parent().removeClass('driver_approved');
                 $(element).parent().find('input:checkbox').removeAttr('checked');
-                $(element).parent().find('input:checkbox').attr('checked', false);
             }
         }
     });
-    $('.sum').html("(" + sum.toFixed(1) + " MB )");
+    $('.sum').html("(" + sum.toFixed(1) + " Mb )");
     if (number > 0) {
         /*$('.drivers_title').html("<div style='margin-bottom: 10px; font-size: 18px; font-weight: bold;'>" + manual_con_findDrv + "</div>" +
             " <span style='font-weight: 100'>" + con_driver_available + " </span>" + number + " " +

@@ -141,18 +141,13 @@ function getPrograms() {
 function program_recalculate() {
 	var sum = 0.0;
 	var number = $('.program_size').length;
-	
-	//setTimeout(
-	//	function(){
-			$('#badge-programms2').html(number);
-	//	},
-	//	400
-	//);
+	$('#badge-programms2').html(number);
 	
 	$('.program_size').each(function (index, element) {
 		if ($(element).parent().hasClass('approved')) {
 			if ($(element).html() != 'null' && $(element).html() != drv_notKnown) {
-				sum += parseFloat($(element).html().slice(1, -2));
+				var this_prog_size = parseFloat($(element).html().slice(1, -2));
+				sum += (isNaN(this_prog_size)?0:this_prog_size);
 			} else {
 				$(element).html(drv_notKnown);
 				$(element).parent().removeClass('approved');
@@ -160,7 +155,12 @@ function program_recalculate() {
 			}
 		}
 	});
-	$('.programs_sum').html("(" +sum.toFixed(1) + " MB )");
+	$('.programs_sum').html("(" + sum.toFixed(1) + " Mb )");
+    if(sum > 0.0){
+        $('.programs_download').show();
+    } else {
+        $('.programs_download').hide();
+    }
 }
 
 function addShortcut(shortcut) {

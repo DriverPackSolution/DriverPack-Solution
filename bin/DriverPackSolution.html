@@ -5,21 +5,30 @@
 <head>
 <title>DriverPack Solution</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta HTTP-EQUIV="MSThemeCompatible" content="yes">
-<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+
+<!-- HTML5 -->
+<meta http-equiv="MSThemeCompatible" content="yes">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge, requiresActiveX=true" />
 <!--
 Emulation of different browser versions:
+http://msdn.microsoft.com/en-us/library/ff955275(v=vs.85).aspx
+
 IE=Edge - the latest version available
-IE=10 - Internet Explorer 10
-IE=9 - Internet Explorer 9
-IE=8 - Internet Explorer 8
-IE=7 - Internet Explorer 7
-IE=5 - Internet Explorer 5
+IE=11 /10 /9 /8 /7 /5
+IE=EmulateIE11 /10 /9 /8 /7
 
 To debug run: \bin\runDebugMode.js
 -->
+
+<!-- NO CACHE -->
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+<meta http-equiv="pragma" content="no-cache" />
+
+<!-- Favicon -->
 <link rel="shortcut icon" href="tools\Icon.ico" type="image/x-icon" />
-<meta http-equiv="X-UA-Compatible" content="requiresActiveX=true" />
+
+<!-- Redirect if no JS -->
 <noscript>
 	<meta http-equiv="refresh" content="10;URL='http://drp.su/error/noscript/'">
 </noscript>
@@ -119,11 +128,13 @@ To debug run: \bin\runDebugMode.js
 			.modal {
 				position:absolute;
 			}
+			#language_title {
+				min-height: 25px;
+			}
 		</style>
     <![endif]-->
 	<!-- Bootstrap -->
 
-	
 	
 <link href="tools\modules\font-awesome\css\font-awesome.min.css" rel="stylesheet">
 <link href="tools\style.css" rel="stylesheet" type="text/css">

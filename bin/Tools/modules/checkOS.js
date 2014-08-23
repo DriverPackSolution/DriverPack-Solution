@@ -1,4 +1,4 @@
-﻿// Detect OS
+// Detect OS
 var colItems = objWMIService.ExecQuery("SELECT * FROM Win32_OperatingSystem","WQL");
 var enumItems = new Enumerator(colItems);
 var objShell = new ActiveXObject("Shell.Application");
@@ -6,6 +6,8 @@ var current_dir = decodeURIComponent(getFullPath());
 WshShell.CurrentDirectory = current_dir;
 var OSVersion = 5;
 var OSVersionSP = 0;
+WshShell.Environment("PROCESS")("SEE_MASK_NOZONECHECKS") = 1; //Fix NTFS zone checks alerts
+
 
 function getFullPath(){
 	var fullpath1 = document.location.pathname;
