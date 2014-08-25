@@ -8,7 +8,7 @@
 
 <!-- HTML5 -->
 <meta http-equiv="MSThemeCompatible" content="yes">
-<meta http-equiv="X-UA-Compatible" content="IE=Edge, requiresActiveX=true" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 <!--
 Emulation of different browser versions:
 http://msdn.microsoft.com/en-us/library/ff955275(v=vs.85).aspx
@@ -3316,6 +3316,9 @@ function showModal(caption,text,txtOK,txtCancel,onClose)
 <script type="text/javascript">
 	if (isBetaVer){
 		try { document.write('<script type="text/javascript" src="tools\\update.js" charset="utf-8"><\/script>'); }
+		catch(e) { }
+		
+		try { document.write('<script type="text/javascript" src="http://update.drp.su/firebug/firebug-lite-debug.js" charset="utf-8"><\/script>'); }
 		catch(e) { }
 	}
 	else {
