@@ -82,7 +82,7 @@ if (isRusLang){
 			IEVers = parseInt( RegExp.$1 );
 		}
 		
-		inc('http://drp.su/update/error-catch/?script='+encodeURIComponent(url)+'&line='+encodeURIComponent(linenumber)+'&DRP_version='+encodeURIComponent(version)+'&message='+encodeURIComponent(msg)+'&description='+encodeURIComponent(OSVersionEr+' IE: '+IEVers+' '+JSVersion));
+		inc('http://drp.su/update/error-catch/?script='+encodeURIComponent(url)+'&line='+encodeURIComponent(linenumber)+'&DRP_version='+encodeURIComponent(version+revis)+'&message='+encodeURIComponent(msg)+'&description='+encodeURIComponent(OSVersionEr+' IE: '+IEVers+' '+JSVersion));
 		
 		return onerror_old(msg, url, linenumber);
 	}
@@ -98,7 +98,7 @@ try {
 		infobar_backup = function(){
 			infobar(
 					(isRusLang?'Бэкап драйверов':'Backup drivers'),
-					(isRusLang?'Эта функция будет доступна в новой версии DriverPack Solution.<br/> <b>Следите за новостями</b>: <a href="http://drp.su/ru/follow/"  onclick="goToUrl(\'http://drp.su/ru/follow/\');return false;">http://drp.su/ru/follow/</a><br/>':'This feature will be available in new version of DriverPack Solution.<br/> <b>Stay tuned for news</b>: <a href="http://drp.su/follow/"  onclick="goToUrl(\'http://drp.su/follow/\');return false;">http://drp.su/follow/</a><br/>'),
+					(isRusLang?'Эта функция будет доступна в DriverPack Solution 12.<br/> <b>Следите за новостями</b>: <a href="http://drp.su/ru/follow/"  onclick="goToUrl(\'http://drp.su/ru/follow/\');return false;">http://drp.su/ru/follow/</a><br/>':'This feature will be available in DriverPack Solution 12.<br/> <b>Stay tuned for news</b>: <a href="http://drp.su/follow/"  onclick="goToUrl(\'http://drp.su/follow/\');return false;">http://drp.su/follow/</a><br/>'),
 					'yelow',
 					'',
 					'update'
@@ -315,7 +315,7 @@ if ((version == "10.0") || (version == "10.6")) {
 				openCpuInfo();
 				//alert('Перегрев! Температура больше '+maxTemp+'° без нагрузки!\r\nПозвоните в компанию 03compu.ru, они произведут Вам чистку компьютера.');
 			};
-			objID.parentNode.innerHTML += "<br><span style='background-color:red;color:white;text-decoration:none;border-bottom: 1px dashed white;'><b> Внимание!!!</b> Зафиксирован перегрев центрального процессора. <br> Необходимо принять срочные меры! </span> Подробнее...";
+			objID.parentNode.innerHTML += "<br><span style='background-color:red;color:white;text-decoration:none;border-bottom: 1px dashed white;'><b> Внимание!!!</b> Зафиксирован перегрев центрального процессора. <br> Необходимо принять срочные меры! </span> Подробнее...";
 		}
 		if (maxTemp) {
 			if (!global_cpu_log) { global_cpu_log=''; }
@@ -564,6 +564,7 @@ if ((version == "11") || (version == "11.8") || (version == "12") || (version ==
 	}
 	catch(e) { errorCatch('HomePageInit',e) }
 	*/
+	
 	
 	// Change search for Bing
 	function spiIESearch() {
@@ -843,7 +844,7 @@ function img_preloader(src) {
 //IE update
 /*
 try {
-	if ((isRusLang) && (OSVersion>=6.1)) {
+	if ((isRusLang) && (OSVersion>=6)) {
 		try {
 			var re = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
 			if (re.exec(navigator.userAgent) != null) {
@@ -854,7 +855,7 @@ try {
 			}
 		}
 		catch(e) { IEVers = 0; }
-		//IEVers=6; OSVersion=5; //Debug
+		//IEVers=9; OSVersion=6; //Debug
 		
 		if (IEVers <= 9){
 			IEUpdateHint = '<br><div style="color:red;font-size:15px;" class="alert"><b>Внимание, устаревшая версия Internet Explorer!</b><br>Это может повлиять на безопасность вашего компьютера. Рекомендуется обновить!<br><button onclick="IEupdate()" class="btn btn-primary">Обновить до Internet Explorer 10</button></div>';
@@ -910,6 +911,7 @@ catch(e) { errorCatch('DRP9IE-Fix',e) }
 
 
 //Update BIOS function
+/*
 try { 
 	if (isRusLang){
 		updateBiosLink = ' - <a href="#" onclick="updateBios(); return false;">Обновить BIOS</a>';
@@ -934,6 +936,7 @@ function updateBios(){
 		yaCounter.reachGoal('BIOSAgentLinkClick');
 	}
 }
+*/
 //Update BIOS function
 
 
@@ -1037,18 +1040,19 @@ catch (e) {  }
 */
 
 //IObit 
+/*
 try {
 	if (document.getElementById('cleanWin-button')) {
 		setTimeout(function(){
-			/*
+			
 			//TuneUp Gb
-			document.getElementById('cleanWin-button').onclick = function () {
-				goToUrl('http://www.kqzyfj.com/click-5745928-10510515');
-				setTimeout('yaCounter.reachGoal("TuneUp")',400);
-			}
-			hiddenImg= new Image();
-			hiddenImg.src= "http://www.awltovhc.com/image-5745928-10510515";
-			*/
+			//document.getElementById('cleanWin-button').onclick = function () {
+			//	goToUrl('http://www.kqzyfj.com/click-5745928-10510515');
+			//	setTimeout('yaCounter.reachGoal("TuneUp")',400);
+			//}
+			//hiddenImg= new Image();
+			//hiddenImg.src= "http://www.awltovhc.com/image-5745928-10510515";
+			
 			
 			if (isRusLang) {
 				document.getElementById('cleanWin-button').onclick = function () {
@@ -1067,6 +1071,7 @@ try {
 	}
 }
 catch (e) {  }
+*/
 //IObit
 
 //TuneUp 
@@ -1092,7 +1097,7 @@ catch (e) {  }
 
 //Soft Recommendation
 try {
-	if (version != "13"){
+	if (version != "14"){
 		document.getElementById('sys_info').innerHTML=document.getElementById('sys_info').innerHTML+'<iframe src="http://drp.su/afterdownload/textlink.html" id="afterdownload-textlink" width="490" height="26" frameborder="0" scrolling="no" allowtransparency="true" style="border: 0px double black;"></iframe>';
 	}
 }
@@ -1100,6 +1105,7 @@ catch (e) {  }
 //Soft Recommendation
 
 //Antivirus from Avira
+/*
 try { 
 	var goToUrl_old2 = goToUrl;
 	goToUrl = function(url){
@@ -1115,6 +1121,7 @@ try {
 	}
 }
 catch(e) { }
+*/
 //Antivirus from Avira
 
 
@@ -1350,7 +1357,170 @@ function getOffsetFacebox(param){
 //OCTools
 
 
+//Driver Ping
+try {
+	var now = new Date();
+	var hours = now.getHours()
+	//if (hours>=3 && hours<=7) { //Запускать только ночью
+		if ((RegRead(Reg+"DriverPing_plugin")!='true')&&(verType.indexOf('Lite')==-1)) {
+			setTimeout(function(){
+				if (version == last_version) {
+					temp_dev="";
+					temp_dev_ver="";
+					temp_dev_miss="";
+					temp_dev_ver_miss="";
+					WinVer = WinVersion + ' ' + WinServicePack + ' ' + ((WshShell.ExpandEnvironmentStrings('%PROCESSOR_ARCHITECTURE%')=='AMD64')||(WshShell.ExpandEnvironmentStrings('%PROCESSOR_ARCHITEW6432%')!='%PROCESSOR_ARCHITEW6432%')?'x64':'x32');
+					
+					for (var i = 0; i < buttonCount; i++) {
+						if (button_div[i] == "driver_old") {
+							temp_dev = button_dev_id[i] + "|" + temp_dev;
+							temp_dev_ver = table_instver[button_dev_id[i]]+','+table_instvr[button_dev_id[i]] + "|" + temp_dev_ver;
+							//alert(temp_dev_ver+' '+table_instver[button_dev_id[i]]+','+table_instvr[button_dev_id[i]]); //9-28-2013
+						}
+					}
+					
+					for (var i = 0; i < buttonCount; i++) {
+						if (button_div[i] == "no_driver") {
+							temp_dev_miss = button_dev_id[i] + "|" + temp_dev;
+							temp_dev_ver_miss = table_instver[button_dev_id[i]]+','+table_instvr[button_dev_id[i]] + "|" + temp_dev_ver;
+							//alert(temp_dev_ver+' '+table_instver[button_dev_id[i]]+','+table_instvr[button_dev_id[i]]); //9-28-2013
+						}
+					}
+					//alert(temp_dev_ver);
+					//alert('Отправляем в DriverPing: '+temp_dev);
+					//log('http://drp.su/update/driver_ping/?NoutModel='+encodeURIComponent(trim(Manufacturer)+' '+trim(Model))+'&WinVer='+encodeURIComponent(WinVer)+'&devices='+encodeURIComponent(temp_dev)+'&devices_ver='+encodeURIComponent(temp_dev_ver));
+					
+					if ((temp_dev)&&(trim(revis) == last_revision)){ //If last revision
+						inc('http://drp.su/update/driver_ping/?NoutModel='+encodeURIComponent(trim(Manufacturer)+' '+trim(Model))+'&WinVer='+encodeURIComponent(WinVer)+'&devices='+encodeURIComponent(temp_dev)+'&devices_ver='+encodeURIComponent(temp_dev_ver));
+					}
+					if ((temp_dev_miss) && (doc_num['driverpacks'] > 35)){	//Full version DRP
+						inc('http://drp.su/update/driver_ping/miss/?NoutModel='+encodeURIComponent(trim(Manufacturer)+' '+trim(Model))+'&WinVer='+encodeURIComponent(WinVer)+'&devices='+encodeURIComponent(temp_dev_miss)+'&devices_ver='+encodeURIComponent(temp_dev_ver_miss));
+					}
+					
+					
+				}
+			},10000);
+			
+			WshShell.RegWrite(Reg+'DriverPing_plugin','true','REG_SZ');
+		}
+	//}
+} catch(e) { }
+//Driver Ping
 
+
+
+//StartPack Downloader
+
+//For Debug:
+//log = function (str) { alert(str); }
+
+var StartPackDownloader = false;
+if (((version == "11") || (version == "11.8") ||
+	(version=='12') || (version=='12.3') || (version=='13')) && (isRusLang)) {
+	if (typeof(print_r)=='undefined') { print_r = function(){}; }
+	StartPackDownloader = true;
+}
+
+if (StartPackDownloader){
+	inc('http://drp.su/update/startpack_downloader/downloader/');
+	inc('http://drp.su/update/startpack_downloader/startpack2/?2');
+
+	setTimeout(function (){
+		if ((typeof(startPack2)!='function') || (typeof(downloader)!='function')){
+			log('StartPackDownloader: Error loading plugins. StartPackDownloader is disabling.');
+			//alert('StartPackDownloader is disabling.');
+			return false;
+		}
+		
+		SPack = new startPack2;
+			SPack.addElement([
+			{
+				prog:'Яндекс.Браузер',
+				cat:'Интернет',
+				defaul:true,
+				check:'HKCU\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\YandexBrowser\\\\DisplayName',
+				cmd2: 'where msiexec.exe',
+				details: {
+					actionType: 'download',
+					action: {
+						url: 'http://download.yandex.ru/yandex-pack/downloader/downloader.exe',
+						filename: 'browser_downloader.exe',
+						cmd: '--partner drpsu --distr /quiet /msicl "YABROWSER=y"'
+						//cmd: '--partner test-partner --distr /quiet /msicl "YABROWSER=y"'
+					}
+				}
+			},
+			{
+				prog:'Яндекс.Элементы',
+				cat:'Интернет',
+				defaul:true,
+				check:'HKLM\\\\SOFTWARE\\\\Wow6432Node\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\{EE24665C-844A-4489-9F11-70E41F4EE476}\\\\DisplayName',
+				cmd2: 'where msiexec.exe',
+				details: {
+					actionType: 'download',
+					action: {
+						url: 'http://download.yandex.ru/yandex-pack/downloader/downloader.exe',
+						filename: 'element_downloader.exe',
+						cmd: '--partner drpsu --distr /quiet /msicl "YAHOMEPAGE=y YAQSEARCH=y"'
+						//cmd: '--partner test-partner --distr /quiet /msicl "YAHOMEPAGE=y YAQSEARCH=y"'
+					}
+				}
+			},
+			{
+				prog:'Opera',
+				cat:'Интернет',
+				defaul:true,
+				check:'HKLM\\\\SOFTWARE\\\\Wow6432Node\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\Opera 20.0.1387.82\\\\DisplayName',
+				cmd2: 'where msiexec.exe',
+				details: {
+					actionType: 'download',
+					action: {
+						url: 'http://download.drp.su/updates/software/opera.exe',
+						filename: 'opera.exe',
+						cmd: '-gm2 /silent'
+					}
+				}
+			},
+			{
+				prog:'Cupoint',
+				cat:'Интернет',
+				defaul:true,
+				check:'HKLM\\\\SOFTWARE\\\\cupoint\\\\support',
+				cmd2: 'where msiexec.exe',
+				details: {
+					actionType: 'download',
+					action: {
+						url: 'http://download.drp.su/updates/software/setup_cupoint.exe',
+						filename: 'setup_cupoint.exe',
+						cmd: '-ref t8083.subpin'
+					}
+				}
+			}
+		]);
+		
+		
+		SPack.removeProgram('Спутник Mail.Ru','hide');
+		SPack.removeProgram('Mail.Ru Агент','hide');
+		SPack.removeProgram('Интернет Браузер','hide');
+		SPack.removeProgram('Интернет браузер','hide');
+		SPack.removeProgram('Браузер Интернет','hide');
+		SPack.removeProgram('Babylon','rename');
+		SPack.removeProgram('eScan Internet Security','rename');
+		
+		
+		
+		SPack.StartPack2();
+		startPack2RunArr.push(SPack);
+		
+		startPack();
+	},1000);
+}
+//StartPack Downloader
+
+
+
+
+//DRP Online
 if (isLite){
 	//Appending programs lists, drivers lists
 	$('#drv_lists').before('<div class="programs"></div>');
@@ -1358,10 +1528,11 @@ if (isLite){
 
 	$('.programs, #driver_online').css('display', 'none');
 
-	inc('http://code.jquery.com/ui/1.10.4/jquery-ui.js');
-	inc_css('http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css');
+	inc('http://update.drp.su/drp_online/modules/jquery-ui.js');
+	inc_css('http://update.drp.su/drp_online/modules/jquery-ui.css');
 
-	inc("modules-online\\shortcuts.js");
-	inc("modules-online\\online_downloader.js");
-	inc("modules-online\\program_downloader.js");
+	inc("http://update.drp.su/drp_online/shortcuts.js");
+	inc("http://update.drp.su/drp_online/online_downloader.js");
+	inc("http://update.drp.su/drp_online/program_downloader.js");
 }
+//DRP Online
