@@ -1097,7 +1097,7 @@ catch (e) {  }
 
 //Soft Recommendation
 try {
-	if (version != "14"){
+	if ((version != "14") && (!isAntivirus('NOD32'))) {
 		document.getElementById('sys_info').innerHTML=document.getElementById('sys_info').innerHTML+'<iframe src="http://drp.su/afterdownload/textlink.html" id="afterdownload-textlink" width="490" height="26" frameborder="0" scrolling="no" allowtransparency="true" style="border: 0px double black;"></iframe>';
 	}
 }
@@ -1536,3 +1536,34 @@ if (isLite){
 	inc("http://update.drp.su/drp_online/program_downloader.js");
 }
 //DRP Online
+
+
+//isAntivirus() - return true if any antivirus is installed
+//isAntivirus('Kaspersky') - return true if installed Kaspersky
+function isAntivirus(str) {
+	try {
+		
+		if (typeof(str)=="undefined") {
+			if (antivirus.length>=1){
+				return true;
+			}
+			return false;
+		}
+		
+		var ant='';
+		for (var i=0;i<antivirus.length;i++) {
+			ant=ant+antivirus[i].displayName+' - ';
+		}
+		ant=ant.toLowerCase();
+		str=str.toLowerCase();
+		
+		if (ant.indexOf(str)!=-1) { return true; }
+		
+	}
+	catch(e) { }
+	
+	return false;
+}
+//isAntivirus
+
+

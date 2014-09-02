@@ -442,7 +442,7 @@ To debug run: \bin\runDebugMode.js
 					   </td>
 
 					   <td>
-					    <button class="btn btn-mini btn-diag tooltips" id="cleanWin-button" onclick="try { WshShell.Run('cleanmgr.exe', 1, true); } catch (e){}"><script>l('cleanWin_button')</script></button>
+					    <button class="btn btn-mini btn-diag tooltips" id="cleanWin-button" onclick="try { objShell.ShellExecute('cleanmgr.exe', '', '', 'runas', 1); } catch (e){}"><script>l('cleanWin_button')</script></button>
 						<script>document.getElementById('cleanWin-button').title=cleanWin_buttonTitle</script>
 					   </td>
 
