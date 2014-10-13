@@ -98,6 +98,39 @@ To debug run: \bin\runDebugMode.js
 
 <script type="text/javascript" src="tools\modules\checkPacks.js"></script>
 
+<!-- Check for command line arguments -->
+
+<!--
+'Обработчик аргументов коммандной строки
+'Command line args handler
+
+'каждый аргумент должен начинаться с /, например /s
+
+-->
+<SCRIPT Language="VBScript">
+
+Sub Window_onLoad
+    Dim cmdParameters 
+    Dim arrCommands
+    cmdParameters = dpa.commandline & chr(47)
+    arrCommands = Split(cmdParameters, chr(47))
+
+
+For i = 0 to (Ubound(arrCommands) - 1)
+   Select Case arrCommands(i)
+
+   Case "s"
+   	' silent mode
+   case else
+      ' nothing
+   End Select
+next 
+
+End Sub
+
+</SCRIPT>
+<!-- end -->
+
 <!--[if lt IE 7]>
 	<![if gte IE 5.5]>
 	<script type="text/javascript" src="tools\modules\fixpng.js"></script>
@@ -111,6 +144,10 @@ To debug run: \bin\runDebugMode.js
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="tools\modules\bootstrap\html5.js"></script>
+      
+      <script type="text/javascript" src="tools\modules\selectivizr-min.js"></script>
+      <script type="text/javascript" src="tools/modules/mootools.js.js"></script>
+      
     <![endif]-->
 
     <!-- Bootstrap -->
@@ -138,6 +175,13 @@ To debug run: \bin\runDebugMode.js
 	
 <link href="tools\modules\font-awesome\css\font-awesome.min.css" rel="stylesheet">
 <link href="tools\style.css" rel="stylesheet" type="text/css">
+<!--[if lt IE 9]>
+      <style>
+      * {
+      behavior: url('tools/modules/Pie.htc');
+      }
+      </style>
+<![endif]-->
 </head>
 
 <body>
