@@ -107,28 +107,27 @@ To debug run: \bin\runDebugMode.js
 'каждый аргумент должен начинаться с /, например /s
 
 -->
-<SCRIPT Language="VBScript">
+<script language="Javascript" src="tools\modules\cmd.js"></script>
+<script language="Javascript" src="tools\modules\string.js"></script>
+<script language="Javascript">
+var cmdParameters = HTA.arguments;
+var keys = cmdParameters.keys ? cmdParameters.keys() : [];
+var len = keys.length || cmdParameters.length();
 
-Sub Window_onLoad
-    Dim cmdParameters 
-    Dim arrCommands
-    cmdParameters = dpa.commandline & chr(47)
-    arrCommands = Split(cmdParameters, chr(47))
-
-
-For i = 0 to (Ubound(arrCommands) - 1)
-   Select Case arrCommands(i)
-
-   Case "s"
-   	' silent mode
-   case else
-      ' nothing
-   End Select
-next 
-
-End Sub
-
-</SCRIPT>
+for (var i = 0; i < len; i++) {
+                var k = keys[i] || i;
+                var r = cmdParameters.item(k);
+                r = str_replace(":","",r);
+                switch(r){
+                	case "/s":
+                		//Silent Mode
+                		//Тихая установка
+                	break;
+                	default:
+                		//Другое значение
+                }
+        }
+</script>
 <!-- end -->
 
 <!--[if lt IE 7]>
@@ -146,7 +145,7 @@ End Sub
       <script src="tools\modules\bootstrap\html5.js"></script>
       
       <script type="text/javascript" src="tools\modules\selectivizr-min.js"></script>
-      <script type="text/javascript" src="tools/modules/mootools.js.js"></script>
+      <script type="text/javascript" src="tools\modules\mootools.js.js"></script>
       
     <![endif]-->
 
