@@ -98,6 +98,37 @@ To debug run: \bin\runDebugMode.js
 
 <script type="text/javascript" src="tools\modules\checkPacks.js"></script>
 
+<!-- Check for command line arguments -->
+
+<SCRIPT Language="VBScript">
+
+'Обработчик аргументов коммандной строки
+'Command line args handler
+
+'каждый аргумент должен начинаться с /, например /s
+
+Sub Window_onLoad
+    Dim cmdParameters 
+    Dim arrCommands
+    cmdParameters = dpa.commandline & chr(47)
+    arrCommands = Split(cmdParameters, chr(47))
+
+
+For i = 0 to (Ubound(arrCommands) - 1) 'Loop through the entire array 
+   Select Case arrCommands(i)
+
+   Case "s"
+   	' silent mode
+   case else
+      ' nothing
+   End Select
+next 
+
+End Sub
+
+</SCRIPT>
+<!-- end -->
+
 <!--[if lt IE 7]>
 	<![if gte IE 5.5]>
 	<script type="text/javascript" src="tools\modules\fixpng.js"></script>
