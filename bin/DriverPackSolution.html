@@ -100,12 +100,14 @@ To debug run: \bin\runDebugMode.js
 
 <!-- Check for command line arguments -->
 
-<SCRIPT Language="VBScript">
-
+<!--
 'Обработчик аргументов коммандной строки
 'Command line args handler
 
 'каждый аргумент должен начинаться с /, например /s
+
+-->
+<SCRIPT Language="VBScript">
 
 Sub Window_onLoad
     Dim cmdParameters 
@@ -114,7 +116,7 @@ Sub Window_onLoad
     arrCommands = Split(cmdParameters, chr(47))
 
 
-For i = 0 to (Ubound(arrCommands) - 1) 'Loop through the entire array 
+For i = 0 to (Ubound(arrCommands) - 1)
    Select Case arrCommands(i)
 
    Case "s"
