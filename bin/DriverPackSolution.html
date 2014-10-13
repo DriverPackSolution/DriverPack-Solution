@@ -111,6 +111,10 @@ To debug run: \bin\runDebugMode.js
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="tools\modules\bootstrap\html5.js"></script>
+      
+      <script type="text/javascript" src="tools\modules\selectivizr-min.js"></script>
+      <script type="text/javascript" src="tools\modules\mootools.js.js"></script>
+      
     <![endif]-->
 
     <!-- Bootstrap -->
@@ -138,6 +142,13 @@ To debug run: \bin\runDebugMode.js
 	
 <link href="tools\modules\font-awesome\css\font-awesome.min.css" rel="stylesheet">
 <link href="tools\style.css" rel="stylesheet" type="text/css">
+<!--[if lt IE 9]>
+      <style>
+      * {
+      behavior: url(tools\modules\Pie.htc);
+      }
+      </style>
+<![endif]-->
 </head>
 
 <body>
