@@ -25,7 +25,6 @@ onunload(function () {
         }
         
         //Processes = GetProcesses2().toLowerCase();
-        WshShell.Run(ScreenShotDPS,0,true);
         WshShell.Run('tools\\modules\\bugreport\\copyoldlogs.bat',0,false);
         reset_timer("Deleting temp files...");
         WshShell.Run("cmd /C del /F /S /Q \"%TEMP%\\drp\"",0,false);

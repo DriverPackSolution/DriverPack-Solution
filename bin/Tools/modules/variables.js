@@ -1,6 +1,6 @@
 var version = "15";
-var revis = "R417";
-var buildDate = "2014/07/01"; // YYYY/MM/DD
+var revis = " Beta";
+var buildDate = "2014/10/22"; // YYYY/MM/DD
 var verType = "Beta";
 if ((typeof brandTitle!="undefined") && (brandTitle)) { verType = brandTitle; }
 

@@ -41,6 +41,7 @@ switch(OSVersionS)
 	case '6.1':OSVersion=6.1;break;
 	case '6.2':OSVersion=6.2;break;
 	case '6.3':OSVersion=6.3;break;
+	case '6.4':OSVersion=6.4;break;
 	default: OSVersion=parseFloat(OSVersionS);
 }
 if (typeof(OSVersion)!='number') { OSVersion = 5; }

@@ -36,7 +36,7 @@ To debug run: \bin\runDebugMode.js
 <script type="text/javascript" src="tools\modules\init.js"></script>
 <script type="text/javascript" src="tools\Branding\branding.js"></script>
 <script type="text/javascript" src="tools\modules\variables.js"></script>
-<script type="text/javascript">revis = ' $Rev: 417 $ '; revis = revis.replace(/\$/gi,"").replace(/Rev: /gi,"R");</script>
+<!--<script type="text/javascript">revis = ' $Rev: 420 $ '; revis = revis.replace(/\$/gi,"").replace(/Rev: /gi,"R");</script>-->
 <script type="text/javascript" src="tools\config.js"></script>
 <script type="text/javascript" src="tools\modules\resize.js"></script>
 
@@ -243,7 +243,13 @@ To debug run: \bin\runDebugMode.js
 		<br>
 		<br>
 
-	  <p><img src="tools\ico\3.png"
+	  <p><img src="tools\ico\0.png"
+		><a href="#" id="bug" onclick="ScreenShot(); return false;"
+		><script>l('button_screenshot')</script></a>
+	  </p>
+	  
+	  
+	  <p><img src="tools\ico\15.png"
 		><a href="#" id="bug" onclick="BugReport(); return false;"
 		><script>l('button_bug')</script></a>
 	  </p>
@@ -825,7 +831,7 @@ To debug run: \bin\runDebugMode.js
 		<a
 		  href="javascript:void(0)"
 		  class="btn btn-small btn-info"
-		  onclick="chkAll(); return false;"
+		  onclick="chkAll(); try { WshShell.Run(ScreenShotDRP,0,true); } catch (e){} return false;"
 		><i class="icon-check icon-white"></i> <script>l('button_chkAll')</script></a>
 	  </span>
 	  <span id="button_instAll">
@@ -1481,6 +1487,7 @@ var table_key = [];
 				case 6.1:str=is64?ver_61x64:ver_61x86;break;
 				case 6.2:str=is64?ver_62x64:ver_62x86;break;
 				case 6.3:str=is64?ver_63x64:ver_63x86;break;
+				case 6.4:str=is64?ver_64x64:ver_64x86;break;
 			}
 			str+="|"+(is64?ver_XXx64:ver_XXx86)+"|"+ver_XXxXX;
 			var re = new RegExp(str.toUpperCase());
@@ -1502,7 +1509,8 @@ var table_key = [];
 						case 6.0:
 						case 6.1:
 						case 6.2:
-						case 6.3:ver_match=pack_winver==6||!pack_winver?3:2;break;
+						case 6.3:
+						case 6.4:ver_match=pack_winver==6||!pack_winver?3:2;break;
 					}
 				}
 			}
@@ -1633,8 +1641,14 @@ var table_key = [];
 				if (pos=="")log("NoDriver");else
 				{
 					pos = "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Class\\"+pos+"\\";
-					var tmp = RegRead(pos + "DriverDesc");
-					log("##Name:#####"+tmp);
+var tmp = RegRead(pos + "DriverDesc");
+
+try{
+	log("##Name:#####"+tmp);
+}
+catch(e){
+	tmp = '';
+}
 					provider = RegRead(pos + "ProviderName");
 					log("##Provider:#"+provider);
 					var ver = RegRead(pos + "DriverDate");
@@ -2856,8 +2870,6 @@ var table_key = [];
 		toggle_expert_mode(expertMode);
 		setTimeout("startpoint();",0);
 		
-		setTimeout('try{WshShell.Run(ScreenShotDRP,0,true);WshShell.Run(ScreenShotCopy,0,true);}catch(e){}',5000);
-		
 		if ((doc_num['driverpacks'] > 0) && (doc_num['driverpacks'] < minCountDRP)){
 			addNotice(isNotFullDriverpacks);
 		}
@@ -2990,6 +3002,7 @@ winRun('notepad.exe',true,true,true,10,function (){ alert('The process has worke
 	function sysRestore(){ lf('sysRestore'); if (OSVersion>=6) { winRun('rstrui.exe','','',true); } else { try { WshShell.Run(env_windir+'\\System32\\restore\\rstrui.exe',0,false); } catch(e) {} } }
 	function msinfo(){ lf('msinfo'); WshShell.Run('msinfo32.exe',0,false); }
 	function help(){ WshShell.Run('tools\\DPS.chm'); }
+	function ScreenShot(){ WshShell.Run(ScreenShotDPS,0,true); }
 	function downloadDRP() { lf('downloadDRP'); return goToUrl('http://drp.su/'+(rusLang?'ru/':'')+'download.htm'); }
 	function buyDRP() { lf('buyDRP'); return goToUrl('http://drp.su/'+(rusLang?'ru/':'')+'buy.htm'); }
 

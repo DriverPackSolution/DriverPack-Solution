@@ -1,6 +1,6 @@
 ﻿
-last_version = "14.7";
-last_revision = "R417";
+last_version = "14.10";
+last_revision = "R420";
 
 //alert('Файл обновления загружен успешно!\r\nВаша версия: ' + version + '\r\nДата распаковки: ' + extract_date);
 

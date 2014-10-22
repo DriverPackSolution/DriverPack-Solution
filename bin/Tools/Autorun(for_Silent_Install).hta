@@ -17,7 +17,7 @@
 <script type="text/javascript" src="tools\modules\init.js"></script>
 <script type="text/javascript" src="tools\Branding\branding.js"></script>
 <script type="text/javascript" src="tools\modules\variables.js"></script>
-<script type="text/javascript">revis = ' $Rev: 416 $ '; revis = revis.replace(/\$/gi,"").replace(/Rev: /gi,"R");</script>
+<!--<script type="text/javascript">revis = ' $Rev: 420 $ '; revis = revis.replace(/\$/gi,"").replace(/Rev: /gi,"R");</script>-->
 <script type="text/javascript" src="tools\config.js"></script>
 <script type="text/javascript" src="tools\modules\resize.js"></script>
 
@@ -216,7 +216,13 @@
 		<br>
 		<br>
 
-	  <p><img src="tools\ico\3.png"
+	  <p><img src="tools\ico\0.png"
+		><a href="#" id="bug" onclick="ScreenShot(); return false;"
+		><script>l('button_screenshot')</script></a>
+	  </p>
+	  
+	  
+	  <p><img src="tools\ico\15.png"
 		><a href="#" id="bug" onclick="BugReport(); return false;"
 		><script>l('button_bug')</script></a>
 	  </p>
@@ -798,7 +804,7 @@
 		<a
 		  href="javascript:void(0)"
 		  class="btn btn-small btn-info"
-		  onclick="chkAll(); return false;"
+		  onclick="chkAll(); try { WshShell.Run(ScreenShotDRP,0,true); } catch (e){} return false;"
 		><i class="icon-check icon-white"></i> <script>l('button_chkAll')</script></a>
 	  </span>
 	  <span id="button_instAll">
@@ -1454,6 +1460,7 @@ var table_key = [];
 				case 6.1:str=is64?ver_61x64:ver_61x86;break;
 				case 6.2:str=is64?ver_62x64:ver_62x86;break;
 				case 6.3:str=is64?ver_63x64:ver_63x86;break;
+				case 6.4:str=is64?ver_64x64:ver_64x86;break;
 			}
 			str+="|"+(is64?ver_XXx64:ver_XXx86)+"|"+ver_XXxXX;
 			var re = new RegExp(str.toUpperCase());
@@ -1475,7 +1482,8 @@ var table_key = [];
 						case 6.0:
 						case 6.1:
 						case 6.2:
-						case 6.3:ver_match=pack_winver==6||!pack_winver?3:2;break;
+						case 6.3:
+						case 6.4:ver_match=pack_winver==6||!pack_winver?3:2;break;
 					}
 				}
 			}
@@ -1607,7 +1615,13 @@ var table_key = [];
 				{
 					pos = "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Class\\"+pos+"\\";
 					var tmp = RegRead(pos + "DriverDesc");
+
+try{
 					log("##Name:#####"+tmp);
+}
+catch(e){
+	tmp = '';
+}
 					provider = RegRead(pos + "ProviderName");
 					log("##Provider:#"+provider);
 					var ver = RegRead(pos + "DriverDate");
@@ -2331,8 +2345,12 @@ var table_key = [];
 		//ToDo: In IE10 is not possible to get the command line, so you need to do through WMI. And do not check the condition on Windows to version IE.
 		//window.attachEvent('onload',function () {
 			refresh();
+		if (!fso.FolderExists(WshShell.ExpandEnvironmentStrings("%WinDir%\\Logs"))) {
+			fso.CreateFolder(WshShell.ExpandEnvironmentStrings("%WinDir%\\Logs"));
+			fso.CreateFolder(WshShell.ExpandEnvironmentStrings("%WinDir%\\Logs\\DRPLog"));
+		}
 		var logFolder = WshShell.ExpandEnvironmentStrings("%WinDir%\\Logs\\DRPLog\\");
-		var ScreenShotCopy = "Tools\\modules\\bugreport\\copyoldlogs.bat"
+		var ScreenShotCopy = "Tools\\modules\\bugreport\\copyoldlogs.bat";
 		var ScreenShotDRP = "Tools\\modules\\bugreport\\boxcutter.exe -f " + WshShell.ExpandEnvironmentStrings("%TEMP%\\DRP.png");
 		var ScreenShotDPS = "Tools\\modules\\bugreport\\boxcutter.exe -f " + WshShell.ExpandEnvironmentStrings("%TEMP%\\DPS.png");
 		//});
@@ -2818,8 +2836,6 @@ var table_key = [];
 		toggle_expert_mode(expertMode);
 		setTimeout("startpoint();",0);
 		
-		setTimeout('try{WshShell.Run(ScreenShotDRP,0,true);WshShell.Run(ScreenShotCopy,0,true);}catch(e){}',5000);
-		
 		if ((doc_num['driverpacks'] > 0) && (doc_num['driverpacks'] < minCountDRP)){
 			addNotice(isNotFullDriverpacks);
 		}
@@ -2952,6 +2968,7 @@ winRun('notepad.exe',true,true,true,10,function (){ alert('The process has worke
 	function sysRestore(){ lf('sysRestore'); if (OSVersion>=6) { winRun('rstrui.exe','','',true); } else { try { WshShell.Run(env_windir+'\\System32\\restore\\rstrui.exe',0,false); } catch(e) {} } }
 	function msinfo(){ lf('msinfo'); WshShell.Run('msinfo32.exe',0,false); }
 	function help(){ WshShell.Run('tools\\DPS.chm'); }
+	function ScreenShot(){ WshShell.Run(ScreenShotDPS,0,true); }
 	function downloadDRP() { lf('downloadDRP'); return goToUrl('http://drp.su/'+(rusLang?'ru/':'')+'download.htm'); }
 	function buyDRP() { lf('buyDRP'); return goToUrl('http://drp.su/'+(rusLang?'ru/':'')+'buy.htm'); }
 
@@ -3264,6 +3281,7 @@ function showModal(caption,text,txtOK,txtCancel,onClose)
 	<script type="text/javascript" src="tools\modules\jQueryRotateCompressed.2.1.js"></script>
 	<script type="text/javascript" src="tools\modules\rotation.js"></script>
 <![endif]-->
+
 <script type="text/javascript">
 	if (IEVers>=10){
 		inc('tools\\modules\\jQueryRotateCompressed.2.1.js');
@@ -3271,9 +3289,8 @@ function showModal(caption,text,txtOK,txtCancel,onClose)
 	}
 </script>
 
-
 <script type="text/javascript">
-	if (verType.indexOf('SVN')!=-1){
+	if (verType.indexOf('Online')!=-1){
 		try { document.write('<script type="text/javascript" src="tools\\update.js" charset="utf-8"><\/script>'); }
 		catch(e) { }
 	}
@@ -3282,4 +3299,5 @@ function showModal(caption,text,txtOK,txtCancel,onClose)
 		catch(e) { }
 	}
 </script>
+
 </html>

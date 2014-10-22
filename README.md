@@ -8,7 +8,8 @@ DriverPack Solution - это самая популярная программа 
 * Сайт: http://drp.su/
 * Форум: http://community.drp.su/
 * вКонтакте: http://vk.com/driverpacksolution
-* FaceBook: https://www.facebook.com/DriverPack.Solution.Russia или https://www.facebook.com/DriverPack.Solution
+* FaceBook Rus: https://www.facebook.com/DriverPack.Solution.Russia
+* FaceBook Eng: https://www.facebook.com/DriverPack.Solution
 
 
 ## Хотите помочь с разработкой DRP?

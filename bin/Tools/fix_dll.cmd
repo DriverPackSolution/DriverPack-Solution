@@ -1,3 +1,4 @@
+reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Classes\.css" /v "Content Type" /t reg_sz /d text/css /f
 regsvr32 /u /s atl.dll
 regsvr32 /u /s corpol.dll
 regsvr32 /u /s dispex.dll
