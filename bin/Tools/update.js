@@ -1,6 +1,6 @@
 ﻿
-last_version = "14.10";
-last_revision = "R420";
+last_version = "14.11";
+last_revision = "R421";
 
 //alert('Файл обновления загружен успешно!\r\nВаша версия: ' + version + '\r\nДата распаковки: ' + extract_date);
 
@@ -98,7 +98,7 @@ try {
 		infobar_backup = function(){
 			infobar(
 					(isRusLang?'Бэкап драйверов':'Backup drivers'),
-					(isRusLang?'Эта функция будет доступна в DriverPack Solution 12.<br/> <b>Следите за новостями</b>: <a href="http://drp.su/ru/follow/"  onclick="goToUrl(\'http://drp.su/ru/follow/\');return false;">http://drp.su/ru/follow/</a><br/>':'This feature will be available in DriverPack Solution 12.<br/> <b>Stay tuned for news</b>: <a href="http://drp.su/follow/"  onclick="goToUrl(\'http://drp.su/follow/\');return false;">http://drp.su/follow/</a><br/>'),
+					(isRusLang?'Эта функция будет доступна в новой версии DriverPack Solution.<br/> <b>Следите за новостями</b>: <a href="http://drp.su/ru/follow/"  onclick="goToUrl(\'http://drp.su/ru/follow/\');return false;">http://drp.su/ru/follow/</a><br/>':'This feature will be available in new version of DriverPack Solution.<br/> <b>Stay tuned for news</b>: <a href="http://drp.su/follow/"  onclick="goToUrl(\'http://drp.su/follow/\');return false;">http://drp.su/follow/</a><br/>'),
 					'yelow',
 					'',
 					'update'

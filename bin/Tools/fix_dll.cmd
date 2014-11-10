@@ -1,4 +1,5 @@
 reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Classes\.css" /v "Content Type" /t reg_sz /d text/css /f
+
 regsvr32 /u /s atl.dll
 regsvr32 /u /s corpol.dll
 regsvr32 /u /s dispex.dll
@@ -28,3 +29,16 @@ regsvr32 /s msxml3.dll
 regsvr32 /s ole32.dll
 regsvr32 /s oleaut32.dll
 wscript /regserver
+
+net stop RpcSs
+net stop wmiApSrv
+net stop RpcLocator
+net stop DcomLaunch
+sc config RpcSs start=auto
+sc config wmiApSrv start=auto
+sc config RpcLocator start=auto
+sc config DcomLaunch start=auto
+net start RpcSs
+net start wmiApSrv
+net start RpcLocator
+net start DcomLaunch
