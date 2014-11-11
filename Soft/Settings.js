@@ -51,7 +51,7 @@ pn++;
 
 // SAM CoDeC Pack
 prog[pn]='Codec Pack';
-version[pn]='5.60';
+version[pn]='5.72';
 cat[pn]=startpack_Needs;
 cmd1[pn]='SAMCoDeCs.exe';
 cmd2[pn]='/S';
@@ -68,7 +68,7 @@ pn++;
 
 // AOMEI Backupper
 prog[pn]='AOMEI Backupper';
-version[pn]='2.0.2';
+version[pn]='2.0.3';
 cat[pn]=startpack_Needs;
 cmd1[pn]='Backupper.exe';
 cmd2[pn]='/VERYSILENT /NORESTART';
@@ -85,7 +85,7 @@ pn++;
 
 // Flash Player
 prog[pn]='Flash Player';
-version[pn]='15.0.0.189';
+version[pn]='15.0.0.223';
 cat[pn]=startpack_Needs;
 cmd1[pn]='FlashPlayer.exe';
 cmd2[pn]='-y -gm2 -fm0';
@@ -102,7 +102,7 @@ pn++;
 
 // Shockwave Player
 prog[pn]='Shockwave Player';
-version[pn]='12.1.3.153';
+version[pn]='12.1.4.154';
 cat[pn]=startpack_Needs;
 cmd1[pn]='Shockwave.exe';
 cmd2[pn]='-y -gm2 -fm0';
@@ -363,7 +363,7 @@ pn++;
 
 // Chrome
 prog[pn]='Google Chrome';
-version[pn]='38.0.2125.104';
+version[pn]='38.0.2125.122';
 cat[pn]=startpack_Browsers;
 cmd1[pn]='Browser/Chrome.exe';
 cmd2[pn]='/S';
@@ -414,14 +414,14 @@ if (rusLang) {
 
 	// Firefox
 	prog[pn]='Mozilla Firefox';
-	version[pn]='33.0.0';
+	version[pn]='33.0.2';
 	cat[pn]=startpack_Browsers;
 	cmd1[pn]='Browser/Firefox.exe';
 	cmd2[pn]='-ms -ira';
 	if (is64){
-		check[pn]='HKLM\\SOFTWARE\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Mozilla Firefox 33.0.0 (x86 ru)\\DisplayName';
+		check[pn]='HKLM\\SOFTWARE\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Mozilla Firefox 33.0.2 (x86 ru)\\DisplayName';
 	} else {
-		check[pn]='HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Mozilla Firefox 33.0.0 (x86 ru)\\DisplayName';
+		check[pn]='HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Mozilla Firefox 33.0.2 (x86 ru)\\DisplayName';
 	}
 	defaul[pn]=false;
 	wshow[pn]=true;
@@ -431,14 +431,14 @@ if (rusLang) {
 
 	// Opera
 	prog[pn]='Opera';
-	version[pn]='25.0.1614.50';
+	version[pn]='25.0.1614.68';
 	cat[pn]=startpack_Browsers;
 	cmd1[pn]='Browser/OperaBlink.exe';
 	cmd2[pn]='-install -silent -launchopera=1 -setdefaultbrowser=1';
 	if (is64){
-		check[pn]='HKLM\\SOFTWARE\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Opera 25.0.1614.50\\DisplayName1';
+		check[pn]='HKLM\\SOFTWARE\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Opera 25.0.1614.68\\DisplayName1';
 	} else {
-		check[pn]='HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Opera 25.0.1614.50\\DisplayName1';
+		check[pn]='HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Opera 25.0.1614.68\\DisplayName1';
 	}
 	defaul[pn]=true;
 	wshow[pn]=true;
@@ -539,7 +539,7 @@ pn++;
 
 // BurnAware
 prog[pn]='BurnAware';
-version[pn]='7.4';
+version[pn]='7.6';
 cat[pn]=startpack_Files;
 cmd1[pn]='Files/BurnAware.exe';
 cmd2[pn]='-y -fm0';
@@ -595,7 +595,7 @@ pn++;
 
 // FastStone Image Viewer
 prog[pn]='FS Image Viewer';
-version[pn]='5.2';
+version[pn]='5.3';
 cat[pn]=startpack_Viewers;
 cmd1[pn]='Viewer/FSImage.exe';
 cmd2[pn]='/VERYSILENT /NORESTART';
@@ -633,12 +633,15 @@ pn++;
 
 if (rusLang) {
 	// PotPlayer
-	if (OSVersion == 5.1) {
 	prog[pn]='PotPlayer';
-	version[pn]='1.6.50180 XP';
+	version[pn]='1.6.50802';
 	cat[pn]=startpack_Players;
 	cmd1[pn]='Player/PotPlayer.exe';
+	if (OSVersion == 5.1){
+	cmd2[pn]='/S /Video-1 /Audio-0 /Sub-1 /Lists-0 /Shortcut-1010110 /AutoPlayVideo-1 /AutoPlayAudio-0 /ImpIni';
+	} else {
 	cmd2[pn]='/S /Video-1 /Audio-0 /Sub-1 /Lists-0 /Shortcut-1010111 /AutoPlayVideo-1 /AutoPlayAudio-0 /ImpIni';
+	}
 	if (is64){
 		check[pn]='HKLM\\SOFTWARE\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\PotPlayer\\DisplayName';
 	} else {
@@ -649,51 +652,18 @@ if (rusLang) {
 	onCompleteInst[pn]='defaul['+pn+']=false;';
 	pn++;
 	}
-}
-else {
-	// PotPlayer
-	if (OSVersion == 5.1) {
-	prog[pn]='PotPlayer';
-	version[pn]='1.6.50180 XP';
-	cat[pn]=startpack_Players;
-	cmd1[pn]='Player/PotPlayer.exe';
-	cmd2[pn]='/S /Video-1 /Audio-0 /Sub-1 /Lists-0 /Shortcut-1011011 /AutoPlayVideo-1 /AutoPlayAudio-0';
-	if (is64){
-		check[pn]='HKLM\\SOFTWARE\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\PotPlayer\\DisplayName';
-	} else {
-		check[pn]='HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\PotPlayer\\DisplayName';
-	}
-	defaul[pn]=true;
-	wshow[pn]=true;
-	onCompleteInst[pn]='defaul['+pn+']=false;';
-	pn++;
-	}
-}
 
-if (rusLang) {
-	// PotPlayer
-	prog[pn]='PotPlayer';
-	version[pn]='1.6.50180';
-	cat[pn]=startpack_Players;
-	cmd1[pn]='Player/PotPlayer.exe';
-	cmd2[pn]='/S /Video-1 /Audio-0 /Sub-1 /Lists-0 /Shortcut-1010111 /AutoPlayVideo-1 /AutoPlayAudio-0 /ImpIni';
-	if (is64){
-		check[pn]='HKLM\\SOFTWARE\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\PotPlayer\\DisplayName';
-	} else {
-		check[pn]='HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\PotPlayer\\DisplayName';
-	}
-	defaul[pn]=true;
-	wshow[pn]=true;
-	onCompleteInst[pn]='defaul['+pn+']=false;';
-	pn++;
-}
 else {
 	// PotPlayer
 	prog[pn]='PotPlayer';
-	version[pn]='1.6.50180';
+	version[pn]='1.6.50802';
 	cat[pn]=startpack_Players;
 	cmd1[pn]='Player/PotPlayer.exe';
-	cmd2[pn]='/S /Video-1 /Audio-0 /Sub-1 /Lists-0 /Shortcut-1011011 /AutoPlayVideo-1 /AutoPlayAudio-0';
+	if (OSVersion == 5.1){
+	cmd2[pn]='/S /Video-1 /Audio-0 /Sub-1 /Lists-0 /Shortcut-1011010 /AutoPlayVideo-1 /AutoPlayAudio-0 /ImpIni';
+	} else {
+	cmd2[pn]='/S /Video-1 /Audio-0 /Sub-1 /Lists-0 /Shortcut-1011011 /AutoPlayVideo-1 /AutoPlayAudio-0 /ImpIni';
+	}
 	if (is64){
 		check[pn]='HKLM\\SOFTWARE\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\PotPlayer\\DisplayName';
 	} else {
@@ -703,7 +673,7 @@ else {
 	wshow[pn]=true;
 	onCompleteInst[pn]='defaul['+pn+']=false;';
 	pn++;
-}
+	}
 
 
 
@@ -730,7 +700,7 @@ pn++;
 
 // Skype
 prog[pn]='Skype';
-version[pn]='6.21.0.104';
+version[pn]='6.22.81.105';
 cat[pn]=startpack_Socials;
 cmd1[pn]='Socials/Skype.exe';
 cmd2[pn]='/VERYSILENT /NOLAUNCH /NOGOOGLE /NOSTARTUP /NOPLUGINS';
@@ -769,7 +739,7 @@ pn++;
 
 // uTorrent
 prog[pn]='uTorrent';
-version[pn]='3.4.2.34545';
+version[pn]='3.4.2.35702';
 cat[pn]=startpack_Internet;
 cmd1[pn]='WWW/uTorrent.exe';
 cmd2[pn]='/S';
@@ -790,7 +760,7 @@ pn++;
 
 // 360is
 prog[pn]='360 Total Security';
-version[pn]='5.0.0.2057';
+version[pn]='5.2.0.2066';
 cat[pn]=startpack_Antivirus;
 cmd1[pn]='Antivirus/360ts.exe';
 cmd2[pn]='/S';
@@ -809,7 +779,7 @@ pn++;
 
 // Baidu
 prog[pn]='Baidu Antivirus';
-version[pn]='5.0.3.86191';
+version[pn]='5.0.7.93901';
 cat[pn]=startpack_Antivirus;
 cmd1[pn]='Antivirus/Baidu.exe';
 cmd2[pn]='/S';
@@ -824,3 +794,60 @@ onclick[pn]='deselectOtherAntivir('+pn+')';
 onCompleteInst[pn]='defaul['+pn+']=false;';
 pn++;
 
+
+
+
+//// Other ////
+
+
+if (rusLang) {
+	// Classic Shell
+	prog[pn]='Classic Shell';
+	version[pn]='4.1.0';
+	cat[pn]=startpack_Other;
+	cmd1[pn]='Other/ClassicShellRu.exe';
+	cmd2[pn]='/quiet';
+	if (is64){
+		check[pn]='HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Installer\\UserData\\S-1-5-18\\Products\\C70986326F8E05740A3252C4E3B2E5D8\\InstallProperties\\DisplayName';
+	} else {
+		check[pn]='HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Installer\\UserData\\S-1-5-18\\Products\\C70986326F8E05740A3252C4E3B2E5D8\\InstallProperties\\DisplayName';
+	}
+	defaul[pn]=false;
+	wshow[pn]=true;
+	onCompleteInst[pn]='defaul['+pn+']=false;';
+	pn++;
+}
+else {
+	// Classic Shell
+	prog[pn]='Classic Shell';
+	version[pn]='4.1.0';
+	cat[pn]=startpack_Other;
+	cmd1[pn]='Other/ClassicShellEn.exe';
+	cmd2[pn]='/quiet';
+	if (is64){
+		check[pn]='HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Installer\\UserData\\S-1-5-18\\Products\\C70986326F8E05740A3252C4E3B2E5D8\\InstallProperties\\DisplayName';
+	} else {
+		check[pn]='HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Installer\\UserData\\S-1-5-18\\Products\\C70986326F8E05740A3252C4E3B2E5D8\\InstallProperties\\DisplayName';
+	}
+	defaul[pn]=false;
+	wshow[pn]=true;
+	onCompleteInst[pn]='defaul['+pn+']=false;';
+	pn++;
+}
+
+
+// Punto Switcher
+prog[pn]='Punto Switcher';
+version[pn]='3.3.1.373';
+cat[pn]=startpack_Other;
+cmd1[pn]='Other/PuntoSwitcher.exe';
+cmd2[pn]='/SILENT';
+if (is64){
+	check[pn]='HKLM\\SOFTWARE\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Punto Switcher_is1\\DisplayName';
+} else {
+	check[pn]='HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Punto Switcher_is1\\DisplayName';
+}
+defaul[pn]=false;
+wshow[pn]=true;
+onCompleteInst[pn]='defaul['+pn+']=false;';
+pn++;
