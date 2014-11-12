@@ -98,6 +98,38 @@ To debug run: \bin\runDebugMode.js
 
 <script type="text/javascript" src="tools\modules\checkPacks.js"></script>
 
+<!-- Check for command line arguments -->
+
+<!--
+'Обработчик аргументов коммандной строки
+'Command line args handler
+
+'каждый аргумент должен начинаться с /, например /s
+
+-->
+<script language="Javascript" src="tools\modules\cmd.js"></script>
+<script language="Javascript" src="tools\modules\string.js"></script>
+<script language="Javascript">
+var cmdParameters = HTA.arguments;
+var keys = cmdParameters.keys ? cmdParameters.keys() : [];
+var len = keys.length || cmdParameters.length();
+
+for (var i = 0; i < len; i++) {
+                var k = keys[i] || i;
+                var r = cmdParameters.item(k);
+                r = str_replace(":","",r);
+                switch(r){
+                	case "/s":
+                		//Silent Mode
+                		//Тихая установка
+                	break;
+                	default:
+                		//Другое значение
+                }
+        }
+</script>
+<!-- end -->
+
 <!--[if lt IE 7]>
 	<![if gte IE 5.5]>
 	<script type="text/javascript" src="tools\modules\fixpng.js"></script>
@@ -111,6 +143,10 @@ To debug run: \bin\runDebugMode.js
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="tools\modules\bootstrap\html5.js"></script>
+      
+      <script type="text/javascript" src="tools\modules\selectivizr-min.js"></script>
+      <script type="text/javascript" src="tools\modules\mootools.js.js"></script>
+      
     <![endif]-->
 
     <!-- Bootstrap -->
@@ -138,6 +174,13 @@ To debug run: \bin\runDebugMode.js
 	
 <link href="tools\modules\font-awesome\css\font-awesome.min.css" rel="stylesheet">
 <link href="tools\style.css" rel="stylesheet" type="text/css">
+<!--[if lt IE 9]>
+      <style>
+      * {
+      behavior: url('tools/modules/Pie.htc');
+      }
+      </style>
+<![endif]-->
 </head>
 
 <body>
