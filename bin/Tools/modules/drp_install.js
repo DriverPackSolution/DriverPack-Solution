@@ -22,7 +22,7 @@ DRPinstall = {
 		
 		var licenceText = 
 '                                              DriverPack Solution\r\n' +
-'                             Copyright (C) 2008-2014 Artur Kuzyakov\r\n' +
+'                             Copyright (C) 2008-2015 Artur Kuzyakov\r\n' +
 '\r\n' +
 '      This program is free software: you can redistribute it and/or modify\r\n' +
 '      it under the terms of the GNU General Public License as published by\r\n' +

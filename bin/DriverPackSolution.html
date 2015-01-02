@@ -36,7 +36,7 @@ To debug run: \bin\runDebugMode.js
 <script type="text/javascript" src="tools\modules\init.js"></script>
 <script type="text/javascript" src="tools\Branding\branding.js"></script>
 <script type="text/javascript" src="tools\modules\variables.js"></script>
-<!--<script type="text/javascript">revis = ' $Rev: 421 $ '; revis = revis.replace(/\$/gi,"").replace(/Rev: /gi,"R");</script>-->
+<!--<script type="text/javascript">revis = ' $Rev: 517 $ '; revis = revis.replace(/\$/gi,"").replace(/Rev: /gi,"R");</script>-->
 <script type="text/javascript" src="tools\config.js"></script>
 <script type="text/javascript" src="tools\modules\resize.js"></script>
 
@@ -1488,6 +1488,7 @@ var table_key = [];
 				case 6.2:str=is64?ver_62x64:ver_62x86;break;
 				case 6.3:str=is64?ver_63x64:ver_63x86;break;
 				case 6.4:str=is64?ver_64x64:ver_64x86;break;
+				case 10.0:str=is64?ver_100x64:ver_100x86;break;
 			}
 			str+="|"+(is64?ver_XXx64:ver_XXx86)+"|"+ver_XXxXX;
 			var re = new RegExp(str.toUpperCase());
@@ -1511,6 +1512,7 @@ var table_key = [];
 						case 6.2:
 						case 6.3:
 						case 6.4:ver_match=pack_winver==6||!pack_winver?3:2;break;
+						case 10.0:ver_match=pack_winver==10||!pack_winver?3:2;break;
 					}
 				}
 			}
