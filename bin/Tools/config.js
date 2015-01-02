@@ -3,7 +3,7 @@ var hidebloatware = true;
 
 var width = 900;
 var height = 650;
-var devIDFolder = "..\\Indexes";
+var devIDFolder = "Indexes";
 var drpFolder = "..\\Drivers";
 var softFolder = "..\\Soft";
 var logsCurFolder = false;
