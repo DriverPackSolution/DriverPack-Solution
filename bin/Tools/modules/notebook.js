@@ -17,11 +17,12 @@ function ManufactorerAliases(str){
 	if ((str.indexOf('lenovo')!=-1) || (str.indexOf('ibm')==0) || (str.indexOf('compal')!=-1)) { return 'Lenovo'; }
 	if (str.indexOf('lg')==0) { return 'LG'; }
 	if ((str.indexOf('micro-star')!=-1) || (str.indexOf('msi')==0)) { return 'MSI'; }
+	if ((str.indexOf('Nec_brand')!=-1) || (str.indexOf('nec')==0)) { return 'NEC'; }
 	if ((str.indexOf('panasonic')!=-1) || (str.indexOf('matsushita')!=-1)) { return 'Panasonic'; }
 	if (str.indexOf('samsung')!=-1) { return 'Samsung'; }
 	if ((str.indexOf('sony')==0) || (str.indexOf('vaio')!=-1)) { return 'Sony'; }
 	if (str.indexOf('toshiba')!=-1) { return 'Toshiba'; }
-	if ((str.indexOf('benq')==0) || (str.indexOf('clevo')==0) || (str.indexOf('depo')==0) || (str.indexOf('durabook')!=-1) || (str.indexOf('ecs')==0) || (str.indexOf('elitegroup')!=-1) || (str.indexOf('eurocom')==0) || (str.indexOf('getac')==0) || (str.indexOf('intel')==0) || (str.indexOf('iru')==0) || (str.indexOf('k-systems')==0) || (str.indexOf('medion')!=-1) || (str.indexOf('mitac')==0) || (str.indexOf('mtc')==0) || (str.indexOf('nec')==0) || (str.indexOf('nokia')!=-1) ||(str.indexOf('pegatron')!=-1) || (str.indexOf('prolink')!=-1) || (str.indexOf('quanta')!=-1) || (str.indexOf('sager')==0) || (str.indexOf('shuttle')!=-1) || (str.indexOf('twinhead')!=-1) || (str.indexOf('rover')!=-1) || (str.indexOf('roverbook')==0) || (str.indexOf('viewbook')==0) || (str.indexOf('viewsonic')==0) || (str.indexOf('vizio')==0) || (str.indexOf('wistron')!=-1)) { return 'OEM'; }
+	if ((str.indexOf('benq')==0) || (str.indexOf('clevo')==0) || (str.indexOf('depo')==0) || (str.indexOf('durabook')!=-1) || (str.indexOf('ecs')==0) || (str.indexOf('elitegroup')!=-1) || (str.indexOf('eurocom')==0) || (str.indexOf('getac')==0) || (str.indexOf('intel')==0) || (str.indexOf('iru')==0) || (str.indexOf('k-systems')==0) || (str.indexOf('medion')!=-1) || (str.indexOf('mitac')==0) || (str.indexOf('mtc')==0) || (str.indexOf('nokia')!=-1) ||(str.indexOf('pegatron')!=-1) || (str.indexOf('prolink')!=-1) || (str.indexOf('quanta')!=-1) || (str.indexOf('sager')==0) || (str.indexOf('shuttle')!=-1) || (str.indexOf('twinhead')!=-1) || (str.indexOf('rover')!=-1) || (str.indexOf('roverbook')==0) || (str.indexOf('viewbook')==0) || (str.indexOf('viewsonic')==0) || (str.indexOf('vizio')==0) || (str.indexOf('wistron')!=-1)) { return 'OEM'; }
 	
 	
 	
