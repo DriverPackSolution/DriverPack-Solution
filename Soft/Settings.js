@@ -85,7 +85,7 @@ pn++;
 
 // Flash Player
 prog[pn]='Flash Player';
-version[pn]='16.0.0.235';
+version[pn]='16.0.0.257';
 cat[pn]=startpack_Needs;
 cmd1[pn]='FlashPlayer.exe';
 cmd2[pn]='-y -gm2 -fm0';
@@ -102,7 +102,7 @@ pn++;
 
 // Shockwave Player
 prog[pn]='Shockwave Player';
-version[pn]='12.1.5.155';
+version[pn]='12.1.6.156';
 cat[pn]=startpack_Needs;
 cmd1[pn]='Shockwave.exe';
 cmd2[pn]='-y -gm2 -fm0';
@@ -363,7 +363,7 @@ pn++;
 
 // Chrome
 prog[pn]='Google Chrome';
-version[pn]='39.0.2171.95';
+version[pn]='39.0.2171.99';
 cat[pn]=startpack_Browsers;
 cmd1[pn]='Browser/Chrome.exe';
 cmd2[pn]='/S';
@@ -414,14 +414,14 @@ if (rusLang) {
 
 	// Firefox
 	prog[pn]='Mozilla Firefox';
-	version[pn]='34.0';
+	version[pn]='35.0';
 	cat[pn]=startpack_Browsers;
 	cmd1[pn]='Browser/Firefox.exe';
 	cmd2[pn]='-ms -ira';
 	if (is64){
-		check[pn]='HKLM\\SOFTWARE\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Mozilla Firefox 34.0 (x86 ru)\\DisplayName';
+		check[pn]='HKLM\\SOFTWARE\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Mozilla Firefox 35.0 (x86 ru)\\DisplayName';
 	} else {
-		check[pn]='HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Mozilla Firefox 34.0 (x86 ru)\\DisplayName';
+		check[pn]='HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Mozilla Firefox 35.0 (x86 ru)\\DisplayName';
 	}
 	defaul[pn]=false;
 	wshow[pn]=true;
@@ -522,7 +522,7 @@ else {
 
 // 7-Zip
 prog[pn]='7-Zip';
-version[pn]='9.36';
+version[pn]='9.38';
 cat[pn]=startpack_Files;
 cmd1[pn]='Files/7-Zip.exe';
 cmd2[pn]='-aixy -fm0 -gm2';
@@ -539,7 +539,7 @@ pn++;
 
 // BurnAware
 prog[pn]='BurnAware';
-version[pn]='7.7';
+version[pn]='7.8';
 cat[pn]=startpack_Files;
 cmd1[pn]='Files/BurnAware.exe';
 cmd2[pn]='-y -fm0';
@@ -578,7 +578,7 @@ pn++;
 
 // Foxit PDF Reader
 prog[pn]='Foxit PDF Reader';
-version[pn]='7.0.6.1126';
+version[pn]='7.0.8.1216';
 cat[pn]=startpack_Viewers;
 cmd1[pn]='Viewer/FoxitReader.exe';
 cmd2[pn]='-ai1MUD -gm2 -fm0';
@@ -616,7 +616,7 @@ pn++;
 
 // AIMP
 prog[pn]='AIMP';
-version[pn]='3.60.1465';
+version[pn]='3.60.1470';
 cat[pn]=startpack_Players;
 cmd1[pn]='Player/AIMP3.exe';
 cmd2[pn]='/AUTO="%PROGRAMFILES%\\AIMP3"';
@@ -634,7 +634,7 @@ pn++;
 if (rusLang) {
 	// PotPlayer
 	prog[pn]='PotPlayer';
-	version[pn]='1.6.51696';
+	version[pn]='1.6.52150';
 	cat[pn]=startpack_Players;
 	cmd1[pn]='Player/PotPlayer.exe';
 	if (OSVersion == 5.1){
@@ -656,7 +656,7 @@ if (rusLang) {
 else {
 	// PotPlayer
 	prog[pn]='PotPlayer';
-	version[pn]='1.6.51696';
+	version[pn]='1.6.52150';
 	cat[pn]=startpack_Players;
 	cmd1[pn]='Player/PotPlayer.exe';
 	if (OSVersion == 5.1){
@@ -739,7 +739,7 @@ pn++;
 
 // uTorrent
 prog[pn]='uTorrent';
-version[pn]='3.4.2.37594';
+version[pn]='3.4.2.37951';
 cat[pn]=startpack_Internet;
 cmd1[pn]='WWW/uTorrent.exe';
 cmd2[pn]='/S';
@@ -760,7 +760,7 @@ pn++;
 
 // 360is
 prog[pn]='360 Total Security';
-version[pn]='5.2.0.1085';
+version[pn]='5.2.0.1086';
 cat[pn]=startpack_Antivirus;
 cmd1[pn]='Antivirus/360ts.exe';
 cmd2[pn]='/S';
@@ -779,7 +779,7 @@ pn++;
 
 // Baidu
 prog[pn]='Baidu Antivirus';
-version[pn]='5.2.3.104044';
+version[pn]='5.2.3.105318';
 cat[pn]=startpack_Antivirus;
 cmd1[pn]='Antivirus/Baidu.exe';
 cmd2[pn]='/S';
@@ -838,7 +838,7 @@ else {
 
 // Punto Switcher
 prog[pn]='Punto Switcher';
-version[pn]='3.4.0.400';
+version[pn]='3.3.1.373';
 cat[pn]=startpack_Other;
 cmd1[pn]='Other/PuntoSwitcher.exe';
 cmd2[pn]='/passive /norestart';
