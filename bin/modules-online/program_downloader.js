@@ -398,7 +398,7 @@ $(document).ready(function () {
 		$('.program_td').each(function (index, element) {
 			if ($(element).parent().hasClass('approved')) {
 				$('.status').html(about_connecting + " " + number + " / " + programs_number);
-				programs_to_launch.push(wget_driver($(element).attr('data-id'), programsPath) + ' ' + $(element).attr('data-keys'));
+				programs_to_launch.push(wget_driver($(element).attr('data-id'), programsPath) + '" ' + $(element).attr('data-keys'));
 				number++;
 			}
 		});
@@ -414,7 +414,7 @@ $(document).ready(function () {
 		for (var counter = 0; counter < programs_to_launch.length; counter++) {
 			if (programs_to_launch[counter] != null) {
 				$('#programs_to_launch_count').html(counter+1);
-				WshShell.Run(programsPath +"\\"+ programs_to_launch[counter], 0, true);
+				WshShell.Run('"' + programsPath +"\\"+ programs_to_launch[counter], 0, true);
 			}
 		}
 		location.reload();
