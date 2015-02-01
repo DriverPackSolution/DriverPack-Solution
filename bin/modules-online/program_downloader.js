@@ -146,7 +146,7 @@ function program_recalculate() {
 	$('.program_size').each(function (index, element) {
 		if ($(element).parent().hasClass('approved')) {
 			if ($(element).html() != 'null' && $(element).html() != drv_notKnown) {
-				var this_prog_size = parseFloat($(element).html().slice(1, -2));
+				 var this_prog_size = parseFloat($(element).html().slice(0, -2));
 				sum += (isNaN(this_prog_size)?0:this_prog_size);
 			} else {
 				$(element).html(drv_notKnown);
