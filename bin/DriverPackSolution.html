@@ -96,10 +96,48 @@ To debug run: \bin\runDebugMode.js
 <script type="text/javascript" src="tools\modules\diagnostics\hddSmart.js"></script>
 <!-- Diagnostics -->
 <!-- Tour -->
-<script type="text/javascript" src="tools\modules\tour\js\bootstrap-tour.min.js"></script>
-<link rel="stylesheet" type="text/css" href="tools\modules\tour\css\bootstrap-tour.min.css" />
-<script>l("script_tour")</script>
-<!-- Tour -->
+    <script type="text/javascript" src="tools\modules\tour\js\bootstrap-tour.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="tools\modules\tour\css\bootstrap-tour.min.css" />
+    <script type="text/javascript" >
+        var tour = new Tour({
+            template: "<div class='popover tour'>\
+                    <div class='arrow'></div>\
+                    <h3 class='popover-title'></h3>\
+                    <h5 class='popover-content'></h5>\
+                    <div class='popover-navigation'>\
+                        <button class='btn btn-default' data-role='prev'>« " + button_prev + "</button>\
+                        <button class='btn btn-default' data-role='next'>" + button_next + " »</button>\
+                        <button class='btn btn-default' data-role='end'>X</button>\
+                    </div>\
+                  </div>",
+            steps: [
+                {
+                    element: "#tab-driver",
+                    title: infobar_tabDriver,
+                    content: content_driver
+                },
+                {
+                    element: "#tab-programm",
+                    title: infobar_tabProgramm,
+                    content: content_programm
+                },
+                {
+                    element: "#con_diagnostics_title",
+                    title: con_diagnostics,
+                    content: content_diagnostics
+                },
+                {
+                    element: "#chk_settings_mode",
+                    title: button_settings,
+                    content: content_settings
+                }
+            ]
+        });
+
+        // Initialize the tour
+        tour.init();
+    </script>
+    <!-- Tour -->
 <script type="text/javascript" src="tools\modules\checkPacks.js"></script>
 
 <!--[if lt IE 7]>
@@ -149,6 +187,15 @@ To debug run: \bin\runDebugMode.js
 <table height="100%" border="0" class="panel" id="panel" width="200">
   <tr style="vertical-align:top;">
 	<td class="panel-top" width="335">
+
+	<p id="button_tour">
+                    <img
+                        src="tools\ico\3.png"
+                        ><a
+                        href="javascript:void(0)" onclick="tour.start();
+            return false;" id="button_tour"
+                    ><script>l('button_tour')</script></a>
+                </p>
 
 	  <p id="button_refresh">
 		<img
