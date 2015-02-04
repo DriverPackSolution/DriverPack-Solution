@@ -100,7 +100,7 @@ To debug run: \bin\runDebugMode.js
     <link rel="stylesheet" type="text/css" href="tools\modules\tour\css\bootstrap-tour.min.css" />
     <script type="text/javascript" >
         var tour = new Tour({
-            template: "<div class='popover tour'>\
+            template: "<div class='popover tour' style='z-index: 4000;'>\
                     <div class='arrow'></div>\
                     <h3 class='popover-title'></h3>\
                     <h5 class='popover-content'></h5>\
@@ -131,7 +131,8 @@ To debug run: \bin\runDebugMode.js
                     title: button_settings,
                     content: content_settings
                 }
-            ]
+            ],
+            backdrop: true
         });
 
         // Initialize the tour
