@@ -106,7 +106,6 @@ h1 { font:19px arial; font-weight:100; color: #0033BC; padding-left:30px; margin
 	background-repeat: no-repeat;
 	/*IE6: position:absolute;*/
 	position:fixed;
-	z-index: 1000;
 	top:expression(eval(document.body.scrollTop) + 'px');
 	background-color:#98e4f3;
 	}
@@ -129,7 +128,7 @@ h1 { font:19px arial; font-weight:100; color: #0033BC; padding-left:30px; margin
 #panel { filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1); }  /*Shadow*/
 
 
-#infobar { margin:0; padding:0; border: 1px solid #C0C0C0; table-layout:fixed; width:100%; position:relative; z-index:999; padding:5px; border-collapse:collapse; }
+#infobar { margin:0; padding:0; border: 1px solid #C0C0C0; table-layout:fixed; width:100%; position:relative; z-index:1000; padding:5px; border-collapse:collapse; }
 #infobar-tr { min-width:550px; }
 #infobar_color { background-image:url(ico\infobar\yelow.png); background-color:#ffda75; background-repeat:no-repeat; width:16px; }
 #infobar_img { float:left; }
