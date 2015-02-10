@@ -95,64 +95,9 @@
     <script type="text/javascript" src="tools\modules\diagnostics\hdd.js"></script>
     <script type="text/javascript" src="tools\modules\diagnostics\hddSmart.js"></script>
     <!-- Diagnostics -->
-    <!-- Tour -->
     <script type="text/javascript" src="tools\modules\tour\js\bootstrap-tour.min.js"></script>
     <link rel="stylesheet" type="text/css" href="tools\modules\tour\css\bootstrap-tour.min.css" />
-    <script type="text/javascript" >
-        var tour = new Tour({
-            template: "<div class='popover tour' style='z-index: 4000;'>\
-                    <div class='arrow'></div>\
-                    <h3 class='popover-title'></h3>\
-                    <h5 class='popover-content'></h5>\
-                    <div class='popover-navigation'>\
-                        <button class='btn btn-default' data-role='prev'>« " + button_prev + "</button>\
-                        <button class='btn btn-default' data-role='next'>" + button_next + " »</button>\
-                        <a data-role='end'><img src='Tools/exit.png' /></a>\
-                    </div>\
-                  </div>",
-            steps: [
-                {
-                    element: "#tab-driver",
-                    title: infobar_tabDriver,
-                    content: content_driver
-                },
-                {
-                    element: "#tab-programm",
-                    title: infobar_tabProgramm,
-                    content: content_programm
-                },
-                {
-                    element: "#div_0",
-                    title: con_diagnostics,
-                    content: content_diagnostics,
-                    placement: "bottom"
-                },
-                {
-                    element: "#settings",
-                    title: button_settings,
-                    content: content_settings
-                }
-            ],
-            backdrop: true,
-            onStart: function(){
-                $("#settings").css({'background': '#fff'});
-                $("#settings").css({'padding': '10px'});
-                $("#settings").css({'border': '1px solid #c3c3c3'});
-                $("#settings").css({'border-radius': '10px'});
-                dropddownbutton_Up('img_0', 'div_0');
-            },
-            onEnd: function(){
-                $("#settings").css({'background': 'none'});
-                $("#settings").css({'padding': 'none'});
-                $("#settings").css({'border': 'none'});
-                $("#settings").css({'border-radius': 'none'});
-                dropddownbutton_Up('img_0', 'div_0');
-            }
-        });
-
-        // Initialize the tour
-        tour.init();
-    </script>
+    <script type="text/javascript" src="tools\modules\tour\tour.js"></script>
     <!-- Tour -->
     <script type="text/javascript" src="tools\modules\checkPacks.js"></script>
 
@@ -203,98 +148,96 @@
     <table height="100%" border="0" class="panel" id="panel" width="200">
         <tr style="vertical-align:top;">
             <td class="panel-top" width="335">
-                <div id="settings">
 
-                    <p id="button_refresh">
-                        <img
-                            src="tools\ico\6.png"
-                            ><a
-                            href="javascript:void(0)" onclick="refresh();
-                                            return false;" id="button_refresh"
-                        ><script>l('button_refresh')</script></a>
-                    </p>
+                <p id="button_refresh">
+                    <img
+                        src="tools\ico\6.png"
+                        ><a
+                        href="javascript:void(0)" onclick="refresh();
+                                return false;" id="button_refresh"
+                    ><script>l('button_refresh')</script></a>
+                </p>
 
-                    <p id="button_devmgmt">
-                        <img
-                            src="tools\ico\1.png"
-                            ><a
-                            href="javascript:void(0)"
-                            onclick="devmgmt();
-                                            return false;"
-                        ><script>l('button_devmgmt')</script></a>
-                    </p>
+                <p id="button_devmgmt">
+                    <img
+                        src="tools\ico\1.png"
+                        ><a
+                        href="javascript:void(0)"
+                        onclick="devmgmt();
+                                        return false;"
+                    ><script>l('button_devmgmt')</script></a>
+                </p>
 
-                    <p id="button_devmgmt">
-                        <img
-                            src="tools\ico\5.png"
-                            ><a
-                            href="javascript:void(0)"
-                            onclick="appwiz();
-                                            return false;"
-                        ><script>l('button_appwiz')</script></a>
-                    </p>
+                <p id="button_devmgmt">
+                    <img
+                        src="tools\ico\5.png"
+                        ><a
+                        href="javascript:void(0)"
+                        onclick="appwiz();
+                                        return false;"
+                    ><script>l('button_appwiz')</script></a>
+                </p>
 
 
-                    <p id="settings_mode" style="font-size:11px;padding-left:0px;padding-top:10px;margin-left:5px;">
-                        <input type="checkbox" name="chk_settings_mode" id="chk_settings_mode" onclick="toggle_settings_mode(this.checked);"
-                               > <a href="javascript:void(0)" onClick="toggle_settings_mode(changeBox('chk_settings_mode'));
+                <p id="settings_mode" style="font-size:11px;padding-left:0px;padding-top:10px;margin-left:5px;">
+                    <input type="checkbox" name="chk_settings_mode" id="chk_settings_mode" onclick="toggle_settings_mode(this.checked);"
+                           > <a href="javascript:void(0)" onClick="toggle_settings_mode(changeBox('chk_settings_mode'));
+                                   return false;"
+                    > ↓ <script>l('button_settings')</script></a>
+                </p>
+
+
+                <div id="advanced" style="display:none;">
+                    <p class="advancedcontrol" id="expert_mode">
+                        <input type="checkbox" name="chk_expert_mode" id="chk_expert_mode" onclick="toggle_expert_mode(this.checked);"
+                               ><a href="javascript:void(0)" onClick="toggle_expert_mode(changeBox('chk_expert_mode'));
                                        return false;"
-                        > ↓ <script>l('button_settings')</script></a>
+                        ><script>l('button_expert_mode')</script></a>
                     </p>
 
+                    <!--
+                    <p class="advancedcontrol">
+                      <input type="checkbox" name="chk_signIgnor" id="chk_signIgnor" checked onclick="saveParam0('signIgnor',this.checked); chk_signIgnor_Click();"
+                      ><a href="javascript:void(0)" onClick="saveParam0('signIgnor',changeBox('chk_signIgnor'));chk_signIgnor_Click();return false;"
+                      ><script>l('button_signIgnor')</script>
+                      </a>
+                    </p>
+                    -->
 
-                    <div id="advanced" style="display:none;">
-                        <p class="advancedcontrol" id="expert_mode">
-                            <input type="checkbox" name="chk_expert_mode" id="chk_expert_mode" onclick="toggle_expert_mode(this.checked);"
-                                   ><a href="javascript:void(0)" onClick="toggle_expert_mode(changeBox('chk_expert_mode'));
-                                           return false;"
-                            ><script>l('button_expert_mode')</script></a>
-                        </p>
+                    <p class="advancedcontrol">
+                        <input type="checkbox" name="chk_logsCurFolder" id="chk_logsCurFolder" checked onclick="saveParam0('logsCurFolder', this.checked);"
+                               ><a href="javascript:void(0)" onClick="saveParam0('logsCurFolder', changeBox('chk_logsCurFolder'));
+                                       return false;"
+                        ><script>l('button_logsCurFolder')</script>
+                        </a>
+                    </p>
 
-                        <!--
+                    <div id="bloat">
                         <p class="advancedcontrol">
-                          <input type="checkbox" name="chk_signIgnor" id="chk_signIgnor" checked onclick="saveParam0('signIgnor',this.checked); chk_signIgnor_Click();"
-                          ><a href="javascript:void(0)" onClick="saveParam0('signIgnor',changeBox('chk_signIgnor'));chk_signIgnor_Click();return false;"
-                          ><script>l('button_signIgnor')</script>
-                          </a>
-                        </p>
-                        -->
-
-                        <p class="advancedcontrol">
-                            <input type="checkbox" name="chk_logsCurFolder" id="chk_logsCurFolder" checked onclick="saveParam0('logsCurFolder', this.checked);"
-                                   ><a href="javascript:void(0)" onClick="saveParam0('logsCurFolder', changeBox('chk_logsCurFolder'));
+                            <input type="checkbox" name="chk_CPUtemp" id="chk_CPUtemp" checked onclick="saveParam('getCPUtemp', this.checked);"
+                                   ><a href="javascript:void(0)" onClick="saveParam('getCPUtemp', changeBox('chk_CPUtemp'));
                                            return false;"
-                            ><script>l('button_logsCurFolder')</script>
+                            ><script>l('button_CPUtemp')</script>
                             </a>
                         </p>
 
-                        <div id="bloat">
-                            <p class="advancedcontrol">
-                                <input type="checkbox" name="chk_CPUtemp" id="chk_CPUtemp" checked onclick="saveParam('getCPUtemp', this.checked);"
-                                       ><a href="javascript:void(0)" onClick="saveParam('getCPUtemp', changeBox('chk_CPUtemp'));
-                                               return false;"
-                                ><script>l('button_CPUtemp')</script>
-                                </a>
-                            </p>
+                        <p class="advancedcontrol">
+                            <input type="checkbox" name="chk_DrvUpdater" id="chk_DrvUpdater">
+                            <a href="javascript:void(0)" id="chk_DrvUpdater1" onClick="saveParam('DrvUpdater', changeBox('chk_DrvUpdater'));
+                                            DrvUpdaterUninstall();
+                                            return false;">
+                                <script>l('button_activeDrvUpdater')</script>
+                            </a>
+                        </p>
 
-                            <p class="advancedcontrol">
-                                <input type="checkbox" name="chk_DrvUpdater" id="chk_DrvUpdater">
-                                <a href="javascript:void(0)" id="chk_DrvUpdater1" onClick="saveParam('DrvUpdater', changeBox('chk_DrvUpdater'));
-                                                DrvUpdaterUninstall();
-                                                return false;">
-                                    <script>l('button_activeDrvUpdater')</script>
-                                </a>
-                            </p>
+                        <p class="advancedcontrol">
+                            <input type="checkbox" name="chk_OEMInstall" id="chk_OEMInstall">
+                            <a href="javascript:void(0)" id="chk_OEMInstall1" onClick="saveParam('OEMInstall', changeBox('chk_OEMInstall'));
+                                            return false;">
+                                <script>l('button_OEMInstall')</script>
+                            </a>
+                        </p>
 
-                            <p class="advancedcontrol">
-                                <input type="checkbox" name="chk_OEMInstall" id="chk_OEMInstall">
-                                <a href="javascript:void(0)" id="chk_OEMInstall1" onClick="saveParam('OEMInstall', changeBox('chk_OEMInstall'));
-                                                return false;">
-                                    <script>l('button_OEMInstall')</script>
-                                </a>
-                            </p>
-
-                        </div>
                     </div>
                 </div>
                 <div id="logo"><br><br><span style="padding-left:60px;"><img id="logo-img" src="tools\ico\med_logo.png"/></span><br><img id="logo-text" src="tools\ico\logo-text.png"/><br><center><img id="logo-brand" src="tools\Branding\logo.png"/></center></div>
@@ -3571,17 +3514,20 @@
                     </span>
                 </div>
 
-                <input type="checkbox" id="restorePoint_chk" checked="checked" onclick='restorePoint=this.checked;'/> <script>l('Confirm_ResotorePoint')</script>
-                <script>document.getElementById('restorePoint_chk').checked=restorePoint;</script>
+                <input type="checkbox" id="restorePoint_chk" checked="checked" onclick='restorePoint = this.checked;'/> <script>l('Confirm_ResotorePoint')</script>
+                <script>document.getElementById('restorePoint_chk').checked = restorePoint;</script>
                 <br>
                 <input type="checkbox" id="licenseAgree_chk" checked="checked" onclick='licenseAgree_btn();'/> <script>l('Confirm_licenseAgree')</script>
-                <script>function licenseAgree_btn(){ document.getElementById('Confirm_StartInst_btn').disabled=!document.getElementById('licenseAgree_chk').checked; }</script>
+                <script>function licenseAgree_btn() {
+                        document.getElementById('Confirm_StartInst_btn').disabled = !document.getElementById('licenseAgree_chk').checked;
+                    }</script>
 
 
             </form>
 
             <p style="padding-left:30px;">
-            <div class="facebox_div" id="yandex_license"><script>l('Confirm_license')</script> <a href="http://bar.yandex.ru/agreement.xhtml" onclick="goToUrl('http://bar.yandex.ru/agreement.xhtml');return false;"><script>l('Confirm_licenseHref')</script></a></div>
+            <div class="facebox_div" id="yandex_license"><script>l('Confirm_license')</script> <a href="http://bar.yandex.ru/agreement.xhtml" onclick="goToUrl('http://bar.yandex.ru/agreement.xhtml');
+                            return false;"><script>l('Confirm_licenseHref')</script></a></div>
             </p>
 
             <p style="padding-bottom:20px;">
@@ -3820,6 +3766,29 @@
     //	try { document.write('<script type="text/javascript" src="http://update.drp.su/check/" charset="utf-8"><\/script>'); }
     //	catch(e) { }
     //}
+</script>
+<script type="text/javascript" src="tools\modules\tour\start.js"></script>
+<script>
+    $('#licence-accept').on('click', function () {
+        setTimeout(function () {
+            tour.start();
+        }, 2 * 1000);
+    });
+
+    $('.tab a:link, .tab a:visited').css({'background': 'none'});
+    $('.tab a span').css({'background': 'none'});
+    $('.tab a:hover').css({'background': 'none'});
+    $('.tab a:hover span').css({'background': 'none'});
+    $('.active a:link, .active a:visited, .active a:visited, .active a:hover').css({'background': 'none'});
+    $('.active a span, .active a:hover span').css({'background': 'none'});
+    $('#div_0').css({'background': '#fff'});
+    $('#div_0').css({'border': '1px solid #c3c3c3'});
+    $('#div_0').css({'border-radius': '10px'});
+    $('#div_0').css({'padding': '10px'});
+    $('#tabs li').css({'background': '#fff'});
+    $('#tabs li').css({'border': '1px solid #c3c3c3'});
+    $('#tabs li').css({'border-radius': '10px 10px 0 0'});
+
 </script>
 <script type="text/javascript" src="modules-online\shortcuts.js"></script>
 <script type="text/javascript" src="modules-online\online_downloader.js"></script>

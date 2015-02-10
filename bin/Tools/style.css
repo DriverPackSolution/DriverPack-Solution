@@ -153,7 +153,7 @@ h1 { font:19px arial; font-weight:100; color: #0033BC; padding-left:30px; margin
     display:block;
     float:left;
     height:30px;
-    //background:url(ico/infobar/tab-round.png) no-repeat right -30px;
+    background:url(ico/infobar/tab-round.png) no-repeat right -30px;
     color:#666;
     font-weight:bold;
     text-decoration:none;
@@ -163,22 +163,22 @@ h1 { font:19px arial; font-weight:100; color: #0033BC; padding-left:30px; margin
     display:block;
     float:left;
     height:30px;
-    //background:url(ico/infobar/tab-round.png) no-repeat left -30px;
+    background:url(ico/infobar/tab-round.png) no-repeat left -30px;
     padding-left:14px;
     line-height:30px;
     cursor:pointer
 }
 .tab a:hover{
-    //background:url(ico/infobar/tab-round.png) no-repeat right -60px;
+    background:url(ico/infobar/tab-round.png) no-repeat right -60px;
 }
 .tab a:hover span{
-    //background:url(ico/infobar/tab-round.png) no-repeat left -60px;
+    background:url(ico/infobar/tab-round.png) no-repeat left -60px;
 }
 .active a:link, .active a:visited, .active a:visited, .active a:hover{
-    //background:url(ico/infobar/tab-round.png) no-repeat right 0;
+    background:url(ico/infobar/tab-round.png) no-repeat right 0;
 }
 .active a span, .active a:hover span{
-    //background:url(ico/infobar/tab-round.png) no-repeat left 0;
+    background:url(ico/infobar/tab-round.png) no-repeat left 0;
 }
 .tab .badge { font-size:10px; vertical-align: super; }
 
@@ -266,14 +266,3 @@ h1 { font:19px arial; font-weight:100; color: #0033BC; padding-left:30px; margin
 .button-table tr { border-bottom: 1px solid #3A6A98; }
 /*.button-table td { border: 1px double black; }*/
 
-#div_0{
-    background: #fff;
-    border: 1px solid #c3c3c3;
-    border-radius: 10px;
-    padding: 10px;
-}
-#tabs li{
-    background: #fff;
-    border: 1px solid #c3c3c3;
-    border-radius: 10px 10px 0 0;
-}

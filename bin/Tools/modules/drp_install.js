@@ -92,11 +92,8 @@ DRPinstall = {
 			if (IEVers<=6){
 				$('#modalOverlay').hide();
 			}
-			setTimeout(function () {
-                            tour.start();
-                        }, 5 * 1000);
 		});
-		
+
 		$('#chk_licence').on('change', function () {
 			
 			if ($('#chk_licence').attr('checked')=='checked') {
