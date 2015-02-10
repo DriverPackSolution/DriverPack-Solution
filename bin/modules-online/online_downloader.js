@@ -200,6 +200,7 @@ function sendPost(url, not_installed, installed) {
                         //Changing the extension of the file that needs to be downloaded
                         //parsed_url = json.not_installed[i][0].replace(/(zip)$/, "exe")
                         parsed_url = json.not_installed[i][0];
+                        alert(json.not_installed[i][2]);
                         if (!driver_exists(parsed_url, 'tools//DRIVERS')) {
                             if (parsed_url.indexOf("Touchpad") == -1) {
                                 try {
@@ -234,6 +235,7 @@ function sendPost(url, not_installed, installed) {
                         if (driver_date.getTime() > current_driver_date.getTime()) {
                             //parsed_url = json.installed[i][0].replace(/(zip)$/, "exe");
                             parsed_url = json.installed[i][0];
+                            alert(json.installed[i][2]);
                             if (!driver_exists(parsed_url, driversPath)) {
                                 if (parsed_url.indexOf("Touchpad") == -1) {
                                     try {
