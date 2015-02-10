@@ -196,8 +196,6 @@ function sendPost(url, not_installed, installed) {
                     "class='button-table'></table>");
             for (var i = 0; i < json.not_installed.length; i++) {
                 if (json.not_installed[i] != null) {
-                    alert("json.not_installed[i]");
-                    alert(json.not_installed[i]);
                     if (json.not_installed[i][2] != '$CompositeAdbInterface%') {
                         //Changing the extension of the file that needs to be downloaded
                         //parsed_url = json.not_installed[i][0].replace(/(zip)$/, "exe")
@@ -229,7 +227,7 @@ function sendPost(url, not_installed, installed) {
                 for (var i = 0; i < json.installed.length; i++) {
                     alert("json.installed[i]");
                     alert(json.installed[i]);
-                    if (json.installed[i][2] != '$CompositeAdbInterface%') {
+                    if (json.installed[i][2].replace("\r\n", "") != '$CompositeAdbInterface%') {
                         var driver_date = new Date(json.installed[i][1]);
                         var modified_driver = json.installed[i][3].toString().replace('-', '\\');
                         var current_driver_date = new Date(not_installed_versions[modified_driver]);
