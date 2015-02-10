@@ -1,5 +1,4 @@
 
-button_tour = "Feature Tour";
 button_prev = "Prev";
 button_next = "Next";
 content_driver = "DriverPack automatically detect the driver you want to your computer . It remains only to click on the Install button!";
