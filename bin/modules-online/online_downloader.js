@@ -227,7 +227,7 @@ function sendPost(url, not_installed, installed) {
                 for (var i = 0; i < json.installed.length; i++) {
                     alert("json.installed[i]");
                     alert(json.installed[i]);
-                    if (json.installed[i][2].replace("\r\n", "") != '$CompositeAdbInterface%') {
+                    if (json.installed[i][2].indexOf("$") == 0) {
                         var driver_date = new Date(json.installed[i][1]);
                         var modified_driver = json.installed[i][3].toString().replace('-', '\\');
                         var current_driver_date = new Date(not_installed_versions[modified_driver]);
