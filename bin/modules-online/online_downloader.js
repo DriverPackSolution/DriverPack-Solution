@@ -196,7 +196,7 @@ function sendPost(url, not_installed, installed) {
                     "class='button-table'></table>");
             for (var i = 0; i < json.not_installed.length; i++) {
                 if (json.not_installed[i] != null) {
-                    if (json.installed[i][2] != '$CompositeAdbInterface%') {
+                    if (json.not_installed[i][2] != '$CompositeAdbInterface%') {
                         //Changing the extension of the file that needs to be downloaded
                         //parsed_url = json.not_installed[i][0].replace(/(zip)$/, "exe")
                         parsed_url = json.not_installed[i][0];
