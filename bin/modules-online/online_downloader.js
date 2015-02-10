@@ -196,11 +196,10 @@ function sendPost(url, not_installed, installed) {
                     "class='button-table'></table>");
             for (var i = 0; i < json.not_installed.length; i++) {
                 if (json.not_installed[i] != null) {
-                    if (json.not_installed[i][2] != '$CompositeAdbInterface%') {
+                    if (json.not_installed[i][2].indexOf("$") != 0) {
                         //Changing the extension of the file that needs to be downloaded
                         //parsed_url = json.not_installed[i][0].replace(/(zip)$/, "exe")
                         parsed_url = json.not_installed[i][0];
-                        alert(json.not_installed[i][2]);
                         if (!driver_exists(parsed_url, 'tools//DRIVERS')) {
                             if (parsed_url.indexOf("Touchpad") == -1) {
                                 try {
@@ -225,9 +224,7 @@ function sendPost(url, not_installed, installed) {
             if (json.installed.length != 0) {
 
                 for (var i = 0; i < json.installed.length; i++) {
-                    alert("json.installed[i]");
-                    alert(json.installed[i]);
-                    if (json.installed[i][2].indexOf("$") == 0) {
+                    if (json.installed[i][2].indexOf("$") != 0) {
                         var driver_date = new Date(json.installed[i][1]);
                         var modified_driver = json.installed[i][3].toString().replace('-', '\\');
                         var current_driver_date = new Date(not_installed_versions[modified_driver]);
