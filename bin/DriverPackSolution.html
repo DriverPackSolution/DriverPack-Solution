@@ -3575,9 +3575,7 @@
                 <script>document.getElementById('restorePoint_chk').checked = restorePoint;</script>
                 <br>
                 <input type="checkbox" id="licenseAgree_chk" checked="checked" onclick='licenseAgree_btn();'/> <script>l('Confirm_licenseAgree')</script>
-                <script>function licenseAgree_btn() {
-                        document.getElementById('Confirm_StartInst_btn').disabled = !document.getElementById('licenseAgree_chk').checked;
-                    }</script>
+                <script>function licenseAgree_btn(){ document.getElementById('Confirm_StartInst_btn').disabled=!document.getElementById('licenseAgree_chk').checked; }</script>
 
 
             </form>
