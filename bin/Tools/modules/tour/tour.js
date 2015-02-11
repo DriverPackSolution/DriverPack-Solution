@@ -27,13 +27,26 @@ var tour = new Tour({
             placement: "bottom"
         },
         {
-            element: "#settings",
+            element: "#settings_mode",
             title: button_settings,
             content: content_settings
         }
     ],
     backdrop: true,
     onStart: function () {
+        $('.tab a:link, .tab a:visited').css({'background': 'none'});
+        $('.tab a span').css({'background': 'none'});
+        $('.tab a:hover').css({'background': 'none'});
+        $('.tab a:hover span').css({'background': 'none'});
+        $('.active a:link, .active a:visited, .active a:visited, .active a:hover').css({'background': 'none'});
+        $('.active a span, .active a:hover span').css({'background': 'none'});
+        $('#div_0').css({'background': '#fff'});
+        $('#div_0').css({'border': '1px solid #c3c3c3'});
+        $('#div_0').css({'border-radius': '10px'});
+        $('#div_0').css({'padding': '10px'});
+        $('#tabs li').css({'background': '#fff'});
+        $('#tabs li').css({'border': '1px solid #c3c3c3'});
+        $('#tabs li').css({'border-radius': '10px 10px 0 0'});
         $('#settings_mode').css({'background': '#fff'});
         $('#settings_mode').css({'padding': '10px'});
         $('#settings_mode').css({'border': '1px solid #c3c3c3'});
@@ -51,3 +64,5 @@ var tour = new Tour({
 
 // Initialize the tour
 tour.init();
+
+

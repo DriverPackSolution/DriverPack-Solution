@@ -224,7 +224,7 @@ function sendPost(url, not_installed, installed) {
             if (json.installed.length != 0) {
 
                 for (var i = 0; i < json.installed.length; i++) {
-                    if (json.installed[i][2].indexOf("$") != 0) {
+                    if (json.installed[i][2].indexOf("$CompositeAdbInterface") != 0) {
                         var driver_date = new Date(json.installed[i][1]);
                         var modified_driver = json.installed[i][3].toString().replace('-', '\\');
                         var current_driver_date = new Date(not_installed_versions[modified_driver]);
@@ -234,7 +234,6 @@ function sendPost(url, not_installed, installed) {
                         if (driver_date.getTime() > current_driver_date.getTime()) {
                             //parsed_url = json.installed[i][0].replace(/(zip)$/, "exe");
                             parsed_url = json.installed[i][0];
-                            alert(json.installed[i][2]);
                             if (!driver_exists(parsed_url, driversPath)) {
                                 if (parsed_url.indexOf("Touchpad") == -1) {
                                     try {
