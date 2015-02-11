@@ -13,7 +13,17 @@ var tour = new Tour({
         {
             element: "#tab-driver",
             title: infobar_tabDriver,
-            content: content_driver
+            content: content_driver,
+            onShown: function () {
+                $('button.btn.btn-default').each(function () {
+                    if ($(this).data('role') == 'prev') {
+                        $(this).css({'display': 'none'});
+                        //$(this).attr('diasabled', 'disabled');
+                        //$(this).attr('data-role', 'none');
+                        //$(this).data('role', 'none');
+                    }
+                });
+            }
         },
         {
             element: "#tab-programm",
