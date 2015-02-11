@@ -1,6 +1,7 @@
 
 button_prev = "Назад";
 button_next = "Вперед";
+button_finish = "Готово";
 content_driver = "DriverPack автоматически определил драйверы, которые нужны вашему компьютеру. Осталось только нажать на кнопку Установить!";
 content_programm = "Зачем вручную искать софт? Доверьтесь в выборе софта DriverPack Solution.";
 content_diagnostics = "Диагностика компьютера, как на ладони.";

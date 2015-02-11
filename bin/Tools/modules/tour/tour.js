@@ -29,7 +29,22 @@ var tour = new Tour({
         {
             element: "#settings_mode",
             title: button_settings,
-            content: content_settings
+            content: content_settings,
+            onShown: function () {
+                $('button.btn.btn-default').each(function () {
+                    if ($(this).data('role') == 'next') {
+                        $(this).html(button_finish);
+                    }
+                });
+            },
+            onNext: function () {
+                $('#settings_mode').css({'background': 'none'});
+                $('#settings_mode').css({'padding': 'none'});
+                $('#settings_mode').css({'border': 'none'});
+                $('#settings_mode').css({'border-radius': 'none'});
+                dropddownbutton_Up('img_0', 'div_0');
+                tour.end();
+            }
         }
     ],
     backdrop: true,

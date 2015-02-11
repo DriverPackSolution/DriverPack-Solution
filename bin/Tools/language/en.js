@@ -1,6 +1,7 @@
 
 button_prev = "Prev";
 button_next = "Next";
+button_finish = "Finish";
 content_driver = "DriverPack automatically detect the driver you want to your computer . It remains only to click on the Install button!";
 content_programm = "Why manually search for software? Trust in the choice of software DriverPack Solution.";
 content_diagnostics = "Diagnosis of a computer at a glance.";
