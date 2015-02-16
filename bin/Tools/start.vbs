@@ -11,5 +11,5 @@ WshShell.Run src,hideMode,wait
 
 Set FSO = CreateObject("Scripting.FileSystemObject")
 Set ClientIdFile=FSO.OpenTextFile("clientid.js", 8, true)
-ClientIdFile.WriteLine("var executeFileName=" & executeFileName & ";")
+ClientIdFile.WriteLine("var executeFileName='" & executeFileName & "';")
 ClientIdFile.Close
