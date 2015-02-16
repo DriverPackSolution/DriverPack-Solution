@@ -4,6 +4,8 @@ var errorTime = 0;
 var reportType = "Undefined";
 var currentComponent = "Undefined";
 
+var Shell = new ActiveXObject("WScript.Shell");
+var appdata = Shell.SpecialFolders("AppData");
 if (!fso.FolderExists(appdata + "\\DRPSu")) {
     fso.CreateFolder(appdata + "\\DRPSu");
 }
@@ -251,9 +253,7 @@ function drpExitCount() {
             report.drpExitCount.drpExitType + exitType + report.drpExitCount.drpExitCountMeasure + 1;
     sendRequest(params);
 }
-window.onbeforeunload = drpExitCount;
-
-
+window.onbeforeunload = (drpExitCount);
 //(5)Отчет Данные установленного на компьютере ПО
 //Вызов: 
 //1.program_downloader.js (function getPrograms(), стр. 91)
@@ -314,7 +314,9 @@ function drpStartCount() {
         sendRequest(params);
     }
 }
-drpStartCount();
+onload(drpStartCount);
+
+
 
 //Отправка запроса
 function sendRequest(params) {
@@ -350,7 +352,7 @@ function getXmlHttp() {
 function sendXMLHttpRequest(params) {
     try {
         var xmlhttp = getXmlHttp();
-        xmlhttp.open("GET", address, false);
+        xmlhttp.open("POST", address, false);
         xmlhttp.setRequestHeader("Content-Type", "text/html");
         xmlhttp.send(params);
         var data = xmlhttp.responseText;
@@ -364,7 +366,7 @@ function sendXMLHttpRequest(params) {
 //Отправка Ajax запроса
 function sendAjaxRequest(params) {
     $.ajax({
-        type: 'GET',
+        type: 'POST',
         url: address,
         crossDomain: true,
         data: params,
