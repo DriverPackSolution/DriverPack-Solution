@@ -12,7 +12,7 @@ var paramsPath = appdata + "\\DRPSu\\reports.txt"; //путь к файлу с �
 var userPath = appdata + "\\DRPSu\\user.txt"; //путь к файлу с идентификатором пользователя
 
 //var address = "http://www.google-analytics.com/collect"; //URL для отправки запроса по Measurement Protocol
-var address = "http://statistics.drp.su";
+var address = "http://statistics.drp.su/online.php";
 var v = "1";
 //var tid = "UA-55108042-1"; //"UA-54491896-1";
 var tid = "UA-58593486-1";
