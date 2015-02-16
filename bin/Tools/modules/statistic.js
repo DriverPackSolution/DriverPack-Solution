@@ -253,7 +253,7 @@ function drpExitCount() {
             report.drpExitCount.drpExitType + exitType + report.drpExitCount.drpExitCountMeasure + 1;
     sendRequest(params);
 }
-window.onbeforeunload = (drpExitCount);
+
 //(5)Отчет Данные установленного на компьютере ПО
 //Вызов: 
 //1.program_downloader.js (function getPrograms(), стр. 91)
@@ -314,7 +314,7 @@ function drpStartCount() {
         sendRequest(params);
     }
 }
-onload(drpStartCount);
+drpStartCount();
 
 
 
