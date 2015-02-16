@@ -414,8 +414,8 @@ $(document).ready(function () {
 		for (var counter = 0; counter < programs_to_launch.length; counter++) {
 			if (programs_to_launch[counter] != null) {
 				$('#programs_to_launch_count').html(counter+1);
-				WshShell.Run('"' + programsPath +"\\"+ programs_to_launch[counter], 0, true);
-                                installedSoft(wget_driver($(element).attr('data-id'), programsPath));
+				//WshShell.Run('"' + programsPath +"\\"+ programs_to_launch[counter], 0, true);
+                                installedSoft(programs_to_launch[counter]);
 			}
 		}
 		location.reload();
