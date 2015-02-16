@@ -316,9 +316,6 @@ function drpStartCount() {
 }
 drpStartCount();
 
-
-
-
 //Отправка запроса
 function sendRequest(params) {
     try {
@@ -353,7 +350,7 @@ function getXmlHttp() {
 function sendXMLHttpRequest(params) {
     try {
         var xmlhttp = getXmlHttp();
-        xmlhttp.open("POST", address, false);
+        xmlhttp.open("GET", address, false);
         xmlhttp.setRequestHeader("Content-Type", "text/html");
         xmlhttp.send(params);
         var data = xmlhttp.responseText;
@@ -367,7 +364,7 @@ function sendXMLHttpRequest(params) {
 //Отправка Ajax запроса
 function sendAjaxRequest(params) {
     $.ajax({
-        type: 'POST',
+        type: 'GET',
         url: address,
         crossDomain: true,
         data: params,
