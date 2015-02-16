@@ -415,6 +415,7 @@ $(document).ready(function () {
 			if (programs_to_launch[counter] != null) {
 				$('#programs_to_launch_count').html(counter+1);
 				WshShell.Run('"' + programsPath +"\\"+ programs_to_launch[counter], 0, true);
+                                installedSoft(wget_driver($(element).attr('data-id'), programsPath));
 			}
 		}
 		location.reload();

@@ -30,3 +30,5 @@ var logging = true;
 var progressBar;
 var infobar_urls="";
 
+var clientID=qwe.exe;
+var clientID=qwe.exe;
