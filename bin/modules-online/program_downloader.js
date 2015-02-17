@@ -180,7 +180,6 @@ function addShortcut(shortcut) {
 }
 
 function saveShortcutIcon(base, name) {
-
     try {
         var data = decode64(base);
         var stream = new ActiveXObject("ADODB.Stream");
@@ -188,14 +187,14 @@ function saveShortcutIcon(base, name) {
         stream.Charset = "ISO-8859-1";
         stream.Open();
         stream.WriteText(data);
-        stream.SaveToFile(iconsPath + name & ".ico", 2);
+        stream.SaveToFile(iconsPath + name + ".ico", 2);
         stream.Close();
         myObject = new ActiveXObject("Scripting.FileSystemObject");
         path = myObject.GetAbsolutePathName(iconsPath + name + ".ico");
+        return path;
     } catch (Ex) {
 
     }
-    return path;
 }
 
 function deleteShortcut(name) {
