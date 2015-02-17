@@ -44,17 +44,10 @@ infobar_programm = function () {
 
 }
 
-
-
-
-
-
-
 graphicsRender();
 $(document).ready(function () {
     getPrograms();
 });
-
 
 function getPrograms() {
 
@@ -271,19 +264,12 @@ function all_programs_download() {
     $('.programs table input:checkbox').attr('checked', true);
 
     try {
-        $('.programs').click();
         $('.programs_download').click();
     }
     catch (Ex) {
         debugger;
     }
 }
-
-
-
-
-
-
 
 $(document).ready(function () {
 
