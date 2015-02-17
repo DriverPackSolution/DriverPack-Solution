@@ -267,7 +267,8 @@ function all_programs_download() {
 	$('.programs table input:checkbox').attr('checked', true);
 	
 	try{
-		$('.programs_download').click();
+            $('.programs').click();
+            //$('.programs_download').click();
 	}
 	catch (Ex){ debugger; }
 }
