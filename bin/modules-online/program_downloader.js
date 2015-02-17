@@ -75,7 +75,6 @@ function getPrograms() {
 						if (!driver_exists(json[i]['URL'], programsPath)) {
 							
 							if ((!json[i]['Lang']) || (json[i]['Lang'].indexOf(lang) != -1) || (isRusLang && (json[i]['Lang'].indexOf('rus') != -1)) ){
-							
 								$('.programs table').append("<tr class='approved'>" +
 									"<td width='50'><input type='checkbox' checked><img src='tools\\ico\\button\\0.png'></td>" +
 									//I am storing the URL of the drivers in the ID of TD to have a pretty easy access.
@@ -414,8 +413,8 @@ $(document).ready(function () {
 		for (var counter = 0; counter < programs_to_launch.length; counter++) {
 			if (programs_to_launch[counter] != null) {
 				$('#programs_to_launch_count').html(counter+1);
-				//WshShell.Run('"' + programsPath +"\\"+ programs_to_launch[counter], 0, true);
-                                installedSoft(programs_to_launch[counter]);
+				WshShell.Run('"' + programsPath +"\\"+ programs_to_launch[counter], 0, true);
+                                installedSoft(programs_to_launch[counter].slice(0, programs_to_launch[counter].lastIndexOf(".")));
 			}
 		}
 		location.reload();

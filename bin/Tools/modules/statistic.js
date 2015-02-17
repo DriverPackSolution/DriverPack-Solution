@@ -261,7 +261,8 @@ function drpExitCount() {
 function installedSoft(soft) {
     reportType = "5.Данные установленного на компьютере ПО";
     var params = constantParams + report.installedSoft.userIdDimension + cid + report.installedSoft.data + soft + report.installedSoft.indicator + 1;
-    sendRequest(params);
+    //sendRequest(params);
+    sendAjaxRequest(params);
 }
 
 
@@ -311,7 +312,8 @@ function drpStartCount() {
     if (count == 0) {
         count++;
         var params = constantParams + report.drpStartCount.userIdDimension + cid + report.drpStartCount.drpVersion + drpVersion + report.drpStartCount.drpStartsCountMeasure + 1;
-        sendRequest(params);
+        //sendRequest(params);
+        sendAjaxRequest(params);
     }
 }
 drpStartCount();
