@@ -262,7 +262,6 @@ function tabProgram_OnClick() {
 
 function all_programs_download() {
     $('.programs table input:checkbox').attr('checked', true);
-
     try {
         $('.programs_download').click();
     }

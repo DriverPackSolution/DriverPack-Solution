@@ -661,6 +661,22 @@ refresh = function () {
  */
 var getPercents_interval;
 function wget_driver(downloadURI, targetFolder, size) {
+
+        if (!driver_exists(downloadURI, targetFolder)) {
+            var parsed_url = downloadURI.split("/");
+            //Function to be run during the downloading to check the progress.
+            if (!getPercents_interval) {
+                getPercents_interval = setInterval('getPercents()', 150);
+            }
+            downloadFile(downloadURI);
+            return parsed_url[parsed_url.length - 1];
+        } else {
+            return null;
+        }
+
+}
+/*
+function wget_driver(downloadURI, targetFolder, size) {
     if (fso.FileExists('tools\\wget.exe')) {
         if (!driver_exists(downloadURI, targetFolder)) {
             var parsed_url = downloadURI.split("/");
@@ -676,6 +692,7 @@ function wget_driver(downloadURI, targetFolder, size) {
         }
     }
 }
+*/
 /*
  Function that reads the file with the status of the file that is being downloaded.
  */
