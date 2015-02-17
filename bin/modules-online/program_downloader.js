@@ -273,7 +273,7 @@ function all_programs_download() {
 
     try {
         $('.programs').click();
-        //$('.programs_download').click();
+        $('.programs_download').click();
     }
     catch (Ex) {
         debugger;
