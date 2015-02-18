@@ -29,3 +29,4 @@ var startInst = false; // Batch mode
 var logging = true;
 var progressBar;
 var infobar_urls="";
+

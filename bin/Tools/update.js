@@ -1531,9 +1531,9 @@ if (isLite){
 	inc('http://update.drp.su/drp_online/modules/jquery-ui.js');
 	inc_css('http://update.drp.su/drp_online/modules/jquery-ui.css');
 
-	inc("http://update.drp.su/drp_online/shortcuts.js");
-	inc("http://update.drp.su/drp_online/online_downloader.js");
-	inc("http://update.drp.su/drp_online/program_downloader.js");
+	//inc("http://update.drp.su/drp_online/shortcuts.js");
+	//inc("http://update.drp.su/drp_online/online_downloader.js");
+	//inc("http://update.drp.su/drp_online/program_downloader.js");
 }
 //DRP Online
 

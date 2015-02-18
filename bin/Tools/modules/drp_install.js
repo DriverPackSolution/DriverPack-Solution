@@ -84,7 +84,7 @@ DRPinstall = {
 		
 		$('#myModal').modal('show');
 		$('#licence-accept').focus();
-        $('#licence-accept').on('click', function () {
+                $('#licence-accept').on('click', function () {
 			
 			$('#myModal').modal('hide');
 			WshShell.RegWrite('HKCU\\SOFTWARE\\drpsu\\LicenceAccept',version,'REG_SZ');
@@ -92,9 +92,11 @@ DRPinstall = {
 			if (IEVers<=6){
 				$('#modalOverlay').hide();
 			}
-			
+                        setTimeout(function () {
+                            tour.start();
+                        }, 2 * 1000);
 		});
-		
+
 		$('#chk_licence').on('change', function () {
 			
 			if ($('#chk_licence').attr('checked')=='checked') {
