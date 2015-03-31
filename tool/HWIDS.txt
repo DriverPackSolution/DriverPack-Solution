@@ -1,0 +1,330 @@
+ACPI\PNP0000\4&2FBD9B47&0
+    Name:     Device is currently stopped.
+ACPI\PNP0C02\1
+    Name:     Device is currently stopped.
+ACPI\PNP0C02\2
+    Name:     Device is currently stopped.
+ACPI\PNP0C02\5
+    Name:     Device is currently stopped.
+PCI\VEN_105A&DEV_3570&SUBSYS_EE3B378A&REV_01\4&5D18F2DF&0
+    Name: DTSCSIDRV IDE Controller
+    Driver is running.
+HDAUDIO\FUNC_01&VEN_111D&DEV_7695&SUBSYS_17AA5011&REV_1001\4&5579DE5&0&0001
+    Name: IDT High Definition Audio CODEC
+    Driver is running.
+ACPI\PNP0C0A\0
+    Name:     Driver is running.
+ACPI\INT3F0D\4&2FBD9B47&0
+    Name:     Device is currently stopped.
+USB\VID_062A&PID_4101&MI_01\6&33CF72BD&0&0001
+    Name: USB-    Driver is running.
+SWD\PRINTENUM\PRINTQUEUES
+    Name:     Driver is running.
+STORAGE\VOLUME\{F9D788D8-A2EC-11E4-BE7C-806E6F6E6963}#000000003E900000
+    Name:     Driver is running.
+ROOT\VOLMGR\0000
+    Name:     Driver is running.
+STORAGE\VOLUME\{F9D788D8-A2EC-11E4-BE7C-806E6F6E6963}#000000008D500000
+    Name:     Driver is running.
+PCI\VEN_8086&DEV_8C22&SUBSYS_397817AA&REV_05\3&11583659&0&FB
+    Name: Synaptics SMBus Driver
+    Driver is running.
+ACPI\PNP0200\4&2FBD9B47&0
+    Name:     Device is currently stopped.
+{5D624F94-8850-40C3-A3FA-A4FD2080BAF3}\VWIFIMP_WFD\5&6E8D203&0&01
+    Name:     Driver is running.
+HID\VID_062A&PID_4101&MI_01&COL04\7&9E78E0&0&0003
+    Name: HID-    Driver is running.
+STORAGE\VOLUME\{F9D788D8-A2EC-11E4-BE7C-806E6F6E6963}#000000E5B4E00000
+    Name:     Driver is running.
+PCI\VEN_8086&DEV_8C14&SUBSYS_20108086&REV_D5\3&11583659&0&E2
+    Name: Intel(R) 8 Series/C220 Series PCI Express Root Port #3 - 8C14
+    Driver is running.
+ROOT\BASICDISPLAY\0000
+    Name:     Driver is running.
+ACPI\THERMALZONE\THM2
+    Name:     Driver is running.
+ACPI\THERMALZONE\THRM
+    Name:     Driver is running.
+SWD\IP_TUNNEL_VBUS\IP_TUNNEL_DEVICE_ROOT
+    Name:     Driver is running.
+STORAGE\VOLUME\{F9D788D8-A2EC-11E4-BE7C-806E6F6E6963}#0000000095500000
+    Name:     Driver is running.
+ROOT\NET\0000
+    Name: VirtualBox Host-Only Ethernet Adapter
+    Driver is running.
+UMB\UMB\1&841921D&0&TERMINPUT_BUS
+    Name: UMBus     Driver is running.
+PCI\VEN_8086&DEV_0C04&SUBSYS_397817AA&REV_06\3&11583659&0&00
+    Name: Intel(R) Xeon(R) processor E3-1200 v3/4th Gen Core processor DRAM Controller - 0C04
+    Driver is running.
+HID\VID_062A&PID_4101&MI_01&COL01\7&9E78E0&0&0000
+    Name: HID-    Driver is running.
+ACPI\PNP0C14\0
+    Name:     Driver is running.
+ROOT\VMWARE\0000
+    Name: VMware Virtual Ethernet Adapter for VMnet1
+    Driver is running.
+ROOT\VMWARE\0001
+    Name: VMware Virtual Ethernet Adapter for VMnet8
+    Driver is running.
+ACPI\PNP0A06\3&473F1A46&0
+    Name:     Driver is running.
+ACPI\PNP0103\0
+    Name:     Device is currently stopped.
+ROOT\COMPOSITEBUS\0000
+    Name:     Driver is running.
+ROOT\VDRVROOT\0000
+    Name:     Driver is running.
+PCI\VEN_8086&DEV_8C3A&SUBSYS_20108086&REV_04\3&11583659&0&B0
+    Name: Intel(R) Management Engine Interface 
+    Driver is running.
+USB\VID_8087&PID_8000\5&118C4926&1&1
+    Name: Generic USB Hub
+    Driver is running.
+SWD\IP_TUNNEL_VBUS\ISATAP_0
+    Name:     Driver is running.
+SWD\IP_TUNNEL_VBUS\ISATAP_1
+    Name:     Driver is running.
+SWD\IP_TUNNEL_VBUS\ISATAP_2
+    Name:     Driver is running.
+SWD\IP_TUNNEL_VBUS\ISATAP_4
+    Name:     Driver is running.
+ROOT\SPACEPORT\0000
+    Name:     Driver is running.
+SWD\MMDEVAPI\{0.0.0.00000000}.{DA555E0E-27E3-4619-BF53-77E51E308AFC}
+    Name:     Driver is running.
+ROOT\INTEL_UOIP_BUS_DRIVER\0000
+    Name: UoIP Hub
+    Driver is running.
+ACPI\PNP0C04\4&2FBD9B47&0
+    Name:     Device is currently stopped.
+ROOT\KDNIC\0000
+    Name:     Driver is running.
+SWD\PRINTENUM\{D943D8D8-F7EB-4400-8EEE-A8CFF8C894B5}
+    Name: Microsoft XPS Document Writer
+    Driver is running.
+STORAGE\VOLUMESNAPSHOT\HARDDISKVOLUMESNAPSHOT2
+    Name:     Driver is running.
+STORAGE\VOLUMESNAPSHOT\HARDDISKVOLUMESNAPSHOT3
+    Name:     Driver is running.
+STORAGE\VOLUMESNAPSHOT\HARDDISKVOLUMESNAPSHOT4
+    Name:     Driver is running.
+SCSI\DISK&VEN_ST1000LM&PROD_014-SSHD-8GB\4&557671E&0&050000
+    Name: ST1000LM014-SSHD-8GB
+    Driver is running.
+SWD\DAFUPNPPROVIDER\UUID:0D1CEF00-00DC-1000-B3C2-50856910A7E6
+    Name: [TV]Samsung LED55
+    Driver is running.
+USB\ROOT_HUB20\4&3A198393&0
+    Name:     Driver is running.
+USB\VID_8087&PID_07DC\5&ECB7860&0&8
+    Name: Intel(R) Wireless Bluetooth(R) 4.0 +     Driver is running.
+STORAGE\VOLUME\{F9D788D8-A2EC-11E4-BE7C-806E6F6E6963}#000000DF58C00000
+    Name:     Driver is running.
+ACPI\PNP0C0D\2&DABA3FF&2
+    Name:     Driver is running.
+ROOT\SUN_VBOXNETFLTMP\0000
+    Name: Intel(R) Wireless-N 7260 - VirtualBox Bridged Networking Driver Miniport
+    Driver is running.
+ROOT\SUN_VBOXNETFLTMP\0001
+    Name: Qualcomm Atheros AR8171/8175 PCI-E Gigabit Ethernet Controller (NDIS 6.30) - VirtualBox Bridged Networking Driver Miniport
+    Driver is running.
+ACPI\IDEA0102\4&2FBD9B47&0
+    Name:     Driver is running.
+SWD\DAFUPNPPROVIDER\UUID:ACD208D5-6A45-C425-BEF2-AB85DB1CC186
+    Name: [TV][LG]42LN655V-ZD
+    Driver is running.
+USB\VID_174F&PID_1486\LENOVO_EASYCAMERA
+    Name:     Driver is running.
+ROOT\UMBUS\0000
+    Name: UMBus     Driver is running.
+ACPI\INT0800\4&2FBD9B47&0
+    Name: Intel(R) 82802 Firmware     Device is currently stopped.
+PCI\VEN_8086&DEV_8C2D&SUBSYS_397817AA&REV_05\3&11583659&0&D0
+    Name: Intel(R) 8 Series/C220 Series USB EHCI #2 - 8C2D
+    Driver is running.
+SWD\DAFUPNPPROVIDER\UUID:A0D67E17-DD73-4A89-B333-E1A1EB524E4D
+    Name: HOME-PC:     Driver is running.
+PCI\VEN_8086&DEV_8C20&SUBSYS_20108086&REV_05\3&11583659&0&D8
+    Name:     Driver is running.
+STORAGE\VOLUME\{F9D788D8-A2EC-11E4-BE7C-806E6F6E6963}#000000DF74E00000
+    Name:     Driver is running.
+SWD\MSDAS\{CE958E9A-424F-4C88-86F4-11314821E75A}
+    Name: Microsoft Device Association Root Enumerator
+    Driver is running.
+ROOT\ACPI_HAL\0000
+    Name: ACPI     Driver is running.
+PCI\VEN_10DE&DEV_0FE3&SUBSYS_380917AA&REV_A1\4&22495785&0&0008
+    Name: NVIDIA GeForce GT 745M 
+    Driver is running.
+ACPI\PNP0A08\0
+    Name: PCI Express Root Complex
+    Driver is running.
+ACPI\VPC2004\0
+    Name: Lenovo ACPI-Compliant Virtual Power Controller
+    Driver is running.
+HID\VID_062A&PID_4101&MI_01&COL02\7&9E78E0&0&0001
+    Name: HID-    Driver is running.
+PCI\VEN_8086&DEV_8C03&SUBSYS_20108086&REV_05\3&11583659&0&FA
+    Name: Intel(R) 8 Series Chipset Family SATA AHCI Controller
+    Driver is running.
+USB\ROOT_HUB30\4&1CDEB120&0&0
+    Name:     Driver is running.
+USB\VID_8087&PID_8008\5&2738FD5E&1&1
+    Name: Generic USB Hub
+    Driver is running.
+ACPI\PNP0C09\4&2FBD9B47&0
+    Name: Microsoft ACPI-    Driver is running.
+ACPI_HAL\PNP0C08\0
+    Name: Microsoft ACPI-    Driver is running.
+HTREE\ROOT\0
+    Driver is running.
+ROOT\BASICRENDER\0000
+    Name:     Driver is running.
+ACPI\PNP0100\4&2FBD9B47&0
+    Name:     Device is currently stopped.
+SWD\PRINTENUM\WSD-DE2A1FAC-535F-4682-83D3-A3EB26E01643.006F
+    Name: HP LaserJet Enterprise 600 M601 M602 M603 PCL6 Class Driver
+    Driver is running.
+SWD\PRINTENUM\{9D7DBACD-D102-4149-B2DB-FFEC94371EAB}
+    Name: Fax
+    Driver is running.
+SWD\MMDEVAPI\{0.0.1.00000000}.{45603916-1117-4031-BEF0-69F6FDFB99CC}
+    Name:     Driver is running.
+PCI\VEN_1969&DEV_10A1&SUBSYS_10911969&REV_10\FF15970C600292FF00
+    Name: Qualcomm Atheros AR8171/8175 PCI-E Gigabit Ethernet Controller (NDIS 6.30)
+    Driver is running.
+SWD\DAFUPNPPROVIDER\UUID:3E95AA84-AFD8-40E3-8637-EB60460D786A
+    Name: HOME-PC: yourninel@mail.ru:
+    Driver is running.
+PCI\VEN_8086&DEV_8C26&SUBSYS_397817AA&REV_05\3&11583659&0&E8
+    Name: Intel(R) 8 Series/C220 Series USB EHCI #1 - 8C26
+    Driver is running.
+ACPI\FIXEDBUTTON\2&DABA3FF&2
+    Name:     Driver is running.
+PCI\VEN_8086&DEV_0416&SUBSYS_380917AA&REV_06\3&11583659&0&10
+    Name: Intel(R) HD Graphics 4600
+    Driver is running.
+SCSI\CDROM&VEN_ZCZS&PROD_52RS52NK&REV_1.04\5&DF378D4&0&000000
+    Name: ZCZS 52RS52NK SCSI CdRom Device
+    Driver is running.
+SWD\MMDEVAPI\{0.0.1.00000000}.{84651A39-A058-49EE-8BE0-A9230DD19C5F}
+    Name:     Driver is running.
+ACPI\ACPI000E\2&DABA3FF&2
+    Name: ACPI Wake Alarm
+    Driver is running.
+ACPI\SYN2B16\4&2FBD9B47&0
+    Name: Lenovo Pointing Device
+    Driver is running.
+STORAGE\VOLUME\{F9D788D8-A2EC-11E4-BE7C-806E6F6E6963}#000000004ED00000
+    Name:     Driver is running.
+USB\VID_174F&PID_1486&MI_00\6&3A68C928&0&0000
+    Name: Lenovo EasyCamera
+    Driver is running.
+ACPI\PNP0C14\MXM2
+    Name:     Driver is running.
+USB\VID_058F&PID_6366\058F63666485
+    Name: Alcor Micro USB 2.0 Card Reader
+    Driver is running.
+USB\VID_0B05&PID_5210\CCATCT070096
+    Name: PadFone 2
+    Driver is running.
+ROOT\VMWVMCIHOSTDEV\0000
+    Name: VMware VMCI Host Device
+    Driver is running.
+ACPI\INT340F\2&DABA3FF&2
+    Name: Intel Collaborative Processor Performance Control (CPPC) Driver
+    Driver is running.
+SWD\PRINTENUM\{783BBA1D-BA9C-45D1-8EDA-C6166F6AE555}
+    Name: Printer-Accel-Entrance
+    Driver is running.
+HID\VID_062A&PID_4101&MI_00\7&2475B6A2&0&0000
+    Name:     Driver is running.
+ROOT\WPD\0000
+    Name: Microsoft Visual Studio Location Simulator Sensor
+    Driver is running.
+SWD\DAFWSDPROVIDER\URN:UUID:E3A2DBEA-6C83-88F3-4E98-F0921C611BC2
+    Name: NPI611BC2 (HP LaserJet 600 M602)
+    Driver is running.
+PCI\VEN_8086&DEV_08B2&SUBSYS_42628086&REV_73\AC7BA1FFFF52391000
+    Name: Intel(R) Wireless-N 7260
+    Driver is running.
+ROOT\NDISVIRTUALBUS\0000
+    Name:     Driver is running.
+HID\VID_062A&PID_4101&MI_01&COL03\7&9E78E0&0&0002
+    Name: HID-    Driver is running.
+HID\LENOVOVHID\1&632D18&0&0000
+    Name:     Driver is running.
+USB\VID_062A&PID_4101\5&ECB7860&0&1
+    Name:     Driver is running.
+USB\VID_062A&PID_4101&MI_00\6&33CF72BD&0&0000
+    Name: USB-    Driver is running.
+PCI\VEN_8086&DEV_8C12&SUBSYS_20108086&REV_D5\3&11583659&0&E0
+    Name: Intel(R) 8 Series/C220 Series PCI Express Root Port #2 - 8C12
+    Driver is running.
+ROOT\LENOVOVHID\0000
+    Name: UMDF HID minidriver Device
+    Driver is running.
+PCI\VEN_8086&DEV_8C31&SUBSYS_397817AA&REV_05\3&11583659&0&A0
+    Name:     Driver is running.
+ACPI\GENUINEINTEL_-_INTEL64_FAMILY_6_MODEL_60_-_INTEL(R)_CORE(TM)_I7-4700MQ_CPU_@_2.40GHZ\_1
+    Name: Intel(R) Core(TM) i7-4700MQ CPU @ 2.40GHz
+    Driver is running.
+ACPI\GENUINEINTEL_-_INTEL64_FAMILY_6_MODEL_60_-_INTEL(R)_CORE(TM)_I7-4700MQ_CPU_@_2.40GHZ\_2
+    Name: Intel(R) Core(TM) i7-4700MQ CPU @ 2.40GHz
+    Driver is running.
+ACPI\GENUINEINTEL_-_INTEL64_FAMILY_6_MODEL_60_-_INTEL(R)_CORE(TM)_I7-4700MQ_CPU_@_2.40GHZ\_3
+    Name: Intel(R) Core(TM) i7-4700MQ CPU @ 2.40GHz
+    Driver is running.
+ACPI\GENUINEINTEL_-_INTEL64_FAMILY_6_MODEL_60_-_INTEL(R)_CORE(TM)_I7-4700MQ_CPU_@_2.40GHZ\_4
+    Name: Intel(R) Core(TM) i7-4700MQ CPU @ 2.40GHz
+    Driver is running.
+ACPI\GENUINEINTEL_-_INTEL64_FAMILY_6_MODEL_60_-_INTEL(R)_CORE(TM)_I7-4700MQ_CPU_@_2.40GHZ\_5
+    Name: Intel(R) Core(TM) i7-4700MQ CPU @ 2.40GHz
+    Driver is running.
+ACPI\GENUINEINTEL_-_INTEL64_FAMILY_6_MODEL_60_-_INTEL(R)_CORE(TM)_I7-4700MQ_CPU_@_2.40GHZ\_6
+    Name: Intel(R) Core(TM) i7-4700MQ CPU @ 2.40GHz
+    Driver is running.
+ACPI\GENUINEINTEL_-_INTEL64_FAMILY_6_MODEL_60_-_INTEL(R)_CORE(TM)_I7-4700MQ_CPU_@_2.40GHZ\_7
+    Name: Intel(R) Core(TM) i7-4700MQ CPU @ 2.40GHz
+    Driver is running.
+ACPI\GENUINEINTEL_-_INTEL64_FAMILY_6_MODEL_60_-_INTEL(R)_CORE(TM)_I7-4700MQ_CPU_@_2.40GHZ\_8
+    Name: Intel(R) Core(TM) i7-4700MQ CPU @ 2.40GHz
+    Driver is running.
+PCI\VEN_8086&DEV_0C01&SUBSYS_20108086&REV_06\3&11583659&0&08
+    Name: Intel(R) Xeon(R) processor E3-1200 v3/4th Gen Core processor PCI Express x16 Controller - 0C01
+    Driver is running.
+ROOT\MSSMBIOS\0000
+    Name:     Driver is running.
+ACPI\INT340E\2&DABA3FF&2
+    Name:     Device is currently stopped.
+DISPLAY\CMO1726\4&399B6406&0&UID68092928
+    Name:     Driver is running.
+STORAGE\VOLUME\{F9D788D8-A2EC-11E4-BE7C-806E6F6E6963}#0000000000100000
+    Name:     Driver is running.
+ROOT\SYSTEM\0000
+    Name:     Driver is running.
+ROOT\SYSTEM\0001
+    Name: IWD Bus Enumerator
+    Driver is running.
+PCI\VEN_8086&DEV_8C49&SUBSYS_20108086&REV_05\3&11583659&0&F8
+    Name: Intel(R) HM86 LPC Controller - 8C49
+    Driver is running.
+ACPI\ACPI0003\5&E6C9D0C&0
+    Name:     Driver is running.
+ROOT\RDPBUS\0000
+    Name:     Driver is running.
+SWD\DAFWSDPROVIDER\URN:UUID:E3A2DBEA-6C83-88F3-4E98-F0921C611BC2/URI:E3A2DBEA-6C83-88F3-4E98-F0921C611BC2
+    Name: NPI611BC2 (HP LaserJet 600 M602)
+    Driver is running.
+ROOT\AMPPAL\0000
+    Name:     Driver is running.
+ACPI\PNP0B00\4&2FBD9B47&0
+    Name: CMOS     Driver is running.
+SCSI\CDROM&VEN_MATSHITA&PROD_DVD-RAM_UJ8DB\4&557671E&0&020000
+    Name: MATSHITA DVD-RAM UJ8DB
+    Driver is running.
+USB\ROOT_HUB20\4&38B36D2&0
+    Name:     Driver is running.
+136 matching device(s) found.

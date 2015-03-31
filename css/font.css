@@ -1,0 +1,56 @@
+/* WeblySleek UI CSS */
+/* BEGIN Light */
+@font-face {
+  font-family: 'WS Light';
+  src: url("./fonts/weblysleekuil.ttf");
+}
+/* END Light */
+/* BEGIN Light Italic */
+@font-face {
+  font-family: 'WS Light Italic';
+  src: url("./fonts/weblysleekuili.ttf");
+}
+/* END Light Italic */
+/* BEGIN Regular */
+@font-face {
+  font-family: 'WS';
+  src: url("weblysleekui.ttf");
+}
+/* END Regular */
+/* BEGIN Italic */
+@font-face {
+  font-family: 'WS Italic';
+  src: url("./fonts/weblysleekuii.ttf");
+}
+/* END Italic */
+/* BEGIN Semibold */
+@font-face {
+  font-family: 'WS Semibold';
+  src: url("./fonts/weblysleekuisb.ttf");
+}
+/* END Semibold */
+/* BEGIN Semibold Italic */
+@font-face {
+  font-family: 'WS Semibold Italic';
+  src: url("./fonts/weblysleekuisbi.ttf");
+}
+/* END Semibold Italic */
+/* END Bold Italic */
+
+
+/* BEGIN Semilight */
+@font-face {
+  font-family: 'WS Semilight';
+  src: url("./fonts/weblysleekuisl.ttf");
+  font-weight: 300;
+  font-style: normal;
+}
+/* END  */
+/* BEGIN Semilight Italic */
+@font-face {
+  font-family: 'WS Semilight Italic';
+  src: url("./fonts/weblysleekuisli.ttf");
+  font-weight: 300;
+  font-style: italic;
+}
+/* END Semilight Italic */

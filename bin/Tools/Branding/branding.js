@@ -1,1 +1,0 @@
-﻿var brandTitle = "";	//For example "Special Edition"

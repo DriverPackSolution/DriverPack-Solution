@@ -1,0 +1,207 @@
+<!--[if !(IE 6)]><!-->
+<!DOCTYPE html>
+<!--<![endif]-->
+<html>
+    <head>
+        <title>DriverPack Solution </title>
+        <!-- { IE10 } -->
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="MSThemeCompatible" content="yes" />
+
+        <!-- { NO CACHE IE }-->
+        <meta http-equiv="cache-control" content="no-cache" />
+        <meta http-equiv="expires" content="0" />
+        <meta http-equiv="pragma" content="no-cache" />
+
+        <!-- { STYLES } -->
+        <link rel="stylesheet" type="text/css" href="css/normalize.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/font.css" />
+        <link rel="stylesheet" type="text/css" href="css/open-sans.css" />
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+
+        <!--[if (IE 6)]><!-->
+        <link rel="stylesheet" type="text/css" href="css/ie6.css" />
+        <!--<![endif]-->
+
+        <!-- { LIBRARIES } -->
+        <script type="text/javascript" src="js/ie_fixes.js"></script>
+        <script type="text/javascript" src="js/fixpng.js"></script>
+        <script type="text/javascript" src="js/alasql.js"></script>
+        <script type="text/javascript" src="js/variables.js"></script>
+        
+        <!-- { JSON } -->
+        <!-- <script src="json/DriverPack.js" type="text/javascript"></script> -->
+        <!-- <script src="json/SoftPack.js" type="text/javascript"></script> -->
+        
+        <!-- { MODULES } -->
+        <script src="mod/DriverPack.js" type="text/javascript"></script>
+        <script src="mod/SoftPack.js" type="text/javascript"></script>
+        <!-- <script src="mod/wGet.js" type="text/javascript"></script> -->
+        <script src="mod/WgetPack.js" type="text/javascript"></script>
+
+        <!-- { FAVICON } -->
+        <link rel="shortcut icon" href="img\icon.ico" type="image/x-icon" />
+
+        <!-- { IF [NOSCRIPT] } -->
+        <noscript>
+        <meta http-equiv="refresh" content="10;URL='http://drp.su/error/noscript/'">
+        </noscript>
+    </head>
+
+    <HTA:APPLICATION ID="dpa"
+                     application="yes"
+                     applicationName="DriverPack Solution Neue"
+                     borderStyle="normal"
+                     caption="yes"
+                     contextMenu="yes"
+                     icon="./img/icon.ico"
+                     innerBorder="no"
+                     maximizeButton="yes"
+                     minimizeButton="yes"
+                     navigable="yes"
+                     scroll="yes"
+                     scrollFlat="no"
+                     selection="no"
+                     showInTaskBar="yes"
+                     singleInstance="no"
+                     sysMenu="yes"
+                     version="0.1"
+                     windowState="maximize"/>
+
+    <body>
+        <table class="main">
+            <tr>
+                <!-- { LEFT BLOCK [CHARMS] }-->
+                <td class="charms">
+                    <img src="img\med_logo.png" class="charms_logo"/>
+                    <h2>DriverPack Solution 16</h2>
+                    <!-- { MAIN MENU }-->
+                    <div class="main-menu">
+                        <a href="#" onclick="DriverPack.html();
+                                return false;" class="menu-e green" title="Установка драйверов на компьютер">
+                            <img id="m-pc" src="img/blank.gif"/><i>Драйверы</i>_
+                        </a>
+                        <a href="#" onclick="SoftPack.html();
+                                return false;" class="menu-e" title="Установка основных программ на компьютер">
+                            <img id="m-apps" src="img/blank.gif"/><i>Приложения</i>_
+                        </a>
+                        <a href="" onclick="WgetPack.html();
+                                return false;" class="menu-e" title="Обновление драйверов и компонентов DriverPack Solution">
+                            <img id="m-down" src="img/blank.gif"/><i>Менеджер закачек</i>_
+                        </a>
+                        <!--
+                        <a href="" class="menu-e" title="Повышение производительности системы за счет специализированых настроек">
+                            <img id="m-setup" src="img/blank.gif"/><i>Оптимизация</i>_
+                        </a>
+                        <a href="" class="menu-e" title="Диагностика состояния компьютера">
+                            <img id="m-toolkit" src="img/blank.gif"/><i>Диагностика</i>_
+                        </a>
+                        -->
+                    </div>
+
+                    <!-- { BOTTOM MENU } -->
+            <u id="bottom-menu-line">__</u>
+            <div class="bottom-menu">
+                <a href="" class="bt-menu-e" title="">
+                    <img id="m-reload" src="img/blank.gif"/><i>Обновить окно</i>_
+                </a>
+                <a href="" class="bt-menu-e" title="">
+                    <img id="m-uac" src="img/blank.gif"/><i>Диспечер устройств</i>_
+                </a>
+                <a href="" class="bt-menu-e" title="">
+                    <img id="m-store" src="img/blank.gif"/><i>Уст. и удал. программ</i>_
+                </a>
+                <a href="" class="bt-menu-e" title="">
+                    <img id="m-gears" src="img/blank.gif"/><i>Настройки</i>_
+                </a>
+                <a href="" class="bt-menu-e" title="">
+                    <img id="m-help" src="img/blank.gif"/><i>Справка</i>_
+                </a>
+            </div>
+
+        </td>
+        <!-- { RIGHT BLOCK [CONTENT] }-->
+        <td class="app-container">
+            <h1>Установка драйверов</h1>
+            <div class="notification">
+                <div class="nt-body"><img src="img/info.png"><span>Найдены доступные для установки драйвера</br></span></div>
+                <div class="nt-footer"><a onclick="" class="">Установить все</a></div>
+            </div>
+
+            <!-- { ITEMS [LIST] } -->
+            <div class="items-list">
+                <table id="list">
+                    <thead>
+                        <tr>
+                            <td></td>
+                            <td>Название</td>
+                            <td>Версия</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="app-footer">
+                <button onclick="appget();">Установить</button>
+            </div>
+
+        </td>
+    </tr>
+</table>
+<div id="loader">&nbsp;</div>
+<!-- { SCRIPT LOADS AFTER ALL PAGE CONTENT } -->
+<script type="text/javascript">
+    try {
+        //fixPNG($('.menu-item-img'));
+        //alert('a');
+    }
+    catch (e)
+    {
+        alert(e.toString());
+    }
+
+    /*
+     * если на нативном js, то добавить:
+     document.getElementById("m-apps").parentNode.classList.add("green");
+     убрать document.getElementById("m-apps").parentNode.classList.remove("green");
+     */
+
+    function appget() {
+
+        document.getElementById('loader').style.display = 'block';
+        var names = new Array();
+        var tbodys = document.getElementById('list').getElementsByTagName('tbody');
+        for (var i = 0, n = tbodys.length; i < n; i++) {
+            if (i in tbodys) {
+                var inputs = tbodys[i].getElementsByTagName('input');
+                for (var j = 0, m = inputs.length; j < m; j++) {
+                    if (j in inputs && inputs[j].type == 'checkbox' && inputs[j].checked) {
+                        names.push(decodeURIComponent(('dataset' in inputs[j]) ? inputs[j].dataset.name : inputs[j].getAttribute("data-name")));
+                    }
+                }
+            }
+        }
+        /*$('#list tbody input[type=checkbox]:checked').each(function () {
+         names.push(decodeURIComponent($(this).data('name')));
+         });*/
+        for (var i = 0; i < names.length; i++) {
+            SoftPack.get(names[i]).download();
+            SoftPack.get(names[i]).install();
+        }
+        document.getElementById('loader').style.display = 'none';
+    }
+    document.addEventListener("DOMContentLoaded", function (event) {
+        document.getElementById('loader').style.display = 'block';
+        window.offscreenBuffering = false;
+        setTimeout(function () {
+            DriverPack.html();
+        }, 2 * 1000);
+
+    });
+</script>
+</body>
+</html>

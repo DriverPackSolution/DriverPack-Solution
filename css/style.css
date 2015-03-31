@@ -1,0 +1,388 @@
+/* FIX */
+html {
+    margin: 0px;
+    padding:0px;
+    background-color: white;
+    font-style:normal;
+    font-size: 10pt;
+    font-family: 'Open Sans', 'Segoe UI',sans-serif;
+    min-width: 600px;
+    background-color: #ebebeb;
+    height: 100%;
+    width: 100%;
+
+}
+body{
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.right{
+    float:right;
+}
+.left {
+    float:left;
+}
+.green{
+    background-color:#007701;
+}
+
+
+/* { LEFT CHARMS BAR } */
+.charms{
+    background-color: #222222;
+    width: 266px;
+    max-width:266px;
+    min-width:266px;
+    vertical-align: top;
+    padding-top:24px;
+    padding-bottom:10px;
+    padding-left:0px;
+    padding-right:0px;
+    height: 100%;
+    min-height: 600px;
+}
+
+.a{
+    text-decoration: none;
+}
+.a:hover{
+    text-decoration: underline;
+    background-color: red;
+}
+
+/* { CHARMS LOGO } */
+.charms_logo {
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-bottom:15px;
+    float: left;
+}
+h2 {
+    color: white;
+    width: 150px;
+    float: left;
+    font-size: 18pt;
+    margin: 5px 0;
+}
+/* { Menu } */
+.main-menu {
+
+}
+.menu-e{
+    width:100%;
+    height:48px;
+    color:#222222;
+    cursor:pointer;
+    text-decoration: none;
+    font-size:0px;
+    float:left;
+    text-decoration: none;
+
+}
+.menu-e img{
+    height: 48px;
+    width: 64px;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.menu-e i{
+    font-style: normal;
+    font-size:13pt;
+    position: relative;
+    bottom:18px;
+    color:white;
+}
+
+.menu-e:hover{
+    background-color:#007701;
+    color:#007701;
+}
+.menu-e:active{
+    background-color:black;
+}
+
+/* Bottom Menu */
+#bottom-menu-line{
+    background-image: url('../img/charms/line.jpg');
+    background-repeat: repeat-x;
+    background-position: top;
+    /*width:200px;*/
+    color:#222222;
+    padding-right:200px;
+    font-size:1px;
+    height:10px;
+    margin-left: 30px;
+    margin-top:30px;
+
+}
+.bottom-menu{
+    margin-top:10px;
+    width: 200px;
+    margin-left: 30px;
+}
+.bt-menu-e{
+    width:100%;
+    height:32px;
+    color:#222222;
+    cursor:pointer;
+    text-decoration: none;
+    font-size:0px;
+    float:left;
+    text-decoration: none;
+}
+
+.bt-menu-e img{
+    height: 24px;
+    width: 24px;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.bt-menu-e i{
+    font-style: normal;
+    font-size:10pt;
+    position: relative;
+    bottom:10px;
+    left:10px;
+    color:white;
+}
+
+
+
+
+/* ICONS */
+
+#m-down{
+    background-image: url('../img/charms/download.png');
+    background-position: center center;
+}
+
+#m-setup{
+    background-image: url('../img/charms/setup.png');
+    background-position: center center;
+}
+
+#m-pc {
+    background-image: url('../img/charms/pc.png');
+    background-position: center center;
+}
+
+#m-apps{
+    background-image: url('../img/charms/apps.png');
+    background-position: center center;
+}
+#m-toolkit{
+    background-image: url('../img/charms/toolkit.png');
+    background-position: center center;
+}
+#m-reload{
+    background-image: url('../img/charms/reload-sm.png');
+    background-position: center center;
+}
+#m-uac{
+    background-image: url('../img/charms/uac.png');
+    background-position: center center;
+}
+#m-store{
+    background-image: url('../img/charms/store.png');
+    background-position: center center;
+}
+#m-gears{
+    background-image: url('../img/charms/gears.png');
+    background-position: center center;
+}
+#m-help{
+    background-image: url('../img/charms/help.png');
+    background-position: center center;
+}
+#drv-sound{
+    background-image: url('../img/speaker.png');
+    background-position: center center;
+}
+#drv-wifi{
+    background-image: url('../img/wifi.png');
+    background-position: center center;
+}
+#drv-cam{
+    background-image: url('../img/cam.png');
+    background-position: center center;
+}
+#drv-generic{
+    background-image: url('../img/device-generic.png');
+    background-position: center center;
+}
+
+/*
+#m-reload{
+        background-image: url('../img/charms/reload-rm.png');
+        background-position: center center;
+}
+#m-reload{
+        background-image: url('../img/charms/reload-rm.png');
+        background-position: center center;
+}*/
+
+
+
+/* { APP-CONTAINER } */
+.main {
+    width:100%;
+    border:none;
+}
+.main tr{
+    border:none;
+}
+.main td{
+    border:none;
+}
+.app-container{
+    color:black;
+    height:100%;
+    vertical-align: top;
+    margin:0px;
+    padding:0px;
+    padding-top: 24px;
+    padding-bottom: 48px;
+    padding-left:32px;
+    padding-right:32px;
+}
+.app-container h1{
+    font-size:18pt;
+    color:#252525;
+    padding-bottom: 10px;
+}
+.app-container a{
+    color:#007701;
+    text-decoration: none;
+    cursor:pointer;
+}
+.app-container a:hover{
+    text-decoration: underline;
+}
+.app-container .app-footer {
+    padding-top:32px;
+    padding-bottom: 32px;
+}
+.app-container button{
+    background: none;
+    border:none;
+    margin:	0px;
+    padding: 0px;
+    width:120px;
+    height: 40px;
+    background-color:#007701;
+    padding-top:8px;
+    padding-left:12px;
+    padding-bottom: 8px;
+    padding-right: 12px;
+    color:white;
+    font-weight: bold;
+    font-size:10pt;
+    font-family: 'Open Sans', 'Segoe UI',sans-serif;
+    outline:none;
+    cursor:pointer;
+}
+.app-container button:active{
+    background-color: black;
+
+}
+.notification{
+    border-top: 1px solid #898989;
+    border-bottom: 1px solid #898989;
+    width: 100%;
+    padding-top:15px;
+    padding-bottom:15px;
+    font-size: 9pt;
+}
+.notification .nt-body{
+    color:#383838;
+
+}
+.nt-body span{
+    position: relative;
+    bottom: 3px;
+    left: 5px;
+}
+.nt-footer{
+    padding-top:3px;
+    padding-left:20px;
+}
+
+
+
+
+
+
+
+
+
+/* { COMMON } */
+
+.items-list {
+    margin-top:24px;
+    margin-bottom:24px;
+    width:100%;
+    background: url('../img/table-list.jpg');
+}
+.items-list table{
+    width:100%;
+    height:100%;
+    margin:0px;
+    padding:0px;
+    border:none;
+}
+.items-list .list-first{
+    width:48px;
+
+    height:32px;
+}
+.items-list .list-second{
+    padding-left: 10px;
+    font-size: 9pt;
+}
+.items-list .list-third{
+    font-size: 9pt;
+    width:48px;
+}
+.items-list .list-last{
+    width:40px;
+}
+.list-third b{
+    margin-right: 10px;
+}
+.list-first img{
+    float:right;
+    width:32px;
+    height:32px;
+}
+.items-list tr{
+    height:50px;
+}
+
+
+/* { DEBUG } */
+.red {
+    background-color: red;
+}
+
+.dbg {
+    background-color: #ff00ff;
+}
+
+.dbg2 {
+    background-color: #00ff00;
+}
+#loader{
+    background: url(../img/loading.gif) no-repeat scroll center center rgba(0,0,0,0.6);
+    background-size: 50px 50px;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    display: none;
+    top: 0;
+    width: 100%;
+    z-index: 9999;
+}
