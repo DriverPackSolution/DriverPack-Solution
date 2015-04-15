@@ -1,5 +1,5 @@
 var version = "16";
-var verType = "Beta";
+var verType = "";
 
 var WshShell = new ActiveXObject("WScript.Shell");
 var AppData = this.WshShell.SpecialFolders("AppData");
@@ -25,6 +25,41 @@ var DriverenumItems = new Enumerator(DrivercolItems);
 var driverJsonDB = '';
 var softJsonDB = '';
 var wgetJsonDB = '';
+
+
+//JSONP
+var JSONP = function(global){
+    // (C) WebReflection Essential - Mit Style
+	// 216 bytes minified + gzipped via Google Closure Compiler
+    function JSONP(uri, callback) {
+        function JSONPResponse() {
+            try { delete global[src] } catch(e) {
+                // kinda forgot < IE9 existed
+                // thanks @jdalton for the catch
+                global[src] = null
+            }
+            documentElement.removeChild(script);
+            callback.apply(this, arguments);
+        }
+        var
+            src = prefix + id++,
+            script = document.createElement("script")
+        ;
+        global[src] = JSONPResponse;
+        documentElement.insertBefore(
+            script,
+            documentElement.lastChild
+        ).src = uri + "=" + src;
+    }
+    var
+        id = 0,
+        prefix = "__JSONP__",
+        document = global.document,
+        documentElement = document.documentElement
+    ;
+    return JSONP;
+}(this);
+//JSONP
 
 var request = {
     getXmlHttp: function () {     // функция для создания объекта AJax
@@ -60,6 +95,12 @@ var request = {
      },*/
     send: function (params) {
         var xmlhttp = this.getXmlHttp();
+		//var xmlhttp = XMLHttpRequest;
+		//var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
+		//var xmlhttp = new XHR();
+		//var xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		//var xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+		//var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function () {
             if (xmlhttp.readyState == 4) {
                 if (xmlhttp.status == 200 && typeof params.success == 'function') {
@@ -77,18 +118,19 @@ var request = {
             data = params.data;
         }
         if (params.type === 'GET') {
-            xmlhttp.open(params.type, params.url + '?' + data, params.sync);
+			//alert(params.type+ ' '+ params.url + '?' + data + ' '+ params.async);
+            xmlhttp.open(params.type, params.url + '?' + data, params.async);
             //xmlhttp.setRequestHeader('Content-Type', params.contentType);
             xmlhttp.setRequestHeader('Accept-Charset', 'utf-8');
             xmlhttp.setRequestHeader('Content-Type', params.contentType);
             xmlhttp.send();
         } else if (params.type === 'POST') {
-            xmlhttp.open(params.type, params.url, params.sync);
+            xmlhttp.open(params.type, params.url, params.async);
             xmlhttp.setRequestHeader('Content-Type', params.contentType);
             xmlhttp.send(data);
         }
     }
-}
+};
 
 var resize = {
     init: function () {
@@ -106,21 +148,7 @@ var resize = {
         catch (err) {
         }
         document.title = document.title + " " + version + " " + verType;
-        try {
-            window.attachEvent('onresize',
-                    function () {
-                        if ($(window).width() < 718) { //hide panel
-                            tooglePanel(false);
-                        }
-                        else if ($(window).width() > (800)) { //show panel
-                            tooglePanel(true);
-                        }
-                    }
-            );
-        }
-        catch (err) {
-        }
     }
-}
+};
 
 resize.init();

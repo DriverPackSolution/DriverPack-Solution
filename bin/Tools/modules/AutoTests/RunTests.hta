@@ -1,0 +1,223 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <title>DRP Su AutoTests</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+            <meta HTTP-EQUIV="MSThemeCompatible" content="yes">
+
+                <script type="text/javascript" src="init.js"></script>
+                <script type="text/javascript" src="variables.js"></script>
+                <script type="text/javascript">
+
+                    window.onload = function () {
+
+                        objSel = document.getElementById('selectlist');
+                        objTextA = document.getElementById('textarea');
+
+                        // Заполнить список найденных для тестирования модулей
+                        var fc = new Enumerator(fso.GetFolder(getFullPath()).Files);
+                        for (fc.moveFirst(); !fc.atEnd(); fc.moveNext()) {
+                            file_name = fc.item().name;
+                            if (file_name.match(/.js/i)) {
+                                if ((file_name.indexOf('variables.js') == -1) && (file_name.indexOf('init.js') == -1)) {
+                                    objSel.options[objSel.options.length] = new Option(file_name);
+                                }
+                            }
+                        }
+                        // Заполнить список найденных для тестирования модулей
+
+                        if (dpa_tests.commandLine.indexOf(' /start') != -1) {
+                            runTest();
+                        }
+                    }
+
+
+
+
+                    window.onerror = function (msg, url, linenumber) {
+                        echo(
+                                '\r\n\r\n   !!! ERROR: ' +
+                                msg + '\r\n' +
+                                '   !!! In the module: ' +
+                                url + '\r\n' +
+                                '   !!! Line: ' +
+                                linenumber + '\r\n');
+
+                        next_script();
+
+                        return true;
+                    }
+
+
+
+                    //Завершаем RunTest принудительно, через 5 минут
+                    setTimeout(
+                            function () {
+
+                                if (dpa_tests.commandLine.indexOf(' /start') != -1) {
+                                    window.close();
+                                }
+
+                            },
+                            300000
+                            );
+
+
+
+                    function next_script() {
+
+                        if (dpa_tests.commandLine.indexOf(' /start') != -1) {
+                            try {
+                                objSel.selectedIndex++;
+                                runTest();
+                            }
+                            catch (e) {
+                                window.close();
+                            }
+                        }
+
+                    }
+
+
+
+                    function getFullPath() {
+                        var fullpath1 = document.location.pathname;
+                        var substring_start = 0;
+                        var substring_end = fullpath1.lastIndexOf('\\');
+
+                        if (fullpath1.indexOf('/') == 0) {
+                            substring_start = 1;
+                        }	//Fix if slash is first charecter
+                        if (substring_end == -1) {
+                            substring_end = fullpath1.lastIndexOf('/') + 1;
+                        }	//Fix for run from IE
+                        fullpath1 = fullpath1.substring(substring_start, substring_end);
+
+                        return fullpath1;
+                    }
+
+
+                    // Кнопка запуска тестирования
+                    function runTest() {
+                        // Очистка счетчиков
+                        testCount = 0;
+                        // Очистка счетчиков
+
+                        var testScript = objSel.options[objSel.selectedIndex].text;
+                        echo("\r\n ------- Run test for " + testScript + " ------- \r\n");
+                        inc(testScript);
+                    }
+
+                    function autoScroll() {
+                        objTextA.scrollTop = objTextA.scrollHeight;
+                    }
+
+                    var folderReport = getFullPath() + "\\Reports";
+                    var fileReport = folderReport + "\\" + WshShell.ExpandEnvironmentStrings("%computername%") + ".txt";
+                    function echo(str) {
+
+                        //Записываем вывод в файл
+                        if (!fso.FolderExists(folderReport + "\\")) {
+                            fso.CreateFolder(folderReport)
+                        }
+                        var fileReportOpen = fso.OpenTextFile(fileReport, 8, true);
+                        fileReportOpen.WriteLine(str);
+                        fileReportOpen.close();
+
+                        //Выводим в текстовую форму
+                        objTextA.value += str + '\r\n';
+                        autoScroll();
+
+                    }
+
+                    testCount = 0;
+                    caseSensitive = true;
+                    function test(func, retu) {
+                        testCount++;
+                        if (!caseSensitive) {
+                            func = func.toLowerCase();
+                            retu = retu.toLowerCase();
+                        }
+                        if (func == retu) {
+                            result = 'Ok';
+                        }
+                        else {
+                            result = 'ERROR!!! (Function result: "' + func + '", \r\n\r\n Need result: "' + retu + '")';
+                        }
+                        echo("Test " + testCount + ": " + result + "\r\n\r\n\r\n\r\n\r\n\r\n");
+                    }
+
+
+                    function print_r(arr, level) {
+                        var print_red_text = "";
+                        if (!level)
+                            level = 0;
+                        var level_padding = "";
+                        for (var j = 0; j < level + 1; j++)
+                            level_padding += "    ";
+                        if (typeof (arr) == 'object') {
+                            for (var item in arr) {
+                                var value = arr[item];
+                                if (typeof (value) == 'object') {
+                                    print_red_text += level_padding + "'" + item + "' :\n";
+                                    print_red_text += print_r(value, level + 1);
+                                }
+                                else
+                                    print_red_text += level_padding + "'" + item + "' => \"" + value + "\"\n";
+                            }
+                        }
+
+                        else
+                            print_red_text = "===>" + arr + "<===(" + typeof (arr) + ")";
+                        return print_red_text;
+                    }
+                </script>
+                <!--<script type="text/javascript" src="bugreport.js"></script>-->
+
+                <style type="text/css">
+                    body {
+                        padding:0;
+                        margin:0;
+                        font:5pt arial;
+                        font-size:9px;
+                        background-color:#f3f5f7;
+                        font-size:9pt;
+                        font-family:Microsoft Sans Serif;
+                        margin:5px;
+                        margin-right:15px;
+                    }
+                    p { font:9pt arial; margin: 10px; padding-left:15px; }
+                </style>
+
+                <HTA:APPLICATION ID="dpa_tests"
+                                 application="yes"
+                                 applicationName="Driver Pack Autorun"
+                                 border="dialog"
+                                 borderStyle="normal"
+                                 caption="yes"
+                                 contextMenu="yes"
+                                 icon="../../Icon.ico"
+                                 innerBorder="no"
+                                 maximizeButton="no"
+                                 minimizeButton="no"
+                                 navigable="yes"
+                                 scroll="no"
+                                 scrollFlat="no"
+                                 selection="no"
+                                 showInTaskBar="yes"
+                                 singleInstance="no"
+                                 sysMenu="yes"
+                                 version="0.1"
+                                 windowState="normal"/>
+
+                </head>
+
+                <body>
+
+                    <div>
+                        <select id="selectlist" style="width:93%;"></select>
+                        <input type="button" id="runTest" onclick="runTest();" value="Запустить">
+                    </div>    
+                    <textarea style="width:100%;height:95%;" rows="25" cols="56" id="textarea"></textarea>
+
+                </body>
+                </html>

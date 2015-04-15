@@ -1,0 +1,27 @@
+
+ ------- Run test for SoftPack.js ------- 
+
+
+
+   !!! ERROR: Не удалось получить свойство "columns" ссылки, значение которой не определено или является NULL
+   !!! In the module: file:///C:/Dropbox/DriverPack-Solution-AutoTests/bin/js/alasql.js
+   !!! Line: 6699
+
+
+ ------- Run test for SoftPack.js ------- 
+
+
+ ------- Run test for SoftPack.js ------- 
+
+
+
+   !!! ERROR: Не удалось получить свойство "columns" ссылки, значение которой не определено или является NULL
+   !!! In the module: file:///C:/Dropbox/DriverPack-Solution-AutoTests/bin/js/alasql.js
+   !!! Line: 6699
+
+
+
+   !!! ERROR: Не удалось получить свойство "columns" ссылки, значение которой не определено или является NULL
+   !!! In the module: file:///C:/Dropbox/DriverPack-Solution-AutoTests/bin/js/alasql.js
+   !!! Line: 6699
+

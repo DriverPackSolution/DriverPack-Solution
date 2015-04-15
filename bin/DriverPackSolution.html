@@ -29,16 +29,18 @@
         <script type="text/javascript" src="js/fixpng.js"></script>
         <script type="text/javascript" src="js/alasql.js"></script>
         <script type="text/javascript" src="js/variables.js"></script>
-        
+
         <!-- { JSON } -->
         <!-- <script src="json/DriverPack.js" type="text/javascript"></script> -->
         <!-- <script src="json/SoftPack.js" type="text/javascript"></script> -->
-        
+
         <!-- { MODULES } -->
         <script src="mod/DriverPack.js" type="text/javascript"></script>
         <script src="mod/SoftPack.js" type="text/javascript"></script>
-        <!-- <script src="mod/wGet.js" type="text/javascript"></script> -->
         <script src="mod/WgetPack.js" type="text/javascript"></script>
+
+        <!-- { TEST } -->
+
 
         <!-- { FAVICON } -->
         <link rel="shortcut icon" href="img\icon.ico" type="image/x-icon" />
@@ -136,7 +138,7 @@
                         <tr>
                             <td></td>
                             <td>Название</td>
-                            <td>Версия</td>
+                            <td></td>
                             <td></td>
                         </tr>
                     </thead>
@@ -146,7 +148,7 @@
                 </table>
             </div>
             <div class="app-footer">
-                <button onclick="appget();">Установить</button>
+                <button onclick="getDownloadInstall();">Установить</button>
             </div>
 
         </td>
@@ -170,7 +172,7 @@
      убрать document.getElementById("m-apps").parentNode.classList.remove("green");
      */
 
-    function appget() {
+    function getDownloadInstall() {
 
         document.getElementById('loader').style.display = 'block';
         var names = new Array();
@@ -189,10 +191,21 @@
          names.push(decodeURIComponent($(this).data('name')));
          });*/
         for (var i = 0; i < names.length; i++) {
-            SoftPack.get(names[i]).download();
-            SoftPack.get(names[i]).install();
+            if (document.getElementById("m-pc").parentNode.classList.contains("green")) {
+                DriverPack.get(names[i]).download();
+                DriverPack.get(names[i]).install();
+            }
+            //echo('  test(SoftPack.get("' + names[i] + '").download(), \'' + JSON.stringify(SoftPack.get(names[i]).download()) + '\');');
+            //echo('  test(SoftPack.get("' + names[i] + '").install(), \'' + JSON.stringify(SoftPack.get(names[i]).install()) + '\');');
+            if (document.getElementById("m-apps").parentNode.classList.contains("green")) {
+                SoftPack.get(names[i]).download();
+                SoftPack.get(names[i]).install();
+            }
         }
         document.getElementById('loader').style.display = 'none';
+    }
+    if (verType !== ''){
+        inc('test/echo.js');
     }
     document.addEventListener("DOMContentLoaded", function (event) {
         document.getElementById('loader').style.display = 'block';
@@ -200,6 +213,7 @@
         setTimeout(function () {
             DriverPack.html();
         }, 2 * 1000);
+        document.getElementById('loader').style.display = 'none';
 
     });
 </script>
