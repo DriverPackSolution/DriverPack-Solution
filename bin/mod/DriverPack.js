@@ -5,27 +5,62 @@ var DriverPack = {
     not_installed: [],
     installed: [],
     not_versions: [],
-    init: function () {
-        var i = 0;
+	driverDetect: function(){		
+		var start = new Date();
+		
+		//var DrivercolItems = objWMIService.ExecQuery("SELECT HardWareID FROM Win32_PnPSignedDriver WHERE HardWareID != null AND (HardWareID LIKE 'PCI%' OR HardWareID LIKE 'HDAUDIO%' OR HardWareID LIKE 'USB%' OR HardWareID LIKE 'ACPI%' OR HardWareID LIKE '*%')", "WQL");
+		/*
+		ClassGuid, CompatID, Description, DeviceClass, DeviceID, DeviceName, DriverDate, DriverProviderName, DriverVersion, HardWareID, InfName, IsSigned, Location, Manufacturer, Signer, 
+		*/
+		var DrivercolItems = objWMIService.ExecQuery("SELECT * FROM  Win32_PnPSignedDriver WHERE HardWareID != null", "WQL");
+		var DriverenumItems = new Enumerator(DrivercolItems);
+		
+		var i = 0;
         for (; !DriverenumItems.atEnd(); DriverenumItems.moveNext()) {
-            this.installed[i++] = DriverenumItems.item().DeviceID.toString().replace(/\\/g, "-").toUpperCase();
+			//var devid = DriverenumItems.item().DeviceID.toString().toUpperCase();
+			var driverItem = DriverenumItems.item();
+			var driverDeviceID = driverItem.HardWareID.toString().toUpperCase()
+
+			if ((driverDeviceID.indexOf('PCI\\')==0) || (driverDeviceID.indexOf('USB\\')==0) || (driverDeviceID.indexOf('HDAUDIO\\')==0) || (driverDeviceID.indexOf('ACPI\\')==0) || (driverDeviceID.indexOf('*')==0)) {
+				//Добавляем устройства только таких типов: PCI, USB, HDAUDIO, ACPI
+				
+				if (this.installed.indexOf(driverDeviceID) == -1){ //Только уникальные DeviceID
+					this.installed[i++] = driverDeviceID;
+				}
+				
+			}
         }
+		
+		var end = new Date();
+		echo('Speed driverDetect(): ' + (end.getTime()-start.getTime()) + ' ms');
+		
+	},
+    init: function () {
+		this.driverDetect();
+		
         if (this._json === '') {
             this._json = {
                 'soft': new Array()
             };
             var data = {
-                not_installed: JSON.stringify(this.not_installed),
-                installed: JSON.stringify(this.installed),
+                not_installed: JSON.stringify(this.not_installed).replace(/\\\\/ig,"-"),
+                installed: JSON.stringify(this.installed).replace(/\\\\/ig,"-"),
                 version: SVersion,
-                os: OSVersion
+                os: (OSVersion=='6.1'?'7':OSVersion)
             };
             var get = Object.keys(data).map(function (k) {
                 return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
             }).join('&');
-
-            JSONP('http://test-st.drp.su/drivers/response.php?' + get, function (json) {
+			
+			echo('http://test-st.drp.su/drivers/response.php?callback=drivers_callback&' + get);
+            JSONP('http://test-st.drp.su/drivers/response.php?callback=drivers_callback&' + get);
+			
+			drivers_callback = function (json) {
                     json = JSON.parse(JSON.stringify(json));
+					echo("");
+					echo("JSON drivers_callback():");
+					echo(JSON.stringify(json));
+					echo("");
                     var output = {installed: new Array(), not_installed: new Array()},
                     inst = json.installed.length, ninst = json.not_installed.length, tmp;
                     tmp = {
@@ -67,7 +102,7 @@ var DriverPack = {
                         }
                     }
                     DriverPack.dbReady = true;
-            });
+            };
         }
         /*echo('  DriverPack.init();');
          echo('  test(JSON.stringify(DriverPack._db), \'' + JSON.stringify(DriverPack._db) + '\');');*/

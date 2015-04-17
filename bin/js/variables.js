@@ -19,8 +19,51 @@ for (; !OperatingSystemItems.atEnd(); OperatingSystemItems.moveNext()) {
     var OSVersion = OperatingSystemItems.item().Version.replace(/.\d\d.*/, "");
 }
 
-var DrivercolItems = objWMIService.ExecQuery("SELECT * FROM  Win32_PnPSignedDriver", "WQL");
-var DriverenumItems = new Enumerator(DrivercolItems);
+
+
+
+
+
+function getFullPath() {
+	var fullpath1 = document.location.pathname;
+	var substring_start = 0;
+	var substring_end = fullpath1.lastIndexOf('\\');
+
+	if (fullpath1.indexOf('/') == 0) {
+		substring_start = 1;
+	}	//Fix if slash is first charecter
+	if (substring_end == -1) {
+		substring_end = fullpath1.lastIndexOf('/') + 1;
+	}	//Fix for run from IE
+	fullpath1 = fullpath1.substring(substring_start, substring_end);
+
+	return fullpath1;
+}
+
+var folderReport = getFullPath() + "\\Reports";
+var fileReport = folderReport + "\\" + WshShell.ExpandEnvironmentStrings("%computername%") + ".txt";
+function echo(str) {
+
+	//Записываем вывод в файл
+	if (!FSO.FolderExists(folderReport + "\\")) {
+		FSO.CreateFolder(folderReport)
+	}
+	var fileReportOpen = FSO.OpenTextFile(fileReport, 8, true);
+	fileReportOpen.WriteLine(str);
+	fileReportOpen.close();
+
+	//Выводим в текстовую форму
+	//objTextA.value += str + '\r\n';
+	//autoScroll();
+
+}
+
+
+
+
+
+
+
 
 var driverJsonDB = '';
 var softJsonDB = '';
