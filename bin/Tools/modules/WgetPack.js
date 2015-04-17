@@ -83,7 +83,7 @@ var WgetPack = {
 
         var additionFunctions = {
             download: function (url) {
-                if (FSO.FileExists('tool\\wget.exe')) {
+                if (FSO.FileExists('Tools\\wget.exe')) {
                     if (FSO.GetFileName(url).lastIndexOf(".exe")) {
                         _this.folder[url] = _this.wgetPath + '\\PROGRAMS';
                     } else if (FSO.GetFileName(url).lastIndexOf(".zip")) {
@@ -96,7 +96,7 @@ var WgetPack = {
                         if (!FSO.FolderExists(_this.folder[url])) {
                             FSO.CreateFolder(_this.folder[url]);
                         }
-                        WshShell.Run('"tool\\wget.exe" -P "' + _this.folder[url] + '" ' + url + " -o " + _this.wgetPath + "\\LOGS\\" + FSO.GetFileName(url).slice(0, FSO.GetFileName(url).lastIndexOf(".")) + ".txt", 0, _this._thread)
+                        WshShell.Run('"Tools\\wget.exe" -P "' + _this.folder[url] + '" ' + url + " -o " + _this.wgetPath + "\\LOGS\\" + FSO.GetFileName(url).slice(0, FSO.GetFileName(url).lastIndexOf(".")) + ".txt", 0, _this._thread)
                     }
                     return _this.folder[url] + "\\" + FSO.GetFileName(url);
                 } else {

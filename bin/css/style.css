@@ -18,6 +18,18 @@ body{
     position: relative;
 }
 
+#loader{
+	background: url(../img/loading.gif) no-repeat scroll center center rgba(0,0,0,0.7);
+	background-size: 50px 50px;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: block;
+	z-index: 9999;
+}
+
 .right{
     float:right;
 }
@@ -230,6 +242,7 @@ h2 {
 /* { APP-CONTAINER } */
 .main {
     width:100%;
+	height:100%;
     border:none;
 }
 .main tr{
@@ -355,8 +368,8 @@ h2 {
 }
 .list-first img{
     float:right;
-    width:32px;
-    height:32px;
+    width:16px;
+    height:16px;
 }
 .items-list tr{
     height:50px;
@@ -374,15 +387,4 @@ h2 {
 
 .dbg2 {
     background-color: #00ff00;
-}
-#loader{
-    background: url(../img/loading.gif) no-repeat scroll center center rgba(0,0,0,0.6);
-    background-size: 50px 50px;
-    height: 100%;
-    left: 0;
-    position: fixed;
-    display: none;
-    top: 0;
-    width: 100%;
-    z-index: 9999;
 }

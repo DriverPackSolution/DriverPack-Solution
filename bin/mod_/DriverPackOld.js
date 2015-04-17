@@ -141,7 +141,7 @@ var DriverPack = {
                 } else {
                     /*
                      WshShell.Run('cmd /c rd /S /Q "' + WshShell.ExpandEnvironmentStrings(_this.driverPath) + '"', 0, true);
-                     WshShell.Run('tool\\7za.exe x -yo"' + WshShell.ExpandEnvironmentStrings(_this.driverPath) + '" "' + _this.driverPath + '\\*"', 0, true);
+                     WshShell.Run('Tools\\7za.exe x -yo"' + WshShell.ExpandEnvironmentStrings(_this.driverPath) + '" "' + _this.driverPath + '\\*"', 0, true);
                      WshShell.Run(
                      WshShell.ExpandEnvironmentStrings(_this.driverPath + '\\dpinst\\Setup') + (SVersion == '64' ? '64' : '') + '.exe ' +
                      '/SW /c /sa /PATH "' + WshShell.ExpandEnvironmentStrings(_this.driverPath) + '"',

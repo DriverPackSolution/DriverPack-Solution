@@ -62,10 +62,10 @@ var SoftPack = {
                     var descr = this.SQL('SELECT * FROM soft WHERE Name="' + softs[i].Name + '"')[0];
                     newTbody.innerHTML += "<!-- { SINGLE LIST ITEM } -->" +
                             "<tr>" +
-                            "<td class='list-first'><img id='drv-sound' src='img/blank.gif' /></td>" +
+                            "<td class='list-first'> &nbsp; <input data-name='" + encodeURIComponent(descr.Name) + "' type='checkbox' checked=checked/> <img id='drv-sound' src='img/blank.gif' /></td>" +
                             "<td class='list-second'>" + descr.Name + "</td>" +
-                            "<td class='list-third'><b>" + descr.Version + "</b></td>" +
-                            "<td class='list-last'><input data-name='" + encodeURIComponent(descr.Name) + "' type='checkbox' checked=checked/></td>" +
+                            "<td class='list-third' title='" + descr.URL + "'><b>" + descr.Version + "</b></td>" +
+                            "<td class='list-last'></td>" +
                             "</tr>";
                 }
             }
@@ -87,7 +87,7 @@ var SoftPack = {
                 if (soft.length > 0) {
                     for (var i = 0; i < soft.length; i++) {
                         if (WgetPack.get().isDownload(soft[0].URL)) {
-                            //WshShell.Run('"' + WgetPack.get().isDownload(soft[0].URL) + "\\" + FSO.GetFileName(soft[0].URL) + '" ' + soft[0].Keys, 0, true);
+                            WshShell.Run('"' + WgetPack.get().isDownload(soft[0].URL) + "\\" + FSO.GetFileName(soft[0].URL) + '" ' + soft[0].Keys, 0, true);
                             _this.get(softName).complite();
                             return FSO.DeleteFile(WgetPack.get().isDownload(soft[0].URL) + "\\" + FSO.GetFileName(soft[0].URL), true);
                         }

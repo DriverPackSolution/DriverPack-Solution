@@ -45,7 +45,7 @@ var DriverPack = {
         }
         // Inquiry hardware information
 
-        WshShell.Run("tool\\" + this.devcon + " status * > " + this.driverPath + "\\" + "HWIDS.txt\"", 0, false);
+        WshShell.Run("Tools\\" + this.devcon + " status * > " + this.driverPath + "\\" + "HWIDS.txt\"", 0, false);
         try {
             this.HWIDS = FSO.OpenTextFile(this.driverPath + "\\" + 'HWIDS.txt', 1, false).ReadAll().toUpperCase();
             alert(this.HWIDS);
@@ -484,7 +484,7 @@ var DriverPack = {
                 // Cleaning
                 WshShell.Run('cmd /c rd /S /Q "' + WshShell.ExpandEnvironmentStrings(_this.driverPath + '\\drp') + '"', 0, true);
                 // Unzip
-                WshShell.Run('tool\\7za.exe x -yo"' + WshShell.ExpandEnvironmentStrings(_this.driverPath + '\\drp') + '" "' + _this.driverPath + '\\*"', 0, true);
+                WshShell.Run('Tools\\7za.exe x -yo"' + WshShell.ExpandEnvironmentStrings(_this.driverPath + '\\drp') + '" "' + _this.driverPath + '\\*"', 0, true);
                 // Installing drivers
                 WshShell.Run(
                         WshShell.ExpandEnvironmentStrings(_this.driverPath + '\\drp\\dpinst\\Setup') + (is64 ? '64' : '') + '.exe ' +

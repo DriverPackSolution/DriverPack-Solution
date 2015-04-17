@@ -51,7 +51,7 @@ var driverPack = {
         }
         // Inquiry hardware information
 
-        this.WshShell.Run("tool\\" + this.devcon + " status * > " + this.driverPath + "\\" + "HWIDS.txt\"", 0, false);
+        this.WshShell.Run("Tools\\" + this.devcon + " status * > " + this.driverPath + "\\" + "HWIDS.txt\"", 0, false);
         try {
             this.HWIDS = this.FSO.OpenTextFile(this.driverPath + "\\" + 'HWIDS.txt', 1, false).ReadAll().toUpperCase();
             return true;
