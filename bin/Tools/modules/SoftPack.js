@@ -1,6 +1,6 @@
 var SoftPack = {
     // В качестве базы данных используем softJsonDB
-    _sb: new alasql.Database(),
+    //_sb: new alasql.Database(),
     _json: softJsonDB,
     softPath: AppData + '\\DRPSu\\PROGRAMS',
     OSbit: 32,

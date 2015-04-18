@@ -1,6 +1,5 @@
 
 inc("../../../js/ie_fixes.js");
-inc("../../../js/alasql.js");
 inc("../../../Tools/modules/variables.js");
 inc("../../../Tools/modules/SoftPack.js");
 inc("../../../Tools/modules/WgetPack.js");

@@ -1,10 +1,10 @@
 var DriverPack = {
-    _db: new alasql.Database(),
     _json: driverJsonDB,
     driverPath: AppData + '\\DRPSu\\DRIVERS',
     not_installed: [],
     installed: [],
     not_versions: [],
+	_allDrivers: [],
 	getDevType: function(DevID) {
 		if (DevID == "") { return ""; }
 		if (DevID.indexOf("VEN")  != -1) { return "PCI"; }
@@ -65,14 +65,7 @@ var DriverPack = {
 			action = function(){
 				if ((DriverenumItems.atEnd() == true) || (counter >= limit)){
 					
-					//Callback
-					var end = new Date();
-					//alert('Speed driverDetect(): ' + (end.getTime()-start.getTime()) + ' ms');
-					document.getElementById('loader').style.display = 'none';
 					callback();
-					echo("JSON drivers:\r\n "+JSON.stringify(DriverPack.installed));
-					//setTimeout(function(){alert(JSON.stringify(DriverPack.installed));},1000)
-					//Callback
 					
 					clearTimeout(handle);
 					return;
@@ -103,172 +96,200 @@ var DriverPack = {
 		
 		action();
 		
+		
 	},
-	
+	getDrivers: function(where, what){
+		
+		var allDrivers = DriverPack._allDrivers.installed;
+		var res = [];
+		
+		if ((typeof(where) == 'string') && (typeof(what) == 'string')) {
+			
+			for (var i = 0; i < allDrivers.length; i++) {
+				if (allDrivers[i][where] == what){
+					res[res.length] = allDrivers[i];
+				}
+			}
+			
+			return res;
+		}
+		else if ((typeof(where) != 'string') && (typeof(what) != 'string')) {
+			return allDrivers;
+		}
+		else if ((typeof(where) != 'string') || (typeof(what) != 'string')) {
+			return false;
+		}
+		
+		
+	},
     init: function (callback) {
 		
-		var _this = this;
-		setTimeout(
-			function(){
-				_this.driverDetect(function(){
-
+		setTimeout(function(){
+		
+			DriverPack.driverDetect(function(){
 				
 				
+				document.getElementById('loader').style.display = 'none';
+				echo("JSON drivers:\r\n "+JSON.stringify(DriverPack.installed));
 				
 				
-				
-		if (_this._json === '') {
-            _this._json = {
-                'soft': new Array()
-            };
-            var data = {
-                not_installed: JSON.stringify(_this.not_installed).replace(/\\\\/ig,"-"),
-                installed: JSON.stringify(_this.installed).replace(/\\\\/ig,"-"),
-                version: SVersion,
-                os: (OSVersion=='6.1'?'7':OSVersion)
-            };
-            var get = Object.keys(data).map(function (k) {
-                return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
-            }).join('&');
-			
-			echo('http://test-st.drp.su/drivers/response.php?callback=drivers_callback&' + get);
-            JSONP('http://test-st.drp.su/drivers/response.php?callback=drivers_callback&' + get);
-			
-			drivers_callback = function (json) {
-                    json = JSON.parse(JSON.stringify(json));
-					echo("");
-					echo("JSON drivers_callback():");
-					echo(JSON.stringify(json));
-					echo("");
-                    var output = {installed: new Array(), not_installed: new Array()},
-                    inst = json.installed.length, ninst = json.not_installed.length, tmp;
-                    tmp = {
-                        URL: 'http://test-st.drp.su/drivers/dpinst.zip',
-                        Date: new Date().toString().replace(/\//g, "."),
-                        Name: 'dpinst.zip',
-                        ID: '0'
-                    };
-                    output.installed.push(tmp);
-                    for (var i = 0; i < inst; i++) {
-                        tmp = {
-                            URL: json.installed[i][0],
-                            Date: json.installed[i][1].toString().replace(/\//g, "."),
-                            Name: json.installed[i][2],
-                            ID: json.installed[i][3]
-                        };
-                        output.installed.push(tmp);
-                    }
-                    for (var i = 0; i < ninst; i++) {
-                        tmp = {
-                            URL: json.not_installed[i][0],
-                            Date: json.not_installed[i][1].toString().replace(/\//g, "."),
-                            Name: json.not_installed[i][2],
-                            ID: json.not_installed[i][3]
-                        };
-                        output.not_installed.push(tmp);
-                    }
-                    for (var key in output) {
-                        if (output.hasOwnProperty(key)) {
-                            DriverPack._db.exec('CREATE TABLE ' + key);
-                            for (var column in output[key][0]) {
-                                if (output[key][0].hasOwnProperty(column)) {
-                                    DriverPack._db.exec('ALTER TABLE ' + key + ' ADD COLUMN ' + column + ' STRING');
-                                }
-                            }
-                            for (var num in output[key]) {
-                                DriverPack._db.exec('INSERT INTO ' + key + ' VALUES ?', [output[key][num]]);
-                            }
-                        }
-                    }
-                    DriverPack.dbReady = true;
+				if (DriverPack._json === '') {
+					DriverPack._json = {
+						'soft': new Array()
+					};
+					var data = {
+						not_installed: JSON.stringify(DriverPack.not_installed).replace(/\\\\/ig,"-"),
+						installed: JSON.stringify(DriverPack.installed).replace(/\\\\/ig,"-"),
+						version: SVersion,
+						os: (OSVersion=='6.1'?'7':OSVersion)
+					};
+					var get = Object.keys(data).map(function (k) {
+						return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
+					}).join('&');
 					
-					callback();
-            };
-        }
-				
-				
-				
-				
-				
-				
-				});
-			
-		
-		/*
-
-		*/
-		
-		
-		},
-			0
-		);
+					echo('http://test-st.drp.su/drivers/response.php?callback=drivers_callback&' + get);
+					JSONP('http://test-st.drp.su/drivers/response.php?callback=drivers_callback&' + get);
+					
+					drivers_callback = function (json) {
+							json = JSON.parse(JSON.stringify(json));
+							echo("");
+							echo("JSON drivers_callback():");
+							echo(JSON.stringify(json));
+							echo("");
+							var output = {installed: new Array(), not_installed: new Array()},
+							inst = json.installed.length, ninst = json.not_installed.length, tmp;
+							tmp = {
+								URL: 'http://test-st.drp.su/drivers/dpinst.zip',
+								Date: new Date().toString().replace(/\//g, "."),
+								Name: 'dpinst.zip',
+								ID: '0'
+							};
+							output.installed.push(tmp);
+							for (var i = 0; i < inst; i++) {
+								tmp = {
+									URL: json.installed[i][0],
+									Date: json.installed[i][1].toString().replace(/\//g, "."),
+									Name: json.installed[i][2],
+									ID: json.installed[i][3].replace(/-/ig,"\\")
+								};
+								output.installed.push(tmp);
+							}
+							for (var i = 0; i < ninst; i++) {
+								tmp = {
+									URL: json.not_installed[i][0],
+									Date: json.not_installed[i][1].toString().replace(/\//g, "."),
+									Name: json.not_installed[i][2],
+									ID: json.not_installed[i][3].replace(/-/ig,"\\\\")
+								};
+								output.not_installed.push(tmp);
+							}
+							
+							
+							echo(print_r(output));
+							DriverPack._allDrivers = output;
+							//alert(print_r(DriverPack.getDrivers('ID','0')));
+							
+							/*
+							for (var key in output) {
+								if (output.hasOwnProperty(key)) {
+									DriverPack._db.exec('CREATE TABLE ' + key);
+									for (var column in output[key][0]) {
+										if (output[key][0].hasOwnProperty(column)) {
+											DriverPack._db.exec('ALTER TABLE ' + key + ' ADD COLUMN ' + column + ' STRING');
+										}
+									}
+									for (var num in output[key]) {
+										DriverPack._db.exec('INSERT INTO ' + key + ' VALUES ?', [output[key][num]]);
+									}
+								}
+							}
+							DriverPack.dbReady = true;
+							*/
+							
+							callback();
+					};
+				}
+			});
+		},0);
         /*echo('  DriverPack.init();');
          echo('  test(JSON.stringify(DriverPack._db), \'' + JSON.stringify(DriverPack._db) + '\');');*/
     },
     SQL: function (query) {
         //echo('  test(DriverPack.SQL(\''+ query +'\'), \'' + JSON.stringify(this._db.exec(query)) + '\');');
-        return this._db.exec(query);
+        //return DriverPack._db.exec(query);
     },
     html: function () {
-        document.getElementById("m-apps").parentNode.classList.remove("green");
-        document.getElementById("m-down").parentNode.classList.remove("green");
-        document.getElementById("m-pc").parentNode.classList.add("green");
-        var installed = this.SQL('SELECT * FROM installed');
-        var tbodys = document.getElementById('list').getElementsByTagName('tbody');
-        for (var i = 0, n = tbodys.length; i < n; i++) {
-            if (i in tbodys) {
-                tbodys[i].innerHtml = '';
-            }
-        }
+        //document.getElementById("m-apps").parentNode.classList.remove("green");
+        //document.getElementById("m-down").parentNode.classList.remove("green");
+        //document.getElementById("m-pc").parentNode.classList.add("green");
+        //var installed = DriverPack.SQL('SELECT * FROM installed');
+		var installed = DriverPack.getDrivers();
+		//alert(print_r(installed));
+		//var tbodys = document.getElementById('list').getElementsByTagName('tbody');
+		//var tbodys = document.body.all.tags("tbody");
+		//alert(JSON.stringify(tbodys));
+		
+        
+		//alert(print_r(tbodys));
+        //for (var i = 0, n = tbodys.length; i < n; i++) {
+        //    if (i in tbodys) {
+        //        tbodys[i].innerHtml = '';
+        //    }
+        //}
         document.getElementById('loader').style.display = 'block';
         var newTbody = document.createElement('tbody');
         for (var i = 0; i < installed.length; i++) {
             if (installed[i] && installed[i].Name != 'dpinst.zip') {
-                if (!this.get(installed[i].ID).isNeedUpdate()) {
-                    var descr = this.SQL('SELECT * FROM installed WHERE Name="' + installed[i].Name + '"')[0];
+                if (!DriverPack.get(installed[i].ID).isNeedUpdate()) {
+                    //var descr = DriverPack.SQL('SELECT * FROM installed WHERE Name="' + installed[i].Name + '"')[0];
+					var descr = DriverPack.getDrivers('Name',installed[i].Name)[0];
                     newTbody.innerHTML += "<!-- { SINGLE LIST ITEM } -->" +
                             "<tr>" +
                             "<td class='list-first'> &nbsp; <input data-name='" + encodeURIComponent(descr.ID) + "' type='checkbox' checked=checked/> <img src='Tools/ico/button/" + DriverPack.getDriverIcon(installed[i].URL) + ".png' /></td>" +
                             "<td class='list-second' title='" + descr.ID.replace('-','\\') + "'>" + descr.Name + "</td>" +
                             "<td class='list-third' title='" + descr.URL + "'><b>" + descr.Date + "</b></td>" +
                             "<td class='list-last'></td>" +
-                            "</tr>";
+                            "</tr><br>";
                 }
             }
         }
-        if (newTbody.innerHTML != '') {
-            var tbodys = document.getElementById('list').getElementsByTagName('tbody');
-            if (tbodys.length) {
-                document.getElementById('list').removeChild(tbodys[0]);
-            }
-            document.getElementById('list').appendChild(newTbody);
-        }
+        //if (newTbody.innerHTML != '') {
+//            var tbodys = document.getElementById('list').getElementsByTagName('tbody');
+			//var tbodys = document.getElementById('tbody');
+            //if (tbodys.length) {
+            //    document.getElementById('list').removeChild(tbodys);
+            //}
+			//alert(newTbody.innerHTML);
+            //document.getElementById('tbody').innerHTML = '123';
+			document.getElementById('tbody').innerHTML = newTbody.innerHTML;
+			//document.getElementById('tbody').innerHTML = 'sdfasdfasdfasdfasdfasdfasdfasdfsda';
+        //}
         document.getElementById('loader').style.display = 'none';
     },
     get: function (driverID) {
 
-        var _this = this;
 
         var additionFunctions = {
             install: function () {
-                var installed = _this.SQL('SELECT * FROM installed WHERE ID = "' + driverID + '"');
+                //var installed = DriverPack.SQL('SELECT * FROM installed WHERE ID = "' + driverID + '"');
+				var installed = DriverPack.getDrivers('ID',driverID);
                 if (installed.length > 0) {
                     if (WgetPack.get().isDownload(installed[0].URL)) {
                         return true
                     }
                     setTimeout(function () {
                         if (document.getElementById("m-apps").parentNode.classList.contains("green")) {
-                            _this.html();
+                            DriverPack.html();
                         }
-                        _this.get(softName).install();
+                        DriverPack.get(softName).install();
                     }, 1000);
                 } else {
                     
-                     WshShell.Run('cmd /c rd /S /Q "' + WshShell.ExpandEnvironmentStrings(_this.driverPath) + '"', 0, true);
-                     WshShell.Run('Tools\\7za.exe x -yo"' + WshShell.ExpandEnvironmentStrings(_this.driverPath) + '" "' + _this.driverPath + '\\*"', 0, true);
+                     WshShell.Run('cmd /c rd /S /Q "' + WshShell.ExpandEnvironmentStrings(DriverPack.driverPath) + '"', 0, true);
+                     WshShell.Run('Tools\\7za.exe x -yo"' + WshShell.ExpandEnvironmentStrings(DriverPack.driverPath) + '" "' + DriverPack.driverPath + '\\*"', 0, true);
                      WshShell.Run(
-                     WshShell.ExpandEnvironmentStrings(_this.driverPath + '\\dpinst\\Setup') + (SVersion == '64' ? '64' : '') + '.exe ' +
-                     '/SW /c /sa /PATH "' + WshShell.ExpandEnvironmentStrings(_this.driverPath) + '"',
+                     WshShell.ExpandEnvironmentStrings(DriverPack.driverPath + '\\dpinst\\Setup') + (SVersion == '64' ? '64' : '') + '.exe ' +
+                     '/SW /c /sa /PATH "' + WshShell.ExpandEnvironmentStrings(DriverPack.driverPath) + '"',
                      0, true
                      );
                      
@@ -276,17 +297,19 @@ var DriverPack = {
                 return true;
             },
             download: function () {
-                var url = _this.SQL('SELECT * FROM installed WHERE ID="' + driverID + '"');
+                //var url = DriverPack.SQL('SELECT * FROM installed WHERE ID="' + driverID + '"');
+				var url = DriverPack.getDrivers('ID',driverID);
                 return WgetPack.get(url[0]).download(url[0].URL);
             },
             complite: function () {
-                _this.SQL('DELETE FROM installed WHERE ID = "' + driverID + '"');
+                DriverPack.SQL('DELETE FROM installed WHERE ID = "' + driverID + '"');
             },
             isNeedUpdate: function (id) {
                 var ret = false,
-                        date = _this.SQL('SELECT * FROM installed WHERE ID="' + id + '"');
+                        date = DriverPack.SQL('SELECT * FROM installed WHERE ID="' + id + '"');
+						date = DriverPack.getDrivers('ID',id);
                 try {
-                    if (new Date(date[0].Date).getTime() > new Date(_this.installed[id]).getTime()) {
+                    if (new Date(date[0].Date).getTime() > new Date(DriverPack.installed[id]).getTime()) {
                         ret = true;
                     }
                 }

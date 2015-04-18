@@ -1,6 +1,6 @@
 var WgetPack = {
     // В качестве базы данных используем softJsonDB
-    _wb: new alasql.Database(),
+    //_wb: new alasql.Database(),
     _folder: '',
     thread: true,
     timer: false,

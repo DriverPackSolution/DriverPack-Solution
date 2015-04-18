@@ -1,6 +1,6 @@
 var WgetPack = {
     // В качестве базы данных используем softJsonDB
-    _wb: new alasql.Database(),
+    //_wb: new alasql.Database(),
     folder: new Object(),
     thread: false,
     wgetPath: AppData + '\\DRPSu',
@@ -11,7 +11,7 @@ var WgetPack = {
         if (!FSO.FolderExists(this.wgetPath + '\\LOGS')) {
             FSO.CreateFolder(this.wgetPath + '\\LOGS');
         }
-        WgetPack._wb.exec("CREATE TABLE download");
+        //WgetPack._wb.exec("CREATE TABLE download");
     },
     SQL: function (query) {
         //alert(this._wb.exec(query));
