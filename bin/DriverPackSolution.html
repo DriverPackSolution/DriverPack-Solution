@@ -3,47 +3,41 @@
 <!--<![endif]-->
 <html>
     <head>
-        <title>DriverPack Solution </title>
+        <title>DriverPack Solution</title>
+		<!-- { FAVICON } -->
+        <link rel="shortcut icon" href="Tools\icon.ico" type="image/x-icon" />
+		
         <!-- { IE10 } -->
         <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="MSThemeCompatible" content="yes" />
-
+		
         <!-- { NO CACHE IE }-->
         <meta http-equiv="cache-control" content="no-cache" />
         <meta http-equiv="expires" content="0" />
         <meta http-equiv="pragma" content="no-cache" />
-
+		
         <!-- { STYLES } -->
         <link rel="stylesheet" type="text/css" href="css/normalize.min.css" />
         <link rel="stylesheet" type="text/css" href="css/font.css" />
         <link rel="stylesheet" type="text/css" href="css/open-sans.css" />
         <link rel="stylesheet" type="text/css" href="css/style.css" />
-
+		
         <!--[if (IE 6)]><!-->
-        <link rel="stylesheet" type="text/css" href="css/ie6.css" />
+			<link rel="stylesheet" type="text/css" href="css/ie6.css" />
         <!--<![endif]-->
-
+		
         <!-- { LIBRARIES } -->
-        <script type="text/javascript" src="js/ie_fixes.js"></script>
-        <script type="text/javascript" src="js/fixpng.js"></script>
-        <script type="text/javascript" src="Tools/modules/variables.js"></script>
-
-        <!-- { JSON } -->
-        <!-- <script src="json/DriverPack.js" type="text/javascript"></script> -->
-        <!-- <script src="json/SoftPack.js" type="text/javascript"></script> -->
-
+        <script type="text/javascript" async src="js/ie_fixes.js"></script>
+        <script type="text/javascript" async src="js/fixpng.js"></script>
+        <script type="text/javascript" async src="Tools/modules/variables.js"></script>
+		<script type="text/javascript" async src="Tools/modules/jlinq.js"></script>
+		
         <!-- { MODULES } -->
-        <script src="Tools/modules/DriverPack.js" type="text/javascript"></script>
-        <script src="Tools/modules/SoftPack_.js" type="text/javascript"></script>
-        <script src="Tools/modules/WgetPack.js" type="text/javascript"></script>
-
-        <!-- { TEST } -->
-
-
-        <!-- { FAVICON } -->
-        <link rel="shortcut icon" href="img\icon.ico" type="image/x-icon" />
-
+        <script type="text/javascript" async src="Tools/modules/DriverPack.js"></script>
+        <script type="text/javascript" async src="Tools/modules/SoftPack.js"></script>
+        <script type="text/javascript" async src="Tools/modules/WgetPack.js"></script>
+		
         <!-- { IF [NOSCRIPT] } -->
         <noscript>
         <meta http-equiv="refresh" content="10;URL='http://drp.su/error/noscript/'">
@@ -52,11 +46,11 @@
 
     <HTA:APPLICATION ID="dpa"
                      application="yes"
-                     applicationName="DriverPack Solution Neue"
+                     applicationName="DriverPack Solution"
                      borderStyle="normal"
                      caption="yes"
                      contextMenu="yes"
-                     icon="./img/icon.ico"
+                     icon="./Tools/icon.ico"
                      innerBorder="no"
                      maximizeButton="yes"
                      minimizeButton="yes"
@@ -131,7 +125,7 @@
             <h1>Установка драйверов</h1>
             <div class="notification">
                 <div class="nt-body"><img src="img/info.png"><span>Найдены доступные для установки драйвера</br></span></div>
-                <div class="nt-footer"><a onclick="" class="">Установить все</a></div>
+                <div class="nt-footer"><button onclick="getDownloadInstall();">Установить</button></div>
             </div>
 
             <!-- { ITEMS [LIST] } -->
@@ -216,6 +210,9 @@
 		
 		DriverPack.init(function () {
             DriverPack.html();
+        });
+		SoftPack.init(function () {
+            SoftPack.html();
         });
 		//setTimeout(function () {
         //    DriverPack.html();

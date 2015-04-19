@@ -2,9 +2,11 @@ var version = "16";
 var verType = "";
 
 var WshShell = new ActiveXObject("WScript.Shell");
-var AppData = this.WshShell.SpecialFolders("AppData");
+var WshEnv = WshShell.Environment("PROCESS");
+var AppData = WshShell.SpecialFolders("AppData");
 var FSO = new ActiveXObject("Scripting.FileSystemObject");
-var softPath = this.WshShell.SpecialFolders("AppData") + '\\DRPSu\\PROGRAMS';
+var fso = new ActiveXObject("Scripting.FileSystemObject");
+var softPath = WshShell.SpecialFolders("AppData") + '\\DRPSu\\PROGRAMS';
 var locator = new ActiveXObject("WbemScripting.SWbemLocator");
 var objWMIService = locator.ConnectServer(null, "root\\cimv2");
 
@@ -57,32 +59,216 @@ function getFullPath() {
 		substring_end = fullpath1.lastIndexOf('/') + 1;
 	}	//Fix for run from IE
 	fullpath1 = fullpath1.substring(substring_start, substring_end);
+	fullpath1 = decodeURI(fullpath1);
 
 	return fullpath1;
 }
 
 var folderReport = getFullPath() + "\\Reports";
 var fileReport = folderReport + "\\" + WshShell.ExpandEnvironmentStrings("%computername%") + ".txt";
-function echo(str) {
 
-	//Записываем вывод в файл
-	if (!FSO.FolderExists(folderReport + "\\")) {
-		FSO.CreateFolder(folderReport)
+if (typeof(echo)=='undefined'){
+	echo = function(str) {
+
+		//Записываем вывод в файл
+		if (!FSO.FolderExists(folderReport + "\\")) {
+			FSO.CreateFolder(folderReport)
+		}
+		var fileReportOpen = FSO.OpenTextFile(fileReport, 8, true);
+		fileReportOpen.WriteLine(str);
+		fileReportOpen.close();
+
+		//Выводим в текстовую форму
+		//objTextA.value += str + '\r\n';
+		//autoScroll();
+
 	}
-	var fileReportOpen = FSO.OpenTextFile(fileReport, 8, true);
-	fileReportOpen.WriteLine(str);
-	fileReportOpen.close();
+}
 
-	//Выводим в текстовую форму
-	//objTextA.value += str + '\r\n';
-	//autoScroll();
 
+function cloneObj(object){
+	return JSON.parse(JSON.stringify(object));
 }
 
 
 
 
 
+
+
+
+//var logFolder = WshEnv("WINDIR")+'\\Logs\\DRPLog\\';
+var logFolder = AppData+'\\DRPSu\\Logs\\DRPLog\\';
+if (!fso.FolderExists(AppData+'\\DRPSu')) { fso.CreateFolder(AppData+'\\DRPSu'); }
+if (!fso.FolderExists(AppData+'\\DRPSu\\Logs')) { fso.CreateFolder(AppData+'\\DRPSu\\Logs'); }
+if (!fso.FolderExists(AppData+'\\DRPSu\\Logs\\DRPLog')) { fso.CreateFolder(AppData+'\\DRPSu\\Logs\\DRPLog'); }
+//if (!fso.FolderExists(WshEnv("WINDIR")+'\\Logs')) { fso.CreateFolder(WshEnv("WINDIR")+'\\Logs'); }
+//if (!fso.FolderExists(WshEnv("WINDIR")+'\\Logs\\DRPLog')) { fso.CreateFolder(WshEnv("WINDIR")+'\\Logs\\DRPLog'); }
+
+var wget_path = 'tools\\wget.exe';
+function wget_driver(downloadURI, targetFolder, size) {
+    if (fso.FileExists(wget_path)) {
+        if (!driver_exists(downloadURI, targetFolder)) {
+            var parsed_url = downloadURI.split("/");
+            //Function to be run during the downloading to check the progress.
+            //if (!getPercents_interval) {
+            //    getPercents_interval = setInterval('getPercents()', 150);
+            //}
+			
+			echo('Starting wget.exe: ' + '"'+wget_path+'" -P "' + targetFolder + '" ' + downloadURI + ' -o "' + logFolder + 'DRP-Lite-Status.txt"');
+			var wsShellObj = WshShell.run('"'+wget_path+'" -P "' + targetFolder + '" ' + downloadURI + ' -o "' + logFolder + 'DRP-Lite-Status.txt"', 0, true);
+            echo("\r\n\r\n ---------------- WGET-Log --------------");
+			echo(fso.OpenTextFile(logFolder + "DRP-Lite-Status.txt", 1, false).ReadAll());
+			
+			var downloudedFileDest = targetFolder + (targetFolder ? '\\' : '') + fso.GetFileName(downloadURI);
+            return parsed_url[parsed_url.length - 1];
+        } else {
+            return null;
+        }
+    }
+}
+
+/*
+ Checking the driver in the folder. NOT in tha system, but only in the folder
+ */
+function driver_exists(downloadURI, targetFolder) {
+    //var number = $('.size').length;
+    //$('#badge-online-drivers').html(number);
+
+    var parsed_url = downloadURI.split("/");
+    var downloaded_driver = targetFolder + "\\" + parsed_url[parsed_url.length - 1];
+	echo(targetFolder + "\\" + parsed_url[parsed_url.length - 1]);
+	echo(downloaded_driver);
+
+    if (fso.FileExists(downloaded_driver)) {
+		echo('- true!');
+        return true;
+    } else {
+		echo('- false!');
+        return false;
+    }
+}
+
+
+
+/*
+ A function that downloads the drivers by the string.
+ *
+var getPercents_interval;
+function wget_driver(downloadURI, targetFolder, size) {
+
+        if (!driver_exists(downloadURI, targetFolder)) {
+            var parsed_url = downloadURI.split("/");
+            //Function to be run during the downloading to check the progress.
+            if (!getPercents_interval) {
+                getPercents_interval = setInterval('getPercents()', 150);
+            }
+            downloadFile(downloadURI);
+            return parsed_url[parsed_url.length - 1];
+        } else {
+            return null;
+        }
+
+}
+*/
+
+/*
+ Function that reads the file with the status of the file that is being downloaded.
+ */
+function getPercents() {
+    //File that is being used as a temp storage.
+    try {
+        objFile = fso.openTextFile(logFolder + "DRP-Lite-Status.txt", 1);
+        var reader = objFile.ReadAll();
+        //getting all of the percents in the file.
+        var percents = reader.match(/(\d+)\%/gi);
+        if (percents !== null) {
+            var num = percents[percents.length - 1].slice(0, -1);
+            $('.driver_percents').html(num + "%");
+            $("#progressbar").progressbar({
+                value: parseInt(num)
+            });
+            var speed = reader.match(/(% +\d+\.*\d+.{1})/gi);
+            var last_speed = speed[speed.length - 1].slice(2);
+            $('.speed').html(last_speed + "/s");
+        }
+    } catch (Ex) {
+
+    } finally {
+        return 1;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+// Read registry
+// ToDo: Придумать авто-тесты!!!
+function RegRead(key){
+	
+	key = key.replace('HKEY_LOCAL_MACHINE\\','HKLM\\');
+	key = key.replace('HKEY_CURRENT_USER\\','HKCU\\');
+	
+	ret = RegRead32(key);
+	
+	if ((!ret) && (key.indexOf('\\SOFTWARE\\Microsoft\\') != -1)) {
+		t_key = key.replace('\\SOFTWARE\\Microsoft\\','\\SOFTWARE\\Wow6432Node\\Microsoft\\');
+		
+		ret = RegRead32(key);
+	}
+	
+	if (!ret){
+		ret = RegRead64(key);
+	}
+	
+	return ret;
+	
+}
+
+function RegRead32(key) {
+	lf('RegRead');
+	var ret = "";
+	try { ret = WshShell.RegRead(key); }
+	catch(e) { ret = ""; }
+	return ret;
+}
+
+
+function RegRead64(key) {
+	var HKEY_LOCAL_MACHINE = 0x80000002;
+	var HKEY_CURRENT_USER = 0x80000001;
+	
+	var context = new ActiveXObject("WbemScripting.SWbemNamedValueSet");
+	context.Add("__ProviderArchitecture", 64);
+	context.Add("__RequiredArchitecture", true);
+	var locator = new ActiveXObject("Wbemscripting.SWbemLocator");
+	var wbem = locator.ConnectServer(null ,"root\\default", null, null, null, null, null, context);
+	var StdRegProv = wbem.Get("StdRegProv");
+	var method = StdRegProv.Methods_.Item("GetStringValue");
+	var inParameters = method.InParameters.SpawnInstance_();
+	
+	if (key.indexOf('HKLM\\') == 0){
+		inParameters.hDefKey = HKEY_LOCAL_MACHINE;
+	}
+	else if (key.indexOf('HKCU\\') == 0){
+		inParameters.hDefKey = HKEY_CURRENT_USER;
+	}
+	
+	inParameters.sSubKeyName = key.substring(5);
+	inParameters.sValueName = "";
+	var outParameters = StdRegProv.ExecMethod_("GetStringValue", inParameters, 0, context);
+	//alert(outParameters.sValue);
+	
+	return outParameters.sValue;
+}
 
 
 

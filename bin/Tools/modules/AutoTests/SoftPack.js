@@ -1,161 +1,328 @@
 
+//ToDo: реализовать проверку SoftPack.init();
+
 inc("../../../js/ie_fixes.js");
 inc("../../../Tools/modules/variables.js");
 inc("../../../Tools/modules/SoftPack.js");
-inc("../../../Tools/modules/WgetPack.js");
+//inc("../../../Tools/modules/WgetPack.js");
 //inc("../../../test/SoftPack.js");
 
 
 setTimeout(function() {
+	
+	var defaultJson = [
+	{
+		"ID": "3",
+		"Name": "7-Zip",
+		"URL": "http://download.drp.su/soft/7-Zip.exe",
+		"Version": "9.30",
+		"ReleaseDate": "2014-07-30",
+		"UpdateDate": "2014-07-30 00:00:00",
+		"Registry": [
+			"HKEY_CURRENT_USER\\SOFTWARE\\7-Zip\\Path",
+			"HKEY_CURRENT_USER\\Software\\7-Zip\\Path64"
+		],
+		"Keys": "-aixy -fm0 -gm2",
+		"Lang": ""
+	},
+	{
+		"ID": "5",
+		"Name": "Opera",
+		"URL": "http://download.drp.su/soft/OperaBlink.exe",
+		"Version": "23.0.1522.72",
+		"ReleaseDate": "2014-07-30",
+		"UpdateDate": "2014-09-01 00:00:00",
+		"Registry": [
+			"HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Opera 23.0.1522.72\\DisplayName",
+			"HKLM\\SOFTWARE\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Opera 23.0.1522.72\\DisplayName"
+		],
+		"Keys": " -install -silent -launchopera=1 -setdefaultbrowser=1",
+		"Lang": "[ru,tt,uk,az,be,uz,hy,ka,fr,de]"
+	},
+	{
+		"ID": "22",
+		"Name": "Microsoft Visual C++",
+		"URL": "http://download.drp.su/soft/VisualCplus.exe",
+		"Version": "2005-2013",
+		"ReleaseDate": "2014-07-31",
+		"UpdateDate": "2014-07-31 00:00:00",
+		"Registry": [
+			"HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{F0C3E5D1-1ADE-321E-8167-68EF0DE699A5}\\DisplayName",
+			"HKLM\\SOFTWARE\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{F0C3E5D1-1ADE-321E-8167-68EF0DE699A5}\\DisplayName"
+		],
+		"Keys": "",
+		"Lang": ""
+	},
+	{
+		"ID": "100",
+		"Name": "Test Software",
+		"URL": "http://download.drp.su/soft/testsoft.exe",
+		"Version": "2005-2013",
+		"ReleaseDate": "2014-07-31",
+		"UpdateDate": "2014-07-31 00:00:00",
+		"Registry": [
+			"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ProgramFilesDir"
+		],
+		"Keys": "",
+		"Lang": ""
+	},
+	{
+		"ID": "101",
+		"Name": "Mega Software",
+		"URL": "http://download.drp.su/soft/soft.exe",
+		"Version": "2005-2013",
+		"ReleaseDate": "2014-07-31",
+		"UpdateDate": "2014-07-31 00:00:00",
+		"Registry": [
+			"HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{BLA-BLA-BLA-BLA-BLA}\\DisplayName"
+		],
+		"Keys": "",
+		"Lang": ""
+	}
+];
+	
+	
+	
+	
+	
+	//Клонируем объект, чтобы сохранить его
+	backupDefaultJson = cloneObj(defaultJson);
+	
+	
+	echo('-------------- -------------------------- --------------');
+	echo('-------------- {     SoftPack.loadDB()     } --------------');
+	echo('-------------- -------------------------- --------------');
+	echo('');
+	
+	SoftPack.loadDB(defaultJson);
+	//Проверяем, правильно ли загрузится тестовая база
+	test(
+		SoftPack._json.soft,
+		defaultJson
+	);
 
-    SoftPack.init();
-    var soft;
-    
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Registry_64='HKEY_CURRENT_USER\\\\\\\\Software\\\\\\\\7-Zip\\\\\\\\Path64'");
-    test(soft[0].Registry_64, 'HKEY_CURRENT_USER\\\\Software\\\\7-Zip\\\\Path64');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Registry_64='HKLM\\\\\\\\SOFTWARE\\\\\\\\Wow6432Node\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\\\\\\\\Uninstall\\\\\\\\Opera 23.0.1522.72\\\\\\\\DisplayName'");
-    test(soft[0].Registry_64, 'HKLM\\\\SOFTWARE\\\\Wow6432Node\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\Opera 23.0.1522.72\\\\DisplayName');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Registry_64='HKLM\\\\\\\\SOFTWARE\\\\\\\\Wow6432Node\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\\\\\\\\Uninstall\\\\\\\\{EE24665C-844A-4489-9F11-70E41F4EE476}\\\\\\\\DisplayName'");
-    test(soft[0].Registry_64, 'HKLM\\\\SOFTWARE\\\\Wow6432Node\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\{EE24665C-844A-4489-9F11-70E41F4EE476}\\\\DisplayName');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Registry_64='HKEY_CURRENT_USER\\\\\\\\Software\\\\\\\\WinRAR SFX\\\\\\\\C%%Program Files%WinRAR'");
-    test(soft[0].Registry_64, 'HKEY_CURRENT_USER\\\\Software\\\\WinRAR SFX\\\\C%%Program Files%WinRAR');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Registry_64='HKEY_CURRENT_USER\\\\\\\\Software\\\\\\\\Foxit Software\\\\\\\\Foxit Reader 6.0\\\\\\\\Windows\\\\\\\\bShowStatusBar'");
-    test(soft[0].Registry_64, 'HKEY_CURRENT_USER\\\\Software\\\\Foxit Software\\\\Foxit Reader 6.0\\\\Windows\\\\bShowStatusBar');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Registry_64='HKEY_CURRENT_USER\\\\\\\\Software\\\\\\\\SamLab.ws\\\\\\\\SAM CoDeC Pack\\\\\\\\Install_Dir'");
-    test(soft[0].Registry_64, 'HKEY_CURRENT_USER\\\\Software\\\\SamLab.ws\\\\SAM CoDeC Pack\\\\Install_Dir');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Registry_64='HKLM\\\\\\\\SOFTWARE\\\\\\\\Wow6432Node\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\\\\\\\\Uninstall\\\\\\\\{7A3C7E05-EE37-47D6-99E1-2EB05A3DA3F7}\\\\\\\\DisplayName'");
-    test(soft[0].Registry_64, 'HKLM\\\\SOFTWARE\\\\Wow6432Node\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\{7A3C7E05-EE37-47D6-99E1-2EB05A3DA3F7}\\\\DisplayName');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Registry_64='HKLM\\\\\\\\SOFTWARE\\\\\\\\Wow6432Node\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\\\\\\\\Uninstall\\\\\\\\uTorrent\\\\\\\\DisplayName'");
-    test(soft[0].Registry_64, 'HKLM\\\\SOFTWARE\\\\Wow6432Node\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\uTorrent\\\\DisplayName');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Registry_64='HKLM\\\\\\\\SOFTWARE\\\\\\\\Wow6432Node\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\\\\\\\\Uninstall\\\\\\\\PotPlayer\\\\\\\\DisplayName'");
-    test(soft[0].Registry_64, 'HKLM\\\\SOFTWARE\\\\Wow6432Node\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\PotPlayer\\\\DisplayName');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Registry_64='HKLM\\\\\\\\SOFTWARE\\\\\\\\Wow6432Node\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\\\\\\\\Uninstall\\\\\\\\AIMP3\\\\\\\\DisplayName'");
-    test(soft[0].Registry_64, 'HKLM\\\\SOFTWARE\\\\Wow6432Node\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\AIMP3\\\\DisplayName');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Registry_64='HKEY_CURRENT_USER\\\\\\\\Software\\\\\\\\Wow6432Node\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\\\\\\\\Uninstall\\\\\\\\QIP 2012_is1\\\\\\\\DisplayName'");
-    test(soft[0].Registry_64, 'HKEY_CURRENT_USER\\\\Software\\\\Wow6432Node\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\QIP 2012_is1\\\\DisplayName');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Registry_64='HKLM\\\\\\\\SOFTWARE\\\\\\\\Wow6432Node\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\\\\\\\\Uninstall\\\\\\\\FastStone Image Viewer\\\\\\\\DisplayName'");
-    test(soft[0].Registry_64, 'HKLM\\\\SOFTWARE\\\\Wow6432Node\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\FastStone Image Viewer\\\\DisplayName');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Registry_64='HKLM\\\\\\\\SOFTWARE\\\\\\\\Wow6432Node\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\\\\\\\\Uninstall\\\\\\\\TeamViewer 9\\\\\\\\DisplayName'");
-    test(soft[0].Registry_64, 'HKLM\\\\SOFTWARE\\\\Wow6432Node\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\TeamViewer 9\\\\DisplayName');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Registry_64='HKLM\\\\\\\\SOFTWARE\\\\\\\\Wow6432Node\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\\\\\\\\Uninstall\\\\\\\\{A83692F5-3E9B-4E95-9E7E-B5DF5536C09F}_is1\\\\\\\\DisplayName'");
-    test(soft[0].Registry_64, 'HKLM\\\\SOFTWARE\\\\Wow6432Node\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\{A83692F5-3E9B-4E95-9E7E-B5DF5536C09F}_is1\\\\DisplayName');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Registry_64='HKLM\\\\\\\\SOFTWARE\\\\\\\\MozillaPlugins\\\\\\\\@adobe.com/FlashPlayer\\\\\\\\Description'");
-    test(soft[0].Registry_64, 'HKLM\\\\SOFTWARE\\\\MozillaPlugins\\\\@adobe.com/FlashPlayer\\\\Description');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Registry_64='HKLM\\\\\\\\SOFTWARE\\\\\\\\Wow6432Node\\\\\\\\Microsoft\\\\\\\\.NETFramework\\\\\\\\AssemblyFolders\\\\\\\\DX_1.0.2911.0\\\\\\\\'");
-    test(soft[0].Registry_64, 'HKLM\\\\SOFTWARE\\\\Wow6432Node\\\\Microsoft\\\\.NETFramework\\\\AssemblyFolders\\\\DX_1.0.2911.0\\\\');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Registry_64='HKLM\\\\\\\\SOFTWARE\\\\\\\\Wow6432Node\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\\\\\\\\Uninstall\\\\\\\\{F0C3E5D1-1ADE-321E-8167-68EF0DE699A5}\\\\\\\\DisplayName'");
-    test(soft[0].Registry_64, 'HKLM\\\\SOFTWARE\\\\Wow6432Node\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\{F0C3E5D1-1ADE-321E-8167-68EF0DE699A5}\\\\DisplayName');
-    
-    /*************************** test registry_32 ***********************/
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Registry_32='HKEY_CURRENT_USER\\\\\\\\SOFTWARE\\\\\\\\7-Zip\\\\\\\\Path'");
-    test(soft[0].Registry_32, 'HKEY_CURRENT_USER\\\\SOFTWARE\\\\7-Zip\\\\Path');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Registry_32='HKLM\\\\\\\\SOFTWARE\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\\\\\\\\Uninstall\\\\\\\\Opera 23.0.1522.72\\\\\\\\DisplayName'");
-    test(soft[0].Registry_32, 'HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\Opera 23.0.1522.72\\\\DisplayName');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Registry_32='HKLM\\\\\\\\SOFTWARE\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\\\\\\\\Uninstall\\\\\\\\{EE24665C-844A-4489-9F11-70E41F4EE476}\\\\\\\\DisplayName'");
-    test(soft[0].Registry_32, 'HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\{EE24665C-844A-4489-9F11-70E41F4EE476}\\\\DisplayName');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Registry_32='HKLM\\\\\\\\SOFTWARE\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\\\\\\\\Uninstall\\\\\\\\WinRAR archiver\\\\\\\\DisplayName'");
-    test(soft[0].Registry_32, 'HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\WinRAR archiver\\\\DisplayName');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Registry_32='HKLM\\\\\\\\SOFTWARE\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\\\\\\\\Uninstall\\\\\\\\Foxit Reader\\\\\\\\DisplayName'");
-    test(soft[0].Registry_32, 'HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\Foxit Reader\\\\DisplayName');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Registry_32='HKLM\\\\\\\\SOFTWARE\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\\\\\\\\Uninstall\\\\\\\\SAM CoDeC Pack\\\\\\\\DisplayName'");
-    test(soft[0].Registry_32, 'HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\SAM CoDeC Pack\\\\DisplayName');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Registry_32='HKLM\\\\\\\\SOFTWARE\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\\\\\\\\Uninstall\\\\\\\\{7A3C7E05-EE37-47D6-99E1-2EB05A3DA3F7}\\\\\\\\DisplayName'");
-    test(soft[0].Registry_32, 'HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\{7A3C7E05-EE37-47D6-99E1-2EB05A3DA3F7}\\\\DisplayName');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Registry_32='HKLM\\\\\\\\SOFTWARE\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\\\\\\\\Uninstall\\\\\\\\uTorrent\\\\\\\\DisplayName'");
-    test(soft[0].Registry_32, 'HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\uTorrent\\\\DisplayName');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Registry_32='HKLM\\\\\\\\SOFTWARE\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\\\\\\\\Uninstall\\\\\\\\PotPlayer\\\\\\\\DisplayName'");
-    test(soft[0].Registry_32, 'HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\PotPlayer\\\\DisplayName');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Registry_32='HKLM\\\\\\\\SOFTWARE\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\\\\\\\\Uninstall\\\\\\\\AIMP3\\\\\\\\DisplayName'");
-    test(soft[0].Registry_32, 'HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\AIMP3\\\\DisplayName');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Registry_32='HKEY_CURRENT_USER\\\\\\\\Software\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\\\\\\\\Uninstall\\\\\\\\QIP 2012_is1\\\\\\\\DisplayName'");
-    test(soft[0].Registry_32, 'HKEY_CURRENT_USER\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\QIP 2012_is1\\\\DisplayName');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Registry_32='HKLM\\\\\\\\SOFTWARE\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\\\\\\\\Uninstall\\\\\\\\FastStone Image Viewer\\\\\\\\DisplayName'");
-    test(soft[0].Registry_32, 'HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\FastStone Image Viewer\\\\DisplayName');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Registry_32='HKLM\\\\\\\\SOFTWARE\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\\\\\\\\Uninstall\\\\\\\\TeamViewer 9\\\\\\\\DisplayName'");
-    test(soft[0].Registry_32, 'HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\TeamViewer 9\\\\DisplayName');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Registry_32='HKLM\\\\\\\\SOFTWARE\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\\\\\\\\Uninstall\\\\\\\\{A83692F5-3E9B-4E95-9E7E-B5DF5536C09D}_is1\\\\\\\\DisplayName'");
-    test(soft[0].Registry_32, 'HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\{A83692F5-3E9B-4E95-9E7E-B5DF5536C09D}_is1\\\\DisplayName');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Registry_32='HKLM\\\\\\\\SOFTWARE\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\\\\\\\\Uninstall\\\\\\\\Adobe Flash Player ActiveX\\\\\\\\DisplayName'");
-    test(soft[0].Registry_32, 'HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\Adobe Flash Player ActiveX\\\\DisplayName');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Registry_32='HKLM\\\\\\\\SOFTWARE\\\\\\\\Microsoft\\\\\\\\.NETFramework\\\\\\\\AssemblyFolders\\\\\\\\DX_1.0.2911.0\\\\\\\\'");
-    test(soft[0].Registry_32, 'HKLM\\\\SOFTWARE\\\\Microsoft\\\\.NETFramework\\\\AssemblyFolders\\\\DX_1.0.2911.0\\\\');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Registry_32='HKLM\\\\\\\\SOFTWARE\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\\\\\\\\Uninstall\\\\\\\\{F0C3E5D1-1ADE-321E-8167-68EF0DE699A5}\\\\\\\\DisplayName'");
-    test(soft[0].Registry_32, 'HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\{F0C3E5D1-1ADE-321E-8167-68EF0DE699A5}\\\\DisplayName');
-    
+	test(
+		SoftPack.db(defaultJson),
+		defaultJson
+	);
+	
+	
+	
+	//Параметра test не должно быть созданно
+	defaultJson[0].test = 'test';
+	test(
+		typeof(SoftPack._json.soft[0].test),
+		'undefined'
+	);
+	defaultJson = cloneObj(backupDefaultJson);
+	
+	
+	//Если очистить объект defaultJson, то это
+	//не должно отражаться на SoftPack._json.soft
+	defaultJson = [];
+	test(
+		SoftPack._json.soft,
+		function (){
+			if (JSON.stringify(SoftPack._json.soft) == JSON.stringify(defaultJson)){
+				return false;
+			}
+			return SoftPack._json.soft;
+		}
+	);
+	defaultJson = cloneObj(backupDefaultJson);
+	
+	
+	
+	
+	//Параметра isInstalled не должно быть в тестовом Json
+	test(
+		typeof(defaultJson[0].isInstalled),
+		'undefined'
+	);
+	
+	//Параметра isInstalled не должно быть в тестовом Json
+	test(
+		typeof(SoftPack._json.soft[0].isInstalled),
+		'undefined'
+	);
+	
+	
+	
+	echo('-------------- -------------------------- --------------');
+	echo('-------------- {     SoftPack.detectInstalled()     } --------------');
+	echo('-------------- -------------------------- --------------');
+	echo('');
+	
+	//Этот тест проверяет detectInstalled(), чтобы был найден хоть один элемент со значением
+	//isInstalled = true и хоть один с isInstalled = false
+	test(
+		function (){
+			SoftPack.detectInstalled();
+			return true;
+		},
+		function (){
+			
+			var
+				db = SoftPack.db(),
+				isInstalled_true = false,
+				isInstalled_false = false
+			;
+			
+			db.forEach(function(item) {
+				
+				if (typeof(item.isInstalled) == 'undefined') { return false; }
+				if (item.isInstalled === true) { echo(item.Name); isInstalled_true = true; }
+				if (item.isInstalled === false) { isInstalled_false = true; }
+				
+			});
+			
+			if (isInstalled_true && isInstalled_false) {
+				return true;
+			}
+			return false;
+			
+			//return true;
+		}
+	);
+	
+	
+	//Параметра isInstalled не должно быть в тестовом Json
+	test(
+		typeof(defaultJson[0].isInstalled),
+		'undefined'
+	);
+	
+	
+	//Параметра isInstalled должно быть
+	test(
+		typeof(SoftPack._json.soft[0].isInstalled),
+		'boolean'
+	);
+	
+	
+	
+	
+	
+	
+	
+	
+	echo('-------------- -------------------------- --------------');
+	echo('-------------- {     SoftPack.get()     } --------------');
+	echo('-------------- -------------------------- --------------');
+	echo('');
+	
+	//Сравниваем размер объектов, должен быть одинаковым
+	test(
+		SoftPack.get(
+			{
+				'SELECT': '*'
+			}
+		).length,
+		defaultJson.length
+	);
+	
+	//Размер объекта с Limit1 должен быть 1
+	test(
+		SoftPack.get(
+			{
+				'SELECT': '*',
+				'LIMIT': 1
+			}
+		).length,
+		1
+	);
+	
+	
+	test(
+		SoftPack.get(
+			{
+				'SELECT': 'Name',
+				'WHERE': [
+						{ 'ID': '5' },
+						//OR
+						{ 'ID': '22' }
+					],
+				'LIMIT': '2'
+			}
+		),
+		[
+			{
+				"Name": "Opera"
+			},
+			{
+				"Name": "Microsoft Visual C++"
+			}
+		]
+	);
+	
+	
+	
+	test(
+		SoftPack.get(
+			{
+				'SELECT': 'Name',
+				'WHERE': [ 5 ],
+				'LIMIT': '2'
+			}
+		),
+		[
+			{
+				"Name": "Opera"
+			}
+		]
+	);
+	
+	
+	
+	
+	test(
+		SoftPack.get(
+			{
+				'SELECT': 'Name',
+				'WHERE': [
+						{ 'ReleaseDate': '2014-07-31' }
+					],
+				'LIMIT': '1'
+			}
+		),
+		[
+			{
+				"Name": "Microsoft Visual C++"
+			}
+		]
+	);
+	
+	
+	test(
+		SoftPack.get(
+			{
+				'SELECT': 'Name',
+				'LIMIT': '1'
+			}
+		),
+		[
+			{
+				"Name": "7-Zip"
+			}
+		]
+	);
+	
+	
 
-    /*************************** test url *******************************/
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE URL='http://download.drp.su/soft/7-Zip.exe'");
-    test(soft[0].URL, 'http://download.drp.su/soft/7-Zip.exe');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE URL='http://download.drp.su/soft/OperaBlink.exe'");
-    test(soft[0].URL, 'http://download.drp.su/soft/OperaBlink.exe');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE URL='http://download.drp.su/soft/YandexPack.exe'");
-    test(soft[0].URL, 'http://download.drp.su/soft/YandexPack.exe');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE URL='http://download0.drp.su/soft/WinRAR.exe'");
-    test(soft[0].URL, 'http://download0.drp.su/soft/WinRAR.exe');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE URL='http://download.drp.su/soft/FoxitReader.exe'");
-    test(soft[0].URL, 'http://download.drp.su/soft/FoxitReader.exe');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE URL='http://download.drp.su/soft/SAMCoDeCs.exe'");
-    test(soft[0].URL, 'http://download.drp.su/soft/SAMCoDeCs.exe');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE URL='http://download.drp.su/soft/Skype.exe'");
-    test(soft[0].URL, 'http://download.drp.su/soft/Skype.exe');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE URL='http://download.drp.su/soft/uTorrent.exe'");
-    test(soft[0].URL, 'http://download.drp.su/soft/uTorrent.exe');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE URL='http://download.drp.su/soft/PotPlayer.exe'");
-    test(soft[0].URL, 'http://download.drp.su/soft/PotPlayer.exe');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE URL='http://download.drp.su/soft/AIMP3.exe'");
-    test(soft[0].URL, 'http://download.drp.su/soft/AIMP3.exe');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE URL='http://download0.drp.su/soft/QIP2012.exe'");
-    test(soft[0].URL, 'http://download0.drp.su/soft/QIP2012.exe');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE URL='http://download.drp.su/soft/FSImage.exe'");
-    test(soft[0].URL, 'http://download.drp.su/soft/FSImage.exe');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE URL='http://download.drp.su/soft/TeamViewer.exe'");
-    test(soft[0].URL, 'http://download.drp.su/soft/TeamViewer.exe');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE URL='http://download.drp.su/soft/Backupper.exe'");
-    test(soft[0].URL, 'http://download.drp.su/soft/Backupper.exe');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE URL='http://download0.drp.su/soft/FlashPlayer.exe'");
-    test(soft[0].URL, 'http://download0.drp.su/soft/FlashPlayer.exe');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE URL='http://download.drp.su/soft/DirectX.exe'");
-    test(soft[0].URL, 'http://download.drp.su/soft/DirectX.exe');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE URL='http://download.drp.su/soft/VisualCplus.exe'");
-    test(soft[0].URL, 'http://download.drp.su/soft/VisualCplus.exe');
-    
-    /********************** test names ***********************/
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Name='Skype'");
-    test(soft[0].Name, 'Skype');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Name='7-Zip'");
-    test(soft[0].Name, '7-Zip');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Name='Opera'");
-    test(soft[0].Name, 'Opera');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Name='Яндекс.Браузер'");
-    test(soft[0].Name, 'Яндекс.Браузер');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Name='WinRAR'");
-    test(soft[0].Name, 'WinRAR');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Name='Foxit PDF Reader'");
-    test(soft[0].Name, 'Foxit PDF Reader');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Name='PotPlayer'");
-    test(soft[0].Name, 'PotPlayer');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Name='QIP'");
-    test(soft[0].Name, 'QIP');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Name='AIMP'");
-    test(soft[0].Name, 'AIMP');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Name='Codec Pack'");
-    test(soft[0].Name, 'Codec Pack');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Name='uTorrent'");
-    test(soft[0].Name, 'uTorrent');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Name='FastStone Image Viewer'");
-    test(soft[0].Name, 'FastStone Image Viewer');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Name='TeamViewer'");
-    test(soft[0].Name, 'TeamViewer');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Name='AOMEI Backupper'");
-    test(soft[0].Name, 'AOMEI Backupper');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Name='Adobe Flash Player'");
-    test(soft[0].Name, 'Adobe Flash Player');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Name='DirectX'");
-    test(soft[0].Name, 'DirectX');
-    soft = SoftPack.SQL("SELECT * FROM soft WHERE Name='Microsoft Visual C++'");
-    test(soft[0].Name, 'Microsoft Visual C++');
-
+	
+	test(
+		SoftPack.get(
+			{
+				'SELECT': '*',
+				'WHERE': [ 100, '101' ]
+			}
+		).length,
+		2
+	);
+	
+	
     next_script();
+	
 
 }, 1000);
 

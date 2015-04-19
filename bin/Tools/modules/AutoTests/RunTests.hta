@@ -1,8 +1,16 @@
 ﻿<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
         <title>DRP Su AutoTests</title>
+		<!--
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+		-->
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
             <meta HTTP-EQUIV="MSThemeCompatible" content="yes">
+			
+			<!-- { NO CACHE IE }-->
+			<meta http-equiv="cache-control" content="no-cache" />
+			<meta http-equiv="expires" content="0" />
+			<meta http-equiv="pragma" content="no-cache" />
 
                 <script type="text/javascript" src="init.js"></script>
                 <script type="text/javascript" src="variables.js"></script>
@@ -25,7 +33,7 @@
                         }
                         // Заполнить список найденных для тестирования модулей
 
-                        if (dpa_tests.commandLine.indexOf(' /start') != -1) {
+                        if ((typeof(dpa_tests.commandLine) != 'undefined') && (dpa_tests.commandLine.indexOf(' /start') != -1)) {
                             runTest();
                         }
                     }
@@ -53,7 +61,7 @@
                     setTimeout(
                             function () {
 
-                                if (dpa_tests.commandLine.indexOf(' /start') != -1) {
+                                if ((typeof(dpa_tests.commandLine) != 'undefined') && (dpa_tests.commandLine.indexOf(' /start') != -1)) {
                                     window.close();
                                 }
 
@@ -65,7 +73,7 @@
 
                     function next_script() {
 
-                        if (dpa_tests.commandLine.indexOf(' /start') != -1) {
+                        if ((typeof(dpa_tests.commandLine) != 'undefined') && (dpa_tests.commandLine.indexOf(' /start') != -1)) {
                             try {
                                 objSel.selectedIndex++;
                                 runTest();
@@ -91,6 +99,7 @@
                             substring_end = fullpath1.lastIndexOf('/') + 1;
                         }	//Fix for run from IE
                         fullpath1 = fullpath1.substring(substring_start, substring_end);
+						fullpath1 = decodeURI(fullpath1);
 
                         return fullpath1;
                     }
@@ -114,10 +123,14 @@
                     var folderReport = getFullPath() + "\\Reports";
                     var fileReport = folderReport + "\\" + WshShell.ExpandEnvironmentStrings("%computername%") + ".txt";
                     function echo(str) {
+						
+						if (typeof(str) == 'object'){
+							str = JSON.stringify(str, null, '\t');
+						}
 
                         //Записываем вывод в файл
                         if (!fso.FolderExists(folderReport + "\\")) {
-                            fso.CreateFolder(folderReport)
+                            fso.CreateFolder(folderReport);
                         }
                         var fileReportOpen = fso.OpenTextFile(fileReport, 8, true);
                         fileReportOpen.WriteLine(str);
@@ -132,6 +145,18 @@
                     testCount = 0;
                     caseSensitive = true;
                     function test(func, retu) {
+						var start = new Date();
+						
+						if ((typeof(func) == 'object') && (typeof(retu) == 'object')){
+							func = JSON.stringify(func);
+							retu = JSON.stringify(retu);
+						}
+						
+						//Если в качестве параметров функция,
+						//то исполняем ее прежде чем сравнивать
+						if (typeof(func) == 'function'){ func = func(); }
+						if (typeof(retu) == 'function'){ retu = retu(); }
+						
                         testCount++;
                         if (!caseSensitive) {
                             func = func.toLowerCase();
@@ -141,9 +166,11 @@
                             result = 'Ok';
                         }
                         else {
-                            result = 'ERROR!!! (Function result: "' + func + '", \r\n\r\n Need result: "' + retu + '")';
+                            result = 'ERROR!!! (Function result: "' + JSON.stringify(func, null, '\t') + '", \r\n\r\n Need result: "' + JSON.stringify(retu, null, '\t') + '")';
                         }
-                        echo("Test " + testCount + ": " + result + "\r\n\r\n\r\n\r\n\r\n\r\n");
+						
+						var end = new Date();
+                        echo("Test " + testCount + ": " + result + " - " + (end.getTime()-start.getTime()) + " ms\r\n\r\n");
                     }
 
 
@@ -218,6 +245,7 @@
                         <input type="button" id="runTest" onclick="runTest();" value="Запустить">
                     </div>    
                     <textarea style="width:100%;height:95%;" rows="25" cols="56" id="textarea"></textarea>
+					<center><img src="../../indicator2.gif"></center>
 
                 </body>
                 </html>
