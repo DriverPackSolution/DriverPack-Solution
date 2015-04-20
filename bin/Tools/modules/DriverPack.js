@@ -199,13 +199,19 @@ var DriverPack = {
         //document.getElementById("m-down").parentNode.classList.remove("green");
         //document.getElementById("m-pc").parentNode.classList.add("green");
         //var installed = DriverPack.SQL('SELECT * FROM installed');
-		var installed = DriverPack.getDrivers();
 		//var tbodys = document.getElementById('list').getElementsByTagName('tbody');
 		//for (var i = 0, n = tbodys.length; i < n; i++) {
         //    if (i in tbodys) {
         //        tbodys[i].innerHtml = '';
         //    }
         //}
+		
+		
+		
+		
+		
+		/*
+		var installed = DriverPack.getDrivers();
         document.getElementById('loader').style.display = 'block';
         var newTbody = document.createElement('tbody');
         for (var i = 0; i < installed.length; i++) {
@@ -223,6 +229,11 @@ var DriverPack = {
                 }
             }
         }
+		*/
+		
+		
+		
+		
         //if (newTbody.innerHTML != '') {
 //            var tbodys = document.getElementById('list').getElementsByTagName('tbody');
 			//var tbodys = document.getElementById('tbody');
@@ -231,7 +242,7 @@ var DriverPack = {
             //}
 			//alert(newTbody.innerHTML);
             //document.getElementById('tbody').innerHTML = '123';
-			document.getElementById('tbody').innerHTML = newTbody.innerHTML;
+			//document.getElementById('tbody').innerHTML = newTbody.innerHTML;
 			//document.getElementById('tbody').innerHTML = 'sdfasdfasdfasdfasdfasdfasdfasdfsda';
         //}
         document.getElementById('loader').style.display = 'none';

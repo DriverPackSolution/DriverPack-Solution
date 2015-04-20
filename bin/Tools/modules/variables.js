@@ -234,7 +234,7 @@ function RegRead(key){
 }
 
 function RegRead32(key) {
-	lf('RegRead');
+	//lf('RegRead');
 	var ret = "";
 	try { ret = WshShell.RegRead(key); }
 	catch(e) { ret = ""; }

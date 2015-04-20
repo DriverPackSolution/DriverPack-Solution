@@ -346,6 +346,7 @@ h2 {
     margin:0px;
     padding:0px;
     border:none;
+	font-size:20px;
 }
 .items-list .list-first{
     width:48px;
@@ -361,7 +362,8 @@ h2 {
     width:48px;
 }
 .items-list .list-last{
-    width:40px;
+    width:100px;
+	white-space:nowrap;
 }
 .list-third b{
     margin-right: 10px;
@@ -372,7 +374,7 @@ h2 {
     height:16px;
 }
 .items-list tr{
-    height:50px;
+    height:48px;
 }
 
 

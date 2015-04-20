@@ -75,18 +75,18 @@
                     <!-- { MAIN MENU }-->
                     <div class="main-menu">
                         <a href="#" onclick="DriverPack.html();
-                                return false;" class="menu-e green" title="Установка драйверов на компьютер">
+                                return false;" id="menu-drivers" class="menu-e green" title="Установка драйверов на компьютер">
                             <img id="m-pc" src="img/blank.gif"/><i>Драйверы</i>_
                         </a>
                         <a href="#" onclick="SoftPack.html();
-                                return false;" class="menu-e" title="Установка основных программ на компьютер">
+                                return false;" id="menu-soft" class="menu-e" title="Установка основных программ на компьютер">
                             <img id="m-apps" src="img/blank.gif"/><i>Приложения</i>_
                         </a>
+						<!--
                         <a href="" onclick="WgetPack.html();
-                                return false;" class="menu-e" title="Обновление драйверов и компонентов DriverPack Solution">
+                                return false;" id="menu-wget" class="menu-e" title="Обновление драйверов и компонентов DriverPack Solution">
                             <img id="m-down" src="img/blank.gif"/><i>Менеджер закачек</i>_
                         </a>
-                        <!--
                         <a href="" class="menu-e" title="Повышение производительности системы за счет специализированых настроек">
                             <img id="m-setup" src="img/blank.gif"/><i>Оптимизация</i>_
                         </a>
@@ -130,20 +130,20 @@
 
             <!-- { ITEMS [LIST] } -->
             <div class="items-list">
-                <table id="list">
-                    <thead>
-                        <tr>
-                            <td></td>
-                            <td>Название</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </thead>
-                    <tbody>
-					<div id="tbody">Драйверы</div>
-
-                    </tbody>
-                </table>
+				<div id="div-list">
+					<table id="list">
+						<thead>
+							<tr>
+								<td></td>
+								<td>Название</td>
+								<td></td>
+								<td></td>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
             </div>
             <div class="app-footer">
                 <button onclick="getDownloadInstall();">Установить</button>
@@ -208,9 +208,9 @@
 	setTimeout(function(){
         window.offscreenBuffering = false;
 		
-		DriverPack.init(function () {
+		/*DriverPack.init(function () {
             DriverPack.html();
-        });
+        });*/
 		SoftPack.init(function () {
             SoftPack.html();
         });

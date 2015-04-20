@@ -7,6 +7,21 @@ var SoftPack = {
 			'http://test-st.drp.su/admin/index.php?r=response&callback=soft',
 			function (json) {
 				
+				
+				//Фиксим неправильный формат JSON,
+				//это чтобы не переписывать на стороне сервера
+				json.forEach(function(item, i, json) {
+					
+					json[i].Registry = [];
+					if (item.Registry_32){
+						json[i].Registry[json[i].Registry.length] = item.Registry_32.replace(/\\\\/ig,'\\');
+					}
+					if (item.Registry_64){
+						json[i].Registry[json[i].Registry.length] = item.Registry_64.replace(/\\\\/ig,'\\');
+					}
+					
+				});
+				
 				SoftPack.loadDB(cloneObj(json));
 				SoftPack.detectInstalled();
 				SoftPack.detectDownloaded();
@@ -331,11 +346,18 @@ var SoftPack = {
 	
 	
 	html: function () {
+		
+		//alert(document.getElementById("list").lastChild.innerHTML);
+		
+		
+		document.getElementById("menu-drivers").className = document.getElementById("menu-drivers").className.replace(/\bgreen\b/,'');
+		document.getElementById("menu-soft").className = document.getElementById("menu-soft").className + ' green';
+        //document.getElementById("menu-wget").className = document.getElementById("menu-wget").className.replace(/\bgreen\b/,'');
+		
         //document.getElementById("m-pc").parentNode.classList.remove("green");
         //document.getElementById("m-down").parentNode.classList.remove("green");
         //document.getElementById("m-apps").parentNode.classList.add("green");
         //var softs = this.SQL('SELECT * FROM soft');
-		var softs = SoftPack.get({ 'SELECT': '*' });
         //var tbodys = document.getElementById('list').getElementsByTagName('tbody');
         //for (var i = 0, n = tbodys.length; i < n; i++) {
         //    if (i in tbodys) {
@@ -344,38 +366,65 @@ var SoftPack = {
         //}
         document.getElementById('loader').style.display = 'block';
         var newTbody = document.createElement('tbody');
-        for (var i = 0; i < softs.length; i++) {
-            if (softs[i]) {
-                if (!softs[i].isInstalled) {
-                    //var descr = this.SQL('SELECT * FROM soft WHERE Name="' + softs[i].Name + '"')[0];
-					//var descr = SoftPack.get('Name').where(softs[i].Name)[0];
-                    var descr = SoftPack.get(
-						{
-							'SELECT': '*',
-							'WHERE': [
-								{
-									'Name': softs[i].Name
-								}
-							],
-							'LIMIT': 1
+		var newTbody = '';
+		var softs = SoftPack.get({ 'SELECT': '*', 'WHERE': [ { 'isInstalled': false } ] });
+		
+		for (var i = 0; i < softs.length; i++) {
+			
+			newTbody += '<tr><td class="list-first"><input data-name="' + encodeURIComponent(softs[i].Name)  + '" id="checkSoft'+softs[i].ID+'" type="checkbox" checked1/> </td>' +
+					'<td class="list-second">' + softs[i].Name + '</td>' +
+					'<td class="list-third" title="' + softs[i].URL + '"><b>' + softs[i].Version + '</b></td>' +
+					'<td class="list-last"></td>' +
+					'</tr>';
+			
+        }
+		
+		
+		getDownloadInstall = function(){
+			
+			var IDs = [];
+			for (var i = 0; i < softs.length; i++) {
+				if (document.getElementById('checkSoft'+softs[i].ID).checked === true){
+					IDs[IDs.length] = softs[i].ID;
+				}
+				
+			}
+			
+			if (IDs.length < 1) { return false; }
+			
+			document.getElementById('loader').style.display = 'block';
+			//alert(JSON.stringify(IDs));
+			echo('Downloading started...');
+			SoftPack.download(
+				IDs,
+				function(){
+					
+					echo('Downloaded!');
+					alert('Готово, переходим к установке!');
+					
+					echo('Installing started...');
+					SoftPack.install(
+						IDs,
+						function(){
+							
+							echo('Installed!');
+							document.getElementById('loader').style.display = 'none';
+							alert('Установка завершена!');
+							
 						}
 					);
-					newTbody.innerHTML += "<!-- { SINGLE LIST ITEM } -->" +
-                            "<tr>" +
-                            "<td class='list-first'> &nbsp; <input data-name='" + encodeURIComponent(descr.Name) + "' type='checkbox' checked=checked/> <img id='drv-sound' src='img/blank.gif' /></td>" +
-                            "<td class='list-second'>" + descr.Name + "</td>" +
-                            "<td class='list-third' title='" + descr.URL + "'><b>" + descr.Version + "</b></td>" +
-                            "<td class='list-last'></td>" +
-                            "</tr><br>";
-                }
-            }
-        }
+					
+				}
+			);
+		};
+		
         //var tbodys = document.getElementById('list').getElementsByTagName('tbody');
         //if (tbodys.length) {
         //    document.getElementById('list').removeChild(tbodys[0]);
         //}
         //document.getElementById('list').appendChild(newTbody);
-		document.getElementById('tbody').innerHTML = newTbody.innerHTML;
+		//alert(newTbody);
+		document.getElementById('div-list').innerHTML = '<table id="list"><thead><tr><td></td><td>Название</td><td>Версия</td><td></td></tr></thead><tbody>'+newTbody+'</tbody></table>';
         document.getElementById('loader').style.display = 'none';
     }
 };

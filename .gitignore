@@ -1,4 +1,5 @@
-Thumbs.db
+[Tt]humbs.db
+*.DS_Store
 nbproject/
-bin/Tools/modules/AutoTests/Reports
-bin/Reports/
+bin/Tools/modules/AutoTests/[Rr]eport*/
+bin/[Rr]eports/
