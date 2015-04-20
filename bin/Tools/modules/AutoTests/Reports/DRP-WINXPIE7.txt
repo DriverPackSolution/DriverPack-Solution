@@ -1,9 +1,0 @@
-
- ------- Run test for SoftPack.js ------- 
-
-
-
-   !!! ERROR: 'columns' -  есть null или не является объектом
-   !!! In the module: file:///C:/Dropbox/DriverPack-Solution-AutoTests/bin/Tools/modules/AutoTests/RunTests.hta
-   !!! Line: 6700
-

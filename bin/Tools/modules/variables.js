@@ -107,7 +107,9 @@ if (!fso.FolderExists(AppData+'\\DRPSu\\Logs\\DRPLog')) { fso.CreateFolder(AppDa
 
 var wget_path = 'tools\\wget.exe';
 function wget_driver(downloadURI, targetFolder, size) {
+	echo('wget start');
     if (fso.FileExists(wget_path)) {
+		echo('wget exists');
         if (!driver_exists(downloadURI, targetFolder)) {
             var parsed_url = downloadURI.split("/");
             //Function to be run during the downloading to check the progress.
@@ -115,8 +117,8 @@ function wget_driver(downloadURI, targetFolder, size) {
             //    getPercents_interval = setInterval('getPercents()', 150);
             //}
 			
-			echo('Starting wget.exe: ' + '"'+wget_path+'" -P "' + targetFolder + '" ' + downloadURI + ' -o "' + logFolder + 'DRP-Lite-Status.txt"');
-			var wsShellObj = WshShell.run('"'+wget_path+'" -P "' + targetFolder + '" ' + downloadURI + ' -o "' + logFolder + 'DRP-Lite-Status.txt"', 0, true);
+			echo('Starting wget.exe: ' + '"'+wget_path+'" -P "' + targetFolder + '" "' + downloadURI + '" -o "' + logFolder + 'DRP-Lite-Status.txt"');
+			var wsShellObj = WshShell.run('"'+wget_path+'" -P "' + targetFolder + '" "' + downloadURI + '" -o "' + logFolder + 'DRP-Lite-Status.txt"', 0, true);
             echo("\r\n\r\n ---------------- WGET-Log --------------");
 			echo(fso.OpenTextFile(logFolder + "DRP-Lite-Status.txt", 1, false).ReadAll());
 			
@@ -137,7 +139,6 @@ function driver_exists(downloadURI, targetFolder) {
 
     var parsed_url = downloadURI.split("/");
     var downloaded_driver = targetFolder + "\\" + parsed_url[parsed_url.length - 1];
-	echo(targetFolder + "\\" + parsed_url[parsed_url.length - 1]);
 	echo(downloaded_driver);
 
     if (fso.FileExists(downloaded_driver)) {

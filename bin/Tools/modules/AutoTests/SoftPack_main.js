@@ -171,8 +171,10 @@ setTimeout(function() {
 			db.forEach(function(item) {
 				
 				if (typeof(item.isInstalled) == 'undefined') { return false; }
-				if (item.isInstalled === true) { echo(item.Name); isInstalled_true = true; }
+				if (item.isInstalled === true) { isInstalled_true = true; }
 				if (item.isInstalled === false) { isInstalled_false = true; }
+				
+				echo('Item: ' + item.Name + ' - isInstalled: ' + item.isInstalled);
 				
 			});
 			

@@ -4,25 +4,10 @@ var SoftPack = {
     init: function (callback) {
 		
 		JSONP(
-			'http://test-st.drp.su/admin/index.php?r=response&callback=soft',
+			'http://test-st.drp.su/admin/index.php?r=response&callback',
 			function (json) {
 				
-				
-				//Фиксим неправильный формат JSON,
-				//это чтобы не переписывать на стороне сервера
-				json.forEach(function(item, i, json) {
-					
-					json[i].Registry = [];
-					if (item.Registry_32){
-						json[i].Registry[json[i].Registry.length] = item.Registry_32.replace(/\\\\/ig,'\\');
-					}
-					if (item.Registry_64){
-						json[i].Registry[json[i].Registry.length] = item.Registry_64.replace(/\\\\/ig,'\\');
-					}
-					
-				});
-				
-				SoftPack.loadDB(cloneObj(json));
+				SoftPack.loadDB(json);
 				SoftPack.detectInstalled();
 				SoftPack.detectDownloaded();
 				
@@ -87,14 +72,34 @@ var SoftPack = {
 	
 	loadDB: function(json){
 		
+		json = cloneObj(json);
+		
 		SoftPack._json = {
 			'soft': new Array()
 		};
-		//SoftPack._json.soft = json.slice();
-		//SoftPack._json.soft = json.clone()[0];
+		
+		
+		//Фиксим неправильный формат JSON,
+		//это чтобы не переписывать на стороне сервера
+		if (typeof(json[0]['Registry']) == 'undefined'){
+			json.forEach(function(item, i, json) {
+				
+				json[i].Registry = [];
+				if (item.Registry_32){
+					json[i].Registry[json[i].Registry.length] = item.Registry_32.replace(/\\\\/ig,'\\');
+				}
+				if (item.Registry_64){
+					json[i].Registry[json[i].Registry.length] = item.Registry_64.replace(/\\\\/ig,'\\');
+				}
+				
+			});
+		}
+		
+		//echo(json);
+		
 		
 		//Клонируем объект
-		SoftPack._json.soft = cloneObj(json);
+		SoftPack._json.soft = json;
 		
 		
 	},
@@ -411,6 +416,8 @@ var SoftPack = {
 							document.getElementById('loader').style.display = 'none';
 							alert('Установка завершена!');
 							
+							SoftPack.html();
+							
 						}
 					);
 					
@@ -425,6 +432,8 @@ var SoftPack = {
         //document.getElementById('list').appendChild(newTbody);
 		//alert(newTbody);
 		document.getElementById('div-list').innerHTML = '<table id="list"><thead><tr><td></td><td>Название</td><td>Версия</td><td></td></tr></thead><tbody>'+newTbody+'</tbody></table>';
-        document.getElementById('loader').style.display = 'none';
+        document.getElementById('h1-title').innerHTML = 'Установка софта';
+		document.getElementById('description').innerHTML = 'Найдены доступные для установки приложения';
+		document.getElementById('loader').style.display = 'none';
     }
 };

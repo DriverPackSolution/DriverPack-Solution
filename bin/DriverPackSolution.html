@@ -3,7 +3,7 @@
 <!--<![endif]-->
 <html>
     <head>
-        <title>DriverPack Solution</title>
+        <title>DriverPack Solution Alpha</title>
 		<!-- { FAVICON } -->
         <link rel="shortcut icon" href="Tools\icon.ico" type="image/x-icon" />
 		
@@ -122,9 +122,9 @@
         </td>
         <!-- { RIGHT BLOCK [CONTENT] }-->
         <td class="app-container">
-            <h1>Установка драйверов</h1>
+            <h1 id="h1-title">Установка драйверов</h1>
             <div class="notification">
-                <div class="nt-body"><img src="img/info.png"><span>Найдены доступные для установки драйвера</br></span></div>
+                <div class="nt-body"><img src="img/info.png"><span id="description">Найдены доступные для установки драйвера</br></span></div>
                 <div class="nt-footer"><button onclick="getDownloadInstall();">Установить</button></div>
             </div>
 
@@ -208,11 +208,11 @@
 	setTimeout(function(){
         window.offscreenBuffering = false;
 		
-		/*DriverPack.init(function () {
+		DriverPack.init(function () {
             DriverPack.html();
-        });*/
+        });
 		SoftPack.init(function () {
-            SoftPack.html();
+            //SoftPack.html();
         });
 		//setTimeout(function () {
         //    DriverPack.html();
