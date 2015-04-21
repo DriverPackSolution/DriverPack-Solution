@@ -146,8 +146,8 @@ setTimeout(function() {
 				true
 			);
 			
-			//echo('Installing started...');
-			/*
+			echo('Installing started...');
+			
 			DriverPack.install(
 				[ 0, 1 ],
 				function(){
@@ -165,7 +165,7 @@ setTimeout(function() {
 					
 				}
 			);
-			*/
+			
 			
 		}
 	);

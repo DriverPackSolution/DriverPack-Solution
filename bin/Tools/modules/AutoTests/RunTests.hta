@@ -1,9 +1,9 @@
 ﻿<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
         <title>DRP Su AutoTests</title>
-		<!--
+		<!-- ->
 		<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-		-->
+		<!-- -->
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
             <meta HTTP-EQUIV="MSThemeCompatible" content="yes">
 			
@@ -12,6 +12,7 @@
 			<meta http-equiv="expires" content="0" />
 			<meta http-equiv="pragma" content="no-cache" />
 
+				<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/stacktrace.js/0.6.4/stacktrace.js"></script>
                 <script type="text/javascript" src="init.js"></script>
                 <script type="text/javascript" src="variables.js"></script>
                 <script type="text/javascript">
@@ -167,6 +168,7 @@
                         }
                         else {
                             result = 'ERROR!!! (Function result: "' + JSON.stringify(func, null, '\t') + '", \r\n\r\n Need result: "' + JSON.stringify(retu, null, '\t') + '")';
+							result += "\r\n\r\n----- StackTrace -----\r\n\r\n" + printStackTrace().join("\n\n");
                         }
 						
 						var end = new Date();

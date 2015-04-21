@@ -352,23 +352,11 @@ var SoftPack = {
 	
 	html: function () {
 		
-		//alert(document.getElementById("list").lastChild.innerHTML);
-		
-		
-		document.getElementById("menu-drivers").className = document.getElementById("menu-drivers").className.replace(/\bgreen\b/,'');
+		document.getElementById("menu-drivers").className = document.getElementById("menu-drivers").className.replace(/\b green\b/ig,'');
 		document.getElementById("menu-soft").className = document.getElementById("menu-soft").className + ' green';
-        //document.getElementById("menu-wget").className = document.getElementById("menu-wget").className.replace(/\bgreen\b/,'');
 		
-        //document.getElementById("m-pc").parentNode.classList.remove("green");
-        //document.getElementById("m-down").parentNode.classList.remove("green");
-        //document.getElementById("m-apps").parentNode.classList.add("green");
-        //var softs = this.SQL('SELECT * FROM soft');
-        //var tbodys = document.getElementById('list').getElementsByTagName('tbody');
-        //for (var i = 0, n = tbodys.length; i < n; i++) {
-        //    if (i in tbodys) {
-        //        tbodys[i].innerHtml = '';
-        //    }
-        //}
+		//alert("soft: " + document.getElementById("menu-soft").className + ' drivers: ' + document.getElementById("menu-drivers").className);
+		
         document.getElementById('loader').style.display = 'block';
         var newTbody = document.createElement('tbody');
 		var newTbody = '';

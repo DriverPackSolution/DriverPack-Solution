@@ -224,23 +224,29 @@ var DriverPack = {
 	
 	
 	install: function (IDs, callback) {
-		//alert('0');
-		//var installed = DriverPack.getDrivers('ID',driverID);
+		
 		var installed = DriverPack.get({
 			'SELECT': '*',
 			'WHERE': IDs
 		});
 		
 		//alert(print_r(installed));
+		
+		
 		setTimeout(
 			function(){
 				
-				installed.forEach(function(item,i) {
-					if (item.isDownloaded){
+				//installed.forEach(function(item,i) {
+					//if (item.isDownloaded){
 						
 						//WshShell.Run('cmd /c rd /S /Q "' + WshShell.ExpandEnvironmentStrings(DriverPack.driverPath) + '"', 0, true);
-						WshShell.Run('Tools\\7za.exe x -yo"' + WshShell.ExpandEnvironmentStrings(DriverPack.driverPath) + '" "' + DriverPack.driverPath + '\\*"', 0, true);
 						/*
+						echo('Tools\\7za.exe x -yo"' + WshShell.ExpandEnvironmentStrings(DriverPack.driverPath) + '" "' + DriverPack.driverPath + '\\drp\\*"');
+						WshShell.Run('Tools\\7za.exe x -yo"' + WshShell.ExpandEnvironmentStrings(DriverPack.driverPath) + '" "' + DriverPack.driverPath + '\\drp\\*"', 0, true);
+						
+						
+						alert(WshShell.ExpandEnvironmentStrings(DriverPack.driverPath + '\\dpinst\\Setup') + (SVersion == '64' ? '64' : '') + '.exe ' +
+							'/SW /c /sa /PATH "' + WshShell.ExpandEnvironmentStrings(DriverPack.driverPath) + '"');
 						WshShell.Run(
 							WshShell.ExpandEnvironmentStrings(DriverPack.driverPath + '\\dpinst\\Setup') + (SVersion == '64' ? '64' : '') + '.exe ' +
 							'/SW /c /sa /PATH "' + WshShell.ExpandEnvironmentStrings(DriverPack.driverPath) + '"',
@@ -248,8 +254,33 @@ var DriverPack = {
 						);
 						*/
 						
-					}
-				});
+						
+						// Cleaning
+						WshShell.Run('cmd /c rd /S /Q "' + WshShell.ExpandEnvironmentStrings('%temp%\\drp\\unzip\\drp') + '"', 0, true);
+						// Unzip
+						WshShell.Run('tools\\7za.exe x -yo"' + WshShell.ExpandEnvironmentStrings('%temp%\\drp\\unzip\\drp') + '" "' + DriverPack.driverPath + '\\*"', 0, true);
+						// Installing drivers
+						WshShell.Run(
+							'"' + WshShell.ExpandEnvironmentStrings('%temp%\\drp\\unzip\\drp\\dpinst\\Setup') + '' + (SVersion == '64' ? '64' : '') + '.exe" ' +
+							'/SW /c /sa /PATH "' + WshShell.ExpandEnvironmentStrings('%temp%\\drp\\unzip') + '"',
+							0,true
+						);
+						/*
+						echo(
+							'"' + DriverPack.driverPath + '\\dpinst\\Setup' + (SVersion == '64' ? '64' : '') + '.exe" ' +
+							'/SW /c /sa /PATH "' + WshShell.ExpandEnvironmentStrings('%temp%\\drp\\unzip') + '"'
+						);
+						*/
+						
+						
+						
+						
+						
+						
+						
+						
+					//}
+				//});
 				
 				callback();
 			},
@@ -339,50 +370,47 @@ var DriverPack = {
 				output_installed[i].ID = i;
 				
 			});
-			//echo(output_installed);
 			
+			//Фильтруем дубликаты драйверов
+			var output_installed_filtered = [];
+			var urlArr = [];
+			for (var i = 0; i < output_installed.length; i++) {
+			
+				if (urlArr.indexOf(output_installed[i].URL) == -1){
+	
+					output_installed_filtered[output_installed_filtered.length] = output_installed[i];
+					urlArr[urlArr.length] = output_installed[i].URL;
+	
+				}
+	
+			}
+			output_installed = output_installed_filtered;
+	
+	
+	
 			//echo(print_r(output));
 			DriverPack._json = output_installed;
 			//alert(print_r(DriverPack.getDrivers('ID','0')));
-			
+	
 	},
 	
 	
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
+		
+		
+		
+		
+		
+		
+		
     html: function () {
 		
 		document.getElementById("menu-drivers").className = document.getElementById("menu-drivers").className + ' green';
-		document.getElementById("menu-soft").className = document.getElementById("menu-soft").className.replace(/\bgreen\b/,'');
+		document.getElementById("menu-soft").className = document.getElementById("menu-soft").className.replace(/\b green\b/ig,'');
 		
-		
-		
-		
-		
-		
-		
-        //document.getElementById("m-apps").parentNode.classList.remove("green");
-        //document.getElementById("m-down").parentNode.classList.remove("green");
-        //document.getElementById("m-pc").parentNode.classList.add("green");
-        //var installed = DriverPack.SQL('SELECT * FROM installed');
-		//var tbodys = document.getElementById('list').getElementsByTagName('tbody');
-		//for (var i = 0, n = tbodys.length; i < n; i++) {
-        //    if (i in tbodys) {
-        //        tbodys[i].innerHtml = '';
-        //    }
-        //}
-		
-		
-		
-		
+		//alert("soft: " + document.getElementById("menu-soft").className + ' drivers: ' + document.getElementById("menu-drivers").className);
 		
         document.getElementById('loader').style.display = 'block';
         var newTbody = document.createElement('tbody');
@@ -393,7 +421,7 @@ var DriverPack = {
 			
 			if (!driver_exists(drivers[i].URL,DriverPack.driverPath)){
 				newTbody += '<tr><td class="list-first"><input data-name="' + encodeURIComponent(drivers[i].Name)  + '" id="checkDrivers'+drivers[i].ID+'" type="checkbox" checked1/> <img src="Tools/ico/button/' + DriverPack.getDriverIcon(drivers[i].URL) + '.png" /> </td>' +
-						'<td class="list-second" title="' + drivers[i].DevID + '">' + drivers[i].Name + '</td>' +
+						'<td class="list-second" title="' + drivers[i].DevID + '">' + drivers[i].Name + ' (' + drivers[i].ID + ')</td>' +
 						'<td class="list-third" title="' + drivers[i].URL + '"><b>' + drivers[i].Date + '</b></td>' +
 						'<td class="list-last"></td>' +
 						'</tr>';
@@ -404,14 +432,18 @@ var DriverPack = {
 		getDownloadInstall = function(){
 			
 			var IDs = [];
+			IDs[IDs.length] = 0; //Тупой фикс, чтобы dpinst всегда устанавливался
 			for (var i = 1; i < drivers.length; i++) {
+				
+				if (!driver_exists(drivers[i].URL,DriverPack.driverPath)){
 				if (document.getElementById('checkDrivers'+drivers[i].ID).checked === true){
 					IDs[IDs.length] = drivers[i].ID;
+				}
 				}
 				
 			}
 			
-			if (IDs.length < 1) { return false; }
+			if (IDs.length < 2) { return false; }
 			
 			document.getElementById('loader').style.display = 'block';
 			//alert(JSON.stringify(IDs));

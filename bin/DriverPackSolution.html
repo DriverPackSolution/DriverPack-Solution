@@ -75,7 +75,7 @@
                     <!-- { MAIN MENU }-->
                     <div class="main-menu">
                         <a href="#" onclick="DriverPack.html();
-                                return false;" id="menu-drivers" class="menu-e green" title="Установка драйверов на компьютер">
+                                return false;" id="menu-drivers" class="menu-e" title="Установка драйверов на компьютер">
                             <img id="m-pc" src="img/blank.gif"/><i>Драйверы</i>_
                         </a>
                         <a href="#" onclick="SoftPack.html();
@@ -207,6 +207,10 @@
         //document.getElementById('loader').style.display = 'block';
 	setTimeout(function(){
         window.offscreenBuffering = false;
+		
+		
+		//Удаляет NTFS Alternate Data Streams чтобы небыло предупреждений безопасности
+		WshShell.Run('Tools\\streams-d.cmd', 0, false);
 		
 		DriverPack.init(function () {
             DriverPack.html();
