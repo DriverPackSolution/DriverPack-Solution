@@ -279,7 +279,7 @@ h2 {
     padding-top:32px;
     padding-bottom: 32px;
 }
-.app-container button{
+button{
     background: none;
     border:none;
     margin:	0px;
@@ -298,7 +298,7 @@ h2 {
     outline:none;
     cursor:pointer;
 }
-.app-container button:active{
+button:active{
     background-color: black;
 
 }

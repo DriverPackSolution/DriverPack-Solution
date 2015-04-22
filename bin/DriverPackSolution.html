@@ -65,7 +65,81 @@
                      windowState="maximize"/>
 
     <body>
-		<div id="loader"><a href="#"></a>&nbsp;</div>
+
+<script type="text/javascript">
+function extendJSON(target) {
+    var sources = [].slice.call(arguments, 1);
+    sources.forEach(function (source) {
+        for (var prop in source) {
+            target[prop] = source[prop];
+        }
+    });
+    return target;
+}
+
+
+
+progressCounter = {
+
+    settings: {
+        elementId: 'progressCounter',
+        startCount: 1,
+        endCount: 100,
+        duration: 7000 //10000
+    },
+    _timeoutId: '',
+    
+    start: function (params){
+        extendJSON(this.settings,params);
+        console.log(this.settings);
+
+        if (this._timeoutId) { clearTimeout(this._timeoutId); }
+        this._startTime = new Date().getTime();
+        this.number_to();
+    },
+
+    number_to: function (){
+        //var element = document.getElementById(this.settings.elementId);
+        
+        var _this = progressCounter;
+        setTimeout(function() {
+                var now = (new Date().getTime()) - _this._startTime;
+                var progress = now / _this.settings.duration;
+                var result = Math.floor((_this.settings.endCount - _this.settings.startCount) * progress + _this.settings.startCount);
+                //console.log(progress);
+                document.getElementById(_this.settings.elementId).innerHTML = (progress < 1 ? result : _this.settings.endCount) + ' %';
+                console.log(progress < 1 ? result : _this.settings.endCount);
+                if (progress < 1) {
+                    //console.log(_this._timeoutId);
+                    _this._timeoutId = setTimeout(_this.number_to, 300);
+                }
+            },
+            100
+        );
+    }
+
+};
+
+/*
+progressCounter.start({
+    startCount: 1,
+    endCount: (80/5*1)
+});
+
+
+setTimeout(function(){
+    progressCounter.start({
+        startCount: progressCounter.settings.endCount,
+        endCount: (80/5*2) // (80/arr.lenght*i)
+    });
+
+}, 10000);
+*/
+
+
+</script>
+
+		<div id="loader"><a href="#"></a>&nbsp; <div id="progress" style="position:relative;top:32%;color:white;text-align:center;font-size:60px;"><span id="progressCounter"></span> <br><span id="progressDescription"><br>Привет!</span></div></div>
         <table class="main">
             <tr>
                 <!-- { LEFT BLOCK [CHARMS] }-->
@@ -205,6 +279,7 @@
 
     //document.addEventListener("DOMContentLoaded", function (event) {
         //document.getElementById('loader').style.display = 'block';
+    
 	setTimeout(function(){
         window.offscreenBuffering = false;
 		

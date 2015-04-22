@@ -204,6 +204,15 @@ var DriverPack = {
 				
 				url.forEach(function(item,i,url) {
 					
+
+					
+					setTimeout(function(){
+					    progressCounter.start({
+					        startCount: (i==0?1:progressCounter.settings.endCount),
+					        endCount: (i==0?2:(80/url.length*(i+1))) // (80/arr.lenght*i)
+					    });
+					}, 10);
+
 					echo('Downloading: ' + item.URL + '. To folder: ' + DriverPack.driverPath);
 					wget_driver(item.URL,DriverPack.driverPath);
 					DriverPack._json[i].isDownloaded = true;
@@ -446,6 +455,7 @@ var DriverPack = {
 			if (IDs.length < 2) { return false; }
 			
 			document.getElementById('loader').style.display = 'block';
+			document.getElementById('progressDescription').innerHTML = '<br>Скачиваю...';
 			//alert(JSON.stringify(IDs));
 			echo('Downloading started...');
 			DriverPack.download(
@@ -453,18 +463,34 @@ var DriverPack = {
 				function(){
 					
 					echo('Downloaded!');
-					alert('Готово, переходим к установке!');
+					//alert('Готово, переходим к установке!');
+					document.getElementById('progressDescription').innerHTML = '<br>Устанавливаю...';
+
+					setTimeout(function(){
+					    progressCounter.start({
+					        startCount: 80,
+					        endCount: 99
+					    });
+					}, 10);
 					
 					echo('Installing started...');
 					DriverPack.install(
 						IDs,
 						function(){
 							
+							progressCounter.start({
+						        startCount: 100,
+						        endCount: 100
+						    });
 							echo('Installed!');
-							document.getElementById('loader').style.display = 'none';
-							alert('Установка завершена!');
 							
-							DriverPack.html();
+
+							document.getElementById('loader').style.backgroundImage = "none";
+							document.getElementById('progressDescription').innerHTML = 'Все драйверы установленны! <br><button onclick="document.getElementById(\'loader\').style.display = \'none\'">Готово</button>';
+							//document.getElementById('loader').style.display = 'none';
+							//alert('Установка завершена!');
+							
+							//DriverPack.html();
 							
 						}
 					);

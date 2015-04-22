@@ -1,3 +1,12 @@
+Array.prototype.extend = function (array) {
+    array.unshift(array.length)
+    array.unshift(this.length)
+    Array.prototype.splice.apply(this,array) 
+    array.shift() // restore b
+    array.shift() //
+}
+
+
 /************ FOR IE<9 ************/
 if (!Function.prototype.bind) {
     Function.prototype.bind = function (oThis) {
