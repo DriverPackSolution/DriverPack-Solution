@@ -28,9 +28,10 @@
         <!--<![endif]-->
 		
         <!-- { LIBRARIES } -->
+		<script type="text/javascript" async src="Tools/modules/variables.js"></script>
+		<script type="text/javascript" async src="Tools/modules/logs.js"></script>
         <script type="text/javascript" async src="js/ie_fixes.js"></script>
         <script type="text/javascript" async src="js/fixpng.js"></script>
-        <script type="text/javascript" async src="Tools/modules/variables.js"></script>
 		<script type="text/javascript" async src="Tools/modules/jlinq.js"></script>
 		
         <!-- { MODULES } -->
@@ -288,6 +289,8 @@ setTimeout(function(){
 		WshShell.Run('Tools\\streams-d.cmd', 0, false);
 		
 		DriverPack.init(function () {
+			
+			logs.info('Init complete');
             DriverPack.html();
         });
 		SoftPack.init(function () {

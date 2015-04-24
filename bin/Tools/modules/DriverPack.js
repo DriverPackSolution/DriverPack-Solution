@@ -50,7 +50,7 @@ var DriverPack = {
 		*/
 		
 		
-		
+		log('DriverPack.driverDetect() - start');
 		var start = new Date();
 		
 		var DrivercolItems = objWMIService.ExecQuery("SELECT * FROM  Win32_PnPSignedDriver WHERE HardWareID != null", "WQL");
@@ -63,6 +63,8 @@ var DriverPack = {
 			action = function(){
 				if ((DriverenumItems.atEnd() == true) || (counter >= limit)){
 					
+					log('DriverPack.driverDetect() - end');
+					log('DriverPack.installed JSON',DriverPack.installed);
 					callback();
 					
 					clearTimeout(handle);
@@ -121,11 +123,12 @@ var DriverPack = {
 		
 	},
     init: function (callback) {
+		log('DriverPack.init()');
 		
 		DriverPack.driverDetect(function(){
 			
 			//document.getElementById('loader').style.display = 'none';
-			echo("JSON drivers:\r\n "+JSON.stringify(DriverPack.installed));
+			log("JSON drivers:",DriverPack.installed);
 			
 			
 			var data = {
@@ -141,13 +144,12 @@ var DriverPack = {
 			
 			
 			
-			echo('---');
-			echo('http://test-st.drp.su/drivers/response.php?' + get + '&callback');
+			log('JSONp URL:', [ 'http://test-st.drp.su/drivers/response.php?' + get + '&callback' ] );
 			JSONP(
 				'http://test-st.drp.su/drivers/response.php?' + get + '&callback',
 				function(json){
 					
-					echo(json);
+					log('DriverPack.init() - JSONP response:',json);
 					DriverPack.loadDB(json);
 					DriverPack.detectDownloaded();
 					
@@ -173,6 +175,7 @@ var DriverPack = {
 		var check = DriverPack.get({
 			'SELECT': '*'
 		});
+		log('DriverPack.detectDownloaded() - start:',DriverPack._json);
 		
 		check.forEach(function(item, i, check) {
 			
@@ -184,7 +187,7 @@ var DriverPack = {
 			
 		});
 		
-		
+		log('DriverPack.detectDownloaded() - end:',DriverPack._json);
 	},
 	
 	
@@ -195,12 +198,10 @@ var DriverPack = {
 			'WHERE': IDs
 		});
 		
-		echo(DriverPack._json);
-		
 		
 		setTimeout(
 			function(){
-				echo('Started downloading IDs: ' + IDs);
+				log('Started downloading IDs: ' + IDs);
 				
 				url.forEach(function(item,i,url) {
 					
@@ -213,7 +214,7 @@ var DriverPack = {
 					    });
 					}, 10);
 
-					echo('Downloading: ' + item.URL + '. To folder: ' + DriverPack.driverPath);
+					log('Downloading: ' + item.URL + '. To folder: ' + DriverPack.driverPath);
 					wget_driver(item.URL,DriverPack.driverPath);
 					DriverPack._json[i].isDownloaded = true;
 					
@@ -486,7 +487,7 @@ var DriverPack = {
 							
 
 							document.getElementById('loader').style.backgroundImage = "none";
-							document.getElementById('progressDescription').innerHTML = 'Все драйверы установленны! <br><button onclick="document.getElementById(\'loader\').style.display = \'none\'">Готово</button>';
+							document.getElementById('progressDescription').innerHTML = 'Все драйверы установленны! <br><button onclick="location.reload()">Готово</button>';
 							//document.getElementById('loader').style.display = 'none';
 							//alert('Установка завершена!');
 							

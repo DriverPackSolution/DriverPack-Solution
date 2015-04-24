@@ -23,6 +23,25 @@ for (; !OperatingSystemItems.atEnd(); OperatingSystemItems.moveNext()) {
 
 
 
+//Include other JavaScript or CSS
+function inc(filename){
+	var head = document.getElementsByTagName('head').item(0);
+	if (fso.GetFileName(filename).split('.')[1].toLowerCase()=='css'){
+		script=document.createElement("link");
+		script.setAttribute("rel", "stylesheet");
+		script.setAttribute("type", "text/css");
+		script.setAttribute("href", filename);
+	}
+	else {
+		script = document.createElement('script');
+		script.src = filename;
+		script.type = 'text/javascript';
+	}
+	
+	if (typeof script!="undefined"){
+		head.appendChild(script);
+	}
+}
 
 
 function print_r(arr, level) {
@@ -398,8 +417,9 @@ var resize = {
         }
         catch (err) {
         }
-        document.title = document.title + " " + version + " " + verType;
     }
 };
+//resize.init();
 
-resize.init();
+document.title = document.title + " " + version + " " + verType;
+

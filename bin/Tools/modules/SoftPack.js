@@ -1,11 +1,13 @@
 var SoftPack = {
     _json: softJsonDB,
     softPath: AppData + '\\DRPSu\\PROGRAMS',
-    init: function (callback) {
+    init: function(callback) {
+		log('SoftPack.init()');
 		
 		JSONP(
 			'http://test-st.drp.su/admin/index.php?r=response&callback',
 			function (json) {
+				log('SoftPack.init() - JSONP response:',json);
 				
 				SoftPack.loadDB(json);
 				SoftPack.detectInstalled();
@@ -22,6 +24,7 @@ var SoftPack = {
 		var check = SoftPack.get({
 			'SELECT': '*'
 		});
+		log('SoftPack.detectInstalled() - start',SoftPack._json.soft);
 		
 		check.forEach(function(item, i, check) {
 			
@@ -39,15 +42,9 @@ var SoftPack = {
 				}
 			}
 			
-			//isDownloaded
-			SoftPack._json.soft[i].isDownloaded = false;
-			if (driver_exists(item.URL,SoftPack.softPath)) {
-				SoftPack._json.soft[i].isDownloaded = true;
-			}
-			
 		});
 		
-		
+		log('SoftPack.detectInstalled() - end',SoftPack._json.soft);
 	},
 	
 	detectDownloaded: function () {
@@ -55,6 +52,7 @@ var SoftPack = {
 		var check = SoftPack.get({
 			'SELECT': '*'
 		});
+		log('SoftPack.detectDownloaded() - start',SoftPack._json.soft);
 		
 		check.forEach(function(item, i, check) {
 			
@@ -66,6 +64,7 @@ var SoftPack = {
 			
 		});
 		
+		log('SoftPack.detectDownloaded() - end',SoftPack._json.soft);
 		
 	},
 	
@@ -95,7 +94,7 @@ var SoftPack = {
 			});
 		}
 		
-		//echo(json);
+		log('SoftPack.loadDB() - Фиксим неправильный формат параметра Registry это чтобы не переписывать на стороне сервера',json);
 		
 		
 		//Клонируем объект
@@ -210,11 +209,11 @@ var SoftPack = {
 		
 		setTimeout(
 			function(){
-				echo('Started downloading IDs: ' + IDs);
+				log('Started downloading IDs: ' + IDs);
 				
 				url.forEach(function(item,i,url) {
 					
-					echo('Downloading: ' + item.URL + '. To folder: ' + SoftPack.softPath);
+					log('Downloading: ' + item.URL + '. To folder: ' + SoftPack.softPath);
 					wget_driver(item.URL,SoftPack.softPath);
 					SoftPack._json.soft[i].isDownloaded = true;
 					
@@ -243,8 +242,7 @@ var SoftPack = {
 				url.forEach(function(item,i) {
 					if (item.isDownloaded){
 						
-						//echo(SoftPack.softPath + '\\' + item.URL.substring(item.URL.lastIndexOf('/')+1));
-						echo('Starting to install: ' + '"' + SoftPack.softPath + '\\' + item.URL.substring(item.URL.lastIndexOf('/')+1) + '" ' + item.Keys);
+						log('Starting to install: ' + '"' + SoftPack.softPath + '\\' + item.URL.substring(item.URL.lastIndexOf('/')+1) + '" ' + item.Keys);
 						WshShell.Run('"' + SoftPack.softPath + '\\' + item.URL.substring(item.URL.lastIndexOf('/')+1) + '" ' + item.Keys,1,true);
 						SoftPack._json.soft[i].isInstalled = true;
 						
