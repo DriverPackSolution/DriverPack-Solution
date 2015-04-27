@@ -4,18 +4,20 @@ var SoftPack = {
     init: function(callback) {
 		log('SoftPack.init()');
 		
-		JSONP(
-			'http://test-st.drp.su/admin/index.php?r=response&callback',
-			function (json) {
-				log('SoftPack.init() - JSONP response:',json);
-				
-				SoftPack.loadDB(json);
-				SoftPack.detectInstalled();
-				SoftPack.detectDownloaded();
-				
-				callback();
+		SoftPack.jsonCallback = function (json) {
+			
+			log('SoftPack.init() - JSONP response:',json);
+			
+			SoftPack.loadDB(json);
+			SoftPack.detectInstalled();
+			SoftPack.detectDownloaded();
+			
+			callback();
 
-			}
+		}
+		
+		JSONP(
+			'http://update-test2.drp.su/v2/soft/?callback'
 		);
 
     },
