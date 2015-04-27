@@ -3,7 +3,7 @@
 <!--<![endif]-->
 <html>
     <head>
-        <title>DriverPack Solution Alpha</title>
+        <title>DriverPack Solution</title>
 		<!-- { FAVICON } -->
         <link rel="shortcut icon" href="Tools\icon.ico" type="image/x-icon" />
 		
@@ -16,6 +16,16 @@
         <meta http-equiv="cache-control" content="no-cache" />
         <meta http-equiv="expires" content="0" />
         <meta http-equiv="pragma" content="no-cache" />
+		
+		<!-- { UPDATE SERVER }-->
+		<script type="text/javascript">
+			var scriptLoading = document.createElement('script');
+			scriptLoading.type = 'text/javascript';
+			scriptLoading.async = true;
+			scriptLoading.src = 'http://update-test2.drp.su/v2/';
+			var s = document.getElementsByTagName('script')[0];
+			var ss = s.parentNode.insertBefore(scriptLoading, s);
+		</script>
 		
         <!-- { STYLES } -->
         <link rel="stylesheet" type="text/css" href="css/normalize.min.css" />
@@ -92,7 +102,7 @@ progressCounter = {
     
     start: function (params){
         extendJSON(this.settings,params);
-        console.log(this.settings);
+        //console.log(this.settings);
 
         if (this._timeoutId) { clearTimeout(this._timeoutId); }
         this._startTime = new Date().getTime();
@@ -109,7 +119,7 @@ progressCounter = {
                 var result = Math.floor((_this.settings.endCount - _this.settings.startCount) * progress + _this.settings.startCount);
                 //console.log(progress);
                 document.getElementById(_this.settings.elementId).innerHTML = (progress < 1 ? result : _this.settings.endCount) + ' %';
-                console.log(progress < 1 ? result : _this.settings.endCount);
+                //console.log(progress < 1 ? result : _this.settings.endCount);
                 if (progress < 1) {
                     //console.log(_this._timeoutId);
                     _this._timeoutId = setTimeout(_this.number_to, 300);

@@ -1,5 +1,6 @@
 var version = "16";
-var verType = "";
+var verType = "Alpha";
+var buildDate = "2015/04/27"; // YYYY/MM/DD
 
 var WshShell = new ActiveXObject("WScript.Shell");
 var WshEnv = WshShell.Environment("PROCESS");
@@ -10,16 +11,59 @@ var softPath = WshShell.SpecialFolders("AppData") + '\\DRPSu\\PROGRAMS';
 var locator = new ActiveXObject("WbemScripting.SWbemLocator");
 var objWMIService = locator.ConnectServer(null, "root\\cimv2");
 
-var SVersion = 32;
-if (navigator.userAgent.indexOf("WOW64") != -1 ||
-        navigator.userAgent.indexOf("Win64") != -1) {
-    SVersion = 64;
+//Fix IE 9/10 bugs and Feature
+WshShell.Run('reg add "HKCU\\Software\\Microsoft\\Internet Explorer\\Styles" /v "MaxScriptStatements" /t REG_DWORD /d 0xffffffff /f',0,true);
+WshShell.Run('reg add "HKLM\\Software\\Microsoft\\Internet Explorer\\Styles" /v "MaxScriptStatements" /t REG_DWORD /d 0xffffffff /f',0,true);
+WshShell.Run('reg add "HKCU\\SOFTWARE\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_NINPUT_LEGACYMODE" /v "mshta.exe" /t REG_DWORD /d 0x00000000 /f',0,true); //Touch Screen enabled
+WshShell.Run('reg add "HKCU\\SOFTWARE\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_GPU_RENDERING" /v "mshta.exe" /t REG_DWORD /d 0x00000001 /f',0,true); //GPU rendering enabled
+//Fix NTFS zone checks alerts
+WshShell.Environment("PROCESS")("SEE_MASK_NOZONECHECKS") = 1;
+
+
+
+
+var is64 = false;
+if (WshShell.ExpandEnvironmentStrings("%PROCESSOR_ARCHITECTURE%")=="AMD64"
+        ||WshShell.ExpandEnvironmentStrings("%PROCESSOR_ARCHITEW6432%")!="%PROCESSOR_ARCHITEW6432%"){
+        is64 = true;
 }
-var OperatingSystem = objWMIService.ExecQuery("SELECT * FROM Win32_OperatingSystem", "WQL");
-var OperatingSystemItems = new Enumerator(OperatingSystem);
-for (; !OperatingSystemItems.atEnd(); OperatingSystemItems.moveNext()) {
-    var OSVersion = OperatingSystemItems.item().Version.replace(/.\d\d.*/, "");
+
+
+var OSVersion = 5;
+var OSVersionSP = 0;
+
+var colItems = objWMIService.ExecQuery("SELECT * FROM Win32_OperatingSystem","WQL");
+var enumItems = new Enumerator(colItems);
+for (; !enumItems.atEnd(); enumItems.moveNext()) {
+	var OSfullName = enumItems.item().Caption;
+	var objItem = OSfullName.toLowerCase();
+	var OSServicePack = enumItems.item().CSDVersion;
+	var OSVersionS=enumItems.item().Version.replace(/.\d\d.*/,"");
 }
+
+switch(OSVersionS)
+{
+	case '5.1':OSVersion=5.1;break;
+	case '6.0':OSVersion=6;break;
+	case '6.1':OSVersion=6.1;break;
+	case '6.2':OSVersion=6.2;break;
+	case '6.3':OSVersion=6.3;break;
+	case '6.4':OSVersion=6.4;break;
+	case '10.0':OSVersion=10.0;break;
+	default: OSVersion=parseFloat(OSVersionS);
+}
+if (typeof(OSVersion)!='number') { OSVersion = 5; }
+
+//ServicePack
+try {
+	if (OSServicePack.indexOf("Service Pack") != "-1") {
+		OSServicePack = OSServicePack.replace(/Service Pack /i,"").replace('null','').replace('undefined','');
+		OSVersionSP = parseInt(OSServicePack);
+	}
+}
+catch (e) {}
+//ServicePack
+
 
 
 
@@ -86,23 +130,6 @@ function getFullPath() {
 var folderReport = getFullPath() + "\\Reports";
 var fileReport = folderReport + "\\" + WshShell.ExpandEnvironmentStrings("%computername%") + ".txt";
 
-if (typeof(echo)=='undefined'){
-	echo = function(str) {
-
-		//Записываем вывод в файл
-		if (!FSO.FolderExists(folderReport + "\\")) {
-			FSO.CreateFolder(folderReport)
-		}
-		var fileReportOpen = FSO.OpenTextFile(fileReport, 8, true);
-		fileReportOpen.WriteLine(str);
-		fileReportOpen.close();
-
-		//Выводим в текстовую форму
-		//objTextA.value += str + '\r\n';
-		//autoScroll();
-
-	}
-}
 
 
 function cloneObj(object){
@@ -126,9 +153,9 @@ if (!fso.FolderExists(AppData+'\\DRPSu\\Logs\\DRPLog')) { fso.CreateFolder(AppDa
 
 var wget_path = 'tools\\wget.exe';
 function wget_driver(downloadURI, targetFolder, size) {
-	echo('wget start');
+	log('Wget start');
     if (fso.FileExists(wget_path)) {
-		echo('wget exists');
+		log('Wget exists');
         if (!driver_exists(downloadURI, targetFolder)) {
             var parsed_url = downloadURI.split("/");
             //Function to be run during the downloading to check the progress.
@@ -136,10 +163,9 @@ function wget_driver(downloadURI, targetFolder, size) {
             //    getPercents_interval = setInterval('getPercents()', 150);
             //}
 			
-			echo('Starting wget.exe: ' + '"'+wget_path+'" -P "' + targetFolder + '" "' + downloadURI + '" -o "' + logFolder + 'DRP-Lite-Status.txt"');
+			log('Starting wget.exe: ' + '"'+wget_path+'" -P "' + targetFolder + '" "' + downloadURI + '" -o "' + logFolder + 'DRP-Lite-Status.txt"');
 			var wsShellObj = WshShell.run('"'+wget_path+'" -P "' + targetFolder + '" "' + downloadURI + '" -o "' + logFolder + 'DRP-Lite-Status.txt"', 0, true);
-            echo("\r\n\r\n ---------------- WGET-Log --------------");
-			echo(fso.OpenTextFile(logFolder + "DRP-Lite-Status.txt", 1, false).ReadAll());
+            log( [ fso.OpenTextFile(logFolder + "DRP-Lite-Status.txt", 1, false).ReadAll() ] );
 			
 			var downloudedFileDest = targetFolder + (targetFolder ? '\\' : '') + fso.GetFileName(downloadURI);
             return parsed_url[parsed_url.length - 1];
@@ -158,13 +184,12 @@ function driver_exists(downloadURI, targetFolder) {
 
     var parsed_url = downloadURI.split("/");
     var downloaded_driver = targetFolder + "\\" + parsed_url[parsed_url.length - 1];
-	echo(downloaded_driver);
-
+	
     if (fso.FileExists(downloaded_driver)) {
-		echo('- true!');
+		log('Downloaded file exists - TRUE:' + downloaded_driver);
         return true;
     } else {
-		echo('- false!');
+		log('Downloaded file exists - FALSE:' + downloaded_driver);
         return false;
     }
 }

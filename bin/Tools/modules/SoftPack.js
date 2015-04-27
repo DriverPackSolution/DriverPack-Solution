@@ -213,6 +213,13 @@ var SoftPack = {
 				
 				url.forEach(function(item,i,url) {
 					
+					setTimeout(function(){
+					    progressCounter.start({
+					        startCount: (i==0?1:progressCounter.settings.endCount),
+					        endCount: Math.floor(i==0?2:(80/url.length*(i+1))) // (80/arr.lenght*i)
+					    });
+					}, 10);
+					
 					log('Downloading: ' + item.URL + '. To folder: ' + SoftPack.softPath);
 					wget_driver(item.URL,SoftPack.softPath);
 					SoftPack._json.soft[i].isDownloaded = true;
@@ -362,11 +369,13 @@ var SoftPack = {
 		
 		for (var i = 0; i < softs.length; i++) {
 			
-			newTbody += '<tr><td class="list-first"><input data-name="' + encodeURIComponent(softs[i].Name)  + '" id="checkSoft'+softs[i].ID+'" type="checkbox" checked1/> </td>' +
-					'<td class="list-second">' + softs[i].Name + '</td>' +
-					'<td class="list-third" title="' + softs[i].URL + '"><b>' + softs[i].Version + '</b></td>' +
-					'<td class="list-last"></td>' +
-					'</tr>';
+			if (!driver_exists(softs[i].URL,SoftPack.softPath)){
+				newTbody += '<tr><td class="list-first"><input data-name="' + encodeURIComponent(softs[i].Name)  + '" id="checkSoft'+softs[i].ID+'" type="checkbox" checked1/> </td>' +
+						'<td class="list-second">' + softs[i].Name + '</td>' +
+						'<td class="list-third" title="' + softs[i].URL + '"><b>' + softs[i].Version + '</b></td>' +
+						'<td class="list-last"></td>' +
+						'</tr>';
+			}
 			
         }
 		
@@ -375,8 +384,11 @@ var SoftPack = {
 			
 			var IDs = [];
 			for (var i = 0; i < softs.length; i++) {
-				if (document.getElementById('checkSoft'+softs[i].ID).checked === true){
-					IDs[IDs.length] = softs[i].ID;
+				
+				if (!driver_exists(softs[i].URL,SoftPack.softPath)){
+					if (document.getElementById('checkSoft'+softs[i].ID).checked === true){
+						IDs[IDs.length] = softs[i].ID;
+					}
 				}
 				
 			}
@@ -384,25 +396,44 @@ var SoftPack = {
 			if (IDs.length < 1) { return false; }
 			
 			document.getElementById('loader').style.display = 'block';
+			document.getElementById('progressDescription').innerHTML = '<br>Скачиваю софт...';
 			//alert(JSON.stringify(IDs));
-			echo('Downloading started...');
+			log('Downloading soft started...');
 			SoftPack.download(
 				IDs,
 				function(){
 					
-					echo('Downloaded!');
-					alert('Готово, переходим к установке!');
+					log('Downloaded soft!');
+					//alert('Готово, переходим к установке!');
+					document.getElementById('progressDescription').innerHTML = '<br>Устанавливаю...';
 					
-					echo('Installing started...');
+					setTimeout(function(){
+					    progressCounter.start({
+					        startCount: 80,
+					        endCount: 99
+					    });
+					}, 10);
+					
+					log('Installing started soft...');
 					SoftPack.install(
 						IDs,
 						function(){
 							
-							echo('Installed!');
-							document.getElementById('loader').style.display = 'none';
-							alert('Установка завершена!');
+							setTimeout(function(){
+								progressCounter.start({
+									startCount: 100,
+									endCount: 100
+								});
+							}, 10);
+							log('Installed soft!');
 							
-							SoftPack.html();
+							
+							document.getElementById('loader').style.backgroundImage = "none";
+							document.getElementById('progressDescription').innerHTML = 'Весь софт установлен! <br><button onclick="location.reload()">Готово</button>';
+							//document.getElementById('loader').style.display = 'none';
+							//alert('Установка завершена!');
+							
+							//SoftPack.html();
 							
 						}
 					);

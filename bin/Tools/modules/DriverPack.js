@@ -134,7 +134,7 @@ var DriverPack = {
 			var data = {
 				not_installed: JSON.stringify(DriverPack.not_installed).replace(/\\\\/ig,"-"),
 				installed: JSON.stringify(DriverPack.installed).replace(/\\\\/ig,"-"),
-				version: SVersion,
+				version: (is64 ? '64': '32'),
 				os: (OSVersion=='6.1'?'7':OSVersion)
 			};
 			var get = Object.keys(data).map(function (k) {
@@ -205,12 +205,10 @@ var DriverPack = {
 				
 				url.forEach(function(item,i,url) {
 					
-
-					
 					setTimeout(function(){
 					    progressCounter.start({
 					        startCount: (i==0?1:progressCounter.settings.endCount),
-					        endCount: (i==0?2:(80/url.length*(i+1))) // (80/arr.lenght*i)
+					        endCount: Math.floor(80/url.length*(i+1)) // (80/arr.lenght*i)
 					    });
 					}, 10);
 
@@ -271,7 +269,7 @@ var DriverPack = {
 						WshShell.Run('tools\\7za.exe x -yo"' + WshShell.ExpandEnvironmentStrings('%temp%\\drp\\unzip\\drp') + '" "' + DriverPack.driverPath + '\\*"', 0, true);
 						// Installing drivers
 						WshShell.Run(
-							'"' + WshShell.ExpandEnvironmentStrings('%temp%\\drp\\unzip\\drp\\dpinst\\Setup') + '' + (SVersion == '64' ? '64' : '') + '.exe" ' +
+							'"' + WshShell.ExpandEnvironmentStrings('%temp%\\drp\\unzip\\drp\\dpinst\\Setup') + '' + (is64 ? '64' : '') + '.exe" ' +
 							'/SW /c /sa /PATH "' + WshShell.ExpandEnvironmentStrings('%temp%\\drp\\unzip') + '"',
 							0,true
 						);
@@ -337,10 +335,7 @@ var DriverPack = {
 			//return false;
 			json = cloneObj(json);
 			
-			echo("");
-			echo("JSON drivers_callback():");
-			echo(JSON.stringify(json));
-			echo("");
+			log("loadDB():",json);
 			var output = {installed: new Array(), not_installed: new Array()},
 			inst = json.installed.length, ninst = json.not_installed.length, tmp;
 			tmp = {
@@ -414,7 +409,7 @@ var DriverPack = {
 		
 		
 		
-		
+	
     html: function () {
 		
 		document.getElementById("menu-drivers").className = document.getElementById("menu-drivers").className + ' green';
@@ -436,6 +431,7 @@ var DriverPack = {
 						'<td class="list-last"></td>' +
 						'</tr>';
 			}
+			
         }
 		
 		
@@ -446,9 +442,9 @@ var DriverPack = {
 			for (var i = 1; i < drivers.length; i++) {
 				
 				if (!driver_exists(drivers[i].URL,DriverPack.driverPath)){
-				if (document.getElementById('checkDrivers'+drivers[i].ID).checked === true){
-					IDs[IDs.length] = drivers[i].ID;
-				}
+					if (document.getElementById('checkDrivers'+drivers[i].ID).checked === true){
+						IDs[IDs.length] = drivers[i].ID;
+					}
 				}
 				
 			}
@@ -456,14 +452,14 @@ var DriverPack = {
 			if (IDs.length < 2) { return false; }
 			
 			document.getElementById('loader').style.display = 'block';
-			document.getElementById('progressDescription').innerHTML = '<br>Скачиваю...';
+			document.getElementById('progressDescription').innerHTML = '<br>Скачиваю дрова...';
 			//alert(JSON.stringify(IDs));
-			echo('Downloading started...');
+			log('Downloading drivers started...');
 			DriverPack.download(
 				IDs,
 				function(){
 					
-					echo('Downloaded!');
+					log('Downloaded drivers!');
 					//alert('Готово, переходим к установке!');
 					document.getElementById('progressDescription').innerHTML = '<br>Устанавливаю...';
 
@@ -474,16 +470,18 @@ var DriverPack = {
 					    });
 					}, 10);
 					
-					echo('Installing started...');
+					log('Installing started drivers...');
 					DriverPack.install(
 						IDs,
 						function(){
 							
-							progressCounter.start({
-						        startCount: 100,
-						        endCount: 100
-						    });
-							echo('Installed!');
+							setTimeout(function(){
+								progressCounter.start({
+									startCount: 100,
+									endCount: 100
+								});
+							}, 10);
+							log('Installed drivers!');
 							
 
 							document.getElementById('loader').style.backgroundImage = "none";
@@ -688,7 +686,7 @@ var DriverPack = {
                      WshShell.Run('cmd /c rd /S /Q "' + WshShell.ExpandEnvironmentStrings(DriverPack.driverPath) + '"', 0, true);
                      WshShell.Run('Tools\\7za.exe x -yo"' + WshShell.ExpandEnvironmentStrings(DriverPack.driverPath) + '" "' + DriverPack.driverPath + '\\*"', 0, true);
                      WshShell.Run(
-                     WshShell.ExpandEnvironmentStrings(DriverPack.driverPath + '\\dpinst\\Setup') + (SVersion == '64' ? '64' : '') + '.exe ' +
+                     WshShell.ExpandEnvironmentStrings(DriverPack.driverPath + '\\dpinst\\Setup') + (is64 ? '64' : '') + '.exe ' +
                      '/SW /c /sa /PATH "' + WshShell.ExpandEnvironmentStrings(DriverPack.driverPath) + '"',
                      0, true
                      );

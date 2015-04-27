@@ -21,8 +21,8 @@ logs = {
 
 		//Переменная, которая содержит дату и время для файла логов
 		var today = new Date();
-		logs.fileNameEnding = '_'+today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()+'_'+today.getHours()+'-'+today.getMinutes()+'-'+today.getSeconds();
-
+		logs.fileNameEnding = '_' + today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2) + '-' + ('0' + today.getHours()).slice(-2) + '-' + ('0' + today.getMinutes()).slice(-2) + '-' + ('0' + today.getSeconds()).slice(-2);
+		
 		//Создаем лог файл
 		try{
 			logs.logfile = fso.CreateTextFile(logs.logFolder+'log__'+logs.fileNameEnding+'.html', true);
