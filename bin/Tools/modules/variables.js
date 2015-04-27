@@ -448,3 +448,26 @@ var resize = {
 
 document.title = document.title + " " + version + " " + verType;
 
+
+
+
+
+// Open url
+function goToUrl(url){
+	lf('goToUrl');
+	try {
+		defBrowser = RegRead("HKCU\\SOFTWARE\\Clients\\StartMenuInternet\\");
+		if (!defBrowser) defBrowser = RegRead("HKLM\\SOFTWARE\\Clients\\StartMenuInternet\\");
+		runComm = RegRead("HKLM\\SOFTWARE\\Clients\\StartMenuInternet\\" + defBrowser + "\\shell\\open\\command\\");
+		runComm = runComm.replace(/"/ig,'');
+		if (runComm)
+			WshShell.Run('"' + runComm + '" ' + '"' + url + '"',1,false);
+		else
+			window.open(url);
+	}
+	catch(e) {
+		log("Failed to open "+url);
+		WshShell.Run('rundll32 url.dll,FileProtocolHandler '+url,1,false);
+	}
+	return false;
+}

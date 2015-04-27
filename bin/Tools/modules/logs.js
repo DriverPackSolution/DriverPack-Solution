@@ -3,7 +3,13 @@ logs = {
 	logging: true, //enabled: true,
 	logFolder: WshEnv("WINDIR")+'\\Logs\\DRPLog\\', // folder
 	logfile: null, //file
-	fileNameEnding: '',
+	fileNameEnding: function(){
+		
+		//Переменная, которая содержит дату и время для файла логов
+		var today = new Date();
+		return '_' + today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2) + '-' + ('0' + today.getHours()).slice(-2) + '-' + ('0' + today.getMinutes()).slice(-2) + '-' + ('0' + today.getSeconds()).slice(-2);
+		
+	},
 	
 	htmlHeader: "<html>\r\n<head>\r\n<meta charset='windows-1251'/><script type='text/javascript' src='http://static.drp.su/update/logs/script.js'></script>\r\n<link rel='stylesheet' type='text/css' href='http://static.drp.su/update/logs/style.css'/>\r\n</head>\r\n<body>\r\n\r\n",
 	htmlFooter: "\r\n\r\n</body></html>",
@@ -18,20 +24,17 @@ logs = {
 		catch(e){
 			console.log("Failed to create log folder "+logs.logFolder);
 		}
-
-		//Переменная, которая содержит дату и время для файла логов
-		var today = new Date();
-		logs.fileNameEnding = '_' + today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2) + '-' + ('0' + today.getHours()).slice(-2) + '-' + ('0' + today.getMinutes()).slice(-2) + '-' + ('0' + today.getSeconds()).slice(-2);
+		
 		
 		//Создаем лог файл
 		try{
-			logs.logfile = fso.CreateTextFile(logs.logFolder+'log__'+logs.fileNameEnding+'.html', true);
+			logs.logfile = fso.CreateTextFile(logs.logFolder+'log__'+logs.fileNameEnding()+'.html', true);
 			logs.logfile.WriteLine(logs.htmlHeader);
 		}
 		catch(e){
 			logs.logfile = null;
 			logs.logging = false;
-			console.log("Failed to create log file "+logs.logFolder+'log__'+logs.fileNameEnding+'.html');
+			console.log("Failed to create log file "+logs.logFolder+'log__'+logs.fileNameEnding()+'.html');
 		}
 
 
@@ -66,14 +69,18 @@ logs = {
 				
 			}
 			
+			if (str.indexOf('!!! ERROR !!!') != -1) {
+				className = 'error';
+			}
+			
 			
 
 			if (!str){ str = ""; }
 			str = "" +str; // Convert to string
-
+			
 			//Добавляем в классы в div
-			var date = new Date();
-			var time = date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();
+			var today = new Date();
+			var time = ('0' + today.getHours()).slice(-2) + ':' + ('0' + today.getMinutes()).slice(-2) + ':' + ('0' + today.getSeconds()).slice(-2);
 			str = '<div class="logs '+className+'"><span class="timeStamp">' + time + '</span>' + str + '</div>';
 			
 			if (logs.logfile) { logs.logfile.WriteLine(str.replace(/#/g," ")); }
@@ -106,10 +113,10 @@ logs = {
 			var path = path.replace(/\\/g,'_');
 			try{
 				if ((logs.logging) && (fso.FileExists(WshEnv("WINDIR")+"\\DPINST.LOG"))) {
-					fso.CopyFile(WshEnv("WINDIR")+"\\DPINST.LOG", logs.logFolder+'\\DPINST'+logs.fileNameEnding+'_'+path+'.txt');
+					fso.CopyFile(WshEnv("WINDIR")+"\\DPINST.LOG", logs.logFolder+'\\DPINST'+logs.fileNameEnding()+'_'+path+'.txt');
 				}
 			}
-			catch(e){log("Failed to copy "+WshEnv("WINDIR")+"\\DPINST.LOG to "+logs.logFolder+'\\DPINST'+logs.fileNameEnding+'_'+path+'.txt');}
+			catch(e){log("Failed to copy "+WshEnv("WINDIR")+"\\DPINST.LOG to "+logs.logFolder+'\\DPINST'+logs.fileNameEnding()+'_'+path+'.txt');}
 
 		},
 

@@ -1,0 +1,391 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Error in DriverPack Solution</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta HTTP-EQUIV="MSThemeCompatible" content="yes">
+
+<script type="text/javascript" src="init.js"></script>
+<script type="text/javascript" src="variables.js"></script>
+<script type="text/javascript" src="..\config.js"></script>
+<script type="text/javascript" src="logs.js"></script>
+<script type="text/javascript">
+ var width = 470;
+ var height = 330;
+ var dropddownbutton_src = '..\\ico\\';
+</script>
+<script type="text/javascript" src="openingGlav.js"></script>
+<script type="text/javascript" src="bugreport.js"></script>
+<script type="text/javascript" src="wpi.js"></script>
+<script type="text/javascript">
+	try{
+	var oMyObject = window.dialogArguments;
+	var lang = oMyObject.lang;
+	var logfile = oMyObject.logfile;
+	var dialogMode = oMyObject.dialogMode;
+	var msg = oMyObject.msg;
+	var url = oMyObject.url;
+	var linenumber = oMyObject.linenumber;
+	var lfnE = oMyObject.lfnE;
+	}
+	catch(e){
+	log("Failed: it wasn't expected to ever happen");
+	var lang = RegRead(Reg + "lang");
+	var dialogMode = 0;
+	}
+	var commentLog = null;
+
+	if (dialogMode==0){ document.write('<script type="text/javascript" src="resize.js"><\/script>'); }
+
+	document.write('<script type="text/javascript" src="..\\language\\en.js"><\/script>');
+	if (lang != 'default'){
+		document.write('<script type="text/javascript" src="..\\language\\' + lang + '.js"><\/script>');
+	}
+	function l(text) { document.write(text); }
+
+	// Change size
+	function resizer() {
+		var sezer = document.getElementById('send').getBoundingClientRect();
+		var height = sezer.bottom+23;
+		if ((dialogMode==1) || (dialogMode==2)) {
+			//var width = sezer.right+15;
+			window.dialogHeight = height + "px";
+		}
+		else {
+			self.resizeTo(width,height+25);
+		}
+	}
+
+
+
+
+	var currDir = WshShell.CurrentDirectory;
+	if (currDir.indexOf('modules') != -1) { currDir = currDir.replace(/\\tools\\modules/i,""); }
+	
+	logFolder = WshEnv("WINDIR")+'\\Logs\\DRPLog\\';
+	
+	if (fso.FolderExists(logFolder)) {
+		var logDir = logFolder;
+	}
+	else {
+		//alert(bugreport_notlogsAlert);
+		setTimeout("document.getElementById('send').disabled = true;",100);
+	}
+
+	if (typeof logFolder == "undefined") { logFolder = logDir; }
+</script>
+
+<style type="text/css">
+	a:link {
+		color: #0000d0;
+	}
+	a:visited {
+		color: #0000d0;
+	}
+	.dropddownbutton { margin:0px; padding:0px; }
+	.dropddownbutton img { margin:0px; padding:0px; margin-bottom:-5px; }
+	.dropddownbutton span { color:#000000; margin-left:10px; font-size:12px; }
+	body {
+		padding:0;
+		margin:0;
+		font:5pt arial;
+		font-size:9px;
+		background-color:#f3f5f7;
+		font-size:9pt;
+		font-family:Microsoft Sans Serif;
+		margin:5px;
+		margin-right:15px;
+	}
+	p { font:9pt arial; margin: 10px; padding-left:15px; }
+	#comment, #email { width:310px; color:#6d6d6d; }
+	#comment { font-size:11px; }
+	#email { height:25px; padding-bottom:5px; font-size:10px; }
+	#send { float:right; }
+</style>
+
+<HTA:APPLICATION ID="dpa_bugreport"
+	application="yes"
+	applicationName="Driver Pack Autorun"
+	border="dialog"
+	borderStyle="normal"
+	caption="yes"
+	contextMenu="yes"
+	icon="../Icon.ico"
+	innerBorder="no"
+	maximizeButton="no"
+	minimizeButton="no"
+	navigable="yes"
+	scroll="no"
+	scrollFlat="no"
+	selection="no"
+	showInTaskBar="yes"
+	singleInstance="no"
+	sysMenu="yes"
+	version="0.1"
+	windowState="normal"/>
+
+</head>
+
+<body onload="resizer(); document.getElementById('send').focus();">
+
+<script type="text/javascript">
+ if (dialogMode==2) { l('<p>'+bugreport_titleDialog+'</p>'); }
+ else   			{ l('<p>'+bugreport_titleWin+'</p>'); }
+
+ if (dialogMode==2) {
+	document.write('<p style="padding-left:90px; color:red;">'+
+		error_error+': <b>'+
+		msg+'</b><br>'+
+		error_module+': <b>'+
+		url+'</b><br>'+
+		error_inline+': <b>'+
+		linenumber+'</b><br>'+
+		error_lastfunc+': <b>'+
+		lfnE+'</b></p>'
+	);
+ }
+</script>
+
+<span style="float:right"><a href="#" onclick='WshShell.Run("explorer \"" + logFolder + "\"",1,false);'><script>l(bugreport_buttonBrowse)</script></a></span>
+
+
+<!--
+<div id="Div1" style="display:block;">
+ <a
+   class="dropddownbutton"
+   onMouseDown="dropddownbutton_Down('Img1','Div2')"
+   onMouseOver="dropddownbutton_Over('Img1','Div2')"
+   onMouseOut="dropddownbutton_Out('Img1','Div2')"
+   onMouseUp="dropddownbutton_Up('Img1','Div2'); resizer();"
+ >
+   <img
+	 src="blank.gif"
+	 style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='..\ico\8.png')"
+	 align="baseline"
+	 id="Img1"
+   ><span><b><script>l(bugreport_options)</script></b>:</span>
+ </a>
+ <hr>
+ <div id="Div2" style="display:none">
+	 <div id="Div3" style="padding-left:30px;">
+
+		<b><script>l(bugreport_include)</script>:</b>
+		<p>
+			<input name="chk_logs" type="checkbox" id="chk_logs" checked> <span onclick="toogleChk('chk_logs')"><script>l(bugreport_logs)</script></span><br>
+			<input name="chk_msinfo" type="checkbox" id="chk_msinfo" checked> <span onclick="toogleChk('chk_msinfo')"><script>l(bugreport_msinfo)</script></span><br>
+			<input name="chk_hwids" type="checkbox" id="chk_hwids" checked> <span onclick="toogleChk('chk_hwids')"><script>l(bugreport_hwids)</script></span><br>
+			<input name="chk_dpinst" type="checkbox" id="chk_dpinst" checked> <span onclick="toogleChk('chk_dpinst')"><script>l(bugreport_dpinst)</script></span><br>
+			<!-<input name="chk_modeselect" type="checkbox" id="Checkbox3"> Screen<br>->
+			<input name="chk_reg" type="checkbox" id="chk_reg" disabled> <span onclick="toogleChk('chk_reg')"><script>l(bugreport_reg)</script> - <span style="color:green">under construction</span></span><br>
+		</p>
+	 </div>
+ </div>
+</div>
+-->
+
+
+<script type="text/javascript">
+	function toogleChk(chk) {
+		obj = document.getElementById(chk);
+		if (obj.checked) { obj.checked=false; }
+		else { obj.checked=true; }
+
+		/*
+		if (chk=='chk_autosend') {
+			if (obj.checked) {
+				document.getElementById('send').innerHTML = bugreport_buttonSave;
+			}
+			else {
+				document.getElementById('send').innerHTML = bugreport_buttonSend;
+			}
+		}
+		*/
+	}
+</script>
+
+
+
+
+<div id="Div4" style="display:block;">
+ <a
+   class="dropddownbutton"
+   onMouseDown="/*dropddownbutton_Down('Img2','Div5')*/"
+   onMouseOver="/*dropddownbutton_Over('Img2','Div5')*/"
+   onMouseOut="/*dropddownbutton_Out('Img2','Div5')*/"
+   onMouseUp="/*dropddownbutton_Up('Img2','Div5'); resizer();*/"
+ >
+   <!--<img
+	 src="blank.gif"
+	 style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='..\ico\9.png')"
+	 align="baseline" id="Img2"
+   >--><span><script>l(bugreport_commentTitle)</script>:</span>
+ </a>
+ <hr>
+ <div id="Div5">
+	 <div id="Div6">
+		<table style="width:95%; float:right; font-size:12px;">
+			<tr>
+				<td valign="top" style="padding-top:5px;"><script>l(bugreport_comment)</script>:</td>
+				<td align="right">
+					<textarea name="comment" id="comment" cols="35" rows="3"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td valign="top" style="padding-top:5px;"><script>l(bugreport_email)</script>:</td>
+				<td align="right">
+					<input name="email" id="email" type="text" size="46">
+				</td>
+			</tr>
+			<!--
+			<tr>
+				<td valign="top" style="padding-top:5px;"><script>l(bugreport_blackBox)</script>:</td>
+				<td align="left" id="BlackBox" style="padding-left:12px"></td>
+			</tr>
+			-->
+			<tr style="padding-top:10px;">
+				<td colspan="3" id="BlackBoxDetail" style="display:none;"></td>
+				<script>document.getElementById('BlackBoxDetail').innerHTML=bugreport_blackBox_detailContent;</script>
+			</tr>
+		</table>
+	 </div>
+	 <br>
+ </div>
+</div>
+
+
+<p><br></p><br>
+<button id="send" onclick="saveComment(); createLog();"><script>l(bugreport_buttonSend)</script></button>
+<!--<input name="chk_autosend" type="checkbox" id="chk_autosend" checked disabled>
+<span onclick="/*toogleChk('chk_autosend')*/" title="Under construction"><script>l(bugreport_notAutoSend)</script></span><br>-->
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="..\indicator2.gif" id="loading" style="visibility:hidden; margin-top:2px;">
+
+
+</body>
+<script type="text/javascript">
+	function blackBoxInit() {
+		obj = document.getElementById('BlackBox');
+		detail =  '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#" onclick="blackBoxDetail_toogle();" id="detailHideShow">'+bugreport_blackBox_detail+'</a>';
+
+		if (!fso.FileExists(env_windir+'\\system32\\psr.exe')) {
+			obj.innerHTML=bugreport_blackBox_NotSupp+detail;
+			return;
+		}
+
+		if (!fso.FileExists(logFolder+'BlackBox.zip')) {
+			obj.innerHTML=' &nbsp;&nbsp;<button onclick="blackBoxStart();" style="font-size:9pt">'+bugreport_blackBox_create+'</button>'+detail;
+		}
+		else {
+			obj.innerHTML=' &nbsp;&nbsp;<b>'+bugreport_blackBox_finded+'</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#" onclick="blackBoxRemove();">'+bugreport_blackBox_remove+'</a>';
+		}
+	}
+	//blackBoxInit();
+
+	function blackBoxRemove() {
+		try{
+			fso.getfile(logFolder+'BlackBox.zip').Delete();
+			blackBoxInit();
+		}
+		catch(e){log("Failed to delete "+logFolder+'BlackBox.zip');}
+	}
+
+	function blackBoxStart() {
+		if (confirm(bugreport_blackBox_start)) {
+			WshShell.Run('"'+env_windir+'\\system32\\psr.exe" /start /output "'+logFolder+'BlackBox.zip" /maxsc 50 /exitonsave 1',1,false);
+		}
+	}
+
+	function blackBoxDetail_toogle() {
+		obj = document.getElementById('BlackBoxDetail');
+		obj2 = document.getElementById('detailHideShow');
+
+		if (obj.style.display=='none'){
+			obj.style.display='block';
+			obj2.innerHTML=bugreport_blackBox_detailHide;
+		}
+		else {
+			obj.style.display='none';
+			obj2.innerHTML=bugreport_blackBox_detail;
+		}
+		resizer();
+	}
+
+	function createLog() {
+		WshShell.Run('"'+currDir+'\\tools\\modules\\bugreport\\boxcutter.exe" -f "'+logFolder+'\\DRP-on-bugreport.png"',0,true);
+		WshShell.Run('"'+currDir+'\\tools\\modules\\bugreport\\SysInfo.exe"',1,false);
+		window.close();
+	}
+	
+	/*
+	function createLog() {
+		var includeLog = '';
+		document.getElementById('loading').style.visibility="visible";
+
+		log("Start the report generation:");
+		if (chk_msinfo) {
+			if (msinfo_export()) {
+				includeLog += logDir+'msinfo_*.txt ';
+				log(" - MSInfo");
+			}
+			else {
+				log(" - Unable to create log MSInfo");
+			}
+		}
+		if (chk_hwids)  { includeLog += logDir+'HWIDS_*.txt '; log(" - HWIDs"); }
+		if (chk_dpinst) { includeLog += logDir+'DPINST_*.txt '; log(" - DPinst"); }
+						  includeLog += logDir+'comment_*.txt '; log(" - Comments");
+						  includeLog += logDir+'BlackBox.zip '; log(" - BlackBox");
+		if (chk_logs) {
+			includeLog += logDir+'log_*.txt ';
+			if (logfile) {
+				log(" - Main logs"); log();
+				log("Close the log file");
+				logfile.Close();
+			}
+		}
+
+		var ret = '';
+		var cmd = currDir+'\\tools\\7za.exe  a -t7z '+temp+'\\DRPReport\\Report'+logNameEnding+'.7z '+includeLog;
+		if (includeLog != ''){ ret = WshShell.Run(cmd,0,true); }
+		document.getElementById('loading').style.visibility="hidden";
+
+		logfile = fso.CreateTextFile(pathLogFile("log__"), true);
+		log("Exec: "+cmd);
+		log("Return: "+ret);
+
+		if (ret==0) {
+			if (confirm(bugreport_reportCreatedAlert)) { WshShell.Run("explorer \"" + temp + "\\DRPReport\"",1,false); }
+		}
+		else alert(bugreport_reportNotCreatedAlert+ret);
+	}
+	*/
+
+	function saveComment() {
+		objComment = document.getElementById('comment').innerHTML;
+		objEmail = document.getElementById('email').value;
+		if ((objComment) || (objEmail)) {
+			//try{
+				commentLog = fso.CreateTextFile(logs.logFolder+"comment"+logs.fileNameEnding()+".txt", true);
+				commentLog.WriteLine(objEmail);
+				commentLog.WriteLine(objComment);
+				commentLog.WriteLine(wpi('Caption','Win32_OperatingSystem').replace(/Microsoft /i,"") + " " +
+								wpi('CSDVersion','Win32_OperatingSystem').replace(/Service Pack /i,"SP") + " " +
+								wpi('OSArchitecture','Win32_OperatingSystem'));
+			//}
+			//catch(e){commentLog = null;log("Failed to create comment file"));}
+		}
+	}
+
+	function clearComment(obj) {
+		if (obj.style.color=='') {
+			obj.innerHTML='';
+			obj.style.color='#000000';
+		}
+	}
+
+	function clearEmail(obj) {
+		if (obj.style.color=='') {
+			obj.value='';
+			obj.style.color='#000000';
+		}
+	}
+</script>
+</html>
