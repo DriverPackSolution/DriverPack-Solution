@@ -1,7 +1,8 @@
 logs = {
 
 	logging: true, //enabled: true,
-	logFolder: WshEnv("WINDIR")+'\\Logs\\DRPLog\\', // folder
+	//logFolder: WshEnv("WINDIR")+'\\Logs\\DRPLog\\', // folder
+	logFolder: WshShell.SpecialFolders("AppData") + '\\DRPSu\\Logs\\',
 	logfile: null, //file
 	fileNameEnding: function(){
 		
@@ -22,7 +23,7 @@ logs = {
 			if (!fso.FolderExists(logs.logFolder)) { logs.logging = false; }
 		}
 		catch(e){
-			console.log("Failed to create log folder "+logs.logFolder);
+			//console.log("Failed to create log folder "+logs.logFolder);
 		}
 		
 		
@@ -34,7 +35,7 @@ logs = {
 		catch(e){
 			logs.logfile = null;
 			logs.logging = false;
-			console.log("Failed to create log file "+logs.logFolder+'log__'+logs.fileNameEnding()+'.html');
+			//console.log("Failed to create log file "+logs.logFolder+'log__'+logs.fileNameEnding()+'.html');
 		}
 
 

@@ -202,6 +202,23 @@ var DriverPack = {
 		setTimeout(
 			function(){
 				log('Started downloading IDs: ' + IDs);
+				statistics.event(
+					{
+						category: 'desktop',
+						action: 'drivers installation started',
+						label: statistics.drpVersion
+					},
+					[
+						[
+							statistics.config.userIdDimension,
+							statistics.clientId
+						],
+						[
+							statistics.config.driverDimension,
+							statistics.drpVersion
+						]
+					]
+				);
 				
 				url.forEach(function(item,i,url) {
 					
@@ -213,10 +230,66 @@ var DriverPack = {
 					}, 10);
 
 					log('Downloading: ' + item.URL + '. To folder: ' + DriverPack.driverPath);
+					
+					statistics.event(
+						{
+							category: 'desktop',
+							action: 'drivers installation started ' + item.Name,
+							label: statistics.drpVersion
+						},
+						[
+							[
+								statistics.config.userIdDimension,
+								statistics.clientId
+							],
+							[
+								statistics.config.driverDimension,
+								item.Name
+							]
+						]
+					);
+					
 					wget_driver(item.URL,DriverPack.driverPath);
+					
+					statistics.event(
+                        {
+                            category: 'desktop',
+                            action: 'drivers installation downloaded ' + item.Name,
+                            label: statistics.drpVersion
+                        },
+						[
+							[
+								statistics.config.userIdDimension,
+								statistics.clientId
+							],
+							[
+								statistics.config.driverDimension,
+								item.Name
+							]
+						]
+					);
+					
 					DriverPack._json[i].isDownloaded = true;
 					
 				});
+				
+				statistics.event(
+					{
+						category: 'desktop',
+						action: 'drivers installation downloaded',
+						label: statistics.drpVersion
+					},
+					[
+						[
+							statistics.config.userIdDimension,
+							statistics.clientId
+						],
+						[
+							statistics.config.driverDimension,
+							statistics.drpVersion
+						]
+					]
+				);
 				
 				callback();
 				
@@ -227,10 +300,6 @@ var DriverPack = {
 	},
 	
 	
-	
-	
-	
-	
 	install: function (IDs, callback) {
 		
 		var installed = DriverPack.get({
@@ -238,57 +307,39 @@ var DriverPack = {
 			'WHERE': IDs
 		});
 		
-		//alert(print_r(installed));
-		
 		
 		setTimeout(
 			function(){
 				
-				//installed.forEach(function(item,i) {
-					//if (item.isDownloaded){
-						
-						//WshShell.Run('cmd /c rd /S /Q "' + WshShell.ExpandEnvironmentStrings(DriverPack.driverPath) + '"', 0, true);
-						/*
-						echo('Tools\\7za.exe x -yo"' + WshShell.ExpandEnvironmentStrings(DriverPack.driverPath) + '" "' + DriverPack.driverPath + '\\drp\\*"');
-						WshShell.Run('Tools\\7za.exe x -yo"' + WshShell.ExpandEnvironmentStrings(DriverPack.driverPath) + '" "' + DriverPack.driverPath + '\\drp\\*"', 0, true);
-						
-						
-						alert(WshShell.ExpandEnvironmentStrings(DriverPack.driverPath + '\\dpinst\\Setup') + (SVersion == '64' ? '64' : '') + '.exe ' +
-							'/SW /c /sa /PATH "' + WshShell.ExpandEnvironmentStrings(DriverPack.driverPath) + '"');
-						WshShell.Run(
-							WshShell.ExpandEnvironmentStrings(DriverPack.driverPath + '\\dpinst\\Setup') + (SVersion == '64' ? '64' : '') + '.exe ' +
-							'/SW /c /sa /PATH "' + WshShell.ExpandEnvironmentStrings(DriverPack.driverPath) + '"',
-							0, true
-						);
-						*/
-						
-						
-						// Cleaning
-						WshShell.Run('cmd /c rd /S /Q "' + WshShell.ExpandEnvironmentStrings('%temp%\\drp\\unzip\\drp') + '"', 0, true);
-						// Unzip
-						WshShell.Run('tools\\7za.exe x -yo"' + WshShell.ExpandEnvironmentStrings('%temp%\\drp\\unzip\\drp') + '" "' + DriverPack.driverPath + '\\*"', 0, true);
-						// Installing drivers
-						WshShell.Run(
-							'"' + WshShell.ExpandEnvironmentStrings('%temp%\\drp\\unzip\\drp\\dpinst\\Setup') + '' + (is64 ? '64' : '') + '.exe" ' +
-							'/SW /c /sa /PATH "' + WshShell.ExpandEnvironmentStrings('%temp%\\drp\\unzip') + '"',
-							0,true
-						);
-						/*
-						echo(
-							'"' + DriverPack.driverPath + '\\dpinst\\Setup' + (SVersion == '64' ? '64' : '') + '.exe" ' +
-							'/SW /c /sa /PATH "' + WshShell.ExpandEnvironmentStrings('%temp%\\drp\\unzip') + '"'
-						);
-						*/
-						
-						
-						
-						
-						
-						
-						
-						
-					//}
-				//});
+				
+				// Cleaning
+				WshShell.Run('cmd /c rd /S /Q "' + WshShell.ExpandEnvironmentStrings('%temp%\\drp\\unzip\\drp') + '"', 0, true);
+				// Unzip
+				WshShell.Run('tools\\7za.exe x -yo"' + WshShell.ExpandEnvironmentStrings('%temp%\\drp\\unzip\\drp') + '" "' + DriverPack.driverPath + '\\*"', 0, true);
+				// Installing drivers
+				WshShell.Run(
+					'"' + WshShell.ExpandEnvironmentStrings('%temp%\\drp\\unzip\\drp\\dpinst\\Setup') + '' + (is64 ? '64' : '') + '.exe" ' +
+					'/SW /c /sa /PATH "' + WshShell.ExpandEnvironmentStrings('%temp%\\drp\\unzip') + '"',
+					0,true
+				);
+				
+				statistics.event(
+					{
+						category: 'desktop',
+						action: 'drivers installation completed',
+						label: statistics.drpVersion
+					},
+					[
+						[
+							statistics.config.userIdDimension,
+							statistics.clientId
+						],
+						[
+							statistics.config.driverDimension,
+							statistics.drpVersion
+						]
+					]
+				);
 				
 				callback();
 			},

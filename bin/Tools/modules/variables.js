@@ -10,6 +10,7 @@ var fso = new ActiveXObject("Scripting.FileSystemObject");
 var softPath = WshShell.SpecialFolders("AppData") + '\\DRPSu\\PROGRAMS';
 var locator = new ActiveXObject("WbemScripting.SWbemLocator");
 var objWMIService = locator.ConnectServer(null, "root\\cimv2");
+var lang = 'ru';
 
 //Fix IE 9/10 bugs and Feature
 WshShell.Run('reg add "HKCU\\Software\\Microsoft\\Internet Explorer\\Styles" /v "MaxScriptStatements" /t REG_DWORD /d 0xffffffff /f',0,true);
@@ -144,12 +145,10 @@ function cloneObj(object){
 
 
 //var logFolder = WshEnv("WINDIR")+'\\Logs\\DRPLog\\';
-var logFolder = AppData+'\\DRPSu\\Logs\\DRPLog\\';
+var logFolder = AppData+'\\DRPSu\\Logs\\';
 if (!fso.FolderExists(AppData+'\\DRPSu')) { fso.CreateFolder(AppData+'\\DRPSu'); }
 if (!fso.FolderExists(AppData+'\\DRPSu\\Logs')) { fso.CreateFolder(AppData+'\\DRPSu\\Logs'); }
-if (!fso.FolderExists(AppData+'\\DRPSu\\Logs\\DRPLog')) { fso.CreateFolder(AppData+'\\DRPSu\\Logs\\DRPLog'); }
-//if (!fso.FolderExists(WshEnv("WINDIR")+'\\Logs')) { fso.CreateFolder(WshEnv("WINDIR")+'\\Logs'); }
-//if (!fso.FolderExists(WshEnv("WINDIR")+'\\Logs\\DRPLog')) { fso.CreateFolder(WshEnv("WINDIR")+'\\Logs\\DRPLog'); }
+
 
 var wget_path = 'tools\\wget.exe';
 function wget_driver(downloadURI, targetFolder, size) {

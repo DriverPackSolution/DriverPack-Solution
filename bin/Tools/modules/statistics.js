@@ -2,8 +2,9 @@ statistics = {
     //clientId: "000000000.0000000000",
     clientId: "",
     drpVersion: version + " " + verType,
-    _statisticUrl: "http://www.google-analytics.com/collect?v=1&tid=UA-58593486-1&aip=1",
-    //_statisticUrl: "http://statistics.drp.su/online_v_2.php?v=1&tid=UA-58593486-1&aip=1",
+    //_statisticUrl: "http://www.google-analytics.com/collect?v=1&tid=UA-58593486-1&aip=1",
+    _statisticUrl: "http://example.com/?",
+	//_statisticUrl: "http://statistics.drp.su/online_v_2.php?v=1&tid=UA-58593486-1&aip=1",
     config: {
         userIdDimension: "cd1", //ClientID
         driverDimension: "cd2",
@@ -66,6 +67,9 @@ statistics = {
         if (this.clientId == "")
             this.clientId = this.generate();
         var url = this.compileUrl(event, dimention);
+		
+		log('[Statistics.js] Send event: '+event.action,event,dimention,[ url ]);
+		
         return this.sendUrl(url);
     },
     compileUrl: function (event, dimention) {

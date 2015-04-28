@@ -26,6 +26,30 @@
 			var s = document.getElementsByTagName('script')[0];
 			var ss = s.parentNode.insertBefore(scriptLoading, s);
 		</script>
+
+        <!-- { SENTRY }-->
+        <script src="http://cdn.ravenjs.com/1.1.15/jquery,native/raven.min.js"></script>
+        
+        <script>
+            Raven.config('https://7fea5e1a4fae4d8cb591c6b31230ece4@app.getsentry.com/42621', {
+                // pass along the version of your application
+                // release: '1.0.0',
+
+                // we highly recommend restricting exceptions to a domain in order to filter out clutter
+               whitelistUrls: ['*']
+            }).install();
+
+
+            // записать простое сообщение
+            Raven.captureMessage('hello world!')
+
+            // перехватить исключение
+            try {
+                errorThrowingCode();
+            } catch(err) {
+                Raven.captureException(err);
+            }
+        </script>
 		
         <!-- { STYLES } -->
         <link rel="stylesheet" type="text/css" href="css/normalize.min.css" />

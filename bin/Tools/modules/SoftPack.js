@@ -212,6 +212,23 @@ var SoftPack = {
 		setTimeout(
 			function(){
 				log('Started downloading IDs: ' + IDs);
+				statistics.event(
+					{
+						category: 'desktop',
+						action: 'installation started',
+						label: statistics.drpVersion
+					},
+					[
+						[
+							statistics.config.userIdDimension,
+							statistics.clientId
+						],
+						[
+							statistics.config.installedSoftData,
+							statistics.drpVersion
+						]
+					]
+				);
 				
 				url.forEach(function(item,i,url) {
 					
@@ -223,10 +240,66 @@ var SoftPack = {
 					}, 10);
 					
 					log('Downloading: ' + item.URL + '. To folder: ' + SoftPack.softPath);
+					
+					statistics.event(
+						{
+							category: 'desktop',
+							action: 'installation started ' + item.Name,
+							label: statistics.drpVersion
+						},
+						[
+							[
+								statistics.config.userIdDimension,
+								statistics.clientId
+							],
+							[
+								statistics.config.installedSoftData,
+								item.Name
+							]
+						]
+					);
+					
 					wget_driver(item.URL,SoftPack.softPath);
+					
+					statistics.event(
+                        {
+                            category: 'desktop',
+                            action: 'installation downloaded ' + item.Name,
+                            label: statistics.drpVersion
+                        },
+						[
+							[
+								statistics.config.userIdDimension,
+								statistics.clientId
+							],
+							[
+								statistics.config.installedSoftData,
+								item.Name
+							]
+						]
+					);
+					
 					SoftPack._json.soft[i].isDownloaded = true;
 					
 				});
+				
+				statistics.event(
+					{
+						category: 'desktop',
+						action: 'installation downloaded',
+						label: statistics.drpVersion
+					},
+					[
+						[
+							statistics.config.userIdDimension,
+							statistics.clientId
+						],
+						[
+							statistics.config.installedSoftData,
+							statistics.drpVersion
+						]
+					]
+				);
 				
 				callback();
 				
@@ -252,11 +325,54 @@ var SoftPack = {
 					if (item.isDownloaded){
 						
 						log('Starting to install: ' + '"' + SoftPack.softPath + '\\' + item.URL.substring(item.URL.lastIndexOf('/')+1) + '" ' + item.Keys);
+						
+						
 						WshShell.Run('"' + SoftPack.softPath + '\\' + item.URL.substring(item.URL.lastIndexOf('/')+1) + '" ' + item.Keys,1,true);
+						
+						statistics.event(
+							{
+								category: 'desktop',
+								action: 'installation completed ' + item.Name,
+								label: statistics.drpVersion
+							},
+							[
+								[
+									statistics.config.userIdDimension,
+									statistics.clientId
+								],
+								[
+									statistics.config.installedSoftData,
+									completedSoft
+								],
+								[
+									statistics.config.installedSoftIndicator,
+									"1"
+								]
+							]
+						);
+						
 						SoftPack._json.soft[i].isInstalled = true;
 						
 					}
 				});
+				
+				statistics.event(
+					{
+						category: 'desktop',
+						action: 'installation completed',
+						label: statistics.drpVersion
+					},
+					[
+						[
+							statistics.config.userIdDimension,
+							statistics.clientId
+						],
+						[
+							statistics.config.installedSoftData,
+							statistics.drpVersion
+						]
+					]
+				);
 				
 				callback();
 				
