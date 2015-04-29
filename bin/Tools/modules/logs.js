@@ -75,7 +75,7 @@ logs = {
 			}
 			
 			
-
+			
 			if (!str){ str = ""; }
 			str = "" +str; // Convert to string
 			
@@ -84,9 +84,11 @@ logs = {
 			var time = ('0' + today.getHours()).slice(-2) + ':' + ('0' + today.getMinutes()).slice(-2) + ':' + ('0' + today.getSeconds()).slice(-2);
 			str = '<div class="logs '+className+'"><span class="timeStamp">' + time + '</span>' + str + '</div>';
 			
-			if (logs.logfile) { logs.logfile.WriteLine(str.replace(/#/g," ")); }
+			if (logs.logfile) {
+				logs.logfile.WriteLine(str);
+			}
 			
-
+			
 		//}
 		//catch(e){ }
 	},
