@@ -477,7 +477,7 @@ var DriverPack = {
 			
 			if (!driver_exists(drivers[i].URL,DriverPack.driverPath)){
 				newTbody += '<tr><td class="list-first"><input data-name="' + encodeURIComponent(drivers[i].Name)  + '" id="checkDrivers'+drivers[i].ID+'" type="checkbox" checked1/> <img src="Tools/ico/button/' + DriverPack.getDriverIcon(drivers[i].URL) + '.png" /> </td>' +
-						'<td class="list-second" title="' + drivers[i].DevID + '">' + drivers[i].Name + ' (' + drivers[i].ID + ')</td>' +
+						'<td class="list-second" title="' + drivers[i].DevID + '">' + drivers[i].Name + '</td>' +
 						'<td class="list-third" title="' + drivers[i].URL + '"><b>' + drivers[i].Date + '</b></td>' +
 						'<td class="list-last"></td>' +
 						'</tr>';
