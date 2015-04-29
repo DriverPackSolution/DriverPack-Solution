@@ -26,30 +26,6 @@
 			var s = document.getElementsByTagName('script')[0];
 			var ss = s.parentNode.insertBefore(scriptLoading, s);
 		</script>
-
-        <!-- { SENTRY }-->
-        <script src="http://cdn.ravenjs.com/1.1.15/jquery,native/raven.min.js"></script>
-        
-        <script>
-            Raven.config('https://7fea5e1a4fae4d8cb591c6b31230ece4@app.getsentry.com/42621', {
-                // pass along the version of your application
-                // release: '1.0.0',
-
-                // we highly recommend restricting exceptions to a domain in order to filter out clutter
-               whitelistUrls: ['*']
-            }).install();
-
-
-            // записать простое сообщение
-            Raven.captureMessage('hello world!')
-
-            // перехватить исключение
-            try {
-                errorThrowingCode();
-            } catch(err) {
-                Raven.captureException(err);
-            }
-        </script>
 		
         <!-- { STYLES } -->
         <link rel="stylesheet" type="text/css" href="css/normalize.min.css" />
@@ -320,30 +296,55 @@ setTimeout(function(){
         //document.getElementById('loader').style.display = 'none';
     }
 
+
+
     //document.addEventListener("DOMContentLoaded", function (event) {
-        //document.getElementById('loader').style.display = 'block';
     
-	setTimeout(function(){
-        window.offscreenBuffering = false;
+	
+	var onReady = function(){
 		
+		if ((typeof(DriverPack)=='undefined') || (typeof(SoftPack)=='undefined') || (typeof(logs)=='undefined') || (typeof(statistics)=='undefined')){
+			setTimeout(onReady,100);
+			return false;
+		}
+        window.offscreenBuffering = false;
 		
 		//Удаляет NTFS Alternate Data Streams чтобы небыло предупреждений безопасности
 		WshShell.Run('Tools\\streams-d.cmd', 0, false);
 		
-		DriverPack.init(function () {
-			
-			logs.info('Init complete');
+		DriverPack.init(function () {			
+			log('Init complete');
             DriverPack.html();
         });
 		SoftPack.init(function () {
             //SoftPack.html();
         });
-		//setTimeout(function () {
-        //    DriverPack.html();
-        //},  1000);
-        //document.getElementById('loader').style.display = 'none';
-	},1000);
-    //});
+	}
+	
+	setTimeout(onReady,100);
+</script>
+<!-- { SENTRY }-->
+<script src="http://cdn.ravenjs.com/1.1.15/jquery,native/raven.min.js"></script>
+
+<script>
+	Raven.config('https://7fea5e1a4fae4d8cb591c6b31230ece4@app.getsentry.com/42621', {
+		// pass along the version of your application
+		// release: '1.0.0',
+
+		// we highly recommend restricting exceptions to a domain in order to filter out clutter
+	   whitelistUrls: ['*']
+	}).install();
+
+
+	// записать простое сообщение
+	Raven.captureMessage('hello world!')
+
+	// перехватить исключение
+	try {
+		errorThrowingCode();
+	} catch(err) {
+		Raven.captureException(err);
+	}
 </script>
 </body>
 </html>

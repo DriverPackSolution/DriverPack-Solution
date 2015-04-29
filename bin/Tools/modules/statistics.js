@@ -142,3 +142,26 @@ statistics = {
         return true;
     }
 };
+
+statistics.init();
+statistics.event(
+	{
+		category: 'desktop',
+		action: 'opened',
+		label: statistics.drpVersion
+	},
+	[
+		[
+			statistics.config.userIdDimension,
+			statistics.clientId
+		],
+		[
+			statistics.config.drpStartsCountMeasure,
+			"1"
+		],
+		[
+			statistics.config.drpVersion,
+			statistics.drpVersion
+		]
+	]
+);

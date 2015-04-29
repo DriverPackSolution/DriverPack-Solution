@@ -250,6 +250,7 @@ var DriverPack = {
 					);
 					
 					wget_driver(item.URL,DriverPack.driverPath);
+					//DriverPack._json[i].isDownloaded = true; //Не работает, так как индексы в массивах разные
 					
 					statistics.event(
                         {
@@ -269,7 +270,6 @@ var DriverPack = {
 						]
 					);
 					
-					DriverPack._json[i].isDownloaded = true;
 					
 				});
 				

@@ -68,7 +68,7 @@ window.onerror=function(msg, url, linenumber){
 function htaError(msg, url, linenumber, lfnE) {
 	var myObject = new Object();
 	myObject.lang = 'ru';
-	myObject.logfile = logs.logfile;
+	myObject.logfile = (typeof(logs.logfile)!='undefined'?logs.logfile:null);
 	myObject.dialogMode = 2;
 	myObject.msg = msg;
 	myObject.url = url;

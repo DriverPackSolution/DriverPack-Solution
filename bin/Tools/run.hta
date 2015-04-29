@@ -8,6 +8,21 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9">
 <meta http-equiv="refresh" content="0;URL='..\DriverPackSolution.html'">
 
+<style>
+#loader{
+	background: url(../img/loading.gif) no-repeat scroll center center;
+	background-size: 50px 50px;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: block;
+	z-index: 9999;
+	text-shadow: 0px 0px 4px black, 0 0 2px black;
+}
+</style>
+
 
 <HTA:APPLICATION ID="dpa"
 	application="yes"
@@ -29,11 +44,9 @@
 	version="0.1"
 	windowState="maximize"/>
 </head>
-
-	<div id="preloading" style="position:absolute;top:40%;width:95%;text-align:center;">
-		<img src="load8.gif">
-	</div>
-
+	
+	<div id="loader"></div>
+	
 <body>
 </body>
 </html>

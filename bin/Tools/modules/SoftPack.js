@@ -260,6 +260,7 @@ var SoftPack = {
 					);
 					
 					wget_driver(item.URL,SoftPack.softPath);
+					//SoftPack._json.soft[i].isDownloaded = true; //Не работает, так как индексы в массивах разные
 					
 					statistics.event(
                         {
@@ -279,7 +280,6 @@ var SoftPack = {
 						]
 					);
 					
-					SoftPack._json.soft[i].isDownloaded = true;
 					
 				});
 				
@@ -322,7 +322,7 @@ var SoftPack = {
 			function(){
 				
 				url.forEach(function(item,i) {
-					if (item.isDownloaded){
+					//if (item.isDownloaded){
 						
 						log('Starting to install: ' + '"' + SoftPack.softPath + '\\' + item.URL.substring(item.URL.lastIndexOf('/')+1) + '" ' + item.Keys);
 						
@@ -342,7 +342,7 @@ var SoftPack = {
 								],
 								[
 									statistics.config.installedSoftData,
-									completedSoft
+									item.Name
 								],
 								[
 									statistics.config.installedSoftIndicator,
@@ -353,7 +353,7 @@ var SoftPack = {
 						
 						SoftPack._json.soft[i].isInstalled = true;
 						
-					}
+					//}
 				});
 				
 				statistics.event(
