@@ -85,7 +85,10 @@ logs = {
 			str = '<div class="logs '+className+'"><span class="timeStamp">' + time + '</span>' + str + '</div>';
 			
 			if (logs.logfile) {
-				logs.logfile.WriteLine(str);
+				try {
+					logs.logfile.WriteLine(str);
+				}
+				catch(e){ }
 			}
 			
 			

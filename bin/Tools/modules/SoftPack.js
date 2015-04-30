@@ -488,7 +488,7 @@ var SoftPack = {
 		for (var i = 0; i < softs.length; i++) {
 			
 			if (!driver_exists(softs[i].URL,SoftPack.softPath)){
-				newTbody += '<tr><td class="list-first"><input data-name="' + encodeURIComponent(softs[i].Name)  + '" id="checkSoft'+softs[i].ID+'" type="checkbox" checked1/> </td>' +
+				newTbody += '<tr><td class="list-first"><input data-name="' + encodeURIComponent(softs[i].Name)  + '" id="checkSoft'+softs[i].ID+'" type="checkbox" checked/> </td>' +
 						'<td class="list-second">' + softs[i].Name + '</td>' +
 						'<td class="list-third" title="' + softs[i].URL + '"><b>' + softs[i].Version + '</b></td>' +
 						'<td class="list-last"></td>' +
@@ -547,7 +547,7 @@ var SoftPack = {
 							
 							
 							document.getElementById('loader').style.backgroundImage = "none";
-							document.getElementById('progressDescription').innerHTML = 'Весь софт установлен! <br><button onclick="location.reload()">Готово</button>';
+							document.getElementById('progressDescription').innerHTML = 'Весь софт установлен! <br><button onclick="DriverPack.init(function () { DriverPack.html(); })">Готово</button>';
 							//document.getElementById('loader').style.display = 'none';
 							//alert('Установка завершена!');
 							

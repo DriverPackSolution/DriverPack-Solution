@@ -476,7 +476,7 @@ var DriverPack = {
 		for (var i = 1; i < drivers.length; i++) {
 			
 			if (!driver_exists(drivers[i].URL,DriverPack.driverPath)){
-				newTbody += '<tr><td class="list-first"><input data-name="' + encodeURIComponent(drivers[i].Name)  + '" id="checkDrivers'+drivers[i].ID+'" type="checkbox" checked1/> <img src="Tools/ico/button/' + DriverPack.getDriverIcon(drivers[i].URL) + '.png" /> </td>' +
+				newTbody += '<tr><td class="list-first"><input data-name="' + encodeURIComponent(drivers[i].Name)  + '" id="checkDrivers'+drivers[i].ID+'" type="checkbox" checked/> <img src="Tools/ico/button/' + DriverPack.getDriverIcon(drivers[i].URL) + '.png" /> </td>' +
 						'<td class="list-second" title="' + drivers[i].DevID + '">' + drivers[i].Name + '</td>' +
 						'<td class="list-third" title="' + drivers[i].URL + '"><b>' + drivers[i].Date + '</b></td>' +
 						'<td class="list-last"></td>' +
@@ -536,7 +536,7 @@ var DriverPack = {
 							
 
 							document.getElementById('loader').style.backgroundImage = "none";
-							document.getElementById('progressDescription').innerHTML = 'Все драйверы установленны! <br><button onclick="location.reload()">Готово</button>';
+							document.getElementById('progressDescription').innerHTML = 'Все драйверы установленны! <br><button onclick="DriverPack.init(function () { DriverPack.html(); })">Готово</button>';
 							//document.getElementById('loader').style.display = 'none';
 							//alert('Установка завершена!');
 							

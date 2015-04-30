@@ -391,3 +391,11 @@ button:active{
 .dbg2 {
     background-color: #00ff00;
 }
+
+.copyright {
+    position: fixed;
+    bottom: 20px;
+    color: white;
+    text-align: center;
+    width: 266px;
+}

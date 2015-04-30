@@ -1,6 +1,6 @@
 var version = "16";
-var verType = "Alpha";
-var buildDate = "2015/04/27"; // YYYY/MM/DD
+var verType = "Beta";
+var buildDate = "2015/04/30"; // YYYY/MM/DD
 
 var WshShell = new ActiveXObject("WScript.Shell");
 var WshEnv = WshShell.Environment("PROCESS");
@@ -17,6 +17,11 @@ WshShell.Run('reg add "HKCU\\Software\\Microsoft\\Internet Explorer\\Styles" /v 
 WshShell.Run('reg add "HKLM\\Software\\Microsoft\\Internet Explorer\\Styles" /v "MaxScriptStatements" /t REG_DWORD /d 0xffffffff /f',0,true);
 WshShell.Run('reg add "HKCU\\SOFTWARE\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_NINPUT_LEGACYMODE" /v "mshta.exe" /t REG_DWORD /d 0x00000000 /f',0,true); //Touch Screen enabled
 WshShell.Run('reg add "HKCU\\SOFTWARE\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_GPU_RENDERING" /v "mshta.exe" /t REG_DWORD /d 0x00000001 /f',0,true); //GPU rendering enabled
+//Fix IE 9/10 bugs and Feature
+winRun('reg add "HKCU\\Software\\Microsoft\\Internet Explorer\\Styles" /v "MaxScriptStatements" /t REG_DWORD /d 0xffffffff /f',true,'',true);
+winRun('reg add "HKLM\\Software\\Microsoft\\Internet Explorer\\Styles" /v "MaxScriptStatements" /t REG_DWORD /d 0xffffffff /f',true,'',true);
+winRun('reg add "HKCU\\SOFTWARE\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_NINPUT_LEGACYMODE" /v "mshta.exe" /t REG_DWORD /d 0x00000000 /f',true,'',true); //Touch Screen enabled
+winRun('reg add "HKCU\\SOFTWARE\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_GPU_RENDERING" /v "mshta.exe" /t REG_DWORD /d 0x00000001 /f',true,'',true); //GPU rendering enabled
 //Fix NTFS zone checks alerts
 WshShell.Environment("PROCESS")("SEE_MASK_NOZONECHECKS") = 1;
 
@@ -469,4 +474,59 @@ function goToUrl(url){
 		WshShell.Run('rundll32 url.dll,FileProtocolHandler '+url,1,false);
 	}
 	return false;
+}
+
+
+
+
+
+//Modify function 'WshShell.Run'
+//Can run x64 programms
+function winRun(src,hideMode,wait,bit64,timeout,onComplete,onTimeout_call){
+    //try {
+        if (!src) { return false; }
+        if (!hideMode) { hideMode=false; }
+        if (!wait) { wait=false; }
+        hideMode=(hideMode?'0':'1');
+        wait=!(wait?false:true);
+
+        if (bit64&&is64) {
+            hideMode=true;
+            wait=false;
+            src = 'tools\\cmd64.exe /C '+src;
+        }
+
+        //alert(typeof(onComplete));
+        if (typeof(onComplete)=='function') {
+            if (hideMode==='1') { oExec = WshShell.Exec(src); }
+            //else { oExec = WshShell.Exec('tools\\hstart'+(is64?'64':'')+'.exe /NOCONSOLE /WAIT "cscript.exe //nologo tools\\start.vbs "'+src+'" '+hideMode+' '+wait+'"'); }
+              else { oExec = WshShell.Exec('tools\\start.exe "'+current_dir+'" "'+src+'" "'+hideMode+'" "'+wait+'"'); }
+            winRun_process(oExec,onComplete,timeout,onTimeout_call);
+            return oExec;
+        }
+        else { return WshShell.Run(src,hideMode,wait); }
+    //}
+    //catch(e) { return false; }
+}
+
+function winRun_process(oExec,onComplete,timeout,onTimeout_call,count){
+    if (!count) { count=1; }
+    if (!timeout) { timeout=60; }
+
+    if (oExec.Status=='0') {
+        //Too long wait
+        if (timeout<count){
+            if (typeof(onTimeout_call)=='function') {
+                onTimeout_call(oExec);
+            }
+            return;
+        }
+
+        //Waiting...
+        setTimeout(function (){ winRun_process(oExec,onComplete,timeout,onTimeout_call,(count+1)) },1000);
+    }
+    else {
+        //When the process is completed
+        onComplete(oExec);
+    }
 }
