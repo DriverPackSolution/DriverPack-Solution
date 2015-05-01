@@ -17,15 +17,26 @@ var DriverPack = {
 		if (DevID.indexOf("MONITOR") != -1) { return "MONITOR"; }
 		return "UNK";
     },
+
+    /*
+		driverDetect()
+		Сканирует устройства компьютера и получает их DeviceID.
+		
+		ToDo:
+		- Эта функция довольно требовательна к ресурсам и нужнается в оптимизации
+		- IE10+ может использовать Web Workers
+		- Вместо setTimeout() использовать setImmediate(), это может улучшить скорость на ~500мс.
+    */
 	driverDetect: function(callback){
 		
 		
-		//var DrivercolItems = objWMIService.ExecQuery("SELECT HardWareID FROM Win32_PnPSignedDriver WHERE HardWareID != null AND (HardWareID LIKE 'PCI%' OR HardWareID LIKE 'HDAUDIO%' OR HardWareID LIKE 'USB%' OR HardWareID LIKE 'ACPI%' OR HardWareID LIKE '*%')", "WQL");
 		/*
 		ClassGuid, CompatID, Description, DeviceClass, DeviceID, DeviceName, DriverDate, DriverProviderName, DriverVersion, HardWareID, InfName, IsSigned, Location, Manufacturer, Signer, 
 		*/
+
 		/*
 		var start = new Date();
+		//var DrivercolItems = objWMIService.ExecQuery("SELECT HardWareID FROM Win32_PnPSignedDriver WHERE HardWareID != null AND (HardWareID LIKE 'PCI%' OR HardWareID LIKE 'HDAUDIO%' OR HardWareID LIKE 'USB%' OR HardWareID LIKE 'ACPI%' OR HardWareID LIKE '*%')", "WQL");
 		var DrivercolItems = objWMIService.ExecQuery("SELECT * FROM  Win32_PnPSignedDriver WHERE HardWareID != null", "WQL");
 		var DriverenumItems = new Enumerator(DrivercolItems);
 		
@@ -98,30 +109,12 @@ var DriverPack = {
 		
 		
 	},
-	getDrivers: function(where, what){
-		
-		var allDrivers = DriverPack._json.installed;
-		var res = [];
-		
-		if ((typeof(where) == 'string') && (typeof(what) == 'string')) {
-			
-			for (var i = 0; i < allDrivers.length; i++) {
-				if (allDrivers[i][where] == what){
-					res[res.length] = allDrivers[i];
-				}
-			}
-			
-			return res;
-		}
-		else if ((typeof(where) != 'string') && (typeof(what) != 'string')) {
-			return allDrivers;
-		}
-		else if ((typeof(where) != 'string') || (typeof(what) != 'string')) {
-			return false;
-		}
-		
-		
-	},
+
+	
+	/*
+		init()
+		Запускать процесс сканирования компьютера, отправляет информацию об устройствах на сервер. Принимает JSON ответ.
+	*/
     init: function (callback) {
 		log('DriverPack.init()');
 		
@@ -168,8 +161,10 @@ var DriverPack = {
 	
 	
 	
-	
-	
+	/*
+		detectDownloaded()
+		Проходится по всей базе и расставляет свойство isDownloaded тем, которые уже были скачанны.
+	*/
 	detectDownloaded: function () {
 		
 		var check = DriverPack.get({
@@ -191,6 +186,14 @@ var DriverPack = {
 	},
 	
 	
+	/*
+		download()
+		Скачивает драйверы из массива IDs.
+
+		ToDo:
+		- Убрать вызов statistics.event отсюда
+		- Убрать вызов progressCounter отсюда
+	*/
 	download: function (IDs, callback) {
 		
 		var url = DriverPack.get({
@@ -219,6 +222,7 @@ var DriverPack = {
 						]
 					]
 				);
+				//Событие: beforeAllDownloading
 				
 				url.forEach(function(item,i,url) {
 					
@@ -248,10 +252,14 @@ var DriverPack = {
 							]
 						]
 					);
+
+					//Событие: beforeDownloading(item.Name)
 					
 					wget_driver(item.URL,DriverPack.driverPath);
 					//DriverPack._json[i].isDownloaded = true; //Не работает, так как индексы в массивах разные
 					
+					//Событие: afterDownloading(item.Name)
+
 					statistics.event(
                         {
                             category: 'desktop',
@@ -272,6 +280,9 @@ var DriverPack = {
 					
 					
 				});
+				
+
+				//Событие: afterAllDownloading()
 				
 				statistics.event(
 					{
@@ -300,12 +311,18 @@ var DriverPack = {
 	},
 	
 	
+	/*
+		install()
+		Устанавливает драйверы с номерами из массива IDs.
+	*/
 	install: function (IDs, callback) {
 		
 		var installed = DriverPack.get({
 			'SELECT': '*',
 			'WHERE': IDs
 		});
+
+		//Событие: beforeInstalling()
 		
 		
 		setTimeout(
@@ -340,35 +357,14 @@ var DriverPack = {
 						]
 					]
 				);
+
+				//Событие: afterInstalling()
 				
 				callback();
 			},
 			0
 		);
 		
-		/*
-		if (installed.length > 0) {
-			if (WgetPack.get().isDownload(installed[0].URL)) {
-				return true
-			}
-			setTimeout(function () {
-				if (document.getElementById("m-apps").parentNode.classList.contains("green")) {
-					DriverPack.html();
-				}
-				DriverPack.get(softName).install();
-			}, 1000);
-		} else {
-			
-			 WshShell.Run('cmd /c rd /S /Q "' + WshShell.ExpandEnvironmentStrings(DriverPack.driverPath) + '"', 0, true);
-			 WshShell.Run('Tools\\7za.exe x -yo"' + WshShell.ExpandEnvironmentStrings(DriverPack.driverPath) + '" "' + DriverPack.driverPath + '\\*"', 0, true);
-			 WshShell.Run(
-				WshShell.ExpandEnvironmentStrings(DriverPack.driverPath + '\\dpinst\\Setup') + (SVersion == '64' ? '64' : '') + '.exe ' +
-				'/SW /c /sa /PATH "' + WshShell.ExpandEnvironmentStrings(DriverPack.driverPath) + '"',
-				0, true
-			 );
-			 
-		}
-		*/
 		return true;
 		
 	},
@@ -446,7 +442,6 @@ var DriverPack = {
 	
 			//echo(print_r(output));
 			DriverPack._json = output_installed;
-			//alert(print_r(DriverPack.getDrivers('ID','0')));
 	
 	},
 	
@@ -558,56 +553,6 @@ var DriverPack = {
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		/*
-		var installed = DriverPack.getDrivers();
-        document.getElementById('loader').style.display = 'block';
-        var newTbody = document.createElement('tbody');
-        for (var i = 0; i < installed.length; i++) {
-            if (installed[i] && installed[i].Name != 'dpinst.zip') {
-                if (!DriverPack.get(installed[i].ID).isNeedUpdate()) {
-                    //var descr = DriverPack.SQL('SELECT * FROM installed WHERE Name="' + installed[i].Name + '"')[0];
-					var descr = DriverPack.getDrivers('Name',installed[i].Name)[0];
-                    newTbody.innerHTML += "<!-- { SINGLE LIST ITEM } -->" +
-                            "<tr>" +
-                            "<td class='list-first'> &nbsp; <input data-name='" + encodeURIComponent(descr.ID) + "' type='checkbox' checked=checked/> <img src='Tools/ico/button/" + DriverPack.getDriverIcon(installed[i].URL) + ".png' /></td>" +
-                            "<td class='list-second' title='" + descr.ID.replace('-','\\') + "'>" + descr.Name + "</td>" +
-                            "<td class='list-third' title='" + descr.URL + "'><b>" + descr.Date + "</b></td>" +
-                            "<td class='list-last'></td>" +
-                            "</tr><br>";
-                }
-            }
-        }
-		*/
-		
-		
-		
-		
-        //if (newTbody.innerHTML != '') {
-//            var tbodys = document.getElementById('list').getElementsByTagName('tbody');
-			//var tbodys = document.getElementById('tbody');
-            //if (tbodys.length) {
-            //    document.getElementById('list').removeChild(tbodys);
-            //}
-			//alert(newTbody.innerHTML);
-            //document.getElementById('tbody').innerHTML = '123';
-			//document.getElementById('tbody').innerHTML = newTbody.innerHTML;
-			//document.getElementById('tbody').innerHTML = 'sdfasdfasdfasdfasdfasdfasdfasdfsda';
-        //}
 		document.getElementById('div-list').innerHTML = '<table id="list"><thead><tr><td></td><td>Название</td><td>Версия</td><td></td></tr></thead><tbody>'+newTbody+'</tbody></table>';
         document.getElementById('h1-title').innerHTML = 'Установка драйверов';
 		document.getElementById('description').innerHTML = 'Найдены доступные для установки драйвера';
@@ -624,7 +569,13 @@ var DriverPack = {
 	
 	
 	
-	
+	/*
+		get()
+		Возвращает записи из базы, которые соответствуют параметрам query: { WHERE, SELECT, LIMIT }.
+
+		ToDo:
+		- В идеале найти готовую либу, которая умеет тоже самое через Xpath или подобное.
+	*/
 	get: function (query) {
 		
 		var filteredArr = DriverPack._json;
@@ -720,60 +671,10 @@ var DriverPack = {
 	
 	
 	
-	
-	
-    get_old: function (driverID) {
-
-
-        var additionFunctions = {
-            install: function () {
-                var installed = DriverPack.getDrivers('ID',driverID);
-                if (installed.length > 0) {
-                    if (WgetPack.get().isDownload(installed[0].URL)) {
-                        return true
-                    }
-                    setTimeout(function () {
-                        if (document.getElementById("m-apps").parentNode.classList.contains("green")) {
-                            DriverPack.html();
-                        }
-                        DriverPack.get(softName).install();
-                    }, 1000);
-                } else {
-                    
-                     WshShell.Run('cmd /c rd /S /Q "' + WshShell.ExpandEnvironmentStrings(DriverPack.driverPath) + '"', 0, true);
-                     WshShell.Run('Tools\\7za.exe x -yo"' + WshShell.ExpandEnvironmentStrings(DriverPack.driverPath) + '" "' + DriverPack.driverPath + '\\*"', 0, true);
-                     WshShell.Run(
-                     WshShell.ExpandEnvironmentStrings(DriverPack.driverPath + '\\dpinst\\Setup') + (is64 ? '64' : '') + '.exe ' +
-                     '/SW /c /sa /PATH "' + WshShell.ExpandEnvironmentStrings(DriverPack.driverPath) + '"',
-                     0, true
-                     );
-                     
-                }
-                return true;
-            },
-            download: function () {
-                //var url = DriverPack.SQL('SELECT * FROM installed WHERE ID="' + driverID + '"');
-				var url = DriverPack.getDrivers('ID',driverID);
-                return WgetPack.get(url[0]).download(url[0].URL);
-            },
-            isNeedUpdate: function (id) {
-                var ret = false,
-                        date = DriverPack.SQL('SELECT * FROM installed WHERE ID="' + id + '"');
-						date = DriverPack.getDrivers('ID',id);
-                try {
-                    if (new Date(date[0].Date).getTime() > new Date(DriverPack.installed[id]).getTime()) {
-                        ret = true;
-                    }
-                }
-                catch (e) {
-                    ret = false;
-                }
-                return ret;
-            }
-        }
-        return additionFunctions;
-    },
-	
+	/*
+		ToDo:
+		- Эта функция здесь не нужна. Её нужно перенести в шаблон. Вернее даже, чтобы иконка через CSS классы подставлялась.
+	*/
 	getDriverIcon: function (driverUrl){
 		driverIcon = "0";
 		var driverUrl = driverUrl.toLowerCase();
@@ -836,5 +737,4 @@ var DriverPack = {
 	}
 };
 
-//DriverPack.init();
 
