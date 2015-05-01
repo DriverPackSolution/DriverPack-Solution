@@ -19,7 +19,7 @@ body{
 }
 
 #loader{
-	background: url(../img/loading.gif) no-repeat scroll center center rgba(0,0,0,0.7);
+	background: url(../Tools/load8.gif) no-repeat scroll center center white;
 	background-size: 50px 50px;
 	width: 100%;
 	height: 100%;
@@ -32,7 +32,11 @@ body{
 }
 
 #progress {
-position:relative;top:32%;color:white;text-align:center;font-size:60px;
+    position:relative;
+    top:32%;
+    color:black;
+    text-align:center;
+    font-size:60px;
 }
 
 .right{
