@@ -542,7 +542,7 @@ var DriverPack = {
 							
 
 							document.getElementById('loader').style.backgroundImage = "none";
-							document.getElementById('progressDescription').innerHTML = 'Все драйверы установленны! <br><button onclick="DriverPack.init(function () { DriverPack.html(); })">Готово</button>';
+							document.getElementById('progressDescription').innerHTML = 'Все драйверы установлены! <br><button onclick="DriverPack.init(function () { DriverPack.html(); })">Готово</button>';
 							//document.getElementById('loader').style.display = 'none';
 							//alert('Установка завершена!');
 							
