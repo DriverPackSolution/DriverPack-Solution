@@ -4,7 +4,16 @@
 img, div, input { behavior: url("iepngfix.htc"); }
 
 
+#loader{
+	background: url(../Tools/load8.gif) no-repeat scroll center center white;
+}
+#progress{
+	color:black;
+}
 
+.copyright {
+	position: absolute;
+}
 
 /* Старый добрый дедовский способ */
 * html #m-down{

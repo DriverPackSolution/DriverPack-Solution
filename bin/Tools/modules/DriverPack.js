@@ -72,7 +72,7 @@ var DriverPack = {
 				}
 				
 				
-				for (var i = 0; i < 10 && DriverenumItems.atEnd() == false; i++) {
+				for (var i = 0; i < 5 && DriverenumItems.atEnd() == false; i++) {
 					
 					var driverItem = DriverenumItems.item();
 					var driverDeviceID = driverItem.HardWareID.toString().toUpperCase();
@@ -469,6 +469,9 @@ var DriverPack = {
 		//alert("soft: " + document.getElementById("menu-soft").className + ' drivers: ' + document.getElementById("menu-drivers").className);
 		
         document.getElementById('loader').style.display = 'block';
+		//document.getElementById('loader').style.backgroundImage = (IEVers=='6'?'url(Tools/load8.gif)':'url(img/loading.gif)');
+		document.getElementById('loader').style.backgroundImage = 'url(Tools/load8.gif)';
+		window.scrollTo(0, 0);
         var newTbody = document.createElement('tbody');
 		var newTbody = '';
 		var drivers = DriverPack.get({ 'SELECT': '*' });
@@ -503,6 +506,9 @@ var DriverPack = {
 			if (IDs.length < 2) { return false; }
 			
 			document.getElementById('loader').style.display = 'block';
+			//document.getElementById('loader').style.backgroundImage = (IEVers=='6'?'url(Tools/load8.gif)':'url(img/loading.gif)');
+			document.getElementById('loader').style.backgroundImage = 'url(Tools/load8.gif)';
+			window.scrollTo(0, 0);
 			document.getElementById('progressDescription').innerHTML = '<br>Скачиваю дрова...';
 			//alert(JSON.stringify(IDs));
 			log('Downloading drivers started...');

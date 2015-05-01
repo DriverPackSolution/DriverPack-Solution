@@ -28,7 +28,11 @@ body{
 	left: 0;
 	display: block;
 	z-index: 9999;
-	text-shadow: 0px 0px 4px black, 0 0 2px black;
+	/*text-shadow: 0px 0px 4px black, 0 0 2px black;*/
+}
+
+#progress {
+position:relative;top:32%;color:white;text-align:center;font-size:60px;
 }
 
 .right{

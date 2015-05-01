@@ -481,6 +481,8 @@ var SoftPack = {
 		//alert("soft: " + document.getElementById("menu-soft").className + ' drivers: ' + document.getElementById("menu-drivers").className);
 		
         document.getElementById('loader').style.display = 'block';
+		document.getElementById('loader').style.backgroundImage = 'url(Tools/load8.gif)';
+		window.scrollTo(0, 0);
         var newTbody = document.createElement('tbody');
 		var newTbody = '';
 		var softs = SoftPack.get({ 'SELECT': '*', 'WHERE': [ { 'isInstalled': false } ] });
@@ -514,6 +516,8 @@ var SoftPack = {
 			if (IDs.length < 1) { return false; }
 			
 			document.getElementById('loader').style.display = 'block';
+			document.getElementById('loader').style.backgroundImage = 'url(Tools/load8.gif)';
+			window.scrollTo(0, 0);
 			document.getElementById('progressDescription').innerHTML = '<br>Скачиваю софт...';
 			//alert(JSON.stringify(IDs));
 			log('Downloading soft started...');

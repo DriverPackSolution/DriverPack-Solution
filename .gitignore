@@ -1,5 +1,6 @@
-[Tt]humbs.db
+[Tt]humbs.db*
 *.DS_Store
 nbproject/
 bin/Tools/modules/AutoTests/[Rr]eport*/
 bin/[Rr]eports/
+*:Zone.Identifier
