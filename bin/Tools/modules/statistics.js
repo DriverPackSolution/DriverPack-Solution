@@ -5,6 +5,19 @@ statistics = {
     _statisticUrl: "http://www.google-analytics.com/collect?v=1&tid=UA-58593486-1&aip=1",
     //_statisticUrl: "http://example.com/?",
 	//_statisticUrl: "http://statistics.drp.su/online_v_2.php?v=1&tid=UA-58593486-1&aip=1",
+    defaultEventParams: {
+
+        category: 'desktop',
+        action: null,
+        label: statistics.drpVersion
+
+    },
+    defaultEventDimenstion: [
+
+        statistics.config.userIdDimension,
+        statistics.clientId
+
+    ],
     config: {
         userIdDimension: "cd1", //ClientID
         driverDimension: "cd2",
@@ -64,6 +77,12 @@ statistics = {
         return uuid;
     },
     event: function (event, dimention) {
+
+        var event = extendJSON(this.defaultEventParams,event);
+        if (event.action === null) { return false; }
+
+        var dimention = dimention.push(defaultEventDimenstion);
+
         if (this.clientId == "")
             this.clientId = this.generate();
         var url = this.compileUrl(event, dimention);
@@ -146,15 +165,9 @@ statistics = {
 statistics.init();
 statistics.event(
 	{
-		category: 'desktop',
 		action: 'opened',
-		label: statistics.drpVersion
 	},
 	[
-		[
-			statistics.config.userIdDimension,
-			statistics.clientId
-		],
 		[
 			statistics.config.drpStartsCountMeasure,
 			"1"

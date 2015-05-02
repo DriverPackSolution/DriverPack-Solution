@@ -1,6 +1,6 @@
 var SoftPack = {
     _json: softJsonDB,
-    softPath: AppData + '\\DRPSu\\PROGRAMS',
+    path: AppData + '\\DRPSu\\PROGRAMS',
     init: function(callback) {
 		log('SoftPack.init()');
 		
@@ -60,7 +60,7 @@ var SoftPack = {
 			
 			//isDownloaded
 			SoftPack._json.soft[i].isDownloaded = false;
-			if (driver_exists(item.URL,SoftPack.softPath)) {
+			if (driver_exists(item.URL,SoftPack.path)) {
 				SoftPack._json.soft[i].isDownloaded = true;
 			}
 			
@@ -214,15 +214,9 @@ var SoftPack = {
 				log('Started downloading IDs: ' + IDs);
 				statistics.event(
 					{
-						category: 'desktop',
 						action: 'installation started',
-						label: statistics.drpVersion
 					},
 					[
-						[
-							statistics.config.userIdDimension,
-							statistics.clientId
-						],
 						[
 							statistics.config.installedSoftData,
 							statistics.drpVersion
@@ -239,19 +233,13 @@ var SoftPack = {
 					    });
 					}, 10);
 					
-					log('Downloading: ' + item.URL + '. To folder: ' + SoftPack.softPath);
+					log('Downloading: ' + item.URL + '. To folder: ' + SoftPack.path);
 					
 					statistics.event(
 						{
-							category: 'desktop',
 							action: 'installation started ' + item.Name,
-							label: statistics.drpVersion
 						},
 						[
-							[
-								statistics.config.userIdDimension,
-								statistics.clientId
-							],
 							[
 								statistics.config.installedSoftData,
 								item.Name
@@ -259,20 +247,14 @@ var SoftPack = {
 						]
 					);
 					
-					wget_driver(item.URL,SoftPack.softPath);
+					wget_driver(item.URL,SoftPack.path);
 					//SoftPack._json.soft[i].isDownloaded = true; //Не работает, так как индексы в массивах разные
 					
 					statistics.event(
                         {
-                            category: 'desktop',
                             action: 'installation downloaded ' + item.Name,
-                            label: statistics.drpVersion
                         },
 						[
-							[
-								statistics.config.userIdDimension,
-								statistics.clientId
-							],
 							[
 								statistics.config.installedSoftData,
 								item.Name
@@ -285,15 +267,9 @@ var SoftPack = {
 				
 				statistics.event(
 					{
-						category: 'desktop',
 						action: 'installation downloaded',
-						label: statistics.drpVersion
 					},
 					[
-						[
-							statistics.config.userIdDimension,
-							statistics.clientId
-						],
 						[
 							statistics.config.installedSoftData,
 							statistics.drpVersion
@@ -324,22 +300,16 @@ var SoftPack = {
 				url.forEach(function(item,i) {
 					//if (item.isDownloaded){
 						
-						log('Starting to install: ' + '"' + SoftPack.softPath + '\\' + item.URL.substring(item.URL.lastIndexOf('/')+1) + '" ' + item.Keys);
+						log('Starting to install: ' + '"' + SoftPack.path + '\\' + item.URL.substring(item.URL.lastIndexOf('/')+1) + '" ' + item.Keys);
 						
 						
-						WshShell.Run('"' + SoftPack.softPath + '\\' + item.URL.substring(item.URL.lastIndexOf('/')+1) + '" ' + item.Keys,1,true);
+						WshShell.Run('"' + SoftPack.path + '\\' + item.URL.substring(item.URL.lastIndexOf('/')+1) + '" ' + item.Keys,1,true);
 						
 						statistics.event(
 							{
-								category: 'desktop',
 								action: 'installation completed ' + item.Name,
-								label: statistics.drpVersion
 							},
 							[
-								[
-									statistics.config.userIdDimension,
-									statistics.clientId
-								],
 								[
 									statistics.config.installedSoftData,
 									item.Name
@@ -358,15 +328,9 @@ var SoftPack = {
 				
 				statistics.event(
 					{
-						category: 'desktop',
 						action: 'installation completed',
-						label: statistics.drpVersion
 					},
 					[
-						[
-							statistics.config.userIdDimension,
-							statistics.clientId
-						],
 						[
 							statistics.config.installedSoftData,
 							statistics.drpVersion
@@ -489,7 +453,7 @@ var SoftPack = {
 		
 		for (var i = 0; i < softs.length; i++) {
 			
-			if (!driver_exists(softs[i].URL,SoftPack.softPath)){
+			if (!driver_exists(softs[i].URL,SoftPack.path)){
 				newTbody += '<tr><td class="list-first"><input data-name="' + encodeURIComponent(softs[i].Name)  + '" id="checkSoft'+softs[i].ID+'" type="checkbox" checked/> </td>' +
 						'<td class="list-second">' + softs[i].Name + '</td>' +
 						'<td class="list-third" title="' + softs[i].URL + '"><b>' + softs[i].Version + '</b></td>' +
@@ -505,7 +469,7 @@ var SoftPack = {
 			var IDs = [];
 			for (var i = 0; i < softs.length; i++) {
 				
-				if (!driver_exists(softs[i].URL,SoftPack.softPath)){
+				if (!driver_exists(softs[i].URL,SoftPack.path)){
 					if (document.getElementById('checkSoft'+softs[i].ID).checked === true){
 						IDs[IDs.length] = softs[i].ID;
 					}

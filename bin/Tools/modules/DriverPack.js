@@ -1,5 +1,5 @@
 var DriverPack = {
-    driverPath: AppData + '\\DRPSu\\DRIVERS',
+    path: AppData + '\\DRPSu\\DRIVERS',
     not_installed: [],
     installed: [],
     not_versions: [],
@@ -176,7 +176,7 @@ var DriverPack = {
 			
 			//isDownloaded
 			DriverPack._json[i].isDownloaded = false;
-			if (driver_exists(item.URL,DriverPack.driverPath)) {
+			if (driver_exists(item.URL,DriverPack.path)) {
 				DriverPack._json[i].isDownloaded = true;
 			}
 			
@@ -191,10 +191,11 @@ var DriverPack = {
 		Скачивает драйверы из массива IDs.
 
 		ToDo:
+		- Убрать лишний setTimeout()
 		- Убрать вызов statistics.event отсюда
 		- Убрать вызов progressCounter отсюда
 	*/
-	download: function (IDs, callback) {
+	download: function (IDs, callback, events) {
 		
 		var url = DriverPack.get({
 			'SELECT': '*',
@@ -205,104 +206,25 @@ var DriverPack = {
 		setTimeout(
 			function(){
 				log('Started downloading IDs: ' + IDs);
-				statistics.event(
-					{
-						category: 'desktop',
-						action: 'drivers installation started',
-						label: statistics.drpVersion
-					},
-					[
-						[
-							statistics.config.userIdDimension,
-							statistics.clientId
-						],
-						[
-							statistics.config.driverDimension,
-							statistics.drpVersion
-						]
-					]
-				);
-				//Событие: beforeAllDownloading
+				events.beforeAllDownloaded(); //Событие: beforeAllDownloaded
 				
 				url.forEach(function(item,i,url) {
-					
-					setTimeout(function(){
-					    progressCounter.start({
-					        startCount: (i==0?1:progressCounter.settings.endCount),
-					        endCount: Math.floor(80/url.length*(i+1)) // (80/arr.lenght*i)
-					    });
-					}, 10);
 
-					log('Downloading: ' + item.URL + '. To folder: ' + DriverPack.driverPath);
+					log('Downloading: ' + item.URL + '. To folder: ' + DriverPack.path);
+					events.beforeDownloading(item,i,url); //Событие: beforeDownloading()
 					
-					statistics.event(
-						{
-							category: 'desktop',
-							action: 'drivers installation started ' + item.Name,
-							label: statistics.drpVersion
-						},
-						[
-							[
-								statistics.config.userIdDimension,
-								statistics.clientId
-							],
-							[
-								statistics.config.driverDimension,
-								item.Name
-							]
-						]
-					);
-
-					//Событие: beforeDownloading(item.Name)
-					
-					wget_driver(item.URL,DriverPack.driverPath);
+					wget_driver(item.URL,DriverPack.path);
 					//DriverPack._json[i].isDownloaded = true; //Не работает, так как индексы в массивах разные
 					
-					//Событие: afterDownloading(item.Name)
-
-					statistics.event(
-                        {
-                            category: 'desktop',
-                            action: 'drivers installation downloaded ' + item.Name,
-                            label: statistics.drpVersion
-                        },
-						[
-							[
-								statistics.config.userIdDimension,
-								statistics.clientId
-							],
-							[
-								statistics.config.driverDimension,
-								item.Name
-							]
-						]
-					);
+					events.afterDownloading(item,i,url); //Событие: afterDownloading()
 					
 					
 				});
 				
 
-				//Событие: afterAllDownloading()
-				
-				statistics.event(
-					{
-						category: 'desktop',
-						action: 'drivers installation downloaded',
-						label: statistics.drpVersion
-					},
-					[
-						[
-							statistics.config.userIdDimension,
-							statistics.clientId
-						],
-						[
-							statistics.config.driverDimension,
-							statistics.drpVersion
-						]
-					]
-				);
-				
-				callback();
+				log('Downloaded drivers!');
+				events.afterAllDownloaded(); //Событие: afterAllDownloaded()
+				//callback();
 				
 			},
 			0
@@ -315,24 +237,23 @@ var DriverPack = {
 		install()
 		Устанавливает драйверы с номерами из массива IDs.
 	*/
-	install: function (IDs, callback) {
+	install: function (IDs, callback, events) {
 		
 		var installed = DriverPack.get({
 			'SELECT': '*',
 			'WHERE': IDs
 		});
-
-		//Событие: beforeInstalling()
 		
 		
 		setTimeout(
 			function(){
-				
+				log('Installing started drivers...');
+				events.beforeInstalled(); //Событие: beforeInstalled()
 				
 				// Cleaning
 				WshShell.Run('cmd /c rd /S /Q "' + WshShell.ExpandEnvironmentStrings('%temp%\\drp\\unzip\\drp') + '"', 0, true);
 				// Unzip
-				WshShell.Run('tools\\7za.exe x -yo"' + WshShell.ExpandEnvironmentStrings('%temp%\\drp\\unzip\\drp') + '" "' + DriverPack.driverPath + '\\*"', 0, true);
+				WshShell.Run('tools\\7za.exe x -yo"' + WshShell.ExpandEnvironmentStrings('%temp%\\drp\\unzip\\drp') + '" "' + DriverPack.path + '\\*"', 0, true);
 				// Installing drivers
 				WshShell.Run(
 					'"' + WshShell.ExpandEnvironmentStrings('%temp%\\drp\\unzip\\drp\\dpinst\\Setup') + '' + (is64 ? '64' : '') + '.exe" ' +
@@ -340,27 +261,11 @@ var DriverPack = {
 					0,true
 				);
 				
-				statistics.event(
-					{
-						category: 'desktop',
-						action: 'drivers installation completed',
-						label: statistics.drpVersion
-					},
-					[
-						[
-							statistics.config.userIdDimension,
-							statistics.clientId
-						],
-						[
-							statistics.config.driverDimension,
-							statistics.drpVersion
-						]
-					]
-				);
 
-				//Событие: afterInstalling()
-				
-				callback();
+				log('Installation drivers completed!');
+				events.afterInstalled(); //Событие: afterInstalled()
+
+				//callback();
 			},
 			0
 		);
@@ -473,7 +378,7 @@ var DriverPack = {
 		
 		for (var i = 1; i < drivers.length; i++) {
 			
-			if (!driver_exists(drivers[i].URL,DriverPack.driverPath)){
+			if (!driver_exists(drivers[i].URL,DriverPack.path)){
 				newTbody += '<tr><td class="list-first"><input data-name="' + encodeURIComponent(drivers[i].Name)  + '" id="checkDrivers'+drivers[i].ID+'" type="checkbox" checked/> <img src="Tools/ico/button/' + DriverPack.getDriverIcon(drivers[i].URL) + '.png" /> </td>' +
 						'<td class="list-second" title="' + drivers[i].DevID + '">' + drivers[i].Name + '</td>' +
 						'<td class="list-third" title="' + drivers[i].URL + '"><b>' + drivers[i].Date + '</b></td>' +
@@ -490,7 +395,7 @@ var DriverPack = {
 			IDs[IDs.length] = 0; //Тупой фикс, чтобы dpinst всегда устанавливался
 			for (var i = 1; i < drivers.length; i++) {
 				
-				if (!driver_exists(drivers[i].URL,DriverPack.driverPath)){
+				if (!driver_exists(drivers[i].URL,DriverPack.path)){
 					if (document.getElementById('checkDrivers'+drivers[i].ID).checked === true){
 						IDs[IDs.length] = drivers[i].ID;
 					}
@@ -507,47 +412,157 @@ var DriverPack = {
 			document.getElementById('progressDescription').innerHTML = '<br>Скачиваю дрова...';
 			//alert(JSON.stringify(IDs));
 			log('Downloading drivers started...');
-			DriverPack.download(
-				IDs,
-				function(){
-					
-					log('Downloaded drivers!');
-					//alert('Готово, переходим к установке!');
-					document.getElementById('progressDescription').innerHTML = '<br>Устанавливаю...';
 
-					setTimeout(function(){
+
+			DriverPack.download(
+				
+				IDs,
+				
+				null,
+				
+				/* EVENTS */
+				{
+
+					beforeDownloading: function(item,i,url){
+
+						
+
+					    progressCounter.start({
+					        startCount: (i==0?1:progressCounter.settings.endCount),
+					        endCount: Math.floor(80/url.length*(i+1)) // (80/arr.lenght*i)
+					    });
+
+						
+
+						statistics.event(
+							{
+								action: 'drivers installation started ' + item.Name,
+							},
+							[
+								[
+									statistics.config.driverDimension,
+									item.Name
+								]
+							]
+						);
+
+					},
+
+					afterDownloading: function(item,i,url){
+
+						statistics.event(
+							{
+								action: 'drivers installation downloaded ' + item.Name,
+							},
+							[
+								[
+									statistics.config.driverDimension,
+									item.Name
+								]
+							]
+						);
+
+					},
+
+					beforeAllDownloaded: function(){
+
+						statistics.event(
+							{
+								action: 'drivers installation started',
+							},
+							[
+								[
+									statistics.config.driverDimension,
+									statistics.drpVersion
+								]
+							]
+						);
+
+					},
+
+					afterAllDownloaded: function(){
+
+						statistics.event(
+							{
+								action: 'drivers installation downloaded',
+							},
+							[
+								[
+									statistics.config.driverDimension,
+									statistics.drpVersion
+								]
+							]
+						);
+
+						//alert('Готово, переходим к установке!');
+						document.getElementById('progressDescription').innerHTML = '<br>Устанавливаю...';
+
 					    progressCounter.start({
 					        startCount: 80,
 					        endCount: 99
 					    });
-					}, 10);
-					
-					log('Installing started drivers...');
-					DriverPack.install(
-						IDs,
-						function(){
-							
-							setTimeout(function(){
-								progressCounter.start({
-									startCount: 100,
-									endCount: 100
-								});
-							}, 10);
-							log('Installed drivers!');
-							
+						
+						
 
-							document.getElementById('loader').style.backgroundImage = "none";
-							document.getElementById('progressDescription').innerHTML = 'Все драйверы установленны! <br><button onclick="DriverPack.init(function () { DriverPack.html(); })">Готово</button>';
-							//document.getElementById('loader').style.display = 'none';
-							//alert('Установка завершена!');
+						DriverPack.install(
 							
-							//DriverPack.html();
+							IDs,
 							
-						}
-					);
-					
+							null,
+
+							/* EVENTS */
+							{
+
+								beforeInstalled: function(){
+
+									//Вроде тут нам нечего делать...
+
+								},
+
+								afterInstalled: function(){
+
+									statistics.event(
+										{
+											action: 'drivers installation completed',
+										},
+										[
+											[
+												statistics.config.driverDimension,
+												statistics.drpVersion
+											]
+										]
+									);
+
+
+
+									progressCounter.start({
+										startCount: 100,
+										endCount: 100
+									});
+									
+
+									document.getElementById('loader').style.backgroundImage = "none";
+									document.getElementById('progressDescription').innerHTML = 'Все драйверы установленны! <br><button onclick="DriverPack.init(function () { DriverPack.html(); })">Готово</button>';
+									//document.getElementById('loader').style.display = 'none';
+									//alert('Установка завершена!');
+									
+									//DriverPack.html();
+
+
+								}
+
+							}
+
+						);
+
+					}
+
 				}
+
+				
 			);
+
+
 		};
 		
 		
