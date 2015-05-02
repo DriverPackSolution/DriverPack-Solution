@@ -47,7 +47,7 @@ var DriverPack = {
 
         WshShell.Run("Tools\\" + this.devcon + " status * > " + this.driverPath + "\\" + "HWIDS.txt\"", 0, false);
         try {
-            this.HWIDS = FSO.OpenTextFile(this.driverPath + "\\" + 'HWIDS.txt', 1, false).ReadAll().toUpperCase();
+            this.HWIDS = fso.OpenTextFile(this.driverPath + "\\" + 'HWIDS.txt', 1, false).ReadAll().toUpperCase();
             alert(this.HWIDS);
             return true;
         }
@@ -333,7 +333,7 @@ var DriverPack = {
                         if (json.not_installed[i][2].indexOf("$CompositeAdbInterface") != 0) {
                             parsed_url = json.not_installed[i][0].replace("http://download.drp.su/driverpacks/repack/", "http://drivers.drp.su/");
                             alert(parsed_url);
-                            if (!wGet.exists(DriverPack.driverPath + "\\" + FSO.GetFileName(parsed_url))) {
+                            if (!wGet.exists(DriverPack.driverPath + "\\" + fso.GetFileName(parsed_url))) {
                                 if (parsed_url.indexOf("Touchpad") == -1) {
                                     newTbody.innerHTML += "<!-- { SINGLE LIST ITEM } -->" +
                                             "<tr>" +
@@ -371,7 +371,7 @@ var DriverPack = {
                             if (driver_date.getTime() > current_driver_date.getTime()) {
                                 parsed_url = json.installed[i][0].replace("http://download.drp.su/driverpacks/repack/", "http://drivers.drp.su/");
                                 wGet.size(parsed_url, DriverPack.driverPath);
-                                if (!wGet.exists(DriverPack.driverPath + "\\" + FSO.GetFileName(parsed_url))) {
+                                if (!wGet.exists(DriverPack.driverPath + "\\" + fso.GetFileName(parsed_url))) {
                                     if (parsed_url.indexOf("Touchpad") == -1) {
                                         newTbody.innerHTML += "<!-- { SINGLE LIST ITEM } -->" +
                                                 "<tr>" +
@@ -494,7 +494,7 @@ var DriverPack = {
                 //WshShell.Run(_this._db[softName].cmd1);
             },
             download: function () {
-                if (FSO.FileExists('http://test-st.drp.su/drivers/dpinst.zip')) {
+                if (fso.FileExists('http://test-st.drp.su/drivers/dpinst.zip')) {
                     wGet.get('http://test-st.drp.su/drivers/dpinst.zip', _this.driverPath);
                 }
                 //wget(_this._db[softName].downloadUrl);

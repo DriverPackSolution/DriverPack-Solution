@@ -1,4 +1,4 @@
-logs = {
+var logs = {
 
 	logging: true, //enabled: true,
 	//logFolder: WshEnv("WINDIR")+'\\Logs\\DRPLog\\', // folder

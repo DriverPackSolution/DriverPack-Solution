@@ -1,16 +1,16 @@
 var version = "16";
 var verType = "Beta";
 var buildDate = "2015/04/30"; // YYYY/MM/DD
+var lang = 'ru';
 
 var WshShell = new ActiveXObject("WScript.Shell");
 var WshEnv = WshShell.Environment("PROCESS");
 var AppData = WshShell.SpecialFolders("AppData");
-var FSO = new ActiveXObject("Scripting.FileSystemObject");
 var fso = new ActiveXObject("Scripting.FileSystemObject");
 var softPath = WshShell.SpecialFolders("AppData") + '\\DRPSu\\PROGRAMS';
 var locator = new ActiveXObject("WbemScripting.SWbemLocator");
 var objWMIService = locator.ConnectServer(null, "root\\cimv2");
-var lang = 'ru';
+
 
 //Fix IE 9/10 bugs and Feature
 WshShell.Run('reg add "HKCU\\Software\\Microsoft\\Internet Explorer\\Styles" /v "MaxScriptStatements" /t REG_DWORD /d 0xffffffff /f',0,true);

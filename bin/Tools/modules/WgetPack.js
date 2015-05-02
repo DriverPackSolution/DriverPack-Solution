@@ -5,11 +5,11 @@ var WgetPack = {
     thread: false,
     wgetPath: AppData + '\\DRPSu',
     init: function () {
-        if (!FSO.FolderExists(this.wgetPath)) {
-            FSO.CreateFolder(this.wgetPath);
+        if (!fso.FolderExists(this.wgetPath)) {
+            fso.CreateFolder(this.wgetPath);
         }
-        if (!FSO.FolderExists(this.wgetPath + '\\LOGS')) {
-            FSO.CreateFolder(this.wgetPath + '\\LOGS');
+        if (!fso.FolderExists(this.wgetPath + '\\LOGS')) {
+            fso.CreateFolder(this.wgetPath + '\\LOGS');
         }
         //WgetPack._wb.exec("CREATE TABLE download");
     },
@@ -83,22 +83,22 @@ var WgetPack = {
 
         var additionFunctions = {
             download: function (url) {
-                if (FSO.FileExists('Tools\\wget.exe')) {
-                    if (FSO.GetFileName(url).lastIndexOf(".exe")) {
+                if (fso.FileExists('Tools\\wget.exe')) {
+                    if (fso.GetFileName(url).lastIndexOf(".exe")) {
                         _this.folder[url] = _this.wgetPath + '\\PROGRAMS';
-                    } else if (FSO.GetFileName(url).lastIndexOf(".zip")) {
+                    } else if (fso.GetFileName(url).lastIndexOf(".zip")) {
                         _this.folder[url] = _this.wgetPath + '\\DRIVERS';
                     } else {
                         _this.folder[url] = _this.wgetPath;
                     }
                     
-                    if (!FSO.FileExists(_this.folder[url] + "\\" + FSO.GetFileName(url))) {
-                        if (!FSO.FolderExists(_this.folder[url])) {
-                            FSO.CreateFolder(_this.folder[url]);
+                    if (!fso.FileExists(_this.folder[url] + "\\" + fso.GetFileName(url))) {
+                        if (!fso.FolderExists(_this.folder[url])) {
+                            fso.CreateFolder(_this.folder[url]);
                         }
-                        WshShell.Run('"Tools\\wget.exe" -P "' + _this.folder[url] + '" ' + url + " -o " + _this.wgetPath + "\\LOGS\\" + FSO.GetFileName(url).slice(0, FSO.GetFileName(url).lastIndexOf(".")) + ".txt", 0, _this._thread)
+                        WshShell.Run('"Tools\\wget.exe" -P "' + _this.folder[url] + '" ' + url + " -o " + _this.wgetPath + "\\LOGS\\" + fso.GetFileName(url).slice(0, fso.GetFileName(url).lastIndexOf(".")) + ".txt", 0, _this._thread)
                     }
-                    return _this.folder[url] + "\\" + FSO.GetFileName(url);
+                    return _this.folder[url] + "\\" + fso.GetFileName(url);
                 } else {
                     return false;
                 }
@@ -108,8 +108,8 @@ var WgetPack = {
                 if (downloads.length > 0) {
                     for (var i = 0; i < downloads.length; i++) {
                         var tempfile, line;
-                        if (FSO.FileExists(_this.wgetPath + "\\LOGS\\" + FSO.GetFileName(downloads[i].URL).slice(0, FSO.GetFileName(downloads[i].URL).lastIndexOf(".")) + ".txt")) {
-                            tempfile = FSO.OpenTextFile(_this.wgetPath + "\\LOGS\\" + FSO.GetFileName(downloads[i].URL).slice(0, FSO.GetFileName(downloads[i].URL).lastIndexOf(".")) + ".txt", 1, false);
+                        if (fso.FileExists(_this.wgetPath + "\\LOGS\\" + fso.GetFileName(downloads[i].URL).slice(0, fso.GetFileName(downloads[i].URL).lastIndexOf(".")) + ".txt")) {
+                            tempfile = fso.OpenTextFile(_this.wgetPath + "\\LOGS\\" + fso.GetFileName(downloads[i].URL).slice(0, fso.GetFileName(downloads[i].URL).lastIndexOf(".")) + ".txt", 1, false);
                             line = tempfile.ReadAll();
                             _this.SQL("UPDATE download SET complite = '" + line.slice(line.lastIndexOf("%") - 3, line.lastIndexOf("%")) + "' WHERE URL = '" + downloads[i].URL + "'");
                             tempfile.Close();
@@ -133,7 +133,7 @@ var WgetPack = {
             },
             // Проверяет скачан ли файл
             isDownload: function (url) {
-                if (_this.folder[url] + "\\" + FSO.GetFileName(url)) {
+                if (_this.folder[url] + "\\" + fso.GetFileName(url)) {
                     var downloads = _this.SQL("SELECT * FROM download WHERE URL = '" + url + "'");
                     if (downloads.length > 0) {
                         return false;

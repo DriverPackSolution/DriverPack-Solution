@@ -1,4 +1,4 @@
-statistics = {
+var statistics = {
     //clientId: "000000000.0000000000",
     clientId: "",
     drpVersion: version + " " + verType,

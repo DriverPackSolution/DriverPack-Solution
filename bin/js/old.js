@@ -53,7 +53,7 @@ var driverPack = {
 
         this.WshShell.Run("Tools\\" + this.devcon + " status * > " + this.driverPath + "\\" + "HWIDS.txt\"", 0, false);
         try {
-            this.HWIDS = this.FSO.OpenTextFile(this.driverPath + "\\" + 'HWIDS.txt', 1, false).ReadAll().toUpperCase();
+            this.HWIDS = this.fso.OpenTextFile(this.driverPath + "\\" + 'HWIDS.txt', 1, false).ReadAll().toUpperCase();
             return true;
         }
         catch (e) {
@@ -302,7 +302,7 @@ var driverPack = {
             data: {not_installed: prepared_not_installed, installed: prepared_installed, version: system_version, os: OSName},
             success: function (json) {
                 try {
-                    f = this.FSO.OpenTextFile(driverPath + "\\" + "DRP-Lite-Drivers.txt", 2, true);
+                    f = this.fso.OpenTextFile(driverPath + "\\" + "DRP-Lite-Drivers.txt", 2, true);
                 }
                 catch (e) {
                 }
@@ -317,7 +317,7 @@ var driverPack = {
                                 //parsed_url = json.not_installed[i][0];
                                 parsed_url = json.not_installed[i][0].replace("http://download.drp.su/driverpacks/repack/", "http://drivers.drp.su/");
                                 alert(parsed_url);
-                                if (!wGet.exists(driverPack.driverPath + "\\" + driverPack.FSO.GetFileName(parsed_url))) {
+                                if (!wGet.exists(driverPack.driverPath + "\\" + driverPack.fso.GetFileName(parsed_url))) {
                                     if (parsed_url.indexOf("Touchpad") == -1) {
                                         try {
                                             f.WriteLine("RECIEVED DRIVER - " + json.not_installed[i][2] + " URL -" + parsed_url);
@@ -370,7 +370,7 @@ var driverPack = {
                                     parsed_url = json.installed[i][0].replace("http://download.drp.su/driverpacks/repack/", "http://drivers.drp.su/");
                                     //alert(parsed_url);
                                     wGet.size(parsed_url, driverPack.driverPath);
-                                    if (!wGet.exists(driverPack.driverPath + "\\" + driverPack.FSO.GetFileName(parsed_url))) {
+                                    if (!wGet.exists(driverPack.driverPath + "\\" + driverPack.fso.GetFileName(parsed_url))) {
                                         if (parsed_url.indexOf("Touchpad") == -1) {
                                             try {
                                                 f.WriteLine("RECIEVED DRIVER - " + json.installed[i][2] + " URL -" + parsed_url);

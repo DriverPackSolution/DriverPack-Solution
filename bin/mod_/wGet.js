@@ -1,12 +1,12 @@
 
 var wGet = {
     get: function (url, folder) {
-        if (FSO.FileExists('Tools\\wget.exe')) {
-            if (!this.exists(folder + "\\" + FSO.GetFileName(url))) {
-                if (!FSO.FolderExists(folder)) {
-                    FSO.CreateFolder(folder);
+        if (fso.FileExists('Tools\\wget.exe')) {
+            if (!this.exists(folder + "\\" + fso.GetFileName(url))) {
+                if (!fso.FolderExists(folder)) {
+                    fso.CreateFolder(folder);
                 }
-                WshShell.Run('"Tools\\wget.exe" -P "' + folder + '" ' + url + " -o " + folder + FSO.GetFileName(url).slice(0, FSO.GetFileName(url).lastIndexOf(".")) + ".txt", 0, true);
+                WshShell.Run('"Tools\\wget.exe" -P "' + folder + '" ' + url + " -o " + folder + fso.GetFileName(url).slice(0, fso.GetFileName(url).lastIndexOf(".")) + ".txt", 0, true);
                 return true;
             } else {
                 return false;
@@ -14,9 +14,9 @@ var wGet = {
         }
     },
     size: function (url, folder) {
-        if (FSO.FileExists('Tools\\wget.exe')) {
-            if (!this.exists(folder + "\\" + FSO.GetFileName(url))) {
-                WshShell.Run('"Tools\\wget.exe" --spider -o "' + folder + "\\" + FSO.GetFileName(url).replace(/\.exe/g, "").replace(/\.zip/g, "") + ".txt" + '" ' + url, 0, true);
+        if (fso.FileExists('Tools\\wget.exe')) {
+            if (!this.exists(folder + "\\" + fso.GetFileName(url))) {
+                WshShell.Run('"Tools\\wget.exe" --spider -o "' + folder + "\\" + fso.GetFileName(url).replace(/\.exe/g, "").replace(/\.zip/g, "") + ".txt" + '" ' + url, 0, true);
                 return ret;
             } else {
                 return false;
@@ -25,7 +25,7 @@ var wGet = {
     },
     exists: function (file) {
 
-        if (FSO.FileExists(file)) {
+        if (fso.FileExists(file)) {
             return true;
         } else {
             return false;

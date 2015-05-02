@@ -386,9 +386,9 @@ var SoftPack = {
                 if (soft.length > 0) {
                     for (var i = 0; i < soft.length; i++) {
                         if (WgetPack.get().isDownload(soft[0].URL)) {
-                            WshShell.Run('"' + WgetPack.get().isDownload(soft[0].URL) + "\\" + FSO.GetFileName(soft[0].URL) + '" ' + soft[0].Keys, 0, true);
+                            WshShell.Run('"' + WgetPack.get().isDownload(soft[0].URL) + "\\" + fso.GetFileName(soft[0].URL) + '" ' + soft[0].Keys, 0, true);
                             _this.get(softName).complite();
-                            return FSO.DeleteFile(WgetPack.get().isDownload(soft[0].URL) + "\\" + FSO.GetFileName(soft[0].URL), true);
+                            return fso.DeleteFile(WgetPack.get().isDownload(soft[0].URL) + "\\" + fso.GetFileName(soft[0].URL), true);
                         }
                     }
                     setTimeout(function () {
