@@ -127,46 +127,59 @@ setTimeout(function() {
 	
 	
 	
-	wget_path = '..\\..\\wget.exe';
+	//wget_path = '..\\..\\wget.exe';
 	echo('Downloading started...');
 	DriverPack.download(
 		[ 0, 1 ],
-		function(){
-			
-			echo('Downloaded:');
-			test(driver_exists('http://test-st.drp.su/drivers/dpinst.zip',DriverPack.driverPath),true);
-			test(driver_exists('http://download.drp.su/driverpacks/repack/WLAN/WWAN/Huawei/NTx64/Huawei/WWAN-Huawei-NTx64-Huawei-drp.zip',DriverPack.driverPath),true);
-			
-			test(
-				DriverPack._json[0].isDownloaded,
-				true
-			);
-			test(
-				DriverPack._json[1].isDownloaded,
-				true
-			);
-			
-			echo('Installing started...');
-			
-			DriverPack.install(
-				[ 0, 1 ],
-				function(){
-					
-					echo('Installed:');
-					
-					test(
-						SoftPack._json.soft[0].isInstalled,
-						true
-					);
-					test(
-						SoftPack._json.soft[1].isInstalled,
-						true
-					);
-					
-				}
-			);
-			
-			
+		{
+			afterAllDownloaded: function(){
+				
+				echo('Downloaded:');
+				test(driver_exists('http://test-st.drp.su/drivers/dpinst.zip',DriverPack.path),true);
+				test(driver_exists('http://download.drp.su/driverpacks/repack/WLAN/WWAN/Huawei/NTx64/Huawei/WWAN-Huawei-NTx64-Huawei-drp.zip',DriverPack.path),true);
+				
+				test(
+					DriverPack._json[0].isDownloaded,
+					true
+				);
+				test(
+					DriverPack._json[1].isDownloaded,
+					true
+				);
+				
+				echo('Installing started...');
+				
+				DriverPack.install(
+					[ 0, 1 ],
+					{
+						afterInstalled: function(){
+							
+							echo('DriverPac Event: afterInstalled()');
+							
+							test(
+								true,
+								true
+							);
+							
+							/*
+							ToDo: реализовать простановку свойства isInstalled = true, после успешной установки драйверов
+							
+							test(
+								DriverPack._json[0].isInstalled,
+								true
+							);
+							test(
+								DriverPack._json[1].isInstalled,
+								true
+							);
+							*/
+							
+						}
+					}
+				);
+				
+				
+			}
 		}
 	);
 	

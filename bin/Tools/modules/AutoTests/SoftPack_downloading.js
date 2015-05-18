@@ -44,7 +44,7 @@ setTimeout(function() {
 	];
 	
 	SoftPack.loadDB(defaultJson);
-	wget_path = '..\\..\\wget.exe';
+	//wget_path = '..\\..\\wget.exe';
 	
 	
 	test(
@@ -65,8 +65,8 @@ setTimeout(function() {
 		function(){
 			
 			echo('Downloaded:');
-			test(driver_exists('http://download.drp.su/soft/7-Zip.exe',SoftPack.softPath),true);
-			test(driver_exists('http://download0.drp.su/soft/WinRAR.exe',SoftPack.softPath),true);
+			test(driver_exists('http://download.drp.su/soft/7-Zip.exe',SoftPack.path),true);
+			test(driver_exists('http://download0.drp.su/soft/WinRAR.exe',SoftPack.path),true);
 			
 			test(
 				SoftPack._json.soft[0].isDownloaded,

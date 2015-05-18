@@ -195,7 +195,16 @@ var DriverPack = {
 		- Убрать вызов statistics.event отсюда
 		- Убрать вызов progressCounter отсюда
 	*/
-	download: function (IDs, callback, events) {
+	download: function (IDs, events) {
+		
+		var defaultEvents = {
+			beforeAllDownloaded: function(){},
+			beforeDownloading: function(){},
+			afterDownloading: function(){},
+			afterAllDownloaded: function(){}
+		};
+		events = extendJSON(defaultEvents,events);
+		
 		
 		var url = DriverPack.get({
 			'SELECT': '*',
@@ -237,7 +246,14 @@ var DriverPack = {
 		install()
 		Устанавливает драйверы с номерами из массива IDs.
 	*/
-	install: function (IDs, callback, events) {
+	install: function (IDs, events) {
+		
+		var defaultEvents = {
+			beforeInstalled: function(){},
+			afterInstalled: function(){}
+		};
+		events = extendJSON(defaultEvents,events);
+		
 		
 		var installed = DriverPack.get({
 			'SELECT': '*',
@@ -418,8 +434,6 @@ var DriverPack = {
 				
 				IDs,
 				
-				null,
-				
 				/* EVENTS */
 				{
 
@@ -436,7 +450,7 @@ var DriverPack = {
 
 						statistics.event(
 							{
-								action: 'drivers installation started ' + item.Name,
+								action: 'drivers installation started ' + item.Name
 							},
 							[
 								[
@@ -452,7 +466,7 @@ var DriverPack = {
 
 						statistics.event(
 							{
-								action: 'drivers installation downloaded ' + item.Name,
+								action: 'drivers installation downloaded ' + item.Name
 							},
 							[
 								[
@@ -468,7 +482,7 @@ var DriverPack = {
 
 						statistics.event(
 							{
-								action: 'drivers installation started',
+								action: 'drivers installation started'
 							},
 							[
 								[
@@ -484,7 +498,7 @@ var DriverPack = {
 
 						statistics.event(
 							{
-								action: 'drivers installation downloaded',
+								action: 'drivers installation downloaded'
 							},
 							[
 								[
@@ -507,8 +521,6 @@ var DriverPack = {
 						DriverPack.install(
 							
 							IDs,
-							
-							null,
 
 							/* EVENTS */
 							{
@@ -523,7 +535,7 @@ var DriverPack = {
 
 									statistics.event(
 										{
-											action: 'drivers installation completed',
+											action: 'drivers installation completed'
 										},
 										[
 											[
@@ -542,7 +554,7 @@ var DriverPack = {
 									
 
 									document.getElementById('loader').style.backgroundImage = "none";
-									document.getElementById('progressDescription').innerHTML = 'Все драйверы установленны! <br><button onclick="DriverPack.init(function () { DriverPack.html(); })">Готово</button>';
+									document.getElementById('progressDescription').innerHTML = 'Все драйверы установлены! <br><button onclick="DriverPack.init(function () { DriverPack.html(); })">Готово</button>';
 									//document.getElementById('loader').style.display = 'none';
 									//alert('Установка завершена!');
 									

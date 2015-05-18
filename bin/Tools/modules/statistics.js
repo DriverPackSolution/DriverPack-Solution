@@ -2,22 +2,9 @@ var statistics = {
     //clientId: "000000000.0000000000",
     clientId: "",
     drpVersion: version + " " + verType,
-    _statisticUrl: "http://www.google-analytics.com/collect?v=1&tid=UA-58593486-1&aip=1",
-    //_statisticUrl: "http://example.com/?",
+    //_statisticUrl: "http://www.google-analytics.com/collect?v=1&tid=UA-58593486-1&aip=1",
+    _statisticUrl: "http://example.com/?",
 	//_statisticUrl: "http://statistics.drp.su/online_v_2.php?v=1&tid=UA-58593486-1&aip=1",
-    defaultEventParams: {
-
-        category: 'desktop',
-        action: null,
-        label: statistics.drpVersion
-
-    },
-    defaultEventDimenstion: [
-
-        statistics.config.userIdDimension,
-        statistics.clientId
-
-    ],
     config: {
         userIdDimension: "cd1", //ClientID
         driverDimension: "cd2",
@@ -77,11 +64,22 @@ var statistics = {
         return uuid;
     },
     event: function (event, dimention) {
+		
+		var defaultEventParams = {
+			category: 'desktop',
+			action: '',
+			label: statistics.drpVersion
+		};
 
-        var event = extendJSON(this.defaultEventParams,event);
-        if (event.action === null) { return false; }
+        event = extendJSON(defaultEventParams,event);
+        if (event.action == '') { return false; }
 
-        var dimention = dimention.push(defaultEventDimenstion);
+		var defaultEventDimenstion = [
+			statistics.config.userIdDimension,
+			statistics.clientId
+		];
+		
+        dimention = dimention.push(defaultEventDimenstion);
 
         if (this.clientId == "")
             this.clientId = this.generate();
@@ -165,7 +163,7 @@ var statistics = {
 statistics.init();
 statistics.event(
 	{
-		action: 'opened',
+		action: 'opened'
 	},
 	[
 		[

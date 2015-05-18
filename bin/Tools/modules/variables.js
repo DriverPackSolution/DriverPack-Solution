@@ -26,8 +26,6 @@ winRun('reg add "HKCU\\SOFTWARE\\Microsoft\\Internet Explorer\\Main\\FeatureCont
 WshShell.Environment("PROCESS")("SEE_MASK_NOZONECHECKS") = 1;
 
 
-
-
 var is64 = false;
 if (WshShell.ExpandEnvironmentStrings("%PROCESSOR_ARCHITECTURE%")=="AMD64"
         ||WshShell.ExpandEnvironmentStrings("%PROCESSOR_ARCHITEW6432%")!="%PROCESSOR_ARCHITEW6432%"){
@@ -493,7 +491,7 @@ function winRun(src,hideMode,wait,bit64,timeout,onComplete,onTimeout_call){
         if (bit64&&is64) {
             hideMode=true;
             wait=false;
-            src = 'tools\\cmd64.exe /C '+src;
+            src = '"%windir%\\sysnative\\cmd.exe" /C '+src;
         }
 
         //alert(typeof(onComplete));

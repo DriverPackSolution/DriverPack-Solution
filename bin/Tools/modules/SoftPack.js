@@ -201,7 +201,16 @@ var SoftPack = {
 	
 	
 	
-	download: function (IDs, callback) {
+	download: function (IDs, events) {
+		
+		var defaultEvents = {
+			beforeAllDownloaded: function(){},
+			beforeDownloading: function(){},
+			afterDownloading: function(){},
+			afterAllDownloaded: function(){}
+		};
+		events = extendJSON(defaultEvents,events);
+		
 		
 		var url = SoftPack.get({
 			'SELECT': '*',
@@ -212,62 +221,24 @@ var SoftPack = {
 		setTimeout(
 			function(){
 				log('Started downloading IDs: ' + IDs);
-				statistics.event(
-					{
-						action: 'installation started',
-					},
-					[
-						[
-							statistics.config.installedSoftData,
-							statistics.drpVersion
-						]
-					]
-				);
+				events.beforeAllDownloaded(); //Событие: beforeAllDownloaded
 				
 				url.forEach(function(item,i,url) {
-					
-					setTimeout(function(){
-					    progressCounter.start({
-					        startCount: (i==0?1:progressCounter.settings.endCount),
-					        endCount: Math.floor(i==0?2:(80/url.length*(i+1))) // (80/arr.lenght*i)
-					    });
-					}, 10);
-					
+										
 					log('Downloading: ' + item.URL + '. To folder: ' + SoftPack.path);
-					
-					statistics.event(
-						{
-							action: 'installation started ' + item.Name,
-						},
-						[
-							[
-								statistics.config.installedSoftData,
-								item.Name
-							]
-						]
-					);
+					events.beforeDownloading(item,i,url);
 					
 					wget_driver(item.URL,SoftPack.path);
 					//SoftPack._json.soft[i].isDownloaded = true; //Не работает, так как индексы в массивах разные
 					
-					statistics.event(
-                        {
-                            action: 'installation downloaded ' + item.Name,
-                        },
-						[
-							[
-								statistics.config.installedSoftData,
-								item.Name
-							]
-						]
-					);
+					events.afterDownloading(item,i,url); //Событие: afterDownloading()
 					
 					
 				});
 				
 				statistics.event(
 					{
-						action: 'installation downloaded',
+						action: 'installation downloaded'
 					},
 					[
 						[
@@ -276,8 +247,9 @@ var SoftPack = {
 						]
 					]
 				);
+				events.afterAllDownloaded(); //Событие: afterAllDownloaded()
 				
-				callback();
+				//callback();
 				
 			},
 			0
@@ -286,7 +258,16 @@ var SoftPack = {
 	},
 	
 	
-	install: function (IDs, callback) {
+	install: function (IDs, events) {
+		
+		var defaultEvents = {
+			beforeAllInstalled: function(){},
+			beforeInstalled: function(){},
+			afterInstalled: function(){},
+			afterAllInstalled: function(){}
+		};
+		events = extendJSON(defaultEvents,events);
+		
 		
 		var url = SoftPack.get({
 			'SELECT': '*',
@@ -297,48 +278,28 @@ var SoftPack = {
 		setTimeout(
 			function(){
 				
+				log('Installing started soft...');
+				events.beforeAllInstalled(); //Событие: beforeInstalled()
+				
 				url.forEach(function(item,i) {
 					//if (item.isDownloaded){
 						
 						log('Starting to install: ' + '"' + SoftPack.path + '\\' + item.URL.substring(item.URL.lastIndexOf('/')+1) + '" ' + item.Keys);
-						
+						events.beforeInstalled(item,i,url);
 						
 						WshShell.Run('"' + SoftPack.path + '\\' + item.URL.substring(item.URL.lastIndexOf('/')+1) + '" ' + item.Keys,1,true);
-						
-						statistics.event(
-							{
-								action: 'installation completed ' + item.Name,
-							},
-							[
-								[
-									statistics.config.installedSoftData,
-									item.Name
-								],
-								[
-									statistics.config.installedSoftIndicator,
-									"1"
-								]
-							]
-						);
-						
 						SoftPack._json.soft[i].isInstalled = true;
+						
+						events.afterInstalled(item,i,url);
 						
 					//}
 				});
 				
-				statistics.event(
-					{
-						action: 'installation completed',
-					},
-					[
-						[
-							statistics.config.installedSoftData,
-							statistics.drpVersion
-						]
-					]
-				);
 				
-				callback();
+				log('Installation soft completed!');
+				events.afterAllInstalled(); //Событие: afterInstalled()
+				
+				//callback();
 				
 			},
 			0
@@ -485,47 +446,191 @@ var SoftPack = {
 			document.getElementById('progressDescription').innerHTML = '<br>Скачиваю софт...';
 			//alert(JSON.stringify(IDs));
 			log('Downloading soft started...');
+
+			
+			
+			
 			SoftPack.download(
+			
 				IDs,
-				function(){
+				
+				/* EVENTS */
+				{
 					
-					log('Downloaded soft!');
-					//alert('Готово, переходим к установке!');
-					document.getElementById('progressDescription').innerHTML = '<br>Устанавливаю...';
 					
-					setTimeout(function(){
-					    progressCounter.start({
-					        startCount: 80,
-					        endCount: 99
+					beforeAllDownloaded: function(){
+						statistics.event(
+							{
+								action: 'installation started'
+							},
+							[
+								[
+									statistics.config.installedSoftData,
+									statistics.drpVersion
+								]
+							]
+						);
+					},
+					
+					beforeDownloading: function(item,i,url){
+						
+						progressCounter.start({
+					        startCount: (i==0?1:progressCounter.settings.endCount),
+					        endCount: Math.floor(i==0?2:(80/url.length*(i+1))) // (80/arr.lenght*i)
 					    });
-					}, 10);
+						
+						statistics.event(
+							{
+								action: 'installation started ' + item.Name
+							},
+							[
+								[
+									statistics.config.installedSoftData,
+									item.Name
+								]
+							]
+						);
+						
+					},
 					
-					log('Installing started soft...');
-					SoftPack.install(
-						IDs,
-						function(){
-							
-							setTimeout(function(){
-								progressCounter.start({
-									startCount: 100,
-									endCount: 100
-								});
-							}, 10);
-							log('Installed soft!');
-							
-							
-							document.getElementById('loader').style.backgroundImage = "none";
-							document.getElementById('progressDescription').innerHTML = 'Весь софт установлен! <br><button onclick="DriverPack.init(function () { DriverPack.html(); })">Готово</button>';
-							//document.getElementById('loader').style.display = 'none';
-							//alert('Установка завершена!');
-							
-							//SoftPack.html();
-							
-						}
-					);
+					afterDownloading: function(item,i,url){
 					
+						statistics.event(
+							{
+								action: 'installation downloaded ' + item.Name
+							},
+							[
+								[
+									statistics.config.installedSoftData,
+									item.Name
+								]
+							]
+						);
+					
+					},
+					
+					
+					afterAllDownloaded: function(){
+						
+						statistics.event(
+							{
+								action: 'installation downloaded'
+							},
+							[
+								[
+									statistics.config.installedSoftData,
+									statistics.drpVersion
+								]
+							]
+						);
+						
+						//alert('Готово, переходим к установке!');
+						document.getElementById('progressDescription').innerHTML = '<br>Устанавливаю...';
+						
+						progressCounter.start({
+							startCount: 80,
+							endCount: 99
+						});
+						
+						
+						
+						SoftPack.install(
+							
+							IDs,
+							
+							/* EVENTS */
+							{
+								beforeAllInstalled: function(){
+								
+								// ---	
+								
+								},
+								
+								beforeInstalled: function(item,i,url){
+
+									
+
+									progressCounter.start({
+										startCount: (i==0?1:progressCounter.settings.endCount),
+										endCount: Math.floor(80/url.length*(i+1)) // (80/arr.lenght*i)
+									});
+
+									
+
+									statistics.event(
+										{
+											action: 'drivers installation started ' + item.Name
+										},
+										[
+											[
+												statistics.config.driverDimension,
+												item.Name
+											]
+										]
+									);
+
+								},
+								
+								afterInstalled: function(item,i,url){
+
+									statistics.event(
+										{
+											action: 'installation completed ' + item.Name
+										},
+										[
+											[
+												statistics.config.installedSoftData,
+												item.Name
+											],
+											[
+												statistics.config.installedSoftIndicator,
+												"1"
+											]
+										]
+									);
+
+								},
+								
+								afterAllInstalled: function(){
+									
+									statistics.event(
+										{
+											action: 'installation completed'
+										},
+										[
+											[
+												statistics.config.installedSoftData,
+												statistics.drpVersion
+											]
+										]
+									);
+									
+									
+
+									progressCounter.start({
+										startCount: 100,
+										endCount: 100
+									});
+									
+									
+									document.getElementById('loader').style.backgroundImage = "none";
+									document.getElementById('progressDescription').innerHTML = 'Весь софт установлен! <br><button onclick="DriverPack.init(function () { DriverPack.html(); })">Готово</button>';
+									//document.getElementById('loader').style.display = 'none';
+									//alert('Установка завершена!');
+									
+									//SoftPack.html();
+									
+								}
+							}
+						);
+						
+					}
 				}
 			);
+			
+			
+			
+			
 		};
 		
         //var tbodys = document.getElementById('list').getElementsByTagName('tbody');

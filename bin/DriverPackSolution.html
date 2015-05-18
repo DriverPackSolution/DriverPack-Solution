@@ -80,6 +80,10 @@
     <body>
 
 <script type="text/javascript">
+if(window.location.hash) {
+	var commandLine = window.location.hash.substring(1);
+	alert('Command line: ' + decodeURIComponent(commandLine) );
+}
 
 progressCounter = {
 
@@ -92,16 +96,17 @@ progressCounter = {
     _timeoutId: '',
     
     start: function (params){
-
+		
+		var _this = progressCounter;
         setTimeout(
             function(){
 
-                extendJSON(this.settings,params);
-                //console.log(this.settings);
+                extendJSON(_this.settings,params);
+				//console.log(_this.settings);
 
-                if (this._timeoutId) { clearTimeout(this._timeoutId); }
-                this._startTime = new Date().getTime();
-                this.number_to();
+                if (_this._timeoutId) { clearTimeout(_this._timeoutId); }
+                _this._startTime = new Date().getTime();
+                _this.number_to();
 
             },
             10
@@ -131,13 +136,15 @@ progressCounter = {
 
 };
 
+
 /*
 progressCounter.start({
     startCount: 1,
     endCount: (80/5*1)
 });
+*/
 
-
+/*
 setTimeout(function(){
     progressCounter.start({
         startCount: progressCounter.settings.endCount,

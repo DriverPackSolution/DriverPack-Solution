@@ -6,7 +6,6 @@
 <title>DriverPack Solution</title>
 <meta HTTP-EQUIV="MSThemeCompatible" content="yes">
 <meta http-equiv="X-UA-Compatible" content="IE=9">
-<meta http-equiv="refresh" content="0;URL='..\DriverPackSolution.html'">
 
 <style>
 #loader{
@@ -43,8 +42,19 @@
 	sysMenu="yes"
 	version="0.1"
 	windowState="maximize"/>
-</head>
 	
+	<script type="text/javascript">
+		var cmd = dpa.commandLine;
+		cmd = cmd.substring(cmd.indexOf(' ')+1);
+		if (cmd != ''){
+			cmd = '#' + encodeURIComponent(cmd);
+		}
+		
+		window.location.href = '..\\DriverPackSolution.html' + cmd;
+		//document.write('<meta http-equiv="refresh" content="0;URL=\'..\\DriverPackSolution.html' + cmd + '\'">');
+	</script>
+</head>
+
 	<div id="loader"></div>
 	
 <body>
