@@ -1,7 +1,7 @@
 var version = "16";
 var verType = "Beta";
 var buildDate = "2015/04/30"; // YYYY/MM/DD
-var lang = 'ru';
+var Reg = "HKCU\\SOFTWARE\\drpsu\\";
 
 var WshShell = new ActiveXObject("WScript.Shell");
 var WshEnv = WshShell.Environment("PROCESS");
@@ -539,3 +539,20 @@ function extendJSON(target) {
     });
     return target;
 }
+
+//Возможно, что функцию extendJSON лучше будет заменить на copy
+//Надо проверять производительность этих функций
+// https://learn.javascript.ru/arguments-pseudoarray
+/*
+function copy(dst) {
+  // остальные аргументы остаются безымянными
+  for (var i = 1; i < arguments.length; i++) {
+    var arg = arguments[i];
+    for (var key in arg) {
+      dst[key] = arg[key];
+    }
+  }
+
+  return dst;
+}
+*/

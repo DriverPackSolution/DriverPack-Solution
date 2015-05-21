@@ -164,7 +164,7 @@ h2 {
 
 .bt-menu-e i{
     font-style: normal;
-    font-size:10pt;
+    font-size:9pt;
     position: relative;
     bottom:10px;
     left:10px;
@@ -293,8 +293,8 @@ button{
     border:none;
     margin:	0px;
     padding: 0px;
-    width:120px;
-    height: 40px;
+    width:250px;
+    height: 60px;
     background-color:#007701;
     padding-top:8px;
     padding-left:12px;
@@ -302,7 +302,7 @@ button{
     padding-right: 12px;
     color:white;
     font-weight: bold;
-    font-size:10pt;
+    font-size:12pt;
     font-family: 'Open Sans', 'Segoe UI',sans-serif;
     outline:none;
     cursor:pointer;
@@ -406,4 +406,13 @@ button:active{
     color: white;
     text-align: center;
     width: 266px;
+}
+
+#progressDescription {
+	display:inline-table;
+	width:80%;
+}
+
+#settings {
+	text-align:center;
 }

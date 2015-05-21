@@ -304,10 +304,10 @@ bugreport_hwids =   	"Информацию об оборудовании";
 bugreport_dpinst =  	"Результаты работы DPInst";
 bugreport_reg = 		"Реестр (только при необходимости)";
 
-bugreport_commentTitle ="<b>Опишите проблему</b>";
-bugreport_comment = 	"Ваш комментарии";
+bugreport_commentTitle ="<b>Описание ошибки</b> (не обязательно, но очень важно)";
+bugreport_comment = 	"Комментарии";
 bugreport_commentHint = "к примеру, ошибка появилась: при запуске программы; при установке драйверов и т.п. - опишите подробнее";
-bugreport_email =   	"Ваш E-Mail";
+bugreport_email =   	"E-Mail или ICQ";
 bugreport_emailHint =   "в случае, если потребуется дополнительная информация";
 
 bugreport_blackBox =				"Чёрный ящик";

@@ -29,7 +29,7 @@
 	borderStyle="normal"
 	caption="yes"
 	contextMenu="yes"
-	icon="./tools/Icon.ico"
+	icon="./Icon.ico"
 	innerBorder="no"
 	maximizeButton="yes"
 	minimizeButton="yes"
@@ -45,13 +45,17 @@
 	
 	<script type="text/javascript">
 		var cmd = dpa.commandLine;
-		cmd = cmd.substring(cmd.indexOf(' ')+1);
+		//cmd = cmd.substring(cmd.indexOf(' ')+1);
 		if (cmd != ''){
 			cmd = '#' + encodeURIComponent(cmd);
 		}
 		
-		window.location.href = '..\\DriverPackSolution.html' + cmd;
-		//document.write('<meta http-equiv="refresh" content="0;URL=\'..\\DriverPackSolution.html' + cmd + '\'">');
+		try {
+			window.location.href = '..\\DriverPackSolution.html' + cmd;
+		}
+		catch(e){
+			document.write('<meta http-equiv="refresh" content="0;URL=\'..\\DriverPackSolution.html' + cmd + '\'">');
+		}
 	</script>
 </head>
 

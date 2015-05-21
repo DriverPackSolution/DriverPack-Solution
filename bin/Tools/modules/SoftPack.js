@@ -287,7 +287,12 @@ var SoftPack = {
 						log('Starting to install: ' + '"' + SoftPack.path + '\\' + item.URL.substring(item.URL.lastIndexOf('/')+1) + '" ' + item.Keys);
 						events.beforeInstalled(item,i,url);
 						
-						WshShell.Run('"' + SoftPack.path + '\\' + item.URL.substring(item.URL.lastIndexOf('/')+1) + '" ' + item.Keys,1,true);
+						try {
+							WshShell.Run('"' + SoftPack.path + '\\' + item.URL.substring(item.URL.lastIndexOf('/')+1) + '" ' + item.Keys,1,true);
+						}
+						catch(e){
+								log('!!! ERROR !!! Файл для установки софтины - не найден!');
+						}
 						SoftPack._json.soft[i].isInstalled = true;
 						
 						events.afterInstalled(item,i,url);
@@ -443,7 +448,7 @@ var SoftPack = {
 			document.getElementById('loader').style.display = 'block';
 			document.getElementById('loader').style.backgroundImage = 'url(Tools/load8.gif)';
 			window.scrollTo(0, 0);
-			document.getElementById('progressDescription').innerHTML = '<br>Скачиваю софт...';
+			document.getElementById('progressDescription').innerHTML = '<br>'+about_connecting;
 			//alert(JSON.stringify(IDs));
 			log('Downloading soft started...');
 
@@ -525,7 +530,7 @@ var SoftPack = {
 						);
 						
 						//alert('Готово, переходим к установке!');
-						document.getElementById('progressDescription').innerHTML = '<br>Устанавливаю...';
+						document.getElementById('progressDescription').innerHTML = '<br>' + drivSign_xp2 + '...';
 						
 						progressCounter.start({
 							startCount: 80,
@@ -614,7 +619,7 @@ var SoftPack = {
 									
 									
 									document.getElementById('loader').style.backgroundImage = "none";
-									document.getElementById('progressDescription').innerHTML = 'Весь софт установлен! <br><button onclick="DriverPack.init(function () { DriverPack.html(); })">Готово</button>';
+									document.getElementById('progressDescription').innerHTML = infobar_infoProgramm + ' <br><button onclick="DriverPack.init(function () { DriverPack.html(); })">' + button_finish + '</button>';
 									//document.getElementById('loader').style.display = 'none';
 									//alert('Установка завершена!');
 									
@@ -639,9 +644,11 @@ var SoftPack = {
         //}
         //document.getElementById('list').appendChild(newTbody);
 		//alert(newTbody);
-		document.getElementById('div-list').innerHTML = '<table id="list"><thead><tr><td></td><td>Название</td><td>Версия</td><td></td></tr></thead><tbody>'+newTbody+'</tbody></table>';
-        document.getElementById('h1-title').innerHTML = 'Установка софта';
-		document.getElementById('description').innerHTML = 'Найдены доступные для установки приложения';
+		document.getElementById('div-list').innerHTML = '<table id="list"><thead><tr><td></td><td>' + infobar_tabProgramm + '</td><td>' + dev_hint_version + '</td><td></td></tr></thead><tbody>'+newTbody+'</tbody></table>';
+        document.getElementById('h1-title').innerHTML = drivSign_xp2;
+		document.getElementById('getDownloadInstallTop').innerHTML = misc_inst5;
+		document.getElementById('getDownloadInstallBottom').innerHTML = misc_inst5;
+		document.getElementById('description').innerHTML = infobar_titleProgrammAvailable;
 		document.getElementById('loader').style.display = 'none';
     }
 };

@@ -1,1 +1,0 @@
-for /r ..\ %%f in (*.exe) do echo [ZoneTransfer] > %%f:Zone.Identifier

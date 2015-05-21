@@ -425,7 +425,7 @@ var DriverPack = {
 			//document.getElementById('loader').style.backgroundImage = (IEVers=='6'?'url(Tools/load8.gif)':'url(img/loading.gif)');
 			document.getElementById('loader').style.backgroundImage = 'url(Tools/load8.gif)';
 			window.scrollTo(0, 0);
-			document.getElementById('progressDescription').innerHTML = '<br>Скачиваю дрова...';
+			document.getElementById('progressDescription').innerHTML = '<br>'+about_connecting;
 			//alert(JSON.stringify(IDs));
 			log('Downloading drivers started...');
 
@@ -509,7 +509,7 @@ var DriverPack = {
 						);
 
 						//alert('Готово, переходим к установке!');
-						document.getElementById('progressDescription').innerHTML = '<br>Устанавливаю...';
+						document.getElementById('progressDescription').innerHTML = '<br>' + manual_con_title + '...';
 
 					    progressCounter.start({
 					        startCount: 80,
@@ -554,7 +554,7 @@ var DriverPack = {
 									
 
 									document.getElementById('loader').style.backgroundImage = "none";
-									document.getElementById('progressDescription').innerHTML = 'Все драйверы установлены! <br><button onclick="DriverPack.init(function () { DriverPack.html(); })">Готово</button>';
+									document.getElementById('progressDescription').innerHTML = infobar_infoAllInst + ' <br><button onclick="DriverPack.init(function () { DriverPack.html(); })">' + button_finish + '</button>';
 									//document.getElementById('loader').style.display = 'none';
 									//alert('Установка завершена!');
 									
@@ -580,9 +580,11 @@ var DriverPack = {
 		
 		
 		
-		document.getElementById('div-list').innerHTML = '<table id="list"><thead><tr><td></td><td>Название</td><td>Версия</td><td></td></tr></thead><tbody>'+newTbody+'</tbody></table>';
-        document.getElementById('h1-title').innerHTML = 'Установка драйверов';
-		document.getElementById('description').innerHTML = 'Найдены доступные для установки драйвера';
+		document.getElementById('div-list').innerHTML = '<table id="list"><thead><tr><td></td><td>' + infobar_tabDriver + '</td><td>' + dev_hint_version + '</td><td></td></tr></thead><tbody>'+newTbody+'</tbody></table>';
+        document.getElementById('h1-title').innerHTML = infobar_DrvInst;
+		document.getElementById('getDownloadInstallTop').innerHTML = misc_inst2;
+		document.getElementById('getDownloadInstallBottom').innerHTML = misc_inst2;
+		document.getElementById('description').innerHTML = infobar_titleDriverAvailable;
 		document.getElementById('loader').style.display = 'none';
     },
 	
