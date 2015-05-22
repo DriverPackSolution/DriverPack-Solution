@@ -12,6 +12,18 @@ var locator = new ActiveXObject("WbemScripting.SWbemLocator");
 var objWMIService = locator.ConnectServer(null, "root\\cimv2");
 
 
+var isLite = false;
+if ((verType.indexOf('Lite')!=-1)||(verType.indexOf('Online')!=-1)) { isLite = true; }
+
+var isBeta = false;
+if ((verType.indexOf("Beta") != -1)||(verType.indexOf("SVN") != -1)){ isBeta = true; }
+
+if ((isBeta) && (typeof(gitVersion) != 'undefined')){
+	buildDate = gitVersion.date.substring(0,gitVersion.date.indexOf(' '));
+	verType = verType + ' | ' + buildDate + ' | Prev commit: ' + gitVersion.prev_commit.substring(0,4);
+}
+
+
 //Fix IE 9/10 bugs and Feature
 WshShell.Run('reg add "HKCU\\Software\\Microsoft\\Internet Explorer\\Styles" /v "MaxScriptStatements" /t REG_DWORD /d 0xffffffff /f',0,true);
 WshShell.Run('reg add "HKLM\\Software\\Microsoft\\Internet Explorer\\Styles" /v "MaxScriptStatements" /t REG_DWORD /d 0xffffffff /f',0,true);

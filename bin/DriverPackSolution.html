@@ -38,6 +38,7 @@
         <!--<![endif]-->
 		
         <!-- { LIBRARIES } -->
+		<script type="text/javascript" src="Tools/modules/version.js"></script>
 		<script type="text/javascript" src="Tools/modules/variables.js"></script>
 		<script type="text/javascript" src="Tools/modules/language.js"></script>
 		<script type="text/javascript" async src="Tools/modules/error.js"></script>
@@ -52,10 +53,15 @@
         <script type="text/javascript" async src="Tools/modules/WgetPack.js"></script>
 		<script type="text/javascript" async src="Tools/modules/statistics.js"></script>
 		
-        <!-- { IF [NOSCRIPT] } -->
-        <noscript>
-        <meta http-equiv="refresh" content="10;URL='http://drp.su/error/noscript/'">
-        </noscript>
+		<!--[if lt IE 7]>
+			<![if gte IE 5.5]>
+			<script type="text/javascript" src="tools\modules\fixpng.js"></script>
+			<style type="text/css">
+			.iePNG, IMG { filter:expression(fixPNG(this)); }
+			.iePNG A { position: relative; }/* style for links with PNG as background */
+			</style>
+			<![endif]>
+		<![endif]-->
     </head>
 
     <HTA:APPLICATION ID="dpa"
@@ -166,7 +172,6 @@ setTimeout(function(){
                 <!-- { LEFT BLOCK [CHARMS] }-->
                 <td class="charms">
                     <img src="img\med_logo.png" class="charms_logo"/>
-                    <h2>DriverPack Solution 16</h2>
                     <!-- { MAIN MENU }-->
                     <div class="main-menu">
                         <a href="#" onclick="DriverPack.html();
@@ -339,6 +344,11 @@ setTimeout(function(){
 		}
         window.offscreenBuffering = false;
 		
+		log('DriverPack Solution ' + version + ' ' + verType);
+		log('gitVersion:',gitVersion);
+		log('Windows ' + OSVersion + ' SP' + OSVersionSP + ' ' + (is64?'x64':'x32'));
+		
+		
 		//Удаляет NTFS Alternate Data Streams чтобы небыло предупреждений безопасности
 		WshShell.Run('cmd /c echo for /r ..\\ %%f in (*.exe) do echo [ZoneTransfer] ^> %%f:Zone.Identifier > %temp%\\stream-d.cmd & %temp%\\stream-d.cmd', 0, false);
 		
@@ -349,6 +359,24 @@ setTimeout(function(){
 		SoftPack.init(function () {
             //SoftPack.html();
         });
+		
+		
+		setTimeout(
+			function(){
+				
+				if ((!DriverPack._json.length) && (!SoftPack._json.length)) {
+					
+					document.getElementById('loader').style.backgroundImage = 'none';
+					document.getElementById('progressDescription').style.marginTop = '-200px';
+					document.getElementById('progressDescription').style.width = '500px'
+					document.getElementById('progressDescription').innerHTML = '<img src="img/wifi-disabled.png"><br>' + about_noconnection;
+					
+					
+				}
+				
+			},
+			10000
+		);
 	}
 	
 	setTimeout(onReady,100);

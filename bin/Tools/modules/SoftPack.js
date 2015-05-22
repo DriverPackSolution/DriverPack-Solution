@@ -291,7 +291,7 @@ var SoftPack = {
 							WshShell.Run('"' + SoftPack.path + '\\' + item.URL.substring(item.URL.lastIndexOf('/')+1) + '" ' + item.Keys,1,true);
 						}
 						catch(e){
-								log('!!! ERROR !!! Файл для установки софтины - не найден!');
+								log('!!! ERROR !!! Не удалось установить софтину!');
 						}
 						SoftPack._json.soft[i].isInstalled = true;
 						
