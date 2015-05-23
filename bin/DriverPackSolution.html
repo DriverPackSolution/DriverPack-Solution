@@ -253,7 +253,7 @@ setTimeout(function(){
             <h1 id="h1-title"><script>l('infobar_DrvInst')</script></h1>
             <div class="notification">
                 <div class="nt-body"><img src="img/info.png"><span id="description"><script>l('infobar_titleDriverAvailable')</script></br></span></div>
-                <div class="nt-footer"><button id="getDownloadInstallTop" onclick="getDownloadInstall();"><script>l('infobar_buttonInst')</script></button></div>
+                <div class="nt-footer"><button id="getDownloadInstallTop" onclick="getDownloadInstallAll();"><script>l('infobar_buttonInst')</script></button></div>
             </div>
 
             <!-- { ITEMS [LIST] } -->
@@ -330,6 +330,30 @@ setTimeout(function(){
         }
         //document.getElementById('loader').style.display = 'none';
     }
+	
+	function getDownloadInstallAll(){
+		
+		DriverPack.html();
+		getDownloadInstall(
+			function(){
+				
+				SoftPack.html();
+				getDownloadInstall(
+					function(){
+						
+						setTimeout(
+							function(){
+								document.getElementById('progressDescription').innerHTML = infobar_titleAllInst + '<br>' + infobar_titleProgramm + ' <br><button onclick="DriverPack.init(function () { DriverPack.html(); })">' + button_finish + '</button>';
+							},
+							10
+						);
+					}
+				);
+				
+			}
+		);
+		
+	}
 
 
 

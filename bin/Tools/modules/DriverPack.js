@@ -348,7 +348,10 @@ var DriverPack = {
 			var output_installed_filtered = [];
 			var urlArr = [];
 			for (var i = 0; i < output_installed.length; i++) {
-			
+				
+				//Фильтруем кривой драйвер
+				if (output_installed[i].URL.indexOf('WLAN/WWAN/Huawei/NTx64/Huawei/WWAN-Huawei-') != -1) { continue; }
+				
 				if (urlArr.indexOf(output_installed[i].URL) == -1){
 	
 					output_installed_filtered[output_installed_filtered.length] = output_installed[i];
@@ -385,12 +388,12 @@ var DriverPack = {
 		//alert("soft: " + document.getElementById("menu-soft").className + ' drivers: ' + document.getElementById("menu-drivers").className);
 		
         document.getElementById('loader').style.display = 'block';
-		//document.getElementById('loader').style.backgroundImage = (IEVers=='6'?'url(Tools/load8.gif)':'url(img/loading.gif)');
 		document.getElementById('loader').style.backgroundImage = 'url(Tools/load8.gif)';
 		window.scrollTo(0, 0);
         var newTbody = document.createElement('tbody');
 		var newTbody = '';
 		var drivers = DriverPack.get({ 'SELECT': '*' });
+		var drivers_count = 0;
 		
 		for (var i = 1; i < drivers.length; i++) {
 			
@@ -400,12 +403,34 @@ var DriverPack = {
 						'<td class="list-third" title="' + drivers[i].URL + '"><b>' + drivers[i].Date + '</b></td>' +
 						'<td class="list-last"></td>' +
 						'</tr>';
+				drivers_count++;
 			}
 			
         }
 		
 		
-		getDownloadInstall = function(){
+		var softs = SoftPack.get({ 'SELECT': '*', 'WHERE': [ { 'isInstalled': false } ] });
+		var softs_count = 0;
+		
+		for (var i = 0; i < softs.length; i++) {
+			
+			if (!driver_exists(softs[i].URL,SoftPack.path)){
+				/*
+				newTbody += '<tr><td class="list-first"><input data-name="' + encodeURIComponent(softs[i].Name)  + '" id="checkSoft'+softs[i].ID+'" type="checkbox" checked/> </td>' +
+						'<td class="list-second">' + softs[i].Name + '</td>' +
+						'<td class="list-third" title="' + softs[i].URL + '"><b>' + softs[i].Version + '</b></td>' +
+						'<td class="list-last"></td>' +
+						'</tr>';
+				*/
+				softs_count++;
+			}
+			
+        }
+		
+		
+		getDownloadInstall = function(onComplite){
+			
+			onComplite = onComplite || function(){};
 			
 			var IDs = [];
 			IDs[IDs.length] = 0; //Тупой фикс, чтобы dpinst всегда устанавливался
@@ -419,7 +444,7 @@ var DriverPack = {
 				
 			}
 			
-			if (IDs.length < 2) { return false; }
+			if (IDs.length < 2) { onComplite(); return false; }
 			
 			document.getElementById('loader').style.display = 'block';
 			//document.getElementById('loader').style.backgroundImage = (IEVers=='6'?'url(Tools/load8.gif)':'url(img/loading.gif)');
@@ -559,6 +584,7 @@ var DriverPack = {
 									//alert('Установка завершена!');
 									
 									//DriverPack.html();
+									onComplite();
 
 
 								}
@@ -582,9 +608,9 @@ var DriverPack = {
 		
 		document.getElementById('div-list').innerHTML = '<table id="list"><thead><tr><td></td><td>' + infobar_tabDriver + '</td><td>' + dev_hint_version + '</td><td></td></tr></thead><tbody>'+newTbody+'</tbody></table>';
         document.getElementById('h1-title').innerHTML = infobar_DrvInst;
-		document.getElementById('getDownloadInstallTop').innerHTML = misc_inst2;
+		document.getElementById('getDownloadInstallTop').innerHTML = infobar_buttonInstAll;
 		document.getElementById('getDownloadInstallBottom').innerHTML = misc_inst2;
-		document.getElementById('description').innerHTML = infobar_titleDriverAvailable;
+		document.getElementById('description').innerHTML = infobar_titleDriverAvailable + ': <b>(' + drivers_count + ')</b><br>' + infobar_titleProgrammAvailable + ': <b>(' + softs_count + ')</b>';
 		document.getElementById('loader').style.display = 'none';
     },
 	

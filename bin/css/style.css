@@ -416,3 +416,8 @@ button:active{
 #settings {
 	text-align:center;
 }
+
+#description {
+	display:inline-table;
+	margin-left:10px;
+}

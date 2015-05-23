@@ -5,6 +5,11 @@ var statistics = {
     //_statisticUrl: "http://www.google-analytics.com/collect?v=1&tid=UA-58593486-1&aip=1",
     _statisticUrl: "http://example.com/?",
 	//_statisticUrl: "http://statistics.drp.su/online_v_2.php?v=1&tid=UA-58593486-1&aip=1",
+	_yaMetrika: {
+		id: 11833873,
+		enabled: true,
+		url: 'http://test.drp.su/'
+	},
     config: {
         userIdDimension: "cd1", //ClientID
         driverDimension: "cd2",
@@ -37,6 +42,8 @@ var statistics = {
 
     },
     init: function () {
+		this.initYaMetrika();
+		
         var file = "tools\\modules\\clientid.js";
         if (fso.FileExists(file)) {
             var text = fso.GetFile(file);
@@ -47,6 +54,33 @@ var statistics = {
             this.clientId = this.generate();
         }
     },
+	initYaMetrika: function(){
+		
+		(function (d, w, c) {
+			(w[c] = w[c] || []).push(function() {
+				try {
+					w.yaCounter = new Ya.Metrika({
+						id:statistics._yaMetrika.id,
+						clickmap:true,
+						trackLinks:true,
+						accurateTrackBounce:true,
+						ut:"noindex",
+						defer:true
+					});
+				} catch(e) { }
+			});
+
+			var n = d.getElementsByTagName("script")[0],
+				s = d.createElement("script"),
+				f = function () { n.parentNode.insertBefore(s, n); };
+			s.type = "text/javascript";
+			s.async = true;
+			s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+			f();
+		})(document, window, "yandex_metrika_callbacks");
+		
+	},
     setClientId: function (text) {
         text = text.substr(text.indexOf("'") + 1, text.indexOf("'", text.indexOf("'") + 1) - text.indexOf("'") - 1);
         var pos = text.indexOf("_");
@@ -87,8 +121,40 @@ var statistics = {
 		
 		log('[Statistics.js] Send event: '+event.action,event,dimention,[ url ]);
 		
+		this.sendYaMetrika(event);
+		
         return this.sendUrl(url);
     },
+	sendYaMetrika:function(event){
+		
+		setTimeout(
+			function(){
+				
+				if (!statistics._yaMetrika.enabled){ return false; }
+				if (typeof(window.yaCounter) == 'undefined') {
+					
+					setTimeout(
+						function(){
+							
+							statistics.sendYaMetrika(event);
+							
+						},
+						500
+					);
+					return false;
+					
+				}
+				
+				var url = statistics._yaMetrika.url + event.category.replace(/ /ig,'_') + '/' + event.action.replace(/ /ig,'_') + '/' + event.label.replace(/ /ig,'_');
+				
+				log('[Statistics.js] Send event Yandex.Metrika: '+event.action,[ url ]);
+				window.yaCounter.hit(url, document.title, null, { clientId: statistics.clientId + '' });
+				
+			},
+			0
+		);
+		
+	},
     compileUrl: function (event, dimention) {
         var ec = encodeURIComponent(event.category);
         var ea = encodeURIComponent(event.action);

@@ -236,17 +236,7 @@ var SoftPack = {
 					
 				});
 				
-				statistics.event(
-					{
-						action: 'installation downloaded'
-					},
-					[
-						[
-							statistics.config.installedSoftData,
-							statistics.drpVersion
-						]
-					]
-				);
+				
 				events.afterAllDownloaded(); //Событие: afterAllDownloaded()
 				
 				//callback();
@@ -415,7 +405,27 @@ var SoftPack = {
 		window.scrollTo(0, 0);
         var newTbody = document.createElement('tbody');
 		var newTbody = '';
+		var drivers = DriverPack.get({ 'SELECT': '*' });
+		var drivers_count = 0;
+		
+		for (var i = 1; i < drivers.length; i++) {
+			
+			if (!driver_exists(drivers[i].URL,DriverPack.path)){
+				/*
+				newTbody += '<tr><td class="list-first"><input data-name="' + encodeURIComponent(drivers[i].Name)  + '" id="checkDrivers'+drivers[i].ID+'" type="checkbox" checked/> <img src="Tools/ico/button/' + DriverPack.getDriverIcon(drivers[i].URL) + '.png" /> </td>' +
+						'<td class="list-second" title="' + drivers[i].DevID + '">' + drivers[i].Name + '</td>' +
+						'<td class="list-third" title="' + drivers[i].URL + '"><b>' + drivers[i].Date + '</b></td>' +
+						'<td class="list-last"></td>' +
+						'</tr>';
+				*/
+				drivers_count++;
+			}
+			
+        }
+		
+		
 		var softs = SoftPack.get({ 'SELECT': '*', 'WHERE': [ { 'isInstalled': false } ] });
+		var softs_count = 0;
 		
 		for (var i = 0; i < softs.length; i++) {
 			
@@ -425,12 +435,15 @@ var SoftPack = {
 						'<td class="list-third" title="' + softs[i].URL + '"><b>' + softs[i].Version + '</b></td>' +
 						'<td class="list-last"></td>' +
 						'</tr>';
+				softs_count++;
 			}
 			
         }
 		
 		
-		getDownloadInstall = function(){
+		getDownloadInstall = function(onComplite){
+			
+			onComplite = onComplite || function(){};
 			
 			var IDs = [];
 			for (var i = 0; i < softs.length; i++) {
@@ -443,7 +456,7 @@ var SoftPack = {
 				
 			}
 			
-			if (IDs.length < 1) { return false; }
+			if (IDs.length < 1) { onComplite(); return false; }
 			
 			document.getElementById('loader').style.display = 'block';
 			document.getElementById('loader').style.backgroundImage = 'url(Tools/load8.gif)';
@@ -552,7 +565,6 @@ var SoftPack = {
 								},
 								
 								beforeInstalled: function(item,i,url){
-
 									
 
 									progressCounter.start({
@@ -560,19 +572,6 @@ var SoftPack = {
 										endCount: Math.floor(80/url.length*(i+1)) // (80/arr.lenght*i)
 									});
 
-									
-
-									statistics.event(
-										{
-											action: 'drivers installation started ' + item.Name
-										},
-										[
-											[
-												statistics.config.driverDimension,
-												item.Name
-											]
-										]
-									);
 
 								},
 								
@@ -624,6 +623,7 @@ var SoftPack = {
 									//alert('Установка завершена!');
 									
 									//SoftPack.html();
+									onComplite();
 									
 								}
 							}
@@ -646,9 +646,9 @@ var SoftPack = {
 		//alert(newTbody);
 		document.getElementById('div-list').innerHTML = '<table id="list"><thead><tr><td></td><td>' + infobar_tabProgramm + '</td><td>' + dev_hint_version + '</td><td></td></tr></thead><tbody>'+newTbody+'</tbody></table>';
         document.getElementById('h1-title').innerHTML = drivSign_xp2;
-		document.getElementById('getDownloadInstallTop').innerHTML = misc_inst5;
+		document.getElementById('getDownloadInstallTop').innerHTML = infobar_buttonInstAll;
 		document.getElementById('getDownloadInstallBottom').innerHTML = misc_inst5;
-		document.getElementById('description').innerHTML = infobar_titleProgrammAvailable;
+		document.getElementById('description').innerHTML = infobar_titleDriverAvailable + ': <b>(' + drivers_count + ')</b><br>' + infobar_titleProgrammAvailable + ': <b>(' + softs_count + ')</b>';
 		document.getElementById('loader').style.display = 'none';
     }
 };
