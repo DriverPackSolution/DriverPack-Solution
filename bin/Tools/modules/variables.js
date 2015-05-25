@@ -1,5 +1,5 @@
 var version = "16";
-var verType = "";
+var verType = "Beta";
 var buildDate = "2015/05/25"; // YYYY/MM/DD
 var Reg = "HKCU\\SOFTWARE\\drpsu\\";
 
@@ -7,6 +7,7 @@ var WshShell = new ActiveXObject("WScript.Shell");
 var WshEnv = WshShell.Environment("PROCESS");
 var AppData = WshShell.SpecialFolders("AppData");
 var fso = new ActiveXObject("Scripting.FileSystemObject");
+var drpPath = WshShell.SpecialFolders("AppData") + '\\DRPSu';
 var softPath = WshShell.SpecialFolders("AppData") + '\\DRPSu\\PROGRAMS';
 var locator = new ActiveXObject("WbemScripting.SWbemLocator");
 var objWMIService = locator.ConnectServer(null, "root\\cimv2");

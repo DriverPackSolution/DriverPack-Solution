@@ -422,7 +422,9 @@ var DriverPack = {
 						'<td class="list-last"></td>' +
 						'</tr>';
 				*/
-				softs_count++;
+				if (softs[i].default){
+					softs_count++;
+				}
 			}
 			
         }

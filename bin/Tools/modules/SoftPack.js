@@ -17,7 +17,7 @@ var SoftPack = {
 		}
 		
 		JSONP(
-			'http://update-test2.drp.su/v2/soft/?callback'
+			(isBeta?'http://update-test2.drp.su/v2/soft/?callback':'http://update.drp.su/v2/soft/?callback')
 		);
 
     },
@@ -430,12 +430,14 @@ var SoftPack = {
 		for (var i = 0; i < softs.length; i++) {
 			
 			if (!driver_exists(softs[i].URL,SoftPack.path)){
-				newTbody += '<tr><td class="list-first"><input data-name="' + encodeURIComponent(softs[i].Name)  + '" id="checkSoft'+softs[i].ID+'" type="checkbox" checked/> </td>' +
+				newTbody += '<tr><td class="list-first"><input data-name="' + encodeURIComponent(softs[i].Name)  + '" id="checkSoft'+softs[i].ID+'" type="checkbox" ' + (softs[i].default===true?'checked':'') + '/> </td>' +
 						'<td class="list-second">' + softs[i].Name + '</td>' +
 						'<td class="list-third" title="' + softs[i].URL + '"><b>' + softs[i].Version + '</b></td>' +
 						'<td class="list-last"></td>' +
 						'</tr>';
-				softs_count++;
+				if (softs[i].default){
+					softs_count++;
+				}
 			}
 			
         }

@@ -421,3 +421,10 @@ button:active{
 	display:inline-table;
 	margin-left:10px;
 }
+
+#browse_logs {
+	width:100px;
+	height:30px;
+	font-size:12px;
+	margin-top:7px;
+}
