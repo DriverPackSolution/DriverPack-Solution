@@ -336,6 +336,8 @@ setTimeout(function(){
 	
 	function getDownloadInstallAll(){
 		
+		statistics.event( { action: 'Button Install All clicked' } );
+		
 		DriverPack.html();
 		getDownloadInstall(
 			function(){
@@ -398,6 +400,8 @@ setTimeout(function(){
 					document.getElementById('progressDescription').style.marginTop = '-200px';
 					document.getElementById('progressDescription').style.width = '500px'
 					document.getElementById('progressDescription').innerHTML = '<img src="img/wifi-disabled.png"><br>' + about_noconnection;
+					
+					statistics.event( { action: 'Screen opened NoInternet' } );
 					
 					
 				}

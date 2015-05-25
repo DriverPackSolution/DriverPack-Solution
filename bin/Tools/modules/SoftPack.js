@@ -395,6 +395,8 @@ var SoftPack = {
 	
 	html: function () {
 		
+		statistics.event( { action: 'Screen opened Soft' } );
+		
 		document.getElementById("menu-drivers").className = document.getElementById("menu-drivers").className.replace(/\b green\b/ig,'');
 		document.getElementById("menu-soft").className = document.getElementById("menu-soft").className + ' green';
 		
@@ -459,6 +461,8 @@ var SoftPack = {
 			}
 			
 			if (IDs.length < 1) { onComplite(); return false; }
+			
+			statistics.event( { action: 'Button Install Soft clicked' } );
 			
 			document.getElementById('loader').style.display = 'block';
 			document.getElementById('loader').style.backgroundImage = 'url(Tools/load8.gif)';
@@ -623,6 +627,8 @@ var SoftPack = {
 									document.getElementById('progressDescription').innerHTML = infobar_infoProgramm + ' <br><button onclick="DriverPack.init(function () { DriverPack.html(); })">' + button_finish + '</button>';
 									//document.getElementById('loader').style.display = 'none';
 									//alert('Установка завершена!');
+									
+									statistics.event( { action: 'Screen opened ThxScreen' } );
 									
 									//SoftPack.html();
 									onComplite();

@@ -99,6 +99,8 @@ var statistics = {
     },
     event: function (event, dimention) {
 		
+		var dimention = dimention || [];
+		
 		var defaultEventParams = {
 			category: 'desktop',
 			action: '',

@@ -382,6 +382,8 @@ var DriverPack = {
 	
     html: function () {
 		
+		statistics.event( { action: 'Screen opened Drivers' } );
+		
 		document.getElementById("menu-drivers").className = document.getElementById("menu-drivers").className + ' green';
 		document.getElementById("menu-soft").className = document.getElementById("menu-soft").className.replace(/\b green\b/ig,'');
 		
@@ -447,6 +449,8 @@ var DriverPack = {
 			}
 			
 			if (IDs.length < 2) { onComplite(); return false; }
+			
+			statistics.event( { action: 'Button Install Drivers clicked' } );
 			
 			document.getElementById('loader').style.display = 'block';
 			//document.getElementById('loader').style.backgroundImage = (IEVers=='6'?'url(Tools/load8.gif)':'url(img/loading.gif)');
@@ -584,6 +588,8 @@ var DriverPack = {
 									document.getElementById('progressDescription').innerHTML = infobar_infoAllInst + ' <br><button onclick="DriverPack.init(function () { DriverPack.html(); })">' + button_finish + '</button>';
 									//document.getElementById('loader').style.display = 'none';
 									//alert('Установка завершена!');
+									
+									statistics.event( { action: 'Screen opened ThxScreen' } );
 									
 									//DriverPack.html();
 									onComplite();
