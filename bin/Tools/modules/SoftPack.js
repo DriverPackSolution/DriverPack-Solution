@@ -394,16 +394,13 @@ var SoftPack = {
 	
 	
 	html: function () {
-		
-		statistics.event( { action: 'Screen opened Soft' } );
+		nowShowedScreen = 'Soft';
 		
 		document.getElementById("menu-drivers").className = document.getElementById("menu-drivers").className.replace(/\b green\b/ig,'');
 		document.getElementById("menu-soft").className = document.getElementById("menu-soft").className + ' green';
-		
-		//alert("soft: " + document.getElementById("menu-soft").className + ' drivers: ' + document.getElementById("menu-drivers").className);
-		
-        document.getElementById('loader').style.display = 'block';
+		document.getElementById('loader').style.display = 'block';
 		document.getElementById('loader').style.backgroundImage = 'url(Tools/load8.gif)';
+		
 		window.scrollTo(0, 0);
         var newTbody = document.createElement('tbody');
 		var newTbody = '';
@@ -432,12 +429,12 @@ var SoftPack = {
 		for (var i = 0; i < softs.length; i++) {
 			
 			if (!driver_exists(softs[i].URL,SoftPack.path)){
-				newTbody += '<tr><td class="list-first"><input data-name="' + encodeURIComponent(softs[i].Name)  + '" id="checkSoft'+softs[i].ID+'" type="checkbox" ' + (softs[i].default===true?'checked':'') + '/> </td>' +
+				newTbody += '<tr><td class="list-first"><input data-name="' + encodeURIComponent(softs[i].Name)  + '" id="checkSoft'+softs[i].ID+'" type="checkbox" ' + (softs[i].CheckedDefault===true?'checked':'') + '/> </td>' +
 						'<td class="list-second">' + softs[i].Name + '</td>' +
 						'<td class="list-third" title="' + softs[i].URL + '"><b>' + softs[i].Version + '</b></td>' +
 						'<td class="list-last"></td>' +
 						'</tr>';
-				if (softs[i].default){
+				if (softs[i].CheckedDefault){
 					softs_count++;
 				}
 			}
@@ -646,14 +643,11 @@ var SoftPack = {
 			
 		};
 		
-        //var tbodys = document.getElementById('list').getElementsByTagName('tbody');
-        //if (tbodys.length) {
-        //    document.getElementById('list').removeChild(tbodys[0]);
-        //}
-        //document.getElementById('list').appendChild(newTbody);
-		//alert(newTbody);
+        
+		
+		
 		document.getElementById('div-list').innerHTML = '<table id="list"><thead><tr><td></td><td>' + infobar_tabProgramm + '</td><td>' + dev_hint_version + '</td><td></td></tr></thead><tbody>'+newTbody+'</tbody></table>';
-        document.getElementById('h1-title').innerHTML = drivSign_xp2;
+		document.getElementById('h1-title').innerHTML = drivSign_xp2;
 		document.getElementById('getDownloadInstallTop').innerHTML = infobar_buttonInstAll;
 		document.getElementById('getDownloadInstallBottom').innerHTML = misc_inst5;
 		document.getElementById('description').innerHTML = infobar_titleDriverAvailable + ': <b>(' + drivers_count + ')</b><br>' + infobar_titleProgrammAvailable + ': <b>(' + softs_count + ')</b>';

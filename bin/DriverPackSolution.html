@@ -44,7 +44,6 @@
 		<script type="text/javascript" async src="Tools/modules/error.js"></script>
 		<script type="text/javascript" async src="Tools/modules/logs.js"></script>
         <script type="text/javascript" async src="js/ie_fixes.js"></script>
-        <script type="text/javascript" async src="js/fixpng.js"></script>
 		<script type="text/javascript" async src="Tools/modules/wpi.js"></script>
 		
         <!-- { MODULES } -->
@@ -55,7 +54,7 @@
 		
 		<!--[if lt IE 7]>
 			<![if gte IE 5.5]>
-			<script type="text/javascript" src="tools\modules\fixpng.js"></script>
+			<script type="text/javascript" src="js/fixpng.js"></script>
 			<style type="text/css">
 			.iePNG, IMG { filter:expression(fixPNG(this)); }
 			.iePNG A { position: relative; }/* style for links with PNG as background */
@@ -174,11 +173,11 @@ setTimeout(function(){
                     <img src="img\med_logo.png" class="charms_logo"/>
                     <!-- { MAIN MENU }-->
                     <div class="main-menu">
-                        <a href="#" onclick="DriverPack.html();
+                        <a href="#" onclick="statistics.event( { action: 'Screen opened Drivers' } ); DriverPack.html();
                                 return false;" id="menu-drivers" class="menu-e" title="Установка драйверов на компьютер">
                             <img id="m-pc" src="img/blank.gif"/><i><script>l('infobar_tabDriver')</script></i>_
                         </a>
-                        <a href="#" onclick="SoftPack.html();
+                        <a href="#" onclick="statistics.event( { action: 'Screen opened Soft' } ); SoftPack.html();
                                 return false;" id="menu-soft" class="menu-e" title="Установка основных программ на компьютер">
                             <img id="m-apps" src="img/blank.gif"/><i><script>l('infobar_tabProgramm')</script></i>_
                         </a>
@@ -256,7 +255,7 @@ setTimeout(function(){
             <h1 id="h1-title"><script>l('infobar_DrvInst')</script></h1>
             <div class="notification">
                 <div class="nt-body"><img src="img/info.png"><span id="description"><script>l('infobar_titleDriverAvailable')</script></br></span></div>
-                <div class="nt-footer"><button id="getDownloadInstallTop" onclick="getDownloadInstallAll();"><script>l('infobar_buttonInst')</script></button></div>
+                <div class="nt-footer"><button id="getDownloadInstallTop" onclick="statistics.event( { action: 'Button Install All clicked' } ); getDownloadInstallAll();"><script>l('infobar_buttonInst')</script></button></div>
             </div>
 
             <!-- { ITEMS [LIST] } -->
@@ -334,21 +333,25 @@ setTimeout(function(){
         //document.getElementById('loader').style.display = 'none';
     }
 	
+	var nowShowedScreen;
 	function getDownloadInstallAll(){
 		
-		statistics.event( { action: 'Button Install All clicked' } );
-		
-		DriverPack.html();
 		getDownloadInstall(
 			function(){
 				
-				SoftPack.html();
+				
+				if (nowShowedScreen=='Drivers'){
+					SoftPack.html();
+				}
+				else {
+					DriverPack.html();
+				}
 				getDownloadInstall(
 					function(){
 						
 						setTimeout(
 							function(){
-								document.getElementById('progressDescription').innerHTML = infobar_titleAllInst + '<br>' + infobar_titleProgramm + ' <br><button onclick="DriverPack.init(function () { DriverPack.html(); })">' + button_finish + '</button>';
+   								document.getElementById('progressDescription').innerHTML = '<div style="font-size:40px;">' + infobar_titleAllInst + '<br>' + infobar_titleProgramm + '</div> <button onclick="DriverPack.init(function () { DriverPack.html(); })">' + button_finish + '</button>';
 							},
 							10
 						);
@@ -407,7 +410,7 @@ setTimeout(function(){
 				}
 				
 			},
-			10000
+			15000
 		);
 	}
 	

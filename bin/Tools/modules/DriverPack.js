@@ -381,16 +381,13 @@ var DriverPack = {
 		
 	
     html: function () {
-		
-		statistics.event( { action: 'Screen opened Drivers' } );
+		nowShowedScreen = 'Drivers';
 		
 		document.getElementById("menu-drivers").className = document.getElementById("menu-drivers").className + ' green';
 		document.getElementById("menu-soft").className = document.getElementById("menu-soft").className.replace(/\b green\b/ig,'');
-		
-		//alert("soft: " + document.getElementById("menu-soft").className + ' drivers: ' + document.getElementById("menu-drivers").className);
-		
         document.getElementById('loader').style.display = 'block';
 		document.getElementById('loader').style.backgroundImage = 'url(Tools/load8.gif)';
+
 		window.scrollTo(0, 0);
         var newTbody = document.createElement('tbody');
 		var newTbody = '';
@@ -424,7 +421,7 @@ var DriverPack = {
 						'<td class="list-last"></td>' +
 						'</tr>';
 				*/
-				if (softs[i].default){
+				if (softs[i].CheckedDefault){
 					softs_count++;
 				}
 			}
