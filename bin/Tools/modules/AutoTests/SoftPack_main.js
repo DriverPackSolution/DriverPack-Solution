@@ -88,6 +88,8 @@ setTimeout(function() {
 	//Клонируем объект, чтобы сохранить его
 	backupDefaultJson = cloneObj(defaultJson);
 	
+	fso.DeleteFolder(SoftPack.path + "\\*", true);
+	
 	
 	echo('-------------- -------------------------- --------------');
 	echo('-------------- {     SoftPack.loadDB()     } --------------');

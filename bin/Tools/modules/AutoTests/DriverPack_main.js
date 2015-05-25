@@ -13,12 +13,6 @@ setTimeout(function() {
 	var defaultJson = {
 	"installed": [
 		[
-			"http://download.drp.su/driverpacks/repack/WLAN/WWAN/Huawei/NTx64/Huawei/WWAN-Huawei-NTx64-Huawei-drp.zip",
-			"09/11/2014",
-			"HUAWEI Mobile Connect - 3G Network Card",
-			"USB-ROOT_HUB20&VID15AD&PID0770&REV0000"
-		],
-		[
 			"http://download.drp.su/driverpacks/repack/Touchpad_Others/VMware/Allx64/VMware-Allx64-drp.zip",
 			"03/26/2012",
 			"VMware USB Pointing Device",
@@ -37,16 +31,16 @@ setTimeout(function() {
 			"USB-VID_0E0F&PID_0003&REV_0102"
 		],
 		[
-			"http://download.drp.su/driverpacks/repack/WLAN/WWAN/Huawei/NTx64/Huawei/WWAN-Huawei-NTx64-Huawei-drp.zip",
-			"09/11/2014",
-			"HUAWEI Mobile Connect - 3G Network Card",
-			"USB-ROOT_HUB&VID15AD&PID0774&REV0000"
-		],
-		[
 			"http://download.drp.su/driverpacks/repack/MassStorage/VMware/FORCED/Allx64/VMware-FORCED-Allx64-drp.zip",
 			"02/13/2013",
 			"VMware VMCI Bus Device",
 			"PCI-VEN_15AD&DEV_0740&SUBSYS_074015AD&REV_10"
+		],
+		[
+			"http://download.drp.su/driverpacks/repack/WLAN/WWAN/Huawei/NTx64/Huawei/WWAN-Huawei-NTx64-Huawei-drp.zip",
+			"09/11/2014",
+			"HUAWEI Mobile Connect - 3G Network Card",
+			"USB-ROOT_HUB&VID15AD&PID0774&REV0000"
 		]
 	],
 	"not_installed": []
@@ -64,6 +58,7 @@ setTimeout(function() {
 	
 	DriverPack._json = cloneObj(defaultJson);
 	
+	fso.DeleteFolder(DriverPack.path + "\\*", true);
 	
 	
 	test(
@@ -136,7 +131,7 @@ setTimeout(function() {
 				
 				echo('Downloaded:');
 				test(driver_exists('http://test-st.drp.su/drivers/dpinst.zip',DriverPack.path),true);
-				test(driver_exists('http://download.drp.su/driverpacks/repack/WLAN/WWAN/Huawei/NTx64/Huawei/WWAN-Huawei-NTx64-Huawei-drp.zip',DriverPack.path),true);
+				test(driver_exists('http://download.drp.su/driverpacks/repack/Touchpad_Others/VMware/Allx64/VMware-Allx64-drp.zip',DriverPack.path),true);
 				
 				test(
 					DriverPack._json[0].isDownloaded,
@@ -154,7 +149,7 @@ setTimeout(function() {
 					{
 						afterInstalled: function(){
 							
-							echo('DriverPac Event: afterInstalled()');
+							echo('DriverPack Event: afterInstalled()');
 							
 							test(
 								true,
@@ -164,11 +159,11 @@ setTimeout(function() {
 							/*
 							ToDo: реализовать простановку свойства isInstalled = true, после успешной установки драйверов
 							
-							test(
+							test (
 								DriverPack._json[0].isInstalled,
 								true
 							);
-							test(
+							test (
 								DriverPack._json[1].isInstalled,
 								true
 							);
@@ -185,6 +180,15 @@ setTimeout(function() {
 	
 	
 	
+	//Должно быть меньше, так как мы фильтруем кривой драйвер 'WLAN/WWAN/Huawei'
+	test(
+		DriverPack.get(
+			{
+				'SELECT': '*'
+			}
+		).length,
+		defaultJson.installed.length-2
+	);
 	
 	
 	

@@ -200,7 +200,7 @@
                         return print_red_text;
                     }
 					
-					WshShell.CurrentDirectory = "..\\..\\..\\";
+					WshShell.CurrentDirectory = WshShell.CurrentDirectory.replace('\\Tools\\modules\\AutoTests','');
 					log = echo;
                 </script>
                 <!--<script type="text/javascript" src="bugreport.js"></script>-->

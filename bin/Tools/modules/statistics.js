@@ -2,8 +2,8 @@ var statistics = {
     //clientId: "000000000.0000000000",
     clientId: "",
     drpVersion: version + " " + verType,
-    //_statisticUrl: "http://www.google-analytics.com/collect?v=1&tid=UA-58593486-1&aip=1",
-    _statisticUrl: "http://example.com/?",
+    _statisticUrl: "http://www.google-analytics.com/collect?v=1&tid=UA-58593486-1&aip=1",
+    //_statisticUrl: "http://example.com/?",
 	//_statisticUrl: "http://statistics.drp.su/online_v_2.php?v=1&tid=UA-58593486-1&aip=1",
 	_yaMetrika: {
 		id: 11833873,

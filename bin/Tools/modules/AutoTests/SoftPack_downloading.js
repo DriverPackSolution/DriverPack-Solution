@@ -46,6 +46,8 @@ setTimeout(function() {
 	SoftPack.loadDB(defaultJson);
 	//wget_path = '..\\..\\wget.exe';
 	
+	fso.DeleteFolder(SoftPack.path + "\\*", true);
+	
 	
 	test(
 		typeof(SoftPack._json.soft[0].isDownloaded),
@@ -62,40 +64,44 @@ setTimeout(function() {
 	echo('Downloading started...');
 	SoftPack.download(
 		[ 3, 5 ],
-		function(){
-			
-			echo('Downloaded:');
-			test(driver_exists('http://download.drp.su/soft/7-Zip.exe',SoftPack.path),true);
-			test(driver_exists('http://download0.drp.su/soft/WinRAR.exe',SoftPack.path),true);
-			
-			test(
-				SoftPack._json.soft[0].isDownloaded,
-				true
-			);
-			test(
-				SoftPack._json.soft[1].isDownloaded,
-				true
-			);
-			
-			echo('Installing started...');
-			SoftPack.install(
-				[ 3, 5 ],
-				function(){
-					
-					echo('Installed:');
-					
-					test(
-						SoftPack._json.soft[0].isInstalled,
-						true
-					);
-					test(
-						SoftPack._json.soft[1].isInstalled,
-						true
-					);
-					
-				}
-			);
-			
+		{
+			afterAllDownloaded: function(){
+				
+				echo('Downloaded:');
+				test(driver_exists('http://download.drp.su/soft/7-Zip.exe',SoftPack.path),true);
+				test(driver_exists('http://download0.drp.su/soft/WinRAR.exe',SoftPack.path),true);
+				
+				test(
+					SoftPack._json.soft[0].isDownloaded,
+					true
+				);
+				test(
+					SoftPack._json.soft[1].isDownloaded,
+					true
+				);
+				
+				echo('Installing started...');
+				SoftPack.install(
+					[ 3, 5 ],
+					{
+						afterAllInstalled:function(){
+							
+							echo('Installed:');
+							
+							test(
+								SoftPack._json.soft[0].isInstalled,
+								true
+							);
+							test(
+								SoftPack._json.soft[1].isInstalled,
+								true
+							);
+							
+						}
+					}
+				);
+				
+			}
 		}
 	);
 	

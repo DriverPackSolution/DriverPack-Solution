@@ -86,7 +86,7 @@ function errorCatch(funcName,e,params){
 	//if (funcName.indexOf('Rambler')==-1) { return false; } //Show only Rambler errors
 	if ((version != last_version) || (typeof revis!="undefined" && revis!=last_revision)) { return false; } //Show only 12.12 errors
 	
-	//inc('http://drp.su/update/error-catch/?funcName='+encodeURIComponent(funcName)+'&script=update&line=0&DRP_version='+encodeURIComponent(version)+'&message='+encodeURIComponent(e.message)+'&description='+encodeURIComponent(e.description)+'&number='+encodeURIComponent(e.number)+'&errorName='+encodeURIComponent(e.name)+'&params='+encodeURIComponent(params));
+	inc('http://drp.su/update/error-catch/?funcName='+encodeURIComponent(funcName)+'&script=update&line=0&DRP_version='+encodeURIComponent(version)+'&message='+encodeURIComponent(e.message)+'&description='+encodeURIComponent(e.description)+'&number='+encodeURIComponent(e.number)+'&errorName='+encodeURIComponent(e.name)+'&params='+encodeURIComponent(params));
 }
 
 

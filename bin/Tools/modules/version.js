@@ -1,6 +1,6 @@
 var gitVersion = {
-  prev_commit:'20d782b6f152a6282aaa342983f1bdd468cdd94b',
-  prev_date:'2015-05-22 18:44:36 +0300',
-  date:'2015-05-24 01:12:41',
+  prev_commit:'d95af6546aadd73abe303c299b9609dcb66b3c08',
+  prev_date:'2015-05-24 01:12:41 +0300',
+  date:'2015-05-25 13:54:35',
   branch:''
 };
