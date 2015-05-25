@@ -452,7 +452,6 @@ var DriverPack = {
 			
 			if (IDs.length < 2) { onComplite(); return false; }
 			
-			statistics.event( { action: 'Button Install Drivers clicked' } );
 			
 			document.getElementById('loader').style.display = 'block';
 			//document.getElementById('loader').style.backgroundImage = (IEVers=='6'?'url(Tools/load8.gif)':'url(img/loading.gif)');

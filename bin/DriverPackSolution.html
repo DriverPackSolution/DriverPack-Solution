@@ -277,7 +277,7 @@ setTimeout(function(){
 				</div>
             </div>
             <div class="app-footer">
-                <button id="getDownloadInstallBottom" onclick="getDownloadInstall();"><script>l('infobar_buttonInst')</script></button>
+                <button id="getDownloadInstallBottom" onclick="statistics.event( { action: 'Button Install ' + nowShowedScreen + ' clicked' } ); getDownloadInstall();"><script>l('infobar_buttonInst')</script></button>
             </div>
 
         </td>

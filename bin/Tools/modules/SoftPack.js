@@ -459,7 +459,6 @@ var SoftPack = {
 			
 			if (IDs.length < 1) { onComplite(); return false; }
 			
-			statistics.event( { action: 'Button Install Soft clicked' } );
 			
 			document.getElementById('loader').style.display = 'block';
 			document.getElementById('loader').style.backgroundImage = 'url(Tools/load8.gif)';
