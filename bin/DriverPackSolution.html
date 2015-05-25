@@ -51,6 +51,7 @@
         <script type="text/javascript" async src="Tools/modules/SoftPack.js"></script>
         <script type="text/javascript" async src="Tools/modules/WgetPack.js"></script>
 		<script type="text/javascript" async src="Tools/modules/statistics.js"></script>
+		<script type="text/javascript" async src="Tools/modules/onunload.js"></script>
 		
 		<!--[if lt IE 7]>
 			<![if gte IE 5.5]>
@@ -387,6 +388,8 @@ setTimeout(function(){
 		
 		DriverPack.init(function () {			
 			log('First init complete');
+			
+			statistics.event( { action: 'Screen opened Drivers' } );
             DriverPack.html();
         });
 		SoftPack.init(function () {

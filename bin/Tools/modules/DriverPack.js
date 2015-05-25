@@ -271,11 +271,16 @@ var DriverPack = {
 				// Unzip
 				WshShell.Run('tools\\7za.exe x -yo"' + WshShell.ExpandEnvironmentStrings('%temp%\\drp\\unzip\\drp') + '" "' + DriverPack.path + '\\*"', 0, true);
 				// Installing drivers
-				WshShell.Run(
-					'"' + WshShell.ExpandEnvironmentStrings('%temp%\\drp\\unzip\\drp\\dpinst\\Setup') + '' + (is64 ? '64' : '') + '.exe" ' +
-					'/SW /c /sa /PATH "' + WshShell.ExpandEnvironmentStrings('%temp%\\drp\\unzip') + '"',
-					0,true
-				);
+				try {
+					WshShell.Run(
+						'"' + WshShell.ExpandEnvironmentStrings('%temp%\\drp\\unzip\\drp\\dpinst\\Setup') + '' + (is64 ? '64' : '') + '.exe" ' +
+						'/SW /c /sa /PATH "' + WshShell.ExpandEnvironmentStrings('%temp%\\drp\\unzip') + '"',
+						0,true
+					);
+				}
+				catch(e){
+					log('!!! ERROR !!! Не удалось установить драйвер!');
+				}
 				
 
 				log('Installation drivers completed!');

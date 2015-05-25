@@ -6,9 +6,9 @@ var statistics = {
     //_statisticUrl: "http://example.com/?",
 	//_statisticUrl: "http://statistics.drp.su/online_v_2.php?v=1&tid=UA-58593486-1&aip=1",
 	_yaMetrika: {
-		id: 11833873,
+		id: 30541482,
 		enabled: true,
-		url: 'http://test.drp.su/'
+		url: 'http://client.drp.su/'
 	},
     config: {
         userIdDimension: "cd1", //ClientID
@@ -104,7 +104,7 @@ var statistics = {
 		var defaultEventParams = {
 			category: 'desktop',
 			action: '',
-			label: statistics.drpVersion
+			label: statistics.drpVersion.replace(/^\s+|\s+$/gm,'')
 		};
 
         event = extendJSON(defaultEventParams,event);
@@ -123,38 +123,33 @@ var statistics = {
 		
 		log('[Statistics.js] Send event: '+event.action,event,dimention,[ url ]);
 		
+		this.sendUrl(url);
 		this.sendYaMetrika(event);
 		
-        return this.sendUrl(url);
+        return true;
     },
 	sendYaMetrika:function(event){
 		
-		setTimeout(
-			function(){
-				
-				if (!statistics._yaMetrika.enabled){ return false; }
-				if (typeof(window.yaCounter) == 'undefined') {
+		if (!statistics._yaMetrika.enabled){ return false; }
+		if (typeof(window.yaCounter) == 'undefined') {
+			
+			setTimeout(
+				function(){
 					
-					setTimeout(
-						function(){
-							
-							statistics.sendYaMetrika(event);
-							
-						},
-						500
-					);
-					return false;
+					statistics.sendYaMetrika(event);
 					
-				}
-				
-				var url = statistics._yaMetrika.url + event.category.replace(/ /ig,'_') + '/' + event.action.replace(/ /ig,'_') + '/' + event.label.replace(/ /ig,'_');
-				
-				log('[Statistics.js] Send event Yandex.Metrika: '+event.action,[ url ]);
-				window.yaCounter.hit(url, document.title, null, { clientId: statistics.clientId + '' });
-				
-			},
-			0
-		);
+				},
+				500
+			);
+			return false;
+			
+		}
+		
+		var url = statistics._yaMetrika.url + event.category.replace(/ /ig,'_') + '/' + event.action.replace(/ /ig,'_') + '/' + event.label.replace(/ /ig,'_');
+		var params = { clientId: statistics.clientId + '' };
+		
+		log('[Statistics.js] Send event Yandex.Metrika: '+event.action,[ url ], params);
+		window.yaCounter.hit(url, document.title, null, params);
 		
 	},
     compileUrl: function (event, dimention) {
