@@ -619,7 +619,7 @@ var DriverPack = {
         document.getElementById('h1-title').innerHTML = infobar_DrvInst;
 		document.getElementById('getDownloadInstallTop').innerHTML = infobar_buttonInstAll;
 		document.getElementById('getDownloadInstallBottom').innerHTML = misc_inst2;
-		document.getElementById('description').innerHTML = infobar_titleDriverAvailable + ': <b>(' + drivers_count + ')</b><br>' + infobar_titleProgrammAvailable + ': <b>(' + softs_count + ')</b>';
+		document.getElementById('description').innerHTML = infobar_titleDriverNew + ': <b>(' + drivers_count + ')</b><br>' + infobar_titleProgrammAvailable + ': <b>(' + softs_count + ')</b>';
 		document.getElementById('loader').style.display = 'none';
     },
 	

@@ -649,7 +649,7 @@ var SoftPack = {
 		document.getElementById('h1-title').innerHTML = drivSign_xp2;
 		document.getElementById('getDownloadInstallTop').innerHTML = infobar_buttonInstAll;
 		document.getElementById('getDownloadInstallBottom').innerHTML = misc_inst5;
-		document.getElementById('description').innerHTML = infobar_titleDriverAvailable + ': <b>(' + drivers_count + ')</b><br>' + infobar_titleProgrammAvailable + ': <b>(' + softs_count + ')</b>';
+		document.getElementById('description').innerHTML = infobar_titleDriverNew + ': <b>(' + drivers_count + ')</b><br>' + infobar_titleProgrammAvailable + ': <b>(' + softs_count + ')</b>';
 		document.getElementById('loader').style.display = 'none';
     }
 };

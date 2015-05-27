@@ -1,4 +1,4 @@
-var version = "16";
+var version = "16.1.1";
 var verType = "";
 var buildDate = "2015/05/27"; // YYYY/MM/DD
 var Reg = "HKCU\\SOFTWARE\\drpsu\\";
