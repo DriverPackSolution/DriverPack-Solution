@@ -4,3 +4,5 @@ nbproject/
 bin/Tools/modules/AutoTests/[Rr]eport*/
 bin/[Rr]eports/
 *:Zone.Identifier
+node_modules/
+npm-debug.log
