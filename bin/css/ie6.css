@@ -58,11 +58,6 @@
 	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/charms/toolkit.png');
 	background-position: center center;
 }
-* html #m-uac{
-	background: none;
-	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/charms/uac.png');
-	background-position: center center;
-}
 * html #m-gears{
 	background: none;
 	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/charms/gears.png');
