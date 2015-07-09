@@ -92,6 +92,7 @@ var SoftPack = {
 				if (item.Registry_64){
 					json[i].Registry[json[i].Registry.length] = item.Registry_64.replace(/\\\\/ig,'\\');
 				}
+				json[i].IsChecked = json[i].CheckedDefault;
 
 			});
 		}
@@ -429,8 +430,10 @@ var SoftPack = {
 		for (var i = 0; i < softs.length; i++) {
 
 			if (!driver_exists(softs[i].URL,SoftPack.path)){
-				newTbody += '<tr><td class="list-first"><input data-name="' + encodeURIComponent(softs[i].Name)  + '" id="checkSoft'+softs[i].ID+'" type="checkbox" ' + (softs[i].CheckedDefault===true?'checked':'') + '/> </td>' +
-						'<td class="list-second">' + softs[i].Name + '</td>' +
+				newTbody += '<tr><td class="list-first"><input data-name="' + encodeURIComponent(softs[i].Name)  +
+						'" id="checkSoft'+softs[i].ID+'" type="checkbox" ' + (SoftPack._json.soft[i].IsChecked?'checked':'') +
+						' onclick="SoftPack._json.soft['+i+'].IsChecked = (this.checked ? true : false); statistics.event( { action: \'Checkbox click\' });"/> </td>' +
+						'<td class="list-second"><label for="checkSoft'+softs[i].ID+'">' + softs[i].Name + '</label></td>' +
 						'<td class="list-third" title="' + softs[i].URL + '"><b>' + softs[i].Version + '</b></td>' +
 						'<td class="list-last"></td>' +
 						'</tr>';
@@ -645,7 +648,7 @@ var SoftPack = {
 
 
 
-		document.getElementById('div-list').innerHTML = '<table id="list"><thead><tr><td></td><td>' + infobar_tabProgramm + '</td><td>' + dev_hint_version + '</td><td></td></tr></thead><tbody>'+newTbody+'</tbody></table>';
+		document.getElementById('div-list').innerHTML = '<table id="list"><thead><tr><td class="list-first"><input value="checkSoft" type="checkbox" ' + (isCheckSoftCheckboxes?'checked':'') + ' onclick="selectAllCheckboxes(this);" /></td><td class="list-header">' + infobar_tabProgramm + '</td><td>' + dev_hint_version + '</td><td></td></tr></thead><tbody>'+newTbody+'</tbody></table>';
 		document.getElementById('h1-title').innerHTML = drivSign_xp2;
 		document.getElementById('getDownloadInstallTop').innerHTML = infobar_buttonInstAll;
 		document.getElementById('getDownloadInstallBottom').innerHTML = misc_inst5;

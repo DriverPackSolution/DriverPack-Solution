@@ -374,6 +374,44 @@ setTimeout(function(){
 	}
 
 
+    // Поставить или снять все галочки
+
+    function selectAllCheckboxes(e) {
+        var tbodys = document.getElementById('list').getElementsByTagName('tbody');
+        var arrayElementsName = (e.value === 'checkDrivers' ? 'DriverPack._json' : 'SoftPack._json.soft');
+
+        if ( e.value === 'checkDrivers') {
+            isCheckDriversCheckboxes = (e.checked ? true : false);
+            statistics.event( { action: 'All drivers сheckbox click' });
+        }
+
+        if ( e.value === 'checkSoft') {
+            isCheckSoftCheckboxes = (e.checked ? true : false);
+            statistics.event( { action: 'All soft сheckbox click' });
+        }
+
+        for (var i = 0, n = tbodys.length; i < n; i++) {
+            if (i in tbodys) {
+                var inputs = tbodys[i].getElementsByTagName('input');
+                for (var j = 0, m = inputs.length; j < m; j++) {
+                    if (j in inputs && inputs[j].type == 'checkbox' && inputs[j].id.indexOf(e.value) != -1) {
+                        inputs[j].checked = (e.checked ? true : false);
+                    }
+                }
+
+                for (var k = 0; k < eval(arrayElementsName + '.length'); k++) {
+                    if (e.checked) {
+                        eval(arrayElementsName + '[k].IsChecked = true');
+                    }
+                    else {
+                        eval(arrayElementsName + '[k].IsChecked = false');
+                    }
+                }
+            }
+        }
+    };
+
+
 
     //document.addEventListener("DOMContentLoaded", function (event) {
 
