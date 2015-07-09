@@ -55,7 +55,6 @@ var statistics = {
         }
     },
 	initYaMetrika: function(){
-
 		(function (d, w, c) {
 			(w[c] = w[c] || []).push(function() {
 				try {

@@ -36,7 +36,9 @@ winRun('reg add "HKLM\\Software\\Microsoft\\Internet Explorer\\Styles" /v "MaxSc
 winRun('reg add "HKCU\\SOFTWARE\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_NINPUT_LEGACYMODE" /v "mshta.exe" /t REG_DWORD /d 0x00000000 /f',true,'',true); //Touch Screen enabled
 winRun('reg add "HKCU\\SOFTWARE\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_GPU_RENDERING" /v "mshta.exe" /t REG_DWORD /d 0x00000001 /f',true,'',true); //GPU rendering enabled
 //Fix NTFS zone checks alerts
-WshShell.Environment("PROCESS")("SEE_MASK_NOZONECHECKS") = 1;
+try {
+    WshShell.Environment("PROCESS")("SEE_MASK_NOZONECHECKS") = 1;
+} catch(e) {}
 
 
 var is64 = false;

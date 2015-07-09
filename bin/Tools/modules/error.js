@@ -152,10 +152,10 @@ window.onerror=function(msg, url, linenumber){
 	var OSVersionEr = wpi('Caption','Win32_OperatingSystem').replace(/Microsoft /i,"") + " " + wpi('CSDVersion','Win32_OperatingSystem').replace(/Service Pack /i,"SP") + " " + wpi('OSArchitecture','Win32_OperatingSystem')
 	var JSVersion = ScriptEngine()+" "+ScriptEngineMajorVersion()+"."+ScriptEngineMinorVersion();
 	var re = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
-	
+
 	log([ 'http://static.drp.su/update/error-catch/?script='+encodeURIComponent(url)+'&line='+encodeURIComponent(linenumber)+'&DRP_version='+encodeURIComponent(version + " " + verType)+'&message='+encodeURIComponent(msg)+'&description='+encodeURIComponent(OSVersionEr+' IE: '+IEVers+' '+JSVersion) ]);
 	inc('http://static.drp.su/update/error-catch/?script='+encodeURIComponent(url)+'&line='+encodeURIComponent(linenumber)+'&DRP_version='+encodeURIComponent(version + " " + verType)+'&message='+encodeURIComponent(msg)+'&description='+encodeURIComponent(OSVersionEr+' IE: '+IEVers+' '+JSVersion));
-	
+
 	onerror_old(msg, url, linenumber);
 	return true;
 }
