@@ -43,7 +43,7 @@ var statistics = {
     },
     init: function () {
 		this.initYaMetrika();
-		
+
         var file = "tools\\modules\\clientid.js";
         if (fso.FileExists(file)) {
             var text = fso.GetFile(file);
@@ -55,7 +55,7 @@ var statistics = {
         }
     },
 	initYaMetrika: function(){
-		
+
 		(function (d, w, c) {
 			(w[c] = w[c] || []).push(function() {
 				try {
@@ -79,7 +79,7 @@ var statistics = {
 
 			f();
 		})(document, window, "yandex_metrika_callbacks");
-		
+
 	},
     setClientId: function (text) {
         text = text.substr(text.indexOf("'") + 1, text.indexOf("'", text.indexOf("'") + 1) - text.indexOf("'") - 1);
@@ -98,9 +98,9 @@ var statistics = {
         return uuid;
     },
     event: function (event, dimention) {
-		
+
 		var dimention = dimention || [];
-		
+
 		var defaultEventParams = {
 			category: 'desktop',
 			action: '',
@@ -114,43 +114,43 @@ var statistics = {
 			statistics.config.userIdDimension,
 			statistics.clientId
 		];
-		
+
         dimention = dimention.push(defaultEventDimenstion);
 
         if (this.clientId == "")
             this.clientId = this.generate();
         var url = this.compileUrl(event, dimention);
-		
+
 		log('[Statistics.js] Send event: '+event.action,event,dimention,[ url ]);
-		
+
 		this.sendUrl(url);
 		this.sendYaMetrika(event);
-		
+
         return true;
     },
 	sendYaMetrika:function(event){
-		
+
 		if (!statistics._yaMetrika.enabled){ return false; }
 		if (typeof(window.yaCounter) == 'undefined') {
-			
+
 			setTimeout(
 				function(){
-					
+
 					statistics.sendYaMetrika(event);
-					
+
 				},
 				500
 			);
 			return false;
-			
+
 		}
-		
+
 		var url = statistics._yaMetrika.url + event.category.replace(/ /ig,'_') + '/' + event.action.replace(/ /ig,'_') + '/' + event.label.replace(/ /ig,'_');
 		var params = { clientId: statistics.clientId + '' };
-		
+
 		log('[Statistics.js] Send event Yandex.Metrika: '+event.action,[ url ], params);
 		window.yaCounter.hit(url, document.title, null, params);
-		
+
 	},
     compileUrl: function (event, dimention) {
         var ec = encodeURIComponent(event.category);

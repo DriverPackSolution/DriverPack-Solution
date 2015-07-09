@@ -98,7 +98,7 @@ function inc(filename){
 		script.src = filename;
 		script.type = 'text/javascript';
 	}
-	
+
 	if (typeof script!="undefined"){
 		head.appendChild(script);
 	}
@@ -116,11 +116,11 @@ function print_r(arr, level) {
             if(typeof(value) == 'object') {
                 print_red_text += level_padding + "'" + item + "' :\n";
                 print_red_text += print_r(value,level+1);
-        } 
-            else 
+        }
+            else
                 print_red_text += level_padding + "'" + item + "' => \"" + value + "\"\n";
         }
-    } 
+    }
 
     else  print_red_text = "===>"+arr+"<===("+typeof(arr)+")";
     return print_red_text;
@@ -177,11 +177,11 @@ function wget_driver(downloadURI, targetFolder, size) {
             //if (!getPercents_interval) {
             //    getPercents_interval = setInterval('getPercents()', 150);
             //}
-			
+
 			log('Starting wget.exe: ' + '"'+wget_path+'" -P "' + targetFolder + '" "' + downloadURI + '" -o "' + logFolder + 'DRP-Lite-Status.txt"');
 			var wsShellObj = WshShell.run('"'+wget_path+'" -P "' + targetFolder + '" "' + downloadURI + '" -o "' + logFolder + 'DRP-Lite-Status.txt"', 0, true);
             log( [ fso.OpenTextFile(logFolder + "DRP-Lite-Status.txt", 1, false).ReadAll() ] );
-			
+
 			var downloudedFileDest = targetFolder + (targetFolder ? '\\' : '') + fso.GetFileName(downloadURI);
             return parsed_url[parsed_url.length - 1];
         } else {
@@ -199,7 +199,7 @@ function driver_exists(downloadURI, targetFolder) {
 
     var parsed_url = downloadURI.split("/");
     var downloaded_driver = targetFolder + "\\" + parsed_url[parsed_url.length - 1];
-	
+
     if (fso.FileExists(downloaded_driver)) {
 		log('Downloaded file exists - TRUE:' + downloaded_driver);
         return true;
@@ -273,24 +273,24 @@ function getPercents() {
 // Read registry
 // ToDo: Придумать авто-тесты!!!
 function RegRead(key){
-	
+
 	key = key.replace('HKEY_LOCAL_MACHINE\\','HKLM\\');
 	key = key.replace('HKEY_CURRENT_USER\\','HKCU\\');
-	
+
 	ret = RegRead32(key);
-	
+
 	if ((!ret) && (key.indexOf('\\SOFTWARE\\Microsoft\\') != -1)) {
 		t_key = key.replace('\\SOFTWARE\\Microsoft\\','\\SOFTWARE\\Wow6432Node\\Microsoft\\');
-		
+
 		ret = RegRead32(key);
 	}
-	
+
 	if (!ret){
 		ret = RegRead64(key);
 	}
-	
+
 	return ret;
-	
+
 }
 
 function RegRead32(key) {
@@ -305,7 +305,7 @@ function RegRead32(key) {
 function RegRead64(key) {
 	var HKEY_LOCAL_MACHINE = 0x80000002;
 	var HKEY_CURRENT_USER = 0x80000001;
-	
+
 	var context = new ActiveXObject("WbemScripting.SWbemNamedValueSet");
 	context.Add("__ProviderArchitecture", 64);
 	context.Add("__RequiredArchitecture", true);
@@ -314,19 +314,19 @@ function RegRead64(key) {
 	var StdRegProv = wbem.Get("StdRegProv");
 	var method = StdRegProv.Methods_.Item("GetStringValue");
 	var inParameters = method.InParameters.SpawnInstance_();
-	
+
 	if (key.indexOf('HKLM\\') == 0){
 		inParameters.hDefKey = HKEY_LOCAL_MACHINE;
 	}
 	else if (key.indexOf('HKCU\\') == 0){
 		inParameters.hDefKey = HKEY_CURRENT_USER;
 	}
-	
+
 	inParameters.sSubKeyName = key.substring(5);
 	inParameters.sValueName = "";
 	var outParameters = StdRegProv.ExecMethod_("GetStringValue", inParameters, 0, context);
 	//alert(outParameters.sValue);
-	
+
 	return outParameters.sValue;
 }
 

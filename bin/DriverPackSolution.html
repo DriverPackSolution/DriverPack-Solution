@@ -6,17 +6,17 @@
         <title>DriverPack Solution</title>
 		<!-- { FAVICON } -->
         <link rel="shortcut icon" href="Tools\icon.ico" type="image/x-icon" />
-		
+
         <!-- { IE10 } -->
         <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="MSThemeCompatible" content="yes" />
-		
+
         <!-- { NO CACHE IE }-->
         <meta http-equiv="cache-control" content="no-cache" />
         <meta http-equiv="expires" content="0" />
         <meta http-equiv="pragma" content="no-cache" />
-		
+
 		<!-- { UPDATE SERVER }-->
 		<script type="text/javascript">
 			var scriptLoading = document.createElement('script');
@@ -26,17 +26,17 @@
 			var s = document.getElementsByTagName('script')[0];
 			var ss = s.parentNode.insertBefore(scriptLoading, s);
 		</script>
-		
+
         <!-- { STYLES } -->
         <link rel="stylesheet" type="text/css" href="css/normalize.min.css" />
         <link rel="stylesheet" type="text/css" href="css/font.css" />
         <link rel="stylesheet" type="text/css" href="css/open-sans.css" />
         <link rel="stylesheet" type="text/css" href="css/style.css" />
-		
+
         <!--[if (IE 6)]><!-->
 			<link rel="stylesheet" type="text/css" href="css/ie6.css" />
         <!--<![endif]-->
-		
+
         <!-- { LIBRARIES } -->
 		<script type="text/javascript" src="Tools/modules/version.js"></script>
 		<script type="text/javascript" src="Tools/modules/variables.js"></script>
@@ -45,14 +45,14 @@
 		<script type="text/javascript" src="Tools/modules/logs.js"></script>
         <script type="text/javascript" src="js/ie_fixes.js"></script>
 		<script type="text/javascript" src="Tools/modules/wpi.js"></script>
-		
+
         <!-- { MODULES } -->
         <script type="text/javascript" src="Tools/modules/DriverPack.js"></script>
         <script type="text/javascript" src="Tools/modules/SoftPack.js"></script>
         <script type="text/javascript" src="Tools/modules/WgetPack.js"></script>
 		<script type="text/javascript" src="Tools/modules/statistics.js"></script>
 		<script type="text/javascript" src="Tools/modules/onunload.js"></script>
-		
+
 		<!--[if lt IE 7]>
 			<![if gte IE 5.5]>
 			<script type="text/javascript" src="js/fixpng.js"></script>
@@ -103,9 +103,9 @@ progressCounter = {
         duration: 7000 //10000
     },
     _timeoutId: '',
-    
+
     start: function (params){
-		
+
 		var _this = progressCounter;
         setTimeout(
             function(){
@@ -125,7 +125,7 @@ progressCounter = {
 
     number_to: function (){
         //var element = document.getElementById(this.settings.elementId);
-        
+
         var _this = progressCounter;
         setTimeout(function() {
                 var now = (new Date().getTime()) - _this._startTime;
@@ -198,8 +198,8 @@ setTimeout(function(){
 
                     <!-- { BOTTOM MENU } -->
             <u id="bottom-menu-line">__</u>
-			
-			
+
+
 			<div class="bottom-menu">
                 <a href="" class="bt-menu-e" title="" onclick="htaError()" style="margin-left:-15px;text-align:center;">
                     <img id="m-uac" src="img/blank.gif"/><i>Bug report</i>_
@@ -207,19 +207,19 @@ setTimeout(function(){
 				<a href="" class="bt-menu-e" title="" onclick="toggle(document.getElementById('settings'))" style="margin-left:-15px;text-align:center;">
                     <img id="m-gears" src="img/blank.gif"/><i><script>l(button_settings)</script></i>_
                 </a>
-				
+
 				<div id="settings" style="display:none;">
 					<u id="bottom-menu-line" style="padding-right:160px;padding-left:0px;margin-left:0px;">__</u>
-					
+
 					<select name="language" id="language" style="width:100px;" onChange="language_onChange(this);" style="font-size:9pt;"></select>
-					
+
 					<br>
 					<button id="browse_logs" onclick='WshShell.Run("explorer \"" + drpPath + "\"",1,false);'><script>l(bugreport_buttonBrowse)</script></button>
 				</div>
-				
+
 				<script language="javascript" type="text/javascript">
 					language_list();
-					
+
 					function toggle(el) {
 						el.style.display = (el.style.display == 'none') ? 'block' : 'none'
 					}
@@ -333,14 +333,14 @@ setTimeout(function(){
         }
         //document.getElementById('loader').style.display = 'none';
     }
-	
+
 	var nowShowedScreen;
 	function getDownloadInstallAll(){
-		
+
 		getDownloadInstall(
 			function(){
-				
-				
+
+
 				if (nowShowedScreen=='Drivers'){
 					SoftPack.html();
 				}
@@ -349,7 +349,7 @@ setTimeout(function(){
 				}
 				getDownloadInstall(
 					function(){
-						
+
 						setTimeout(
 							function(){
    								document.getElementById('progressDescription').innerHTML = '<div style="font-size:40px;">' + infobar_titleAllInst + '<br>' + infobar_titleProgramm + '</div> <button onclick="DriverPack.init(function () { DriverPack.html(); })">' + button_finish + '</button>';
@@ -358,65 +358,65 @@ setTimeout(function(){
 						);
 					}
 				);
-				
+
 			}
 		);
-		
+
 	}
 
 
 
     //document.addEventListener("DOMContentLoaded", function (event) {
-    
-	
+
+
 	var onReady = function(){
-		
+
 		if ((typeof(DriverPack)=='undefined') || (typeof(SoftPack)=='undefined') || (typeof(logs)=='undefined') || (typeof(statistics)=='undefined')){
 			setTimeout(onReady,100);
 			return false;
 		}
         window.offscreenBuffering = false;
-		
+
 		log('DriverPack Solution ' + version + ' ' + verType);
 		log('gitVersion:',gitVersion);
 		log('Windows ' + OSVersion + ' SP' + OSVersionSP + ' ' + (is64?'x64':'x32'));
-		
-		
+
+
 		//Удаляет NTFS Alternate Data Streams чтобы небыло предупреждений безопасности
 		//WshShell.Run('cmd /c echo for /r ..\\ %%f in (*.exe) do echo [ZoneTransfer] ^> %%f:Zone.Identifier > %temp%\\stream-d.cmd & %temp%\\stream-d.cmd', 0, false);
 		WshShell.Run('Tools\\streams-d.cmd', 0, false);
-		
-		DriverPack.init(function () {			
+
+		DriverPack.init(function () {
 			log('First init complete');
-			
+
 			statistics.event( { action: 'Screen opened Drivers' } );
             DriverPack.html();
         });
 		SoftPack.init(function () {
             //SoftPack.html();
         });
-		
-		
+
+
 		setTimeout(
 			function(){
-				
+
 				if ((!DriverPack._json.length) && (!SoftPack._json.length)) {
-					
+
 					document.getElementById('loader').style.backgroundImage = 'none';
 					document.getElementById('progressDescription').style.marginTop = '-200px';
 					document.getElementById('progressDescription').style.width = '500px'
 					document.getElementById('progressDescription').innerHTML = '<img src="img/wifi-disabled.png"><br>' + about_noconnection;
-					
+
 					statistics.event( { action: 'Screen opened NoInternet' } );
-					
-					
+
+
 				}
-				
+
 			},
 			15000
 		);
 	}
-	
+
 	setTimeout(onReady,100);
 </script>
 
