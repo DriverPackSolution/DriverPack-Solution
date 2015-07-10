@@ -12,9 +12,6 @@ var softPath = WshShell.SpecialFolders("AppData") + '\\DRPSu\\PROGRAMS';
 var locator = new ActiveXObject("WbemScripting.SWbemLocator");
 var objWMIService = locator.ConnectServer(null, "root\\cimv2");
 
-var isCheckSoftCheckboxes = false;
-var isCheckDriversCheckboxes = true;
-
 var isLite = false;
 if ((verType.indexOf('Lite')!=-1)||(verType.indexOf('Online')!=-1)) { isLite = true; }
 

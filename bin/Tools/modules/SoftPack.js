@@ -353,7 +353,7 @@ var SoftPack = {
                         }
                     }
                     setTimeout(function () {
-                        if (document.getElementById("m-apps").parentNode.classList.contains("green")) {
+                        if (document.getElementById("m-apps").parentNode.classList.contains("active")) {
                             _this.html();
                         }
                         _this.get(softName).install();
@@ -401,8 +401,8 @@ var SoftPack = {
 	html: function () {
 		nowShowedScreen = 'Soft';
 
-		document.getElementById("menu-drivers").className = document.getElementById("menu-drivers").className.replace(/\b green\b/ig,'');
-		document.getElementById("menu-soft").className = document.getElementById("menu-soft").className + ' green';
+		document.getElementById("menu-drivers").className = document.getElementById("menu-drivers").className.replace(/\b active\b/ig,'');
+		document.getElementById("menu-soft").className = document.getElementById("menu-soft").className + ' active';
 		document.getElementById('loader').style.display = 'block';
 		document.getElementById('loader').style.backgroundImage = 'url(Tools/load8.gif)';
 
@@ -434,7 +434,8 @@ var SoftPack = {
 		for (var i = 0; i < softs.length; i++) {
 
 			if (!driver_exists(softs[i].URL,SoftPack.path)){
-				newTbody += '<tr><td class="list-first"><input data-name="' + encodeURIComponent(softs[i].Name)  +
+				newTbody += '<tr' + (i % 2 ? '' : ' class="list-odd"') + '>' +
+						'<td class="list-first"><input data-name="' + encodeURIComponent(softs[i].Name)  +
 						'" id="checkSoft'+softs[i].ID+'" type="checkbox" ' + (SoftPack._json.soft[i].IsChecked?'checked':'') +
 						' onclick="SoftPack._json.soft['+i+'].IsChecked = (this.checked ? true : false); statistics.event( { action: \'Checkbox click\' });"/> </td>' +
 						'<td class="list-second"><label for="checkSoft'+softs[i].ID+'">' + softs[i].Name + '</label></td>' +
@@ -651,8 +652,7 @@ var SoftPack = {
 
 
 
-
-		document.getElementById('div-list').innerHTML = '<table id="list"><thead><tr><td class="list-first"><input value="checkSoft" type="checkbox" ' + (isCheckSoftCheckboxes?'checked':'') + ' onclick="selectAllCheckboxes(this);" /></td><td class="list-header">' + infobar_tabProgramm + '</td><td>' + dev_hint_version + '</td><td></td></tr></thead><tbody>'+newTbody+'</tbody></table>';
+		document.getElementById('div-list').innerHTML = '<table id="list"><thead><tr><td></td><td>' + infobar_tabProgramm + '</td><td class="head-third">' + dev_hint_version + '</td><td></td></tr></thead><tbody class=>'+newTbody+'</tbody></table>';
 		document.getElementById('h1-title').innerHTML = drivSign_xp2;
 		document.getElementById('getDownloadInstallTop').innerHTML = infobar_buttonInstAll;
 		document.getElementById('getDownloadInstallBottom').innerHTML = misc_inst5;

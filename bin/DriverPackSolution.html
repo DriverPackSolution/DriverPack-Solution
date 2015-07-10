@@ -31,6 +31,7 @@
         <link rel="stylesheet" type="text/css" href="css/normalize.min.css" />
         <link rel="stylesheet" type="text/css" href="css/open-sans.css" />
         <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <link rel="stylesheet" type="text/css" href="css/ui2.css" />
 
         <!--[if (IE 6)]>
 			<link rel="stylesheet" type="text/css" href="css/ie6.css" />
@@ -93,7 +94,7 @@
                      version="0.1"
                      windowState="maximize"/>
 
-    <body>
+    <body class="ui1">
 
 <script type="text/javascript">
 /*
@@ -181,6 +182,7 @@ setTimeout(function(){
                 <!-- { LEFT BLOCK [CHARMS] }-->
                 <td class="charms">
                     <img src="img\med_logo.png" class="charms_logo"/>
+                    <img src="img/med_logo_ui2.png" style="display:none" class="charms_logo_ui2"/>
                     <!-- { MAIN MENU }-->
                     <div class="main-menu">
                         <a href="#" onclick="statistics.event( { action: 'Screen opened Drivers' } ); DriverPack.html();
@@ -206,7 +208,7 @@ setTimeout(function(){
                     </div>
 
                     <!-- { BOTTOM MENU } -->
-            <u id="bottom-menu-line">__</u>
+            <u id="bottom-menu-line" class="menu-line">__</u>
 
 
 			<div class="bottom-menu">
@@ -246,13 +248,17 @@ setTimeout(function(){
                 </a>
             </div>
 			-->
-            <div class="copyright">Artur Kuzyakov © 2015</div>
+            <div class="copyright">
+                <div class="copyright-item" style="display:none"><a href="#" onClick="event.preventDefault(); toggle(document.getElementById('settings'))" class="menu-language-link">Language</a></div>
+                <div class="copyright-item" style="display:none"><a href="mailto:support@drp.su" class="menu-support-link">support@drp.su</a></div>
+                <div>Artur Kuzyakov © 2015</div>
+            </div>
         </td>
         <!-- { RIGHT BLOCK [CONTENT] }-->
         <td class="app-container">
-            <h1 id="h1-title"><script>l('infobar_DrvInst')</script></h1>
+            <h1 id="h1-title" class="app-title"><script>l('infobar_DrvInst')</script></h1>
             <div class="notification">
-                <div class="nt-body"><img src="img/info.png"><span id="description"><script>l('infobar_titleDriverAvailable')</script></br></span></div>
+                <div class="nt-body"><img class="nt-icon" src="img/info.png"><span class="nt-description" id="description"><script>l('infobar_titleDriverAvailable')</script></br></span></div>
                 <div class="nt-footer"><button id="getDownloadInstallTop" onclick="statistics.event( { action: 'Button Install All clicked' } ); getDownloadInstallAll();"><script>l('infobar_buttonInst')</script></button></div>
             </div>
 
@@ -274,7 +280,7 @@ setTimeout(function(){
 				</div>
             </div>
             <div class="app-footer">
-                <button id="getDownloadInstallBottom" onclick="statistics.event( { action: 'Button Install ' + nowShowedScreen + ' clicked' } ); getDownloadInstall();"><script>l('infobar_buttonInst')</script></button>
+                <button id="getDownloadInstallBottom" class="app-footer-button" onclick="statistics.event( { action: 'Button Install ' + nowShowedScreen + ' clicked' } ); getDownloadInstall();"><script>l('infobar_buttonInst')</script></button>
             </div>
 
         </td>
@@ -283,6 +289,9 @@ setTimeout(function(){
 
 <!-- { SCRIPT LOADS AFTER ALL PAGE CONTENT } -->
 <script type="text/javascript">
+    // experiment
+    document.body.className = 'ui' + statistics.experiment.ui;
+
     try {
         //fixPNG($('.menu-item-img'));
         //alert('a');
@@ -317,7 +326,7 @@ setTimeout(function(){
          names.push(decodeURIComponent($(this).data('name')));
          });*/
         for (var i = 0; i < names.length; i++) {
-            if (document.getElementById("m-pc").parentNode.classList.contains("green")) {
+            if (document.getElementById("m-pc").parentNode.classList.contains("active")) {
                 DriverPack.get(names[i]).download();
                 DriverPack.get(names[i]).install();
             }
@@ -360,44 +369,6 @@ setTimeout(function(){
 		);
 
 	}
-
-
-    // Поставить или снять все галочки
-
-    function selectAllCheckboxes(e) {
-        var tbodys = document.getElementById('list').getElementsByTagName('tbody');
-        var arrayElementsName = (e.value === 'checkDrivers' ? 'DriverPack._json' : 'SoftPack._json.soft');
-
-        if ( e.value === 'checkDrivers') {
-            isCheckDriversCheckboxes = (e.checked ? true : false);
-            statistics.event( { action: 'All drivers сheckbox click' });
-        }
-
-        if ( e.value === 'checkSoft') {
-            isCheckSoftCheckboxes = (e.checked ? true : false);
-            statistics.event( { action: 'All soft сheckbox click' });
-        }
-
-        for (var i = 0, n = tbodys.length; i < n; i++) {
-            if (i in tbodys) {
-                var inputs = tbodys[i].getElementsByTagName('input');
-                for (var j = 0, m = inputs.length; j < m; j++) {
-                    if (j in inputs && inputs[j].type == 'checkbox' && inputs[j].id.indexOf(e.value) != -1) {
-                        inputs[j].checked = (e.checked ? true : false);
-                    }
-                }
-
-                for (var k = 0; k < eval(arrayElementsName + '.length'); k++) {
-                    if (e.checked) {
-                        eval(arrayElementsName + '[k].IsChecked = true');
-                    }
-                    else {
-                        eval(arrayElementsName + '[k].IsChecked = false');
-                    }
-                }
-            }
-        }
-    };
 
 
 

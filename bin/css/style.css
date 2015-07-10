@@ -45,13 +45,13 @@ body{
 .left {
     float:left;
 }
-.green{
+.ui1 .active{
     background-color:#007701;
 }
 
 
 /* { LEFT CHARMS BAR } */
-.charms{
+.ui1 .charms{
     background-color: #222222;
     width: 266px;
     max-width:266px;
@@ -91,7 +91,7 @@ h2 {
 .main-menu {
 
 }
-.menu-e{
+.ui1 .menu-e{
     width:100%;
     height:48px;
     color:#222222;
@@ -109,7 +109,7 @@ h2 {
     background-repeat: no-repeat;
 }
 
-.menu-e i{
+.ui1 .menu-e i{
     font-style: normal;
     font-size:13pt;
     position: relative;
@@ -126,7 +126,7 @@ h2 {
 }
 
 /* Bottom Menu */
-#bottom-menu-line{
+.ui1 #bottom-menu-line{
     background-image: url('../img/charms/line.jpg');
     background-repeat: repeat-x;
     background-position: top;
@@ -139,7 +139,7 @@ h2 {
     margin-top:30px;
 
 }
-.bottom-menu{
+.ui1 .bottom-menu{
     margin-top:10px;
     width: 200px;
     margin-left: 30px;
@@ -256,7 +256,7 @@ h2 {
 .main td{
     border:none;
 }
-.app-container{
+.ui1 .app-container{
     color:black;
     height:100%;
     vertical-align: top;
@@ -267,7 +267,7 @@ h2 {
     padding-left:32px;
     padding-right:32px;
 }
-.app-container h1{
+.ui1 .app-container h1{
     font-size:18pt;
     color:#252525;
     padding-bottom: 10px;
@@ -280,7 +280,7 @@ h2 {
 .app-container a:hover{
     text-decoration: underline;
 }
-.app-container .app-footer {
+.ui1 .app-container .app-footer {
     padding-top:32px;
     padding-bottom: 32px;
 }
@@ -307,7 +307,7 @@ button:active{
     background-color: black;
 
 }
-.notification{
+.ui1 .notification{
     border-top: 1px solid #898989;
     border-bottom: 1px solid #898989;
     width: 100%;
@@ -315,16 +315,16 @@ button:active{
     padding-bottom:15px;
     font-size: 9pt;
 }
-.notification .nt-body{
+.ui1 .notification .nt-body{
     color:#383838;
 
 }
-.nt-body span{
+.ui1 .nt-body span{
     position: relative;
     bottom: 3px;
     left: 5px;
 }
-.nt-footer{
+.ui1 .nt-footer{
     padding-top:3px;
     padding-left:20px;
 }
@@ -339,13 +339,13 @@ button:active{
 
 /* { COMMON } */
 
-.items-list {
+.ui1 .items-list {
     margin-top:24px;
     margin-bottom:24px;
     width:100%;
     background: url('../img/table-list.jpg');
 }
-.items-list table{
+.ui1 .items-list table{
     width:100%;
     height:100%;
     margin:0px;
@@ -353,27 +353,27 @@ button:active{
     border:none;
 	font-size:20px;
 }
-.items-list .list-first{
+.ui1 .items-list .list-first{
     width:48px;
 
     height:32px;
 }
-.items-list .list-second{
+.ui1 .items-list .list-second{
     padding-left: 10px;
     font-size: 9pt;
 }
-.items-list .list-third{
+.ui1 .items-list .list-third{
     font-size: 9pt;
     width:48px;
 }
-.items-list .list-last{
+.ui1 .items-list .list-last{
     width:100px;
 	white-space:nowrap;
 }
-.list-third b{
+.ui1 .list-third b{
     margin-right: 10px;
 }
-.list-first img{
+.ui1 .list-first img{
     float:right;
     width:16px;
     height:16px;
@@ -396,7 +396,7 @@ button:active{
     background-color: #00ff00;
 }
 
-.copyright {
+.ui1 .copyright {
     position: fixed;
     bottom: 20px;
     color: white;
@@ -409,7 +409,7 @@ button:active{
 	width:80%;
 }
 
-#settings {
+.ui1 #settings {
 	text-align:center;
 }
 

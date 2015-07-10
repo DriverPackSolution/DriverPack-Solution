@@ -392,8 +392,8 @@ var DriverPack = {
     html: function () {
 		nowShowedScreen = 'Drivers';
 
-		document.getElementById("menu-drivers").className = document.getElementById("menu-drivers").className + ' green';
-		document.getElementById("menu-soft").className = document.getElementById("menu-soft").className.replace(/\b green\b/ig,'');
+		document.getElementById("menu-drivers").className = document.getElementById("menu-drivers").className + ' active';
+		document.getElementById("menu-soft").className = document.getElementById("menu-soft").className.replace(/\b active\b/ig,'');
         document.getElementById('loader').style.display = 'block';
 		document.getElementById('loader').style.backgroundImage = 'url(Tools/load8.gif)';
 
@@ -406,7 +406,8 @@ var DriverPack = {
 		for (var i = 1; i < drivers.length; i++) {
 
 			if (!driver_exists(drivers[i].URL,DriverPack.path)){
-				newTbody += '<tr><td class="list-first"><input data-name="' + encodeURIComponent(drivers[i].Name)  + '" id="checkDrivers'+drivers[i].ID+'" type="checkbox" ' + (DriverPack._json[i].IsChecked ? 'checked' : '') +' onclick="DriverPack._json['+i+'].IsChecked = (this.checked ? true : false); statistics.event( { action: \'Checkbox click\' });"/></td>' +
+				newTbody += '<tr' + ( (i - 1) % 2 ? '' : ' class="list-odd"') + '>' +
+						'<td class="list-first"><input data-name="' + encodeURIComponent(drivers[i].Name)  + '" id="checkDrivers'+drivers[i].ID+'" type="checkbox" ' + (DriverPack._json[i].IsChecked ? 'checked' : '') +' onclick="DriverPack._json['+i+'].IsChecked = (this.checked ? true : false); statistics.event( { action: \'Checkbox click\' });"/></td>' +
 						'<td class="list-second" title="' + drivers[i].DevID + '"><label for="checkDrivers'+drivers[i].ID+'"><img src="Tools/ico/button/' + DriverPack.getDriverIcon(drivers[i].URL) + '.png" />' + drivers[i].Name + '"</label></td>' +
 						'<td class="list-third" title="' + drivers[i].URL + '"><b>' + drivers[i].Date + '</b></td>' +
 						'<td class="list-last"></td>' +
@@ -620,7 +621,7 @@ var DriverPack = {
 		var description_text = infobar_titleDriverNew + ': <b>(' + drivers_count + ')</b><br>' + infobar_titleProgrammAvailable + ': <b>(' + softs_count + ')</b>';
 		var description_text_sp = infobar_titleDriverNew + ': <b>' + drivers_count + '</b><br>' + infobar_titleProgrammAvailable + ': <b>' + softs_count + '</b>';
 
-		document.getElementById('div-list').innerHTML = '<table id="list"><thead><tr><td class="list-first"><input value="checkDrivers" type="checkbox" ' + (isCheckDriversCheckboxes?'checked':'') + ' onclick="selectAllCheckboxes(this);" /></td><td class="list-header">' + infobar_tabDriver + '</td><td>' + dev_hint_version + '</td><td></td></tr></thead><tbody>'+newTbody+'</tbody></table>';
+		document.getElementById('div-list').innerHTML = '<table id="list"><thead><tr><td></td><td>' + infobar_tabDriver + '</td><td class="head-third">' + dev_hint_version + '</td><td></td></tr></thead><tbody>'+newTbody+'</tbody></table>';
         document.getElementById('h1-title').innerHTML = infobar_DrvInst;
 		document.getElementById('getDownloadInstallTop').innerHTML = infobar_buttonInstAll;
 		document.getElementById('getDownloadInstallBottom').innerHTML = misc_inst2;

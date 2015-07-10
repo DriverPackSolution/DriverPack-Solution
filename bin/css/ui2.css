@@ -1,0 +1,152 @@
+.ui2 .charms {
+    width: 206px;
+    height: 100%;
+    min-height: 600px;
+    vertical-align: top;
+    background-color: #222222;
+}
+.ui2 .charms_logo {
+    display: none;
+}
+.ui2 .charms_logo_ui2 {
+    display: block !important;
+    margin: 20px 20px 34px 20px;
+}
+.ui2 .menu-e {
+    display: block;
+    width: 100%;
+    height: 40px;
+    text-decoration: none;
+    font-size: 0;
+    color: #bdbdbd;
+    margin-top: 18px;
+}
+.ui2 .menu-e img {
+    display: none;
+}
+.ui2 .menu-e i{
+    display: block;
+    font-style: normal;
+    font-size: 18px;
+    padding: 7px 0 0 20px;
+}
+.ui2 .menu-e.active {
+    color: #ffffff;
+    background: #383838;
+}
+.ui2 .menu-e:hover {
+    background: #383838;
+}
+.ui2 .menu-line {
+    height: 10px;
+    background-image: url('../img/charms/line.jpg');
+    background-repeat: repeat-x;
+    background-position: top;
+    color: #222222;
+    padding-right: 166px;
+    font-size: 1px;
+    margin-left: 20px;
+}
+.ui2 .copyright {
+    position: fixed;
+    left: 20px;
+    bottom: 20px;
+    font-size: 12px;
+    color: #a2a2a2;
+}
+.ui2 .copyright-item {
+    display: block !important;
+    margin-bottom: 10px;
+}
+.ui2 .menu-language-link {
+    color: #ffffff;
+    text-decoration: none;
+}
+.ui2 .bottom-menu {
+    position: fixed;
+    left: 90px;
+    bottom: 72px;
+    z-index: 10;
+}
+.ui2 #settings {
+    display: none;
+}
+.ui2 .menu-support-link {
+    color: #a2a2a2;
+    text-decoration: none;
+}
+
+.ui2 button {
+    font-weight: normal;
+}
+.ui2 .app-container {
+    vertical-align: top;
+}
+.ui2 .app-container .app-title {
+    text-align: center;
+    font-size: 36px;
+    font-weight: normal;
+    margin: 20px 0 28px;
+}
+
+.ui2 .nt-body {
+    float: right;
+    text-align: right;
+    margin-top: 18px;
+    color: #bcbcbc;
+}
+.ui2 .nt-icon {
+    display: none;
+}
+.ui2 .nt-footer {
+    margin-left: 30px;
+}
+.ui2 .nt-description {
+    margin-right: 30px;
+}
+
+.ui2 .items-list {
+    margin-top: 25px;
+    font-size: 16px;
+    color: #767676;
+}
+.ui2 .items-list table {
+    width: 100%;
+    height: 100%;
+}
+.ui2 .items-list thead {
+    font-size: 18px;
+}
+.ui2 .head-third {
+    text-align: right;
+}
+.ui2 .list-odd {
+    background: #e4e4e4;
+}
+.ui2 .list-first {
+    width: 76px;
+    height: 32px;
+    text-align: center;
+    color: #000000;
+}
+.ui2 .list-second img {
+    display: none;
+}
+.ui2 .list-third {
+    text-align: right;
+}
+.ui2 .list-third b {
+    font-weight: normal;
+}
+.ui2 .list-last{
+    width: 25px;
+}
+
+.ui2 .app-footer {
+    margin: 20px 0 0 30px;
+}
+.ui2 .app-footer-button {
+    background: transparent;
+    border: solid 2px #007701;
+    color: #007701;
+}
