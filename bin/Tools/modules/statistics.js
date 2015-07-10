@@ -10,6 +10,7 @@ var statistics = {
 		enabled: true,
 		url: 'http://client.drp.su/'
 	},
+    hasGoogleSessionStarted: false,
     config: {
         userIdDimension: "cd1", //ClientID
         driverDimension: "cd2",
@@ -155,7 +156,11 @@ var statistics = {
         var ec = encodeURIComponent(event.category);
         var ea = encodeURIComponent(event.action);
         var el = encodeURIComponent(event.label);
-        var url = this._statisticUrl + "&cid=" + this.clientId + "&t=event" + "&ec=" + ec + "&ea=" + ea + "&el=" + el + "&lang=" + lang;
+        var url = this._statisticUrl + "&cid=" + this.clientId + "&t=event" + "&ec=" + ec + "&ea=" + ea + "&el=" + el + "&ul=" + lang;
+        if (!statistics.hasGoogleSessionStarted) {
+            url += '&sc=start';
+            statistics.hasGoogleSessionStarted = true;
+        }
 
         var param = [];
         for (var key in dimention) {
