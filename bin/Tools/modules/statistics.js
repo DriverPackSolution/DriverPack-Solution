@@ -24,6 +24,7 @@ var statistics = {
         softName: "cd9",
         drpVersion: "cd10",
         drpExitType: "cd11",
+        experimentNumber: "cd13",
         drpStartsCountMeasure: "cm1",
         drpInstallationTimeMeasure: "cm2",
         totalDriversInstallationCount: "cm3",
@@ -115,7 +116,8 @@ var statistics = {
 			statistics.clientId
 		];
 
-        dimention = dimention.push(defaultEventDimenstion);
+        // check push() return value in HTA
+        dimention.push(defaultEventDimenstion);
 
         if (this.clientId == "")
             this.clientId = this.generate();
@@ -224,10 +226,33 @@ var statistics = {
         xmlhttp.setRequestHeader("Content-Type", "text/html");
         xmlhttp.send();
         return true;
+    },
+    setupExperiment: function() {
+        var entropy = Math.floor(this.clientId);
+        var ui;
+        var copy;
+        switch (entropy % 3)
+        {
+        case 0:
+            ui = 1;
+            copy = 1;
+            break;
+        case 1:
+            ui = 2;
+            copy = 1;
+            break;
+        case 2:
+            ui = 2;
+            copy = 2;
+            break;
+        }
+        this.experiment = {ui: ui, copy: copy};
+        this.experimentNumber = 'ui' + ui + '-copy' + copy;
     }
 };
 
 statistics.init();
+statistics.setupExperiment();
 statistics.event(
 	{
 		action: 'opened'
@@ -240,6 +265,10 @@ statistics.event(
 		[
 			statistics.config.drpVersion,
 			statistics.drpVersion
-		]
+		],
+        [
+            statistics.config.experimentNumber,
+            statistics.experimentNumber
+        ],
 	]
 );
