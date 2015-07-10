@@ -210,17 +210,8 @@ setTimeout(function(){
 
 
 			<div class="bottom-menu">
-				<a href="" class="bt-menu-e" title="" onclick="toggle(document.getElementById('settings'))" style="margin-left:-15px;text-align:center;">
-                    <img id="m-gears" src="img/blank.gif"/><i><script>l(button_settings)</script></i>_
-                </a>
-
-				<div id="settings" style="display:none;">
-					<u id="bottom-menu-line" style="padding-right:160px;padding-left:0px;margin-left:0px;">__</u>
-
+				<div id="settings">
 					<select name="language" id="language" style="width:100px;" onChange="language_onChange(this);" style="font-size:9pt;"></select>
-
-					<br>
-					<button id="browse_logs" onclick='WshShell.Run("explorer \"" + drpPath + "\"",1,false);'><script>l(bugreport_buttonBrowse)</script></button>
 				</div>
 
 				<script language="javascript" type="text/javascript">
