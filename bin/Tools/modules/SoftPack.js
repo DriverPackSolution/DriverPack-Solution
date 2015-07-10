@@ -115,6 +115,10 @@ var SoftPack = {
 
     get: function (query) {
 
+    	if (!SoftPack._json) {
+    		log('Error: race condition: SoftPack vs DriverPack');
+    		return false
+    	}
 		var filteredArr = SoftPack.db();
 		if (typeof(filteredArr) == 'undefined') { return false; }
 
