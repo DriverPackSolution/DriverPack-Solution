@@ -232,6 +232,9 @@ var statistics = {
         var entropy = Math.floor(this.clientId);
         var ui;
         var copy;
+        if (lang !== 'ru') {
+            entropy = 0;
+        }
         switch (entropy % 3)
         {
         case 0:
