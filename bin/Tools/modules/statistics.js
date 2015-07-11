@@ -238,8 +238,8 @@ var statistics = {
             copy = 1;
             break;
         case 1:
-            ui = 2;
-            copy = 1;
+            ui = 1;
+            copy = 2;
             break;
         case 2:
             ui = 2;
