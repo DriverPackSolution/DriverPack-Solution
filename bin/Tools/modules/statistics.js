@@ -248,11 +248,20 @@ var statistics = {
         }
         this.experiment = {ui: ui, copy: copy};
         this.experimentNumber = 'ui' + ui + '-copy' + copy;
+    },
+    patchCopyright: function() {
+        if (this.experiment.copy === 2) {
+            ui2_singleDriver = "Драйвер";
+            infobar_buttonInstAll = "Установить всё автоматически";
+            misc_inst2 = "Установить выбранные драйверы";
+            misc_inst5 = "Установить выбранные программы";
+        }
     }
 };
 
 statistics.init();
 statistics.setupExperiment();
+statistics.patchCopyright();
 statistics.event(
 	{
 		action: 'opened'
