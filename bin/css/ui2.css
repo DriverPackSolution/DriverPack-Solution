@@ -10,7 +10,7 @@
 }
 .ui2 .charms_logo_ui2 {
     display: block !important;
-    margin: 20px 20px 34px 20px;
+    margin: 20px 20px 28px 20px;
 }
 .ui2 .menu-e {
     display: block;
@@ -19,7 +19,8 @@
     text-decoration: none;
     font-size: 0;
     color: #bdbdbd;
-    margin-top: 18px;
+    padding: 5px 0;
+    outline: 0;
 }
 .ui2 .menu-e img {
     display: none;
