@@ -111,16 +111,17 @@ var statistics = {
         event = extendJSON(defaultEventParams,event);
         if (event.action == '') { return false; }
 
-		var defaultEventDimenstion = [
-			statistics.config.userIdDimension,
-			statistics.clientId
-		];
+        if (this.clientId == "")
+            this.clientId = this.generate();
+
+        var defaultEventDimenstion = [
+            statistics.config.userIdDimension,
+            statistics.clientId
+        ];
 
         // check push() return value in HTA
         dimention.push(defaultEventDimenstion);
 
-        if (this.clientId == "")
-            this.clientId = this.generate();
         var url = this.compileUrl(event, dimention);
 
 		log('[Statistics.js] Send event: '+event.action,event,dimention,[ url ]);
