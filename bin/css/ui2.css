@@ -116,6 +116,9 @@
     margin-top: 25px;
     font-size: 16px;
     color: #767676;
+
+    /* width fixes row height in IE6, */
+    width: 100%;
 }
 .ui2 .items-list table {
     width: 100%;
