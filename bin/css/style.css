@@ -117,11 +117,11 @@ h2 {
     color:white;
 }
 
-.menu-e:hover{
+.ui1 .menu-e:hover{
     background-color:#007701;
     color:#007701;
 }
-.menu-e:active{
+.ui1 .menu-e:active{
     background-color:black;
 }
 
