@@ -77,8 +77,12 @@
     text-decoration: none;
 }
 
+.ui1.copy2 button {
+    width: 370px;
+}
 .ui2 button {
     width: 300px;
+    font-size: 18px;
     font-weight: normal;
 }
 .ui2 .app-container {
@@ -96,6 +100,7 @@
     text-align: right;
     margin-top: 18px;
     color: #bcbcbc;
+    font-size: 16px;
 }
 .ui2 .nt-icon {
     display: none;
