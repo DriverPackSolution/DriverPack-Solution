@@ -9,7 +9,10 @@
 }
 
 .copyright {
-	position: absolute;
+	position: absolute !important;
+}
+.ui2 .bottom-menu {
+	position: absolute !important;
 }
 
 /* Старый добрый дедовский способ */
