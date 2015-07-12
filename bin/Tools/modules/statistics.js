@@ -249,6 +249,9 @@ var statistics = {
             ui = 2;
             copy = 2;
             break;
+        default:
+            ui = 1;
+            copy = 1;
         }
         this.experiment = {ui: ui, copy: copy};
         this.experimentNumber = 'ui' + ui + '-copy' + copy;
