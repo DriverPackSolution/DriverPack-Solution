@@ -249,7 +249,7 @@ setTimeout(function(){
             </div>
 			-->
             <div class="copyright">
-                <div class="copyright-item" style="display:none"><a href="#" onClick="event.preventDefault(); toggle(document.getElementById('settings'))" class="menu-language-link">Language</a></div>
+                <div class="copyright-item" style="display:none"><a href="#" onClick="statistics.event( { category: 'Desktop', action: 'Button Language clicked', label: statistics.drpVersion } ); toggle(document.getElementById('settings'))" class="menu-language-link">Language</a></div>
                 <div class="copyright-item" style="display:none"><a href="mailto:support@drp.su" class="menu-support-link">support@drp.su</a></div>
                 <div>Artur Kuzyakov © 2015</div>
             </div>
