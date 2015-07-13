@@ -202,6 +202,13 @@ var SoftPack = {
 
     },
 
+    setChecked: function(ID, value) {
+    	SoftPack._json.soft.forEach(function(soft) {
+    		if (soft.ID === ID) {
+    			soft.IsChecked = value;
+    		}
+    	})
+    },
 
 
 
@@ -435,8 +442,8 @@ var SoftPack = {
 			if (!driver_exists(softs[i].URL,SoftPack.path)){
 				newTbody += '<tr' + (i % 2 ? '' : ' class="list-odd"') + '>' +
 						'<td class="list-first"><input data-name="' + encodeURIComponent(softs[i].Name)  +
-						'" id="checkSoft'+softs[i].ID+'" type="checkbox" ' + (SoftPack._json.soft[i].IsChecked?'checked':'') +
-						' onclick="SoftPack._json.soft['+i+'].IsChecked = (this.checked ? true : false); SoftPack.renderCounter(); statistics.event( { action: \'Checkbox click\' });"/> </td>' +
+						'" id="checkSoft'+softs[i].ID+'" type="checkbox" ' + (softs[i].IsChecked?'checked':'') +
+						' onclick="SoftPack.setChecked('+softs[i].ID+', this.checked ? true : false); SoftPack.renderCounter(); statistics.event( { action: \'Checkbox click\' });"/> </td>' +
 						'<td class="list-second"><label for="checkSoft'+softs[i].ID+'">' + softs[i].Name + '</label></td>' +
 						'<td class="list-third" title="' + softs[i].URL + '"><b>' + softs[i].Version + '</b></td>' +
 						'<td class="list-last"></td>' +
