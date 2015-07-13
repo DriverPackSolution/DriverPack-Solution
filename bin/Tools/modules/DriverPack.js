@@ -401,18 +401,16 @@ var DriverPack = {
         var newTbody = document.createElement('tbody');
 		var newTbody = '';
 		var drivers = DriverPack.get({ 'SELECT': '*' });
-		var drivers_count = 0;
 
 		for (var i = 1; i < drivers.length; i++) {
 
 			if (!driver_exists(drivers[i].URL,DriverPack.path)){
 				newTbody += '<tr' + ( (i - 1) % 2 ? '' : ' class="list-odd"') + '>' +
-						'<td class="list-first"><input data-name="' + encodeURIComponent(drivers[i].Name)  + '" id="checkDrivers'+drivers[i].ID+'" type="checkbox" ' + (DriverPack._json[i].IsChecked ? 'checked' : '') +' onclick="DriverPack._json['+i+'].IsChecked = (this.checked ? true : false); statistics.event( { action: \'Checkbox click\' });"/></td>' +
+						'<td class="list-first"><input data-name="' + encodeURIComponent(drivers[i].Name)  + '" id="checkDrivers'+drivers[i].ID+'" type="checkbox" ' + (DriverPack._json[i].IsChecked ? 'checked' : '') +' onclick="DriverPack._json['+i+'].IsChecked = (this.checked ? true : false); DriverPack.renderCounter(); statistics.event( { action: \'Checkbox click\' });"/></td>' +
 						'<td class="list-second" title="' + drivers[i].DevID + '"><label for="checkDrivers'+drivers[i].ID+'"><img src="Tools/ico/button/' + DriverPack.getDriverIcon(drivers[i].URL) + '.png" />' + drivers[i].Name + '"</label></td>' +
 						'<td class="list-third" title="' + drivers[i].URL + '"><b>' + drivers[i].Date + '</b></td>' +
 						'<td class="list-last"></td>' +
 						'</tr>';
-				drivers_count++;
 			}
 
         }
@@ -618,18 +616,29 @@ var DriverPack = {
 		};
 
 
-		var description_text = infobar_titleDriverNew + ': <b>(' + drivers_count + ')</b><br>' + infobar_titleProgrammAvailable + ': <b>(' + softs_count + ')</b>';
-		var description_text_sp = infobar_titleDriverNew + ': <b>' + drivers_count + '</b><br>' + infobar_titleProgrammAvailable + ': <b>' + softs_count + '</b>';
-
 		document.getElementById('div-list').innerHTML = '<table id="list"><thead><tr><td></td><td>' + ui2_singleDriver + '</td><td class="head-third">' + dev_hint_version + '</td><td></td></tr></thead><tbody>'+newTbody+'</tbody></table>';
         document.getElementById('h1-title').innerHTML = infobar_DrvInst;
 		document.getElementById('getDownloadInstallTop').innerHTML = infobar_buttonInstAll;
 		document.getElementById('getDownloadInstallBottom').innerHTML = misc_inst2;
-		document.getElementById('description').innerHTML = infobar_titleDriverNew + ': <b>(' + drivers_count + ')</b><br>' + infobar_titleProgrammAvailable + ': <b>(' + softs_count + ')</b>';
 		document.getElementById('loader').style.display = 'none';
+		this.renderCounter();
     },
 
-
+    renderCounter: function () {
+        var drivers_count = 0;
+        var softs_count = 0;
+        DriverPack._json.forEach(function(driver) {
+            if (driver.IsChecked && driver.Name !== 'dpinst.zip') {
+                drivers_count++;
+            }
+        });
+        SoftPack._json.soft.forEach(function(soft) {
+            if (soft.IsChecked) {
+                softs_count++;
+            }
+        });
+        document.getElementById('description').innerHTML = infobar_titleDriverNew + ': <b>(' + drivers_count + ')</b><br>' + infobar_titleProgrammAvailable + ': <b>(' + softs_count + ')</b>';
+    },
 
 
 

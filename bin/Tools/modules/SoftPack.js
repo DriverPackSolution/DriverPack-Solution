@@ -429,7 +429,6 @@ var SoftPack = {
 
 
 		var softs = SoftPack.get({ 'SELECT': '*', 'WHERE': [ { 'isInstalled': false } ] });
-		var softs_count = 0;
 
 		for (var i = 0; i < softs.length; i++) {
 
@@ -437,14 +436,11 @@ var SoftPack = {
 				newTbody += '<tr' + (i % 2 ? '' : ' class="list-odd"') + '>' +
 						'<td class="list-first"><input data-name="' + encodeURIComponent(softs[i].Name)  +
 						'" id="checkSoft'+softs[i].ID+'" type="checkbox" ' + (SoftPack._json.soft[i].IsChecked?'checked':'') +
-						' onclick="SoftPack._json.soft['+i+'].IsChecked = (this.checked ? true : false); statistics.event( { action: \'Checkbox click\' });"/> </td>' +
+						' onclick="SoftPack._json.soft['+i+'].IsChecked = (this.checked ? true : false); SoftPack.renderCounter(); statistics.event( { action: \'Checkbox click\' });"/> </td>' +
 						'<td class="list-second"><label for="checkSoft'+softs[i].ID+'">' + softs[i].Name + '</label></td>' +
 						'<td class="list-third" title="' + softs[i].URL + '"><b>' + softs[i].Version + '</b></td>' +
 						'<td class="list-last"></td>' +
 						'</tr>';
-				if (softs[i].CheckedDefault){
-					softs_count++;
-				}
 			}
 
         }
@@ -656,7 +652,23 @@ var SoftPack = {
 		document.getElementById('h1-title').innerHTML = drivSign_xp2;
 		document.getElementById('getDownloadInstallTop').innerHTML = infobar_buttonInstAll;
 		document.getElementById('getDownloadInstallBottom').innerHTML = misc_inst5;
-		document.getElementById('description').innerHTML = infobar_titleDriverNew + ': <b>(' + drivers_count + ')</b><br>' + infobar_titleProgrammAvailable + ': <b>(' + softs_count + ')</b>';
 		document.getElementById('loader').style.display = 'none';
+		this.renderCounter();
+    },
+
+    renderCounter: function () {
+        var drivers_count = 0;
+        var softs_count = 0;
+        DriverPack._json.forEach(function(driver) {
+            if (driver.IsChecked && driver.Name !== 'dpinst.zip') {
+                drivers_count++;
+            }
+        });
+        SoftPack._json.soft.forEach(function(soft) {
+            if (soft.IsChecked) {
+                softs_count++;
+            }
+        });
+        document.getElementById('description').innerHTML = infobar_titleDriverNew + ': <b>(' + drivers_count + ')</b><br>' + infobar_titleProgrammAvailable + ': <b>(' + softs_count + ')</b>';
     }
 };
