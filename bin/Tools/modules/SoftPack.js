@@ -672,7 +672,7 @@ var SoftPack = {
             }
         });
         SoftPack._json.soft.forEach(function(soft) {
-            if (soft.IsChecked) {
+            if (soft.IsChecked && !soft.isInstalled && !driver_exists(soft.URL, SoftPack.path)) {
                 softs_count++;
             }
         });
