@@ -10,6 +10,7 @@ var statistics = {
 		enabled: true,
 		url: 'http://client.drp.su/'
 	},
+    hasGoogleSessionStarted: false,
     config: {
         userIdDimension: "cd1", //ClientID
         driverDimension: "cd2",
@@ -23,6 +24,7 @@ var statistics = {
         softName: "cd9",
         drpVersion: "cd10",
         drpExitType: "cd11",
+        experimentNumber: "cd13",
         drpStartsCountMeasure: "cm1",
         drpInstallationTimeMeasure: "cm2",
         totalDriversInstallationCount: "cm3",
@@ -43,7 +45,7 @@ var statistics = {
     },
     init: function () {
 		this.initYaMetrika();
-		
+
         var file = "tools\\modules\\clientid.js";
         if (fso.FileExists(file)) {
             var text = fso.GetFile(file);
@@ -55,7 +57,6 @@ var statistics = {
         }
     },
 	initYaMetrika: function(){
-		
 		(function (d, w, c) {
 			(w[c] = w[c] || []).push(function() {
 				try {
@@ -79,7 +80,7 @@ var statistics = {
 
 			f();
 		})(document, window, "yandex_metrika_callbacks");
-		
+
 	},
     setClientId: function (text) {
         text = text.substr(text.indexOf("'") + 1, text.indexOf("'", text.indexOf("'") + 1) - text.indexOf("'") - 1);
@@ -98,9 +99,9 @@ var statistics = {
         return uuid;
     },
     event: function (event, dimention) {
-		
+
 		var dimention = dimention || [];
-		
+
 		var defaultEventParams = {
 			category: 'desktop',
 			action: '',
@@ -110,53 +111,59 @@ var statistics = {
         event = extendJSON(defaultEventParams,event);
         if (event.action == '') { return false; }
 
-		var defaultEventDimenstion = [
-			statistics.config.userIdDimension,
-			statistics.clientId
-		];
-		
-        dimention = dimention.push(defaultEventDimenstion);
-
         if (this.clientId == "")
             this.clientId = this.generate();
+
+        var defaultEventDimenstion = [
+            statistics.config.userIdDimension,
+            statistics.clientId
+        ];
+
+        // check push() return value in HTA
+        dimention.push(defaultEventDimenstion);
+
         var url = this.compileUrl(event, dimention);
-		
+
 		log('[Statistics.js] Send event: '+event.action,event,dimention,[ url ]);
-		
+
 		this.sendUrl(url);
 		this.sendYaMetrika(event);
-		
+
         return true;
     },
 	sendYaMetrika:function(event){
-		
+
 		if (!statistics._yaMetrika.enabled){ return false; }
 		if (typeof(window.yaCounter) == 'undefined') {
-			
+
 			setTimeout(
 				function(){
-					
+
 					statistics.sendYaMetrika(event);
-					
+
 				},
 				500
 			);
 			return false;
-			
+
 		}
-		
+
 		var url = statistics._yaMetrika.url + event.category.replace(/ /ig,'_') + '/' + event.action.replace(/ /ig,'_') + '/' + event.label.replace(/ /ig,'_');
 		var params = { clientId: statistics.clientId + '' };
-		
+
 		log('[Statistics.js] Send event Yandex.Metrika: '+event.action,[ url ], params);
 		window.yaCounter.hit(url, document.title, null, params);
-		
+
 	},
     compileUrl: function (event, dimention) {
         var ec = encodeURIComponent(event.category);
         var ea = encodeURIComponent(event.action);
         var el = encodeURIComponent(event.label);
-        var url = this._statisticUrl + "&cid=" + this.clientId + "&t=event" + "&ec=" + ec + "&ea=" + ea + "&el=" + el + "&lang=" + lang;
+        var url = this._statisticUrl + "&cid=" + this.clientId + "&t=event" + "&ec=" + ec + "&ea=" + ea + "&el=" + el + "&ul=" + lang;
+        if (!statistics.hasGoogleSessionStarted) {
+            url += '&sc=start';
+            statistics.hasGoogleSessionStarted = true;
+        }
 
         var param = [];
         for (var key in dimention) {
@@ -220,10 +227,48 @@ var statistics = {
         xmlhttp.setRequestHeader("Content-Type", "text/html");
         xmlhttp.send();
         return true;
+    },
+    setupExperiment: function() {
+        var entropy = Math.floor(this.clientId);
+        var ui;
+        var copy;
+        if (lang !== 'ru') {
+            entropy = 0;
+        }
+        switch (entropy % 3)
+        {
+        case 0:
+            ui = 1;
+            copy = 1;
+            break;
+        case 1:
+            ui = 1;
+            copy = 2;
+            break;
+        case 2:
+            ui = 2;
+            copy = 2;
+            break;
+        default:
+            ui = 1;
+            copy = 1;
+        }
+        this.experiment = {ui: ui, copy: copy};
+        this.experimentNumber = 'ui' + ui + '-copy' + copy;
+    },
+    patchCopyright: function() {
+        if (this.experiment.copy === 2) {
+            ui2_singleDriver = "Драйвер";
+            infobar_buttonInstAll = "Установить всё автоматически";
+            misc_inst2 = "Установить выбранные драйверы";
+            misc_inst5 = "Установить выбранные программы";
+        }
     }
 };
 
 statistics.init();
+statistics.setupExperiment();
+statistics.patchCopyright();
 statistics.event(
 	{
 		action: 'opened'
@@ -236,6 +281,10 @@ statistics.event(
 		[
 			statistics.config.drpVersion,
 			statistics.drpVersion
-		]
+		],
+        [
+            statistics.config.experimentNumber,
+            statistics.experimentNumber
+        ],
 	]
 );

@@ -1,0 +1,10 @@
+{
+  "name": "driverpack-solution",
+  "private": true,
+  "scripts": {
+    "start": "browser-sync start --server bin --index /DriverPackSolution.html --files bin"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.7.13"
+  }
+}

@@ -10,7 +10,7 @@ error_lastfunc =		"Последняя функция";
 var firstError = true;
 window.onerror=function(msg, url, linenumber){
 	shortUrl = url.substring(url.lastIndexOf('/')+1,url.length);
-	
+
 	/*
 	if (firstError) {
 		if (confirm(
@@ -21,7 +21,7 @@ window.onerror=function(msg, url, linenumber){
 			shortUrl+'\n   '+
 			error_inline+': '+
 			linenumber)) {
-						
+
 						var lfn = '';
 						try {
 							if (arguments.callee.caller) {
@@ -29,9 +29,9 @@ window.onerror=function(msg, url, linenumber){
 							}
 						}
 						catch(e){}
-						
+
 						htaError(msg, shortUrl, linenumber, lfn);
-						
+
 		}
 		firstError = false;
 	}
@@ -41,8 +41,8 @@ window.onerror=function(msg, url, linenumber){
 		}
 	}
 	*/
-	
-	
+
+
 	var lfn = '';
 	try {
 		if (arguments.callee.caller) {
@@ -50,10 +50,10 @@ window.onerror=function(msg, url, linenumber){
 		}
 	}
 	catch(e){}
-	
+
 	htaError(msg, shortUrl, linenumber, lfn);
-	
-	
+
+
 	log(
 		'!!! ERROR !!! '+
 		msg+'\r\n'+
@@ -85,7 +85,7 @@ function errorCatch(funcName,e,params){
 	if (typeof params=="undefined") { params=''; }
 	//if (funcName.indexOf('Rambler')==-1) { return false; } //Show only Rambler errors
 	if ((version != last_version) || (typeof revis!="undefined" && revis!=last_revision)) { return false; } //Show only 12.12 errors
-	
+
 	inc('http://drp.su/update/error-catch/?funcName='+encodeURIComponent(funcName)+'&script=update&line=0&DRP_version='+encodeURIComponent(version)+'&message='+encodeURIComponent(e.message)+'&description='+encodeURIComponent(e.description)+'&number='+encodeURIComponent(e.number)+'&errorName='+encodeURIComponent(e.name)+'&params='+encodeURIComponent(params));
 }
 
@@ -152,10 +152,10 @@ window.onerror=function(msg, url, linenumber){
 	var OSVersionEr = wpi('Caption','Win32_OperatingSystem').replace(/Microsoft /i,"") + " " + wpi('CSDVersion','Win32_OperatingSystem').replace(/Service Pack /i,"SP") + " " + wpi('OSArchitecture','Win32_OperatingSystem')
 	var JSVersion = ScriptEngine()+" "+ScriptEngineMajorVersion()+"."+ScriptEngineMinorVersion();
 	var re = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
-	
+
 	log([ 'http://static.drp.su/update/error-catch/?script='+encodeURIComponent(url)+'&line='+encodeURIComponent(linenumber)+'&DRP_version='+encodeURIComponent(version + " " + verType)+'&message='+encodeURIComponent(msg)+'&description='+encodeURIComponent(OSVersionEr+' IE: '+IEVers+' '+JSVersion) ]);
 	inc('http://static.drp.su/update/error-catch/?script='+encodeURIComponent(url)+'&line='+encodeURIComponent(linenumber)+'&DRP_version='+encodeURIComponent(version + " " + verType)+'&message='+encodeURIComponent(msg)+'&description='+encodeURIComponent(OSVersionEr+' IE: '+IEVers+' '+JSVersion));
-	
+
 	onerror_old(msg, url, linenumber);
 	return true;
 }
