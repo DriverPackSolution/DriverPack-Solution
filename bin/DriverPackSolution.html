@@ -347,23 +347,20 @@ setTimeout(function(){
 			function(){
 
 
-				if (nowShowedScreen=='Drivers'){
-					SoftPack.html();
-				}
-				else {
-					DriverPack.html();
-				}
-				getDownloadInstall(
-					function(){
+				(nowShowedScreen=='Drivers' ? SoftPack.html : DriverPack.html)(function(){
+					getDownloadInstall(
+						function(){
 
-						setTimeout(
-							function(){
-   								document.getElementById('progressDescription').innerHTML = '<div style="font-size:40px;">' + infobar_titleAllInst + '<br>' + infobar_titleProgramm + '</div> <button onclick="DriverPack.init(function () { DriverPack.html(); })">' + button_finish + '</button>';
-							},
-							10
-						);
-					}
-				);
+							setTimeout(
+								function(){
+										document.getElementById('progressDescription').innerHTML = '<div style="font-size:40px;">' + infobar_titleAllInst + '<br>' + infobar_titleProgramm + '</div> <button onclick="DriverPack.init(function () { DriverPack.html(); })">' + button_finish + '</button>';
+								},
+								10
+							);
+						}
+					);
+				})
+
 
 			}
 		);
@@ -403,6 +400,7 @@ setTimeout(function(){
         });
 		SoftPack.init(function () {
             //SoftPack.html();
+            DriverPack.renderCounter();
         });
 
 

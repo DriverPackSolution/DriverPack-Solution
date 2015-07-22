@@ -405,7 +405,7 @@ var SoftPack = {
 
 
 
-	html: function () {
+	html: function (callback) {
 		nowShowedScreen = 'Soft';
 
 		document.getElementById("menu-drivers").className = document.getElementById("menu-drivers").className.replace(/\b active\b/ig,'');
@@ -623,23 +623,24 @@ var SoftPack = {
 									);
 
 
+									var set_complete_view = function(){
+										progressCounter.start({
+											startCount: 100,
+											endCount: 100
+										});
 
-									progressCounter.start({
-										startCount: 100,
-										endCount: 100
-									});
 
+										document.getElementById('loader').style.backgroundImage = "none";
+										document.getElementById('progressDescription').innerHTML = infobar_infoProgramm + ' <br><button onclick="DriverPack.init(function () { DriverPack.html(); })">' + button_finish + '</button>';
+										//document.getElementById('loader').style.display = 'none';
+										//alert('Установка завершена!');
 
-									document.getElementById('loader').style.backgroundImage = "none";
-									document.getElementById('progressDescription').innerHTML = infobar_infoProgramm + ' <br><button onclick="DriverPack.init(function () { DriverPack.html(); })">' + button_finish + '</button>';
-									//document.getElementById('loader').style.display = 'none';
-									//alert('Установка завершена!');
+										statistics.event( { action: 'Screen opened ThxScreen' } );
 
-									statistics.event( { action: 'Screen opened ThxScreen' } );
-
-									//SoftPack.html();
-									onComplite();
-
+										//SoftPack.html();
+										onComplite();
+									}
+									set_complete_view();
 								}
 							}
 						);
@@ -654,13 +655,16 @@ var SoftPack = {
 		};
 
 
-
-		document.getElementById('div-list').innerHTML = '<table id="list"><thead><tr><td></td><td>' + infobar_tabProgramm + '</td><td class="head-third">' + dev_hint_version + '</td><td></td></tr></thead><tbody class=>'+newTbody+'</tbody></table>';
-		document.getElementById('h1-title').innerHTML = drivSign_xp2;
-		document.getElementById('getDownloadInstallTop').innerHTML = infobar_buttonInstAll;
-		document.getElementById('getDownloadInstallBottom').innerHTML = misc_inst5;
-		document.getElementById('loader').style.display = 'none';
-		this.renderCounter();
+		var set_html = function(additional_soft_count){
+			document.getElementById('div-list').innerHTML = '<table id="list"><thead><tr><td></td><td>' + infobar_tabProgramm + '</td><td class="head-third">' + dev_hint_version + '</td><td></td></tr></thead><tbody class=>'+newTbody+'</tbody></table>';
+			document.getElementById('h1-title').innerHTML = drivSign_xp2;
+			document.getElementById('getDownloadInstallTop').innerHTML = infobar_buttonInstAll;
+			document.getElementById('getDownloadInstallBottom').innerHTML = misc_inst5;
+			document.getElementById('loader').style.display = 'none';
+			SoftPack.renderCounter();
+			callback && callback();
+		}
+		set_html();
     },
 
     renderCounter: function () {
