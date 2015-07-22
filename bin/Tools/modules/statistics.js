@@ -149,7 +149,13 @@ var statistics = {
 		}
 
 		var url = statistics._yaMetrika.url + event.category.replace(/ /ig,'_') + '/' + event.action.replace(/ /ig,'_') + '/' + event.label.replace(/ /ig,'_');
-		var params = { clientId: statistics.clientId + '' };
+		var params = {
+            clientId: statistics.clientId + '',
+            language: lang
+        };
+        if (lang === 'ru') {
+            params.experimentNumber = statistics.experimentNumber;
+        }
 
 		log('[Statistics.js] Send event Yandex.Metrika: '+event.action,[ url ], params);
 		window.yaCounter.hit(url, document.title, null, params);
