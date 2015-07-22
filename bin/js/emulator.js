@@ -1,5 +1,14 @@
-if (typeof ActiveXObject === 'undefined') {
+var hasActiveX;
+try{
+    hasActiveX = new window.ActiveXObject('WScript.Shell');
+} catch(e) {
+    hasActiveX = false;
+}
+if (!hasActiveX) {
     window.emulatingIE = true;
+
+    window.localStorage = window.localStorage || {};
+    window.console = window.console || {log: function() {}};
     window.ActiveXObject = function(name) {
         switch (name) {
         case 'WScript.Shell':
