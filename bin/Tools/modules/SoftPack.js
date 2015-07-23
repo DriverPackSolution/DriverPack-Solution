@@ -404,7 +404,7 @@ var SoftPack = {
 
 
 
-
+	c32_whitelist: /game\s*xp|спутник|sputnik|sidex|сайдекс/i,
 	c32_init_and_load : function (callback) {
 		if (c32lib._cache) {
 			//SoftPack.c32_render(c32lib._cache,callback);
@@ -426,55 +426,56 @@ var SoftPack = {
 			c32lib._html_callback();
 	},
 	c32_max_count : 20, //5, //Ограничение на число выводимых софтов.
-	c32_count : function () {
+	c32_count : function (chk_callback, slide_callback) {
 		var data = c32lib._cache || [];
 		var count = 0;
-		for (var i = 0; i < data.length; i++)
-			count += data[i].checkboxes.length;
-		count = Math.min(SoftPack.c32_max_count, count);
+		var max_count = SoftPack.c32_max_count;
+		for (var i = 0; i < data.length; i++){
+			for (var j = 0; j < data[i].checkboxes.length; j++) {
+				if (count >= max_count || !SoftPack.c32_whitelist.test(data[i].checkboxes[j]))
+					continue;
+				chk_callback && chk_callback(i,j,data[i], data[i].checkboxes[j]);
+				count ++;
+			}
+		}
 		return count;
 	},
 	c32_render : function (data, callback) {
 		var html = '';
-		var softs_counter = 0;
-		var max_count = SoftPack.c32_max_count;
-		for (var i = 0; i < data.length; i++) { // Составляем HTML представление слайдов.
-			for (var j = 0; j < data[i].checkboxes.length; j++) {
-				if (softs_counter >= max_count) // больше не рендерим чекбоксы
-					continue;
-				html += '<tr><td class="list-first"><input data-name="' + encodeURIComponent(data[i].checkboxes[j]) + '" id="c32chk_' + i + '_' + j + '" name="c32chk" class="c32chk" type="checkbox" ' + (/*CheckedDefault*/
-					true ? 'checked' : '') + '/> </td>' +
-				'<td class="list-second">' + data[i].checkboxes[j] + '</td>' +
-				'<td class="list-third">-</td>' +
-				'<td class="list-last"></td>' +
-				'</tr>';
-				softs_counter++;
-			}
-			if (data[i].licenses.length || data[i].confidentials.length)
-				html += '<tr><td class="list-first"></td>' +
-				'<td class="list-second">';
-			if (data[i].licenses.length > 0) {
-				html += '<div>Ознакомьтесь с лицензионными соглашениями:</div>';
-				var links = [];
-				for (j = 0; j < data[i].licenses.length; j++) {
-					links.push('<a href="' + data[i].licenses[j].soft_name + '">' + data[i].licenses[j].soft_name + '</a>');
+		var softs_counter = SoftPack.c32_count(function(slide_id, chk_id, slide, caption){
+			html += '<tr><td class="list-first"><input data-name="' + encodeURIComponent(caption) + '" id="c32chk_' + slide_id + '_' + chk_id + '" name="c32chk" class="c32chk" type="checkbox" ' + (true ? 'checked' : '') + '/> </td>' +
+			'<td class="list-second">' + caption + '</td>' +
+			'<td class="list-third">-</td>' +
+			'<td class="list-last"></td>' +
+			'</tr>';
+			
+			if(chk_id == slide.checkboxes.length - 1){
+				if (slide.licenses.length || slide.confidentials.length)
+					html += '<tr><td class="list-first"></td>' +
+					'<td class="list-second">';
+				if (slide.licenses.length > 0) {
+					html += '<div>Ознакомьтесь с лицензионными соглашениями:</div>';
+					var links = [];
+					for (j = 0; j < slide.licenses.length; j++) {
+						links.push('<a href="' + slide.licenses[j].soft_name + '">' + slide.licenses[j].soft_name + '</a>');
+					}
+					html += links.join(' | ');
 				}
-				html += links.join(' | ');
-			}
-			if (data[i].confidentials.length > 0) {
-				html += '<div>Ознакомьтесь с политиками конфиденциальности:</div>';
-				var links = [];
-				for (j = 0; j < data[i].confidentials.length; j++) {
-					links.push('<a href="' + data[i].confidentials[j].soft_name + '">' + data[i].confidentials[j].soft_name + '</a>');
+				if (slide.confidentials.length > 0) {
+					html += '<div>Ознакомьтесь с политиками конфиденциальности:</div>';
+					var links = [];
+					for (j = 0; j < slide.confidentials.length; j++) {
+						links.push('<a href="' + slide.confidentials[j].soft_name + '">' + slide.confidentials[j].soft_name + '</a>');
+					}
+					html += links.join(' | ');
 				}
-				html += links.join(' | ');
+				if (slide.licenses.length || slide.confidentials.length)
+					html += '</td>' +
+					'<td class="list-third"></td>' +
+					'<td class="list-last"></td>' +
+					'</tr>';
 			}
-			if (data[i].licenses.length || data[i].confidentials.length)
-				html += '</td>' +
-				'<td class="list-third"></td>' +
-				'<td class="list-last"></td>' +
-				'</tr>';
-		}
+		});
 		callback(html, softs_counter);
 	},
 	c32_has_checked : function () {
