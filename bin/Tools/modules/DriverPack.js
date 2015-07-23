@@ -627,7 +627,7 @@ var DriverPack = {
 
     renderCounter: function () {
         var drivers_count = 0;
-        var softs_count = 0;
+        var softs_count = SoftPack.c32_count() || 0;
         DriverPack._json.forEach(function(driver) {
             if (driver.IsChecked && driver.Name !== 'dpinst.zip') {
                 drivers_count++;

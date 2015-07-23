@@ -9,4 +9,6 @@ myEvent(chkevent, function(e) { // For >=IE7, Chrome, Firefox
 	*/
 	
 	statistics.event( { action: 'Closed' } );
+	
+	WshShell.Run('"Tools\\unregister_sxsoa.bat" ', 0, false);
 });
