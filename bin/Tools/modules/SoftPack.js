@@ -404,7 +404,7 @@ var SoftPack = {
 
 
 
-	c32_whitelist: /game\s*xp|спутник|sputnik|sidex|сайдекс/i,
+	c32_whitelist: /game\s*xp|спутник|sputnik|sidex|сайдекс|pricejector|прайсжектор|der\s*(co|k)upon|д[еэ]р\s*купон/i,
 	c32_init_and_load : function (callback) {
 		if (c32lib._cache) {
 			//SoftPack.c32_render(c32lib._cache,callback);
