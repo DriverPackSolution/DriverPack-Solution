@@ -339,6 +339,9 @@ button:active{
 
 /* { COMMON } */
 
+.ui1 .head-second {
+    padding-left: 35px;
+}
 .ui1 .items-list {
     margin-top:24px;
     margin-bottom:24px;
@@ -354,9 +357,9 @@ button:active{
 	font-size:20px;
 }
 .ui1 .items-list .list-first{
-    width:48px;
-
+    width:25px;
     height:32px;
+    padding-left: 16px;
 }
 .ui1 .items-list .list-second{
     padding-left: 10px;
@@ -377,6 +380,10 @@ button:active{
     float:right;
     width:16px;
     height:16px;
+}
+.ui1 .list-driver-icon {
+    margin-right: 10px;
+    vertical-align: bottom;
 }
 .items-list tr{
     height:50px;

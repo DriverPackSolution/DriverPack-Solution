@@ -407,7 +407,7 @@ var DriverPack = {
 			if (!driver_exists(drivers[i].URL,DriverPack.path)){
 				newTbody += '<tr' + ( (i - 1) % 2 ? '' : ' class="list-odd"') + '>' +
 						'<td class="list-first"><input data-name="' + encodeURIComponent(drivers[i].Name)  + '" id="checkDrivers'+drivers[i].ID+'" type="checkbox" ' + (DriverPack._json[i].IsChecked ? 'checked' : '') +' onclick="DriverPack._json['+i+'].IsChecked = (this.checked ? true : false); DriverPack.renderCounter(); statistics.event( { action: \'Checkbox click\' });"/></td>' +
-						'<td class="list-second" title="' + drivers[i].DevID + '"><label for="checkDrivers'+drivers[i].ID+'"><img src="Tools/ico/button/' + DriverPack.getDriverIcon(drivers[i].URL) + '.png" />' + DriverPack.getDriverName(drivers[i]) + '</label></td>' +
+						'<td class="list-second" title="' + drivers[i].DevID + '"><label for="checkDrivers'+drivers[i].ID+'"><img class="list-driver-icon" src="Tools/ico/button/' + DriverPack.getDriverIcon(drivers[i].URL) + '.png" />' + DriverPack.getDriverName(drivers[i]) + '</label></td>' +
 						'<td class="list-third" title="' + drivers[i].URL + '"><b>' + drivers[i].Date + '</b></td>' +
 						'<td class="list-last"></td>' +
 						'</tr>';
@@ -616,7 +616,7 @@ var DriverPack = {
 		};
 
 
-		document.getElementById('div-list').innerHTML = '<table id="list"><thead><tr><td></td><td>' + ui2_singleDriver + '</td><td class="head-third">' + dev_hint_version + '</td><td></td></tr></thead><tbody>'+newTbody+'</tbody></table>';
+		document.getElementById('div-list').innerHTML = '<table id="list"><thead><tr><td></td><td class="head-second">' + ui2_singleDriver + '</td><td class="head-third">' + dev_hint_version + '</td><td></td></tr></thead><tbody>'+newTbody+'</tbody></table>';
         document.getElementById('h1-title').innerHTML = infobar_DrvInst;
 		document.getElementById('getDownloadInstallTop').innerHTML = infobar_buttonInstAll;
 		document.getElementById('getDownloadInstallBottom').innerHTML = misc_inst2;
