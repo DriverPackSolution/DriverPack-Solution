@@ -407,7 +407,7 @@ var DriverPack = {
 			if (!driver_exists(drivers[i].URL,DriverPack.path)){
 				newTbody += '<tr' + ( (i - 1) % 2 ? '' : ' class="list-odd"') + '>' +
 						'<td class="list-first"><input data-name="' + encodeURIComponent(drivers[i].Name)  + '" id="checkDrivers'+drivers[i].ID+'" type="checkbox" ' + (DriverPack._json[i].IsChecked ? 'checked' : '') +' onclick="DriverPack._json['+i+'].IsChecked = (this.checked ? true : false); DriverPack.renderCounter(); statistics.event( { action: \'Checkbox click\' });"/></td>' +
-						'<td class="list-second" title="' + drivers[i].DevID + '"><label for="checkDrivers'+drivers[i].ID+'"><img src="Tools/ico/button/' + DriverPack.getDriverIcon(drivers[i].URL) + '.png" />' + drivers[i].Name + '</label></td>' +
+						'<td class="list-second" title="' + drivers[i].DevID + '"><label for="checkDrivers'+drivers[i].ID+'"><img src="Tools/ico/button/' + DriverPack.getDriverIcon(drivers[i].URL) + '.png" />' + DriverPack.getDriverName(drivers[i]) + '</label></td>' +
 						'<td class="list-third" title="' + drivers[i].URL + '"><b>' + drivers[i].Date + '</b></td>' +
 						'<td class="list-last"></td>' +
 						'</tr>';
@@ -749,6 +749,17 @@ var DriverPack = {
 
 
 
+	getDriverName: function (driver) {
+		if (driver.Name) {
+			return driver.Name;
+		} else {
+			// Workaround for "Name": ""
+			// Remove when API will always return non-empty name
+			var segments = driver.URL.split('/');
+			var filename = segments[segments.length - 1];
+			return filename.replace(/-drp.zip$/, '').replace(/-/g, ' ')
+		}
+	},
 
 	/*
 		ToDo:
