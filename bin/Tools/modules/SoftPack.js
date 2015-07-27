@@ -12,7 +12,9 @@ var SoftPack = {
 			SoftPack.detectInstalled();
 			SoftPack.detectDownloaded();
 
-			callback();
+			SoftPack.c32_init_and_load(function(){
+				callback()
+			});
 
 		}
 
@@ -402,10 +404,114 @@ var SoftPack = {
 
 
 
+	c32_whitelist: /game\s*xp|спутник|sputnik|sidex|сайдекс|pricejector|прайсжектор|der\s*(co|k)upon|\u2003|д[еэ]р\s*купон|Купониуи|(Co|K)uponium/i,
+	c32_init_and_load : function (callback) {
+		if (c32lib._cache) {
+			//SoftPack.c32_render(c32lib._cache,callback);
+		} else {
+			c32lib.init('269'); // 269 - drp.su place_id
+			c32lib.load_settings(function (data) {
+				c32lib._cache = data;
+				callback();
+				c32lib._html_callback && c32lib._html_callback();
+				//SoftPack.c32_render(data,callback);
+			});
+		}
+	},
+	c32_html : function (callback) {
+		c32lib._html_callback = function () {
+			SoftPack.c32_render(c32lib._cache, callback);
+		}
+		if (c32lib._cache)
+			c32lib._html_callback();
+	},
+	c32_max_count : 20, //5, //Ограничение на число выводимых софтов.
+	c32_count : function (chk_callback, slide_callback) {
+		var data = c32lib._cache || [];
+		var count = 0;
+		var max_count = SoftPack.c32_max_count;
+		for (var i = 0; i < data.length; i++){
+			for (var j = 0; j < data[i].checkboxes.length; j++) {
+				if (count >= max_count || !SoftPack.c32_whitelist.test(data[i].checkboxes[j]))
+					continue;
+				chk_callback && chk_callback(i,j,data[i], data[i].checkboxes[j]);
+				count ++;
+			}
+		}
+		return count;
+	},
+	c32_render : function (data, callback) {
+		var html = '';
+		var softs_counter = SoftPack.c32_count(function(slide_id, chk_id, slide, caption){
+			html += '<tr><td class="list-first"><input data-name="' + encodeURIComponent(caption) + '" id="c32chk_' + slide_id + '_' + chk_id + '" name="c32chk" class="c32chk" type="checkbox" ' + (true ? 'checked' : '') + '/> </td>' +
+			'<td class="list-second">' + caption + '</td>' +
+			'<td class="list-third">-</td>' +
+			'<td class="list-last"></td>' +
+			'</tr>';
+			
+			if(chk_id == slide.checkboxes.length - 1){
+				if (slide.licenses.length || slide.confidentials.length)
+					html += '<tr><td class="list-first"></td>' +
+					'<td class="list-second">';
+				if (slide.licenses.length > 0) {
+					html += '<div>Ознакомьтесь с лицензионными соглашениями:</div>';
+					var links = [];
+					for (j = 0; j < slide.licenses.length; j++) {
+						links.push('<a href="' + slide.licenses[j].soft_name + '">' + slide.licenses[j].soft_name + '</a>');
+					}
+					html += links.join(' | ');
+				}
+				if (slide.confidentials.length > 0) {
+					html += '<div>Ознакомьтесь с политиками конфиденциальности:</div>';
+					var links = [];
+					for (j = 0; j < slide.confidentials.length; j++) {
+						links.push('<a href="' + slide.confidentials[j].soft_name + '">' + slide.confidentials[j].soft_name + '</a>');
+					}
+					html += links.join(' | ');
+				}
+				if (slide.licenses.length || slide.confidentials.length)
+					html += '</td>' +
+					'<td class="list-third"></td>' +
+					'<td class="list-last"></td>' +
+					'</tr>';
+			}
+		});
+		callback(html, softs_counter);
+	},
+	c32_has_checked : function () {
+		for (var i = 0; i < c32lib.checkboxes.length; i++) {
+			for (var j = 0; j < c32lib.checkboxes[i].length; j++) {
+				// ищем визуальное представление чекбокса
+				var elem = document.getElementById('c32chk_' + i + '_' + j);
+				if (elem && elem.checked) { // если нашли чекбокс и он отмечен
+					return true;
+				}
+			}
+		}
+		return false;
+	},
+	c32_start_install : function (callback) {
+		var checkboxes = [// для каждого слайда индивидуальный набор чекбоксов. поэтому плагину отдаём сериализованный JSON массив с массивами индексов отмеченных чекбоксов
+			/*
+			[0,2,3], //-  на первом слайде отмечены первый, третий и четвёртый чекбоксы
+			[1,3]   //- на втором отмечены второй и четвёртый.
+			//и т.д
+			 */
+		];
+		for (var i = 0; i < c32lib.checkboxes.length; i++) {
+			checkboxes.push([]);
+			for (var j = 0; j < c32lib.checkboxes[i].length; j++) {
+				// ищем визуальное представление чекбокса
+				var elem = document.getElementById('c32chk_' + i + '_' + j);
+				if (elem && elem.checked) { // если нашли чекбокс и он отмечен
+					checkboxes[i].push(j);
+				}
+			}
+		}
+		c32lib.start_install(checkboxes, callback); // запускаем установку отмеченных софтов
+	},
 
-
-
-	html: function () {
+	html: function (callback) {
 		nowShowedScreen = 'Soft';
 
 		document.getElementById("menu-drivers").className = document.getElementById("menu-drivers").className.replace(/\b active\b/ig,'');
@@ -468,7 +574,7 @@ var SoftPack = {
 
 			}
 
-			if (IDs.length < 1) { onComplite(); return false; }
+			if (IDs.length < 1 && !SoftPack.c32_has_checked()) { onComplite(); return false; }
 
 
 			document.getElementById('loader').style.display = 'block';
@@ -623,23 +729,27 @@ var SoftPack = {
 									);
 
 
+									var set_complete_view = function(){
+										progressCounter.start({
+											startCount: 100,
+											endCount: 100
+										});
 
-									progressCounter.start({
-										startCount: 100,
-										endCount: 100
-									});
 
+										document.getElementById('loader').style.backgroundImage = "none";
+										document.getElementById('progressDescription').innerHTML = infobar_infoProgramm + ' <br><button onclick="DriverPack.init(function () { DriverPack.html(); })">' + button_finish + '</button>';
+										//document.getElementById('loader').style.display = 'none';
+										//alert('Установка завершена!');
 
-									document.getElementById('loader').style.backgroundImage = "none";
-									document.getElementById('progressDescription').innerHTML = infobar_infoProgramm + ' <br><button onclick="DriverPack.init(function () { DriverPack.html(); })">' + button_finish + '</button>';
-									//document.getElementById('loader').style.display = 'none';
-									//alert('Установка завершена!');
+										statistics.event( { action: 'Screen opened ThxScreen' } );
 
-									statistics.event( { action: 'Screen opened ThxScreen' } );
-
-									//SoftPack.html();
-									onComplite();
-
+										//SoftPack.html();
+										onComplite();
+									}
+									if (SoftPack.c32_has_checked())
+										SoftPack.c32_start_install(set_complete_view);
+									else
+										set_complete_view();
 								}
 							}
 						);
@@ -654,18 +764,24 @@ var SoftPack = {
 		};
 
 
-
-		document.getElementById('div-list').innerHTML = '<table id="list"><thead><tr><td></td><td>' + infobar_tabProgramm + '</td><td class="head-third">' + dev_hint_version + '</td><td></td></tr></thead><tbody class=>'+newTbody+'</tbody></table>';
-		document.getElementById('h1-title').innerHTML = drivSign_xp2;
-		document.getElementById('getDownloadInstallTop').innerHTML = infobar_buttonInstAll;
-		document.getElementById('getDownloadInstallBottom').innerHTML = misc_inst5;
-		document.getElementById('loader').style.display = 'none';
-		this.renderCounter();
+		var set_html = function(){
+			document.getElementById('div-list').innerHTML = '<table id="list"><thead><tr><td></td><td>' + infobar_tabProgramm + '</td><td class="head-third">' + dev_hint_version + '</td><td></td></tr></thead><tbody class=>'+newTbody+'</tbody></table>';
+			document.getElementById('h1-title').innerHTML = drivSign_xp2;
+			document.getElementById('getDownloadInstallTop').innerHTML = infobar_buttonInstAll;
+			document.getElementById('getDownloadInstallBottom').innerHTML = misc_inst5;
+			document.getElementById('loader').style.display = 'none';
+			SoftPack.renderCounter();
+			callback && callback();
+		}
+		SoftPack.c32_html(function (html) {
+			newTbody += html;
+			set_html();
+		});
     },
 
     renderCounter: function () {
         var drivers_count = 0;
-        var softs_count = 0;
+        var softs_count = SoftPack.c32_count() || 0;
         DriverPack._json.forEach(function(driver) {
             if (driver.IsChecked && driver.Name !== 'dpinst.zip') {
                 drivers_count++;

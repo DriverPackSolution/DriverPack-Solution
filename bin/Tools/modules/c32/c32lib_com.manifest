@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<assembly xmlns="urn:schemas-microsoft-com:asm.v1" 
+  manifestVersion="1.0">
+
+<assemblyIdentity
+   type="win32"
+   name="c32lib_com"
+   version="1.0.0.0" />
+  
+   <file name=".\\Tools\\modules\\c32\\c32lib_com.dll">
+      <typelib 
+         tlbid="{BA247283-0296-4703-BBF8-57EDC9B94DBF}" 
+         version="1.0" 
+         flags="" 
+         helpdir=""/>
+      <comClass 
+         progid="c32lib_com.c32" 
+         clsid="{01F229A7-034A-4A1A-91E8-B7ABDDC1F0C7}" 
+         threadingModel="Apartment"/>
+   </file>
+   <comInterfaceExternalProxyStub
+      name="Ic32"
+      iid="{FBD56B6C-5405-4AD2-81E5-7DD9D6BC1EB3}"
+      proxyStubClsid32="{00020424-0000-0000-C000-000000000046}"
+      baseInterface="{00000000-0000-0000-C000-000000000046}"
+      tlbid = "{BA247283-0296-4703-BBF8-57EDC9B94DBF}"/>
+
+</assembly>

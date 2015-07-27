@@ -56,6 +56,12 @@
 			}
 			
 			try {
+				var WshShell = new ActiveXObject("WScript.Shell");
+				WshShell.Run('"Tools\\register_sxsoa.bat" ', 0, true);
+			} 
+			catch(e){}
+			
+			try {
 				window.location.href = '..\\DriverPackSolution.html' + cmd;
 			}
 			catch(e){

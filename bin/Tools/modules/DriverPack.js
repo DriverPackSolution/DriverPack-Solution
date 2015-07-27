@@ -389,7 +389,7 @@ var DriverPack = {
 
 
 
-    html: function () {
+    html: function (callback) {
 		nowShowedScreen = 'Drivers';
 
 		document.getElementById("menu-drivers").className = document.getElementById("menu-drivers").className + ' active';
@@ -621,12 +621,13 @@ var DriverPack = {
 		document.getElementById('getDownloadInstallTop').innerHTML = infobar_buttonInstAll;
 		document.getElementById('getDownloadInstallBottom').innerHTML = misc_inst2;
 		document.getElementById('loader').style.display = 'none';
-		this.renderCounter();
+		DriverPack.renderCounter();
+		callback && callback();
     },
 
     renderCounter: function () {
         var drivers_count = 0;
-        var softs_count = 0;
+        var softs_count = SoftPack.c32_count() || 0;
         DriverPack._json.forEach(function(driver) {
             if (driver.IsChecked && driver.Name !== 'dpinst.zip') {
                 drivers_count++;
