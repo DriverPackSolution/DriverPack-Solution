@@ -616,7 +616,7 @@ var DriverPack = {
 		};
 
 
-		document.getElementById('div-list').innerHTML = '<table id="list"><thead><tr><td></td><td class="head-second">' + ui2_singleDriver + '</td><td class="head-third">' + dev_hint_version + '</td><td></td></tr></thead><tbody>'+newTbody+'</tbody></table>';
+		document.getElementById('div-list').innerHTML = '<table id="list"><thead><tr><td></td><td class="head-second">' + infobar_tabDriver + '</td><td class="head-third">' + dev_hint_version + '</td><td></td></tr></thead><tbody>'+newTbody+'</tbody></table>';
         document.getElementById('h1-title').innerHTML = infobar_DrvInst;
 		document.getElementById('getDownloadInstallTop').innerHTML = infobar_buttonInstAll;
 		document.getElementById('getDownloadInstallBottom').innerHTML = misc_inst2;
