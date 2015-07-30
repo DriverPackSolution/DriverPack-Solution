@@ -204,7 +204,7 @@ var SoftPack = {
 
     setChecked: function(ID, value) {
     	SoftPack._json.soft.forEach(function(soft) {
-    		if (soft.ID === ID) {
+    		if (soft.ID === ID.toString()) {
     			soft.IsChecked = value;
     		}
     	})
