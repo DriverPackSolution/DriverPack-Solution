@@ -236,26 +236,13 @@ var SoftPack = {
 		setTimeout(
 			function(){
 				log('Started downloading IDs: ' + IDs);
-				events.beforeAllDownloaded(); //Событие: beforeAllDownloaded
-
-				url.forEach(function(item,i,url) {
-
-					log('Downloading: ' + item.URL + '. To folder: ' + SoftPack.path);
-					events.beforeDownloading(item,i,url);
-
-					wget_driver(item.URL,SoftPack.path);
-					//SoftPack._json.soft[i].isDownloaded = true; //Не работает, так как индексы в массивах разные
-
-					events.afterDownloading(item,i,url); //Событие: afterDownloading()
-
-
+				events.beforeAllDownloaded();
+				wget.downloadFiles(events, SoftPack.path, url).caught(function(err) {
+					log('SoftPack: error on downloading:', err);
+				}).lastly(function () {
+					log('Downloaded soft!');
+					events.afterAllDownloaded();
 				});
-
-
-				events.afterAllDownloaded(); //Событие: afterAllDownloaded()
-
-				//callback();
-
 			},
 			0
 		);

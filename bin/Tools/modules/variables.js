@@ -168,28 +168,6 @@ if (!fso.FolderExists(AppData+'\\DRPSu\\Logs')) { fso.CreateFolder(AppData+'\\DR
 
 
 var wget_path = 'tools\\wget.exe';
-function wget_driver(downloadURI, targetFolder, size) {
-	log('Wget start');
-    if (fso.FileExists(wget_path)) {
-		log('Wget exists');
-        if (!driver_exists(downloadURI, targetFolder)) {
-            var parsed_url = downloadURI.split("/");
-            //Function to be run during the downloading to check the progress.
-            //if (!getPercents_interval) {
-            //    getPercents_interval = setInterval('getPercents()', 150);
-            //}
-
-			log('Starting wget.exe: ' + '"'+wget_path+'" -P "' + targetFolder + '" "' + downloadURI + '" -o "' + logFolder + 'DRP-Lite-Status.txt"');
-			var wsShellObj = WshShell.run('"'+wget_path+'" -P "' + targetFolder + '" "' + downloadURI + '" -o "' + logFolder + 'DRP-Lite-Status.txt"', 0, true);
-            log( [ fso.OpenTextFile(logFolder + "DRP-Lite-Status.txt", 1, false).ReadAll() ] );
-
-			var downloudedFileDest = targetFolder + (targetFolder ? '\\' : '') + fso.GetFileName(downloadURI);
-            return parsed_url[parsed_url.length - 1];
-        } else {
-            return null;
-        }
-    }
-}
 
 /*
  Checking the driver in the folder. NOT in tha system, but only in the folder

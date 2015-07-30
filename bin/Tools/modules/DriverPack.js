@@ -247,26 +247,13 @@ var DriverPack = {
 		setTimeout(
 			function(){
 				log('Started downloading IDs: ' + IDs);
-				events.beforeAllDownloaded(); //Событие: beforeAllDownloaded
-
-				url.forEach(function(item,i,url) {
-
-					log('Downloading: ' + item.URL + '. To folder: ' + DriverPack.path);
-					events.beforeDownloading(item,i,url); //Событие: beforeDownloading()
-
-					wget_driver(item.URL,DriverPack.path);
-					//DriverPack._json[i].isDownloaded = true; //Не работает, так как индексы в массивах разные
-
-					events.afterDownloading(item,i,url); //Событие: afterDownloading()
-
-
+				events.beforeAllDownloaded();
+				wget.downloadFiles(events, DriverPack.path, url).caught(function(err) {
+					log('DriverPack: error on downloading:', err);
+				}).lastly(function () {
+					log('Downloaded drivers!');
+					events.afterAllDownloaded();
 				});
-
-
-				log('Downloaded drivers!');
-				events.afterAllDownloaded(); //Событие: afterAllDownloaded()
-				//callback();
-
 			},
 			0
 		);

@@ -44,6 +44,8 @@
              <link rel="stylesheet" type="text/css" href="css/ie7.css" />
         <![endif]-->
 
+        <script type="text/javascript" src="js/bluebird.js"></script>
+        <script type="text/javascript" src="js/ie_fixes.js"></script>
         <script type="text/javascript" src="js/emulator.js"></script>
 
         <!-- { LIBRARIES } -->
@@ -58,17 +60,16 @@
         <!-- debug mode -->
         <script type="text/javascript" src="js/emulator-patcher.js"></script>
 
-        <script type="text/javascript" src="js/ie_fixes.js"></script>
-		<script type="text/javascript" src="Tools/modules/wpi.js"></script>
+        <script type="text/javascript" src="Tools/modules/wpi.js"></script>
 
         <script type="text/javascript" src="js/jquery.js"></script>
 
         <!-- { MODULES } -->
+        <script type="text/javascript" src="js/wget.js"></script>
         <script type="text/javascript" src="Tools/modules/DriverPack.js"></script>
         <script type="text/javascript" src="Tools/modules/SoftPack.js"></script>
         <script type="text/javascript" src="Tools/modules/News.js"></script>
         <script type="text/javascript" src="Tools/modules/StartPack.js"></script>
-        <script type="text/javascript" src="Tools/modules/WgetPack.js"></script>
 		<script type="text/javascript" src="Tools/modules/statistics.js"></script>
 		<script type="text/javascript" src="Tools/modules/onunload.js"></script>
 
@@ -128,7 +129,8 @@ progressCounter = {
 
     start: function (params){
 
-		var _this = progressCounter;
+        var _this = progressCounter;
+        extendJSON(_this.settings,params);
         setTimeout(
             function(){
 
