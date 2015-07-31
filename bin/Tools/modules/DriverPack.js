@@ -110,6 +110,37 @@ var DriverPack = {
 
 	},
 
+	stringifyWithLimit: function (array, limit)  {
+		var safe;
+		var take = limit * 0.02;
+		var decoded_limit = limit * 0.75;
+		var serialized;
+		while (true) {
+			serialized = JSON.stringify(array.slice(0, take));
+			if (take > array.length - 1) {
+				log('[stringifyWithLimit] picked ' + array.length + ' out of ' + array.length + ' (all)');
+				return serialized;
+			} else if (serialized.length > decoded_limit) {
+				if (safe) {
+					log('[stringifyWithLimit] picked ' + take + ' out of ' + array.length);
+					return safe;
+				} else {
+					if (take > 0) {
+						log('[stringifyWithLimit] could not pick, restarting loop...');
+						take = 0;
+						continue;
+					} else {
+						log('failed to serialize drivers');
+						return JSON.stringify([]);
+					}
+				}
+			} else {
+				safe = serialized;
+			}
+			take++;
+		}
+	},
+
 
 	/*
 		init()
@@ -124,9 +155,10 @@ var DriverPack = {
 			log("JSON drivers:",DriverPack.installed);
 
 
+			// TODO: send installed and not_installed without cutting it to 2000 characters
 			var data = {
-				not_installed: JSON.stringify(DriverPack.not_installed).replace(/\\\\/ig,"-"),
-				installed: JSON.stringify(DriverPack.installed).replace(/\\\\/ig,"-"),
+				not_installed: DriverPack.stringifyWithLimit(DriverPack.not_installed, 2000).replace(/\\\\/ig,"-"),
+				installed: DriverPack.stringifyWithLimit(DriverPack.installed, 2000).replace(/\\\\/ig,"-"),
 				version: (is64 ? '64': '32'),
 				os: (OSVersion=='6.1'?'7':OSVersion)
 			};
