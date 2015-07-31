@@ -16,9 +16,12 @@ var SoftPack = {
 
 		}
 
-		JSONP(
-			(isBeta?'http://update-test2.drp.su/v2/soft/?callback':'http://update.drp.su/v2/soft/?callback')
-		);
+		// JSONP breaks when response is cached and there is no timeout
+		setTimeout(function () {
+			JSONP(
+				(isBeta?'http://update-test2.drp.su/v2/soft/?callback':'http://update.drp.su/v2/soft/?callback')
+			);
+		}, 100);
 
     },
 	detectInstalled: function () {
