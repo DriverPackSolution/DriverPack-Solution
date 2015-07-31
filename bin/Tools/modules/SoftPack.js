@@ -457,6 +457,7 @@ var SoftPack = {
 
 
 		getDownloadInstall = function(onComplite){
+		    News.html();
 
 			onComplite = onComplite || function(){};
 
@@ -634,6 +635,7 @@ var SoftPack = {
 
 
 									document.getElementById('loader').style.backgroundImage = "none";
+									News.hide();
 									document.getElementById('progressDescription').innerHTML = infobar_infoProgramm + ' <br><button onclick="DriverPack.init(function () { DriverPack.html(); })">' + button_finish + '</button>';
 									//document.getElementById('loader').style.display = 'none';
 									//alert('Установка завершена!');
@@ -666,19 +668,19 @@ var SoftPack = {
 		this.renderCounter();
     },
 
-    renderCounter: function () {
-        var drivers_count = 0;
+    getSoftCount: function () {
         var softs_count = 0;
-        DriverPack._json.forEach(function(driver) {
-            if (driver.IsChecked && driver.Name !== 'dpinst.zip') {
-                drivers_count++;
-            }
-        });
         SoftPack._json.soft.forEach(function(soft) {
             if (soft.IsChecked && !soft.isInstalled && !driver_exists(soft.URL, SoftPack.path)) {
                 softs_count++;
             }
         });
+        return softs_count;
+    },
+
+    renderCounter: function () {
+        var drivers_count = DriverPack.getDriverCount();
+        var softs_count = SoftPack.getSoftCount();
         document.getElementById('description').innerHTML = infobar_titleDriverNew + ': <b>(' + drivers_count + ')</b><br>' + infobar_titleProgrammAvailable + ': <b>(' + softs_count + ')</b>';
     }
 };

@@ -30,8 +30,12 @@
         <!-- { STYLES } -->
         <link rel="stylesheet" type="text/css" href="css/normalize.min.css" />
         <link rel="stylesheet" type="text/css" href="css/open-sans.css" />
+        <link rel="stylesheet" type="text/css" href="css/fonts.css" />
         <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <link rel="stylesheet" type="text/css" href="css/start.css" />
+        <link rel="stylesheet" type="text/css" href="css/news.css" />
         <link rel="stylesheet" type="text/css" href="css/ui2.css" />
+        <link rel="stylesheet" type="text/css" href="css/media-queries.css" />
 
         <!--[if (IE 6)]>
              <link rel="stylesheet" type="text/css" href="css/ie6.css" />
@@ -48,6 +52,8 @@
 		<script type="text/javascript" src="Tools/modules/language.js"></script>
 		<script type="text/javascript" src="Tools/modules/error.js"></script>
 		<script type="text/javascript" src="Tools/modules/logs.js"></script>
+        <!-- https://code.google.com/p/css3-mediaqueries-js/ -->
+        <script type="text/javascript" src="js/css3-mediaqueries.js"></script>
 
         <!-- debug mode -->
         <script type="text/javascript" src="js/emulator-patcher.js"></script>
@@ -55,9 +61,13 @@
         <script type="text/javascript" src="js/ie_fixes.js"></script>
 		<script type="text/javascript" src="Tools/modules/wpi.js"></script>
 
+        <script type="text/javascript" src="js/jquery.js"></script>
+
         <!-- { MODULES } -->
         <script type="text/javascript" src="Tools/modules/DriverPack.js"></script>
         <script type="text/javascript" src="Tools/modules/SoftPack.js"></script>
+        <script type="text/javascript" src="Tools/modules/News.js"></script>
+        <script type="text/javascript" src="Tools/modules/StartPack.js"></script>
         <script type="text/javascript" src="Tools/modules/WgetPack.js"></script>
 		<script type="text/javascript" src="Tools/modules/statistics.js"></script>
 		<script type="text/javascript" src="Tools/modules/onunload.js"></script>
@@ -96,7 +106,7 @@
                      version="0.1"
                      windowState="maximize"/>
 
-    <body class="ui1">
+    <body class="ui1 start_cta-1">
 
 <script type="text/javascript">
 /*
@@ -178,8 +188,87 @@ setTimeout(function(){
 
 </script>
 
-		<div id="loader"><a href="#"></a>&nbsp; <div id="progress"><span id="progressCounter"></span> <br><span id="progressDescription"><br><script>l(infobar_titleLoading)</script></span></div></div>
-        <table class="main">
+		<div id="loader">
+            <a href="#"></a>&nbsp; <div id="progress"><span id="progressCounter"></span> <br><span id="progressDescription"><br><script>l(infobar_titleLoading)</script></span></div>
+
+            <div id="News" style="width: 100%; display: none;"><table align="center" style="margin: 60px auto 0px auto; border: 1px solid #DCDCDC; width: 650px; heigth: 100%;"><tr><td style="padding: 0;">
+                <div class="news">
+                    <div class="news_head">Новости Hi-Tech.Mail.Ru</div>
+                    <div class="news_feed-wrapper">
+                        <table class="news_feed" onMouseOver="News.pause()">
+                            <tr class="news_item">
+                                <td class="news_item-image-holder"><a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/fas-mts-beeline-megafon.html'); return false" href="https://hi-tech.mail.ru/news/fas-mts-beeline-megafon.html" class="news_item-image-link" target="_blank"><img src="img/news/img1.jpg" class="news_item-image"></a><td>
+                                <td class="news_item-text">
+                                    <a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/fas-mts-beeline-megafon.html'); return false" href="https://hi-tech.mail.ru/news/fas-mts-beeline-megafon.html" class="news_item-title" target="_blank">ФАС оштрафовала МТС, Мегафон и ВымпелКом</a>
+                                    <a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/fas-mts-beeline-megafon.html'); return false" href="https://hi-tech.mail.ru/news/fas-mts-beeline-megafon.html" class="news_item-lead" target="_blank">Операторы «большой тройки» распространяли на ТВ рекламные сообщения, обманывавшие абонентов</a>
+                                    <a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/fas-mts-beeline-megafon.html'); return false" href="https://hi-tech.mail.ru/news/fas-mts-beeline-megafon.html" target="_blank" class="news_item-button">Читать дальше →</a>
+                                </td>
+                            </tr>
+                            <tr class="news_item">
+                                <td class="news_item-image-holder"><a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/souz-solar-battery.html'); return false" href="https://hi-tech.mail.ru/news/souz-solar-battery.html" class="news_item-image-link" target="_blank"><img src="img/news/img2.jpg" class="news_item-image"></a><td>
+                                <td class="news_item-text">
+                                    <a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/souz-solar-battery.html'); return false" href="https://hi-tech.mail.ru/news/souz-solar-battery.html" class="news_item-title" target="_blank">Солнечная батарея корабля «Союз» снова не раскрылась</a>
+                                    <a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/souz-solar-battery.html'); return false" href="https://hi-tech.mail.ru/news/souz-solar-battery.html" class="news_item-lead" target="_blank">Но на стыковку с МКС это не повлияло</a>
+                                    <a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/souz-solar-battery.html'); return false" href="https://hi-tech.mail.ru/news/souz-solar-battery.html" target="_blank" class="news_item-button">Читать дальше →</a>
+                                </td>
+                            </tr>
+                            <tr class="news_item">
+                                <td class="news_item-image-holder"><a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/smart-watches-q2-2015.html'); return false" href="https://hi-tech.mail.ru/news/smart-watches-q2-2015.html" class="news_item-image-link" target="_blank"><img src="img/news/img3.jpg" class="news_item-image"></a><td>
+                                <td class="news_item-text">
+                                    <a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/smart-watches-q2-2015.html'); return false" href="https://hi-tech.mail.ru/news/smart-watches-q2-2015.html" class="news_item-title" target="_blank">Apple оккупировала рынок носимой электроники</a>
+                                    <a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/smart-watches-q2-2015.html'); return false" href="https://hi-tech.mail.ru/news/smart-watches-q2-2015.html" class="news_item-lead" target="_blank">Компания из Купертино продала 75,5% всех смарт-часов за второй квартал 2015 года</a>
+                                    <a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/smart-watches-q2-2015.html'); return false" href="https://hi-tech.mail.ru/news/smart-watches-q2-2015.html" target="_blank" class="news_item-button">Читать дальше →</a>
+                                </td>
+                            </tr>
+                            <tr class="news_item">
+                                <td class="news_item-image-holder"><a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/sony-android-concept.html'); return false" href="https://hi-tech.mail.ru/news/sony-android-concept.html" class="news_item-image-link" target="_blank"><img src="img/news/img4.jpg" class="news_item-image"></a><td>
+                                <td class="news_item-text">
+                                    <a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/sony-android-concept.html'); return false" href="https://hi-tech.mail.ru/news/sony-android-concept.html" class="news_item-title" target="_blank">Смартфоны Sony потеряют в индивидуальности</a>
+                                    <a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/sony-android-concept.html'); return false" href="https://hi-tech.mail.ru/news/sony-android-concept.html" class="news_item-lead" target="_blank">Японцы решили сделать фирменную оболочку ближе к стоковому Android</a>
+                                    <a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/sony-android-concept.html'); return false" href="https://hi-tech.mail.ru/news/sony-android-concept.html" target="_blank" class="news_item-button">Читать дальше →</a>
+                                </td>
+                            </tr>
+                            <tr class="news_item">
+                                <td class="news_item-image-holder"><a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/lg-flexible-displays-2017.html'); return false" href="https://hi-tech.mail.ru/news/lg-flexible-displays-2017.html" class="news_item-image-link" target="_blank"><img src="img/news/img5.jpg" class="news_item-image"></a><td>
+                                <td class="news_item-text">
+                                    <a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/lg-flexible-displays-2017.html'); return false" href="https://hi-tech.mail.ru/news/lg-flexible-displays-2017.html" class="news_item-title" target="_blank">Гибкие дисплеи для смартфонов — уже в 2017 году</a>
+                                    <a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/lg-flexible-displays-2017.html'); return false" href="https://hi-tech.mail.ru/news/lg-flexible-displays-2017.html" class="news_item-lead" target="_blank">LG инвестировала крупную сумму в строительство завода по массовому производству гибких дисплеев</a>
+                                    <a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/lg-flexible-displays-2017.html'); return false" href="https://hi-tech.mail.ru/news/lg-flexible-displays-2017.html" target="_blank" class="news_item-button">Читать дальше →</a>
+                                </td>
+                            </tr>
+                            <tr class="news_item">
+                                <td class="news_item-image-holder"><a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/lenovo-vibe-shot-rus-price.html'); return false" href="https://hi-tech.mail.ru/news/lenovo-vibe-shot-rus-price.html" class="news_item-image-link" target="_blank"><img src="img/news/img6.jpg" class="news_item-image"></a><td>
+                                <td class="news_item-text">
+                                    <a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/lenovo-vibe-shot-rus-price.html'); return false" href="https://hi-tech.mail.ru/news/lenovo-vibe-shot-rus-price.html" class="news_item-title" target="_blank">Названа российская цена камерофона Lenovo</a>
+                                    <a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/lenovo-vibe-shot-rus-price.html'); return false" href="https://hi-tech.mail.ru/news/lenovo-vibe-shot-rus-price.html" class="news_item-lead" target="_blank">Китайцы решили привезти Lenovo Vibe Shot для россиян</a>
+                                    <a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/lenovo-vibe-shot-rus-price.html'); return false" href="https://hi-tech.mail.ru/news/lenovo-vibe-shot-rus-price.html" target="_blank" class="news_item-button">Читать дальше →</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </td></tr></table></div>
+
+        </div>
+        <div id="Start" style="display: none; text-align: center; position: absolute; top: 0; left: 0; right: 0; bottom: 0; height: 100%;">
+            <div class="start_wrapper">
+                <div class="start_wrapper-inner">
+                    <div class="start_head-logo"></div>
+                    <p class="start_head-label"><script>l('start_pageTitle')</script></p>
+                    <p class="start_msg start_msg-cta-1"><script>l('start_searchResult1')</script></p>
+                    <p class="start_msg start_msg-cta-2"><script>l('start_searchResult2')</script></p>
+                    <p class="start_msg start_msg-cta-3"><script>l('start_searchResult2')</script></p>
+                    <button class="ui-green-button start_wrapper-button" onClick="statistics.event( { action: 'Button Install All Start clicked' } ); StartPack.clickInstallAll()"><script>l('start_installAllButton')</script></button>
+                    <p id="start_msg_counter" class="start_msg-counter start_msg-cta-3"></p>
+                    <div class="start_link">
+                        <script>l('start_or')</script>
+                        <div class="start_link-holder"><a href="#" onClick="statistics.event( { action: 'Button Expert Mode clicked' } ); statistics.event( { action: 'Screen opened Drivers' } ); StartPack.clickInstallCustom()"><script>l('start_installManuallyButton')</script></a></div>
+                    </div>
+                </div>
+                <div class="footer"><p class="footer_copy">Artur Kuzyakov © 2015</p><p class="footer_site">www.drp.su</p></div>
+            </div>
+        </div>
+        <div id="DriverSoft" style="display: none; height: 100%; width: 100%;"><table class="main">
             <tr>
                 <!-- { LEFT BLOCK [CHARMS] }-->
                 <td class="charms">
@@ -210,84 +299,84 @@ setTimeout(function(){
                     </div>
 
                     <!-- { BOTTOM MENU } -->
-            <u id="bottom-menu-line" class="menu-line">__</u>
+                    <u id="bottom-menu-line" class="menu-line">__</u>
 
 
-			<div class="bottom-menu">
-				<div id="settings">
-					<select name="language" id="language" style="width:100px;" onChange="language_onChange(this);" style="font-size:9pt;"></select>
-				</div>
+        			<div class="bottom-menu">
+        				<div id="settings">
+        					<select name="language" id="language" style="width:100px;" onChange="language_onChange(this);" style="font-size:9pt;"></select>
+        				</div>
 
-				<script language="javascript" type="text/javascript">
-					language_list();
+        				<script language="javascript" type="text/javascript">
+        					language_list();
 
-					function toggle(el) {
-						el.style.display = (el.style.display !== 'block') ? 'block' : 'none'
-					}
-				</script>
-                <!--
-				<a href="" class="bt-menu-e" title="" onclick="123123()" style="margin-left:-15px;text-align:center;">
-                    <img id="m-gears" src="img/blank.gif"/><i>Сгенерировать ошибку</i>_
-                </a>
-                -->
-			</div>
-			<!--
-            <div class="bottom-menu">
-                <a href="" class="bt-menu-e" title="">
-                    <img id="m-reload" src="img/blank.gif"/><i>Обновить окно</i>_
-                </a>
-                <a href="" class="bt-menu-e" title="">
-                    <img id="m-uac" src="img/blank.gif"/><i>Диспечер устройств</i>_
-                </a>
-                <a href="" class="bt-menu-e" title="">
-                    <img id="m-store" src="img/blank.gif"/><i>Уст. и удал. программ</i>_
-                </a>
-                <a href="" class="bt-menu-e" title="">
-                    <img id="m-gears" src="img/blank.gif"/><i>Настройки</i>_
-                </a>
-                <a href="" class="bt-menu-e" title="">
-                    <img id="m-help" src="img/blank.gif"/><i>Справка</i>_
-                </a>
-            </div>
-			-->
-            <div class="copyright">
-                <div class="copyright-item" style="display:none"><a href="#" onClick="statistics.event( { category: 'Desktop', action: 'Button Language clicked', label: statistics.drpVersion } ); toggle(document.getElementById('settings'))" class="menu-language-link">Language</a></div>
-                <div class="copyright-item" style="display:none"><a href="mailto:support@drp.su" class="menu-support-link">support@drp.su</a></div>
-                <div>Artur Kuzyakov © 2015</div>
-            </div>
-        </td>
-        <!-- { RIGHT BLOCK [CONTENT] }-->
-        <td class="app-container">
-            <h1 id="h1-title" class="app-title"><script>l('infobar_DrvInst')</script></h1>
-            <div class="notification">
-                <div class="nt-body"><img class="nt-icon" src="img/info.png"><span class="nt-description" id="description"><script>l('infobar_titleDriverAvailable')</script></br></span></div>
-                <div class="nt-footer"><button id="getDownloadInstallTop" onclick="statistics.event( { action: 'Button Install All clicked' } ); getDownloadInstallAll();"><script>l('infobar_buttonInst')</script></button></div>
-            </div>
+        					function toggle(el) {
+        						el.style.display = (el.style.display !== 'block') ? 'block' : 'none'
+        					}
+        				</script>
+                        <!--
+        				<a href="" class="bt-menu-e" title="" onclick="123123()" style="margin-left:-15px;text-align:center;">
+                            <img id="m-gears" src="img/blank.gif"/><i>Сгенерировать ошибку</i>_
+                        </a>
+                        -->
+        			</div>
+        			<!--
+                    <div class="bottom-menu">
+                        <a href="" class="bt-menu-e" title="">
+                            <img id="m-reload" src="img/blank.gif"/><i>Обновить окно</i>_
+                        </a>
+                        <a href="" class="bt-menu-e" title="">
+                            <img id="m-uac" src="img/blank.gif"/><i>Диспечер устройств</i>_
+                        </a>
+                        <a href="" class="bt-menu-e" title="">
+                            <img id="m-store" src="img/blank.gif"/><i>Уст. и удал. программ</i>_
+                        </a>
+                        <a href="" class="bt-menu-e" title="">
+                            <img id="m-gears" src="img/blank.gif"/><i>Настройки</i>_
+                        </a>
+                        <a href="" class="bt-menu-e" title="">
+                            <img id="m-help" src="img/blank.gif"/><i>Справка</i>_
+                        </a>
+                    </div>
+        			-->
+                    <div class="copyright">
+                        <div class="copyright-item" style="display:none"><a href="#" onClick="statistics.event( { category: 'Desktop', action: 'Button Language clicked', label: statistics.drpVersion } ); toggle(document.getElementById('settings'))" class="menu-language-link">Language</a></div>
+                        <div class="copyright-item" style="display:none"><a href="mailto:support@drp.su" class="menu-support-link">support@drp.su</a></div>
+                        <div>Artur Kuzyakov © 2015</div>
+                    </div>
+                </td>
+                <!-- { RIGHT BLOCK [CONTENT] }-->
+                <td class="app-container">
+                    <h1 id="h1-title" class="app-title"><script>l('infobar_DrvInst')</script></h1>
+                    <div class="notification">
+                        <div class="nt-body"><img class="nt-icon" src="img/info.png"><span class="nt-description" id="description"><script>l('infobar_titleDriverAvailable')</script></br></span></div>
+                        <div class="nt-footer"><button id="getDownloadInstallTop" onclick="statistics.event( { action: 'Button Install All clicked' } ); getDownloadInstallAll();"><script>l('infobar_buttonInst')</script></button></div>
+                    </div>
 
-            <!-- { ITEMS [LIST] } -->
-            <div class="items-list">
-				<div id="div-list">
-					<table id="list">
-						<thead>
-							<tr>
-								<td></td>
-								<td><script>l('infobar_tabDriver')</script></td>
-								<td></td>
-								<td></td>
-							</tr>
-						</thead>
-						<tbody>
-						</tbody>
-					</table>
-				</div>
-            </div>
-            <div class="app-footer">
-                <button id="getDownloadInstallBottom" class="app-footer-button" onclick="statistics.event( { action: 'Button Install ' + nowShowedScreen + ' clicked' } ); getDownloadInstall();"><script>l('infobar_buttonInst')</script></button>
-            </div>
+                    <!-- { ITEMS [LIST] } -->
+                    <div class="items-list">
+        				<div id="div-list">
+        					<table id="list">
+        						<thead>
+        							<tr>
+        								<td></td>
+        								<td><script>l('infobar_tabDriver')</script></td>
+        								<td></td>
+        								<td></td>
+        							</tr>
+        						</thead>
+        						<tbody>
+        						</tbody>
+        					</table>
+        				</div>
+                    </div>
+                    <div class="app-footer">
+                        <button id="getDownloadInstallBottom" class="app-footer-button" onclick="statistics.event( { action: 'Button Install ' + nowShowedScreen + ' clicked' } ); getDownloadInstall();"><script>l('infobar_buttonInst')</script></button>
+                    </div>
 
-        </td>
-    </tr>
-</table>
+                </td>
+            </tr>
+        </div></table>
 
 <!-- { SCRIPT LOADS AFTER ALL PAGE CONTENT } -->
 <script type="text/javascript">
@@ -357,8 +446,9 @@ setTimeout(function(){
 					function(){
 
 						setTimeout(
-							function(){
-   								document.getElementById('progressDescription').innerHTML = '<div style="font-size:40px;">' + infobar_titleAllInst + '<br>' + infobar_titleProgramm + '</div> <button onclick="DriverPack.init(function () { DriverPack.html(); })">' + button_finish + '</button>';
+                            function(){
+                                News.hide();
+                                document.getElementById('progressDescription').innerHTML = '<div style="font-size:36px;">' + infobar_titleAllInst + '<br>' + infobar_titleProgramm + '</div> <button onclick="DriverPack.init(function () { DriverPack.html(); })">' + button_finish + '</button>';
 							},
 							10
 						);
@@ -393,16 +483,23 @@ setTimeout(function(){
 		WshShell.Run('Tools\\streams-d.cmd', 0, false);
 
         // experiment
-        document.body.className = 'ui' + statistics.experiment.ui + ' copy' + statistics.experiment.copy;
+        document.body.className = [
+            'ui' + statistics.experiment.ui,
+            'copy' + statistics.experiment.copy,
+            statistics.experiment.startExperiment ? 'start_cta-' + statistics.experiment.startCTA : '',
+            statistics.experiment.newsExperiment ? 'news-experiment' : ''
+        ].join(' ');
 
 		DriverPack.init(function () {
-			log('First init complete');
-
-			statistics.event( { action: 'Screen opened Drivers' } );
-            DriverPack.html();
-        });
-		SoftPack.init(function () {
-            //SoftPack.html();
+			log('DriverPack loaded');
+    		SoftPack.init(function () {
+                log('SoftPack loaded');
+                if (statistics.experiment.startExperiment) {
+                    StartPack.html();
+                } else {
+                    DriverPack.html();
+                }
+            });
         });
 
 

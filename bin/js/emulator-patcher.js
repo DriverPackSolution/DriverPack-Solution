@@ -4,7 +4,20 @@ if (typeof emulatingIE !== 'undefined') {
   if (window.statistics) _sendYaMetrika = window.statistics.sendYaMetrika;
   if (window.statistics) window.statistics.sendUrl = function() {};
   if (window.statistics) window.statistics.sendYaMetrika = function(event) {
-    window.yaCounter.hit = function() {};
+    if (window.yaCounter) window.yaCounter.hit = function() {};
     _sendYaMetrika(event);
   };
+
+  if (window.DriverPack) window.DriverPack.install = function (IDs, events) {
+    setTimeout(function() {
+      events.afterInstalled();
+    }, 4000);
+  }
+
+  if (window.SoftPack) window.SoftPack.install = function (IDs, events) {
+    setTimeout(function() {
+      events.afterAllInstalled();
+    }, 4000);
+  }
+
 }

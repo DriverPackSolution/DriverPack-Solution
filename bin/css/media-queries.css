@@ -1,0 +1,41 @@
+/* Media-queries for screen smaller than 786px height */
+@media screen and (max-height: 786px) {
+    .start_wrapper-inner {
+        width: 610px;
+    }
+    .start_head-label {
+        font-size: 16px;
+        line-height: 1.2em;
+    }
+    .start_msg {
+        font-size: 39px;
+        line-height: 1.2em;
+        padding: 70px 0 10px 0;
+    }
+    .start_link {
+        padding: 32px 0;
+    }
+    .start_link-holder {
+        padding: 28px 0 0;
+    }
+}
+@media screen and (max-height: 700px) {
+    .start_wrapper-inner {
+        width: 610px;
+    }
+    .start_head-label {
+        font-size: 16px;
+        line-height: 1.2em;
+    }
+    .start_msg {
+        font-size: 36px;
+        line-height: 1.2em;
+        padding: 40px 0 10px 0;
+    }
+    .start_link {
+        padding: 32px 0;
+    }
+    .start_link-holder {
+        padding: 28px 0 0;
+    }
+}

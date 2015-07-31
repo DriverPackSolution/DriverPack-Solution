@@ -1,0 +1,18 @@
+@font-face {
+  font-family: 'Segoe UI';
+  src: url("./fonts/SegoeUIRegular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Segoe UI';
+  src: url("./fonts/SegoeUILight.ttf") format("truetype");
+  font-weight: 100;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Segoe UI';
+  src: url("./fonts/SegoeUIBold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}

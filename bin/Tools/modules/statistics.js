@@ -153,7 +153,7 @@ var statistics = {
             clientId: statistics.clientId + '',
             language: lang
         };
-        if (lang === 'ru') {
+        if (statistics.experimentNumber) {
             params.experimentNumber = statistics.experimentNumber;
         }
 
@@ -234,33 +234,36 @@ var statistics = {
         xmlhttp.send();
         return true;
     },
+    pickExperiment: function(lang, ie6, entropy) {
+        var not_ru = lang !== 'ru';
+        var entropy_3 = entropy % 3 + 1;
+        var invalidClientId = isNaN(entropy_3);
+        log('[Statistics.js] ie6=' + ie6 + ' not_ru=' + not_ru + ' invalidClientId=' + invalidClientId);
+        if (ie6 || not_ru || invalidClientId) {
+            return {
+                track: false,
+                ui: 1,
+                copy: 1,
+                newsExperiment: false,
+                startExperiment: false,
+                startCTA: 0
+            };
+        } else {
+            return {
+                track: true,
+                ui: 1,
+                copy: 1,
+                newsExperiment: true,
+                startExperiment: true,
+                startCTA: entropy_3
+            };
+        }
+    },
     setupExperiment: function() {
         var entropy = Math.floor(this.clientId);
-        var ui;
-        var copy;
-        if (lang !== 'ru') {
-            entropy = 0;
-        }
-        switch (entropy % 3)
-        {
-        case 0:
-            ui = 1;
-            copy = 1;
-            break;
-        case 1:
-            ui = 1;
-            copy = 2;
-            break;
-        case 2:
-            ui = 2;
-            copy = 2;
-            break;
-        default:
-            ui = 1;
-            copy = 1;
-        }
-        this.experiment = {ui: ui, copy: copy};
-        this.experimentNumber = 'ui' + ui + '-copy' + copy;
+        var ie6 = /\bMSIE 6/.test(navigator.userAgent);
+        statistics.experiment =  statistics.pickExperiment(lang, ie6, entropy);
+        statistics.experimentNumber = statistics.experiment.startExperiment ? ('start_cta-' + statistics.experiment.startCTA) : '';
     },
     patchCopyright: function() {
         if (this.experiment.copy === 2) {
@@ -269,28 +272,38 @@ var statistics = {
             misc_inst2 = "Установить выбранные драйверы";
             misc_inst5 = "Установить выбранные программы";
         }
+    },
+    sendOpenedEvent: function() {
+        var dimensions = [];
+        dimensions = [
+            [
+                statistics.config.drpStartsCountMeasure,
+                "1"
+            ],
+            [
+                statistics.config.drpVersion,
+                statistics.drpVersion
+            ]
+        ];
+        if (statistics.experimentNumber) {
+            dimensions.push([
+                statistics.config.experimentNumber,
+                statistics.experimentNumber
+            ]);
+        }
+        statistics.event(
+            {
+                action: 'opened'
+            },
+            dimensions
+        );
+        if (!statistics.startExperiment) {
+            statistics.event( { action: 'Screen opened Drivers' } );
+        }
     }
 };
 
 statistics.init();
 statistics.setupExperiment();
 statistics.patchCopyright();
-statistics.event(
-	{
-		action: 'opened'
-	},
-	[
-		[
-			statistics.config.drpStartsCountMeasure,
-			"1"
-		],
-		[
-			statistics.config.drpVersion,
-			statistics.drpVersion
-		],
-        [
-            statistics.config.experimentNumber,
-            statistics.experimentNumber
-        ],
-	]
-);
+statistics.sendOpenedEvent();

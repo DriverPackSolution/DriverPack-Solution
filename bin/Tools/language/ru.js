@@ -1,4 +1,16 @@
 
+// Start screen
+start_pageTitle = "Автоматическая настройка компьютера";
+start_searchResult1 = "Найдены драйверы для&nbsp;обновления и&nbsp;установки";
+start_searchResult2 = "Найдены драйверы и программы для&nbsp;обновления и&nbsp;установки";
+start_searchResult3 = "Найдены драйверы и программы для&nbsp;обновления и&nbsp;установки";
+start_installAllButton = "Установить автоматически";
+start_counterLabels = "Драйверы: {{DRIVERS}}, программы: {{SOFT}}";
+start_or = "или";
+start_installManuallyButton = "Установить вручную";
+
+ui2_singleDriver = "Драйверы";
+
 button_prev = "Назад";
 button_next = "Вперед";
 button_finish = "Готово";
@@ -470,5 +482,3 @@ ie_out_of_date_button = "Обновить Internet Explorer";
 
 license_agreement = "Я согласен с лицензионным соглашением и политикой конфиденциальности";
 license_installDRP = "Я хочу установить DRP Online на мой компьютер";
-
-ui2_singleDriver = "Драйверы";

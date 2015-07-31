@@ -7,6 +7,14 @@
 #progress{
 	color:black;
 }
+*html .start_head-logo {
+	width: 263px;
+	height: 74px;
+	background: none;
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/med_logo_dark.png');
+	background-position: center center;
+	background-size: 263px 74px;
+}
 
 /* Старый добрый дедовский способ */
 * html #m-down{

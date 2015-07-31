@@ -32,6 +32,7 @@ if (!hasActiveX) {
                     }
                 },
                 Run: function () {},
+                run: function () {},
                 SpecialFolders: function () {}
             };
         case 'WbemScripting.SWbemLocator':
@@ -82,11 +83,18 @@ if (!hasActiveX) {
                 },
                 FileExists: function (file) {
                     switch (file) {
+                    case 'tools\\wget.exe':
+                        return true;
                     case 'tools\\modules\\clientid.js':
                         return !!localStorage.clientId;
                     }
                 },
-                FolderExists: function () {}
+                FolderExists: function () {},
+                OpenTextFile: function () {
+                    return {
+                        ReadAll: function () {}
+                    };
+                }
             };
         case 'WbemScripting.SWbemNamedValueSet':
             return {
