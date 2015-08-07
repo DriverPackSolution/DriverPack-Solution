@@ -1,5 +1,5 @@
 class Wget {
-  constructor() {
+  constructor () {
     this.timer = null
     this.onDownloaded = {}
     this.concurrency = 5
@@ -12,17 +12,17 @@ class Wget {
   wgetRun (downloadURI, targetFolder, job_id) {
     log(`[wget] downloading ${downloadURI}`)
     if (!fso.FolderExists(`${AppData}\\DRPSu\\temp`)) {
-        fso.CreateFolder(`${AppData}\\DRPSu\\temp`)
+      fso.CreateFolder(`${AppData}\\DRPSu\\temp`)
     }
     if (fso.FileExists(wget_path)) {
       if (1 || !driver_exists(downloadURI, targetFolder)) {
-        const parsed_url = downloadURI.split("/")
+        const parsed_url = downloadURI.split('/')
         const log_file = this.pathToLogFile(job_id)
         const trigger_file = this.pathToTriggerFile(job_id)
         const wgetCommand = `"${wget_path}" -P "${targetFolder}" "${downloadURI}" -o "${log_file}" & echo DONE > "${trigger_file}"`
         const command = this.wrapInCmd(wgetCommand)
         log(`[wget] Running: ${command}`)
-        const wsShellObj = WshShell.Run(command, 0, false)
+        WshShell.Run(command, 0, false)
         return parsed_url[parsed_url.length - 1]
       } else {
         return null

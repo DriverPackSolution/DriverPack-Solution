@@ -22,13 +22,13 @@ var Wget = (function () {
     }
     if (fso.FileExists(wget_path)) {
       if (1 || !driver_exists(downloadURI, targetFolder)) {
-        var parsed_url = downloadURI.split("/");
+        var parsed_url = downloadURI.split('/');
         var log_file = this.pathToLogFile(job_id);
         var trigger_file = this.pathToTriggerFile(job_id);
         var wgetCommand = '"' + wget_path + '" -P "' + targetFolder + '" "' + downloadURI + '" -o "' + log_file + '" & echo DONE > "' + trigger_file + '"';
         var command = this.wrapInCmd(wgetCommand);
         log('[wget] Running: ' + command);
-        var wsShellObj = WshShell.Run(command, 0, false);
+        WshShell.Run(command, 0, false);
         return parsed_url[parsed_url.length - 1];
       } else {
         return null;
