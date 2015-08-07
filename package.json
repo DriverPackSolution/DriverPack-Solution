@@ -3,10 +3,26 @@
   "private": true,
   "scripts": {
     "babel": "babel src -w --out-dir bin/js",
+    "test": "standard src/*",
+    "watch": "watch 'npm test' -d",
     "start": "browser-sync start --server bin --index /DriverPackSolution.html --files bin"
   },
   "devDependencies": {
     "babel": "5.8.20",
-    "browser-sync": "^2.7.13"
+    "babel-eslint": "4.0.5",
+    "browser-sync": "^2.7.13",
+    "standard": "5.0.2"
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "global": [
+      "AppData",
+      "constants",
+      "driver_exists",
+      "fso",
+      "log",
+      "wget_path",
+      "WshShell"
+    ]
   }
 }
