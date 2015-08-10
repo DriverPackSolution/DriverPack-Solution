@@ -19,8 +19,12 @@
       "AppData",
       "constants",
       "driver_exists",
+      "Enumerator",
       "fso",
+      "locator",
       "log",
+      "objWMIService",
+      "OSVersion",
       "wget_path",
       "WshShell"
     ]

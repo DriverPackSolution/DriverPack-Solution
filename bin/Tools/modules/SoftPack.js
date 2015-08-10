@@ -17,9 +17,11 @@ var SoftPack = {
 		}
 
 		// JSONP breaks when response is cached and there is no timeout
+		antivirus.init()
+
 		setTimeout(function () {
 			JSONP(
-				(isBeta?'http://update-test2.drp.su/v2/soft/?callback':'http://update.drp.su/v2/soft/?callback')
+				(isBeta__?'http://update-test2.drp.su/v2/soft/?callback':'http://update.drp.su/v2/soft/?callback')
 			);
 		}, 100);
 
@@ -76,8 +78,6 @@ var SoftPack = {
 
 	loadDB: function(json){
 
-		json = cloneObj(json);
-
 		SoftPack._json = {
 			'soft': new Array()
 		};
@@ -95,7 +95,19 @@ var SoftPack = {
 				if (item.Registry_64){
 					json[i].Registry[json[i].Registry.length] = item.Registry_64.replace(/\\\\/ig,'\\');
 				}
-				json[i].IsChecked = json[i].CheckedDefault;
+				if (json[i].CheckedDefaultIf) {
+					try {
+						json[i].IsChecked = json[i].CheckedDefaultIf({
+							antivirus: antivirus,
+							geoip: geoip
+						});
+					} catch(err) {
+						json[i].IsChecked = json[i].CheckedDefault;
+						log('[SoftPack] CheckedDefaultIf failed', err);
+					}
+				} else {
+					json[i].IsChecked = json[i].CheckedDefault;
+				}
 
 			});
 		}

@@ -15,10 +15,10 @@ var objWMIService = locator.ConnectServer(null, "root\\cimv2");
 var isLite = false;
 if ((verType.indexOf('Lite')!=-1)||(verType.indexOf('Online')!=-1)) { isLite = true; }
 
-var isBeta = false;
-if ((verType.indexOf("Beta") != -1)||(verType.indexOf("SVN") != -1)){ isBeta = true; }
+var isBeta__ = false;
+if ((verType.indexOf("Beta") != -1)||(verType.indexOf("SVN") != -1)){ isBeta__ = true; }
 
-if ((isBeta) && (typeof(gitVersion) != 'undefined')){
+if ((isBeta__) && (typeof(gitVersion) != 'undefined')){
 	buildDate = gitVersion.date.substring(0,gitVersion.date.indexOf(' '));
 	verType = verType + ' | ' + buildDate + ' | Prev commit: ' + gitVersion.prev_commit.substring(0,4);
 }
