@@ -1,6 +1,6 @@
-var version = "16.4.0";
+var version = "16.5.0";
 var verType = "";
-var buildDate = "2015/08/06"; // YYYY/MM/DD
+var buildDate = "2015/08/12"; // YYYY/MM/DD
 var Reg = "HKCU\\SOFTWARE\\drpsu\\";
 
 var WshShell = new ActiveXObject("WScript.Shell");
