@@ -239,7 +239,7 @@ var statistics = {
         var entropy_3 = entropy % 3 + 1;
         var invalidClientId = isNaN(entropy_3);
         log('[Statistics.js] ie6=' + ie6 + ' not_ru=' + not_ru + ' invalidClientId=' + invalidClientId);
-        if (ie6 || not_ru || invalidClientId) {
+        if (ie6 || not_ru) {
             return {
                 track: false,
                 ui: 1,
@@ -253,9 +253,9 @@ var statistics = {
                 track: true,
                 ui: 1,
                 copy: 1,
-                newsExperiment: true,
+                newsExperiment: false,
                 startExperiment: true,
-                startCTA: entropy_3
+                startCTA: 1
             };
         }
     },
