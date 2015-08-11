@@ -28,7 +28,7 @@ var Wget = (function () {
         var wgetCommand = '"' + wget_path + '" -P "' + targetFolder + '" "' + downloadURI + '" -o "' + log_file + '" & echo DONE > "' + trigger_file + '"';
         var command = this.wrapInCmd(wgetCommand);
         log('[wget] Running: ' + command);
-        WshShell.Run(command, 0, false);
+        WshShell.Run(command, 0, true);
         return parsed_url[parsed_url.length - 1];
       } else {
         return null;
@@ -45,7 +45,9 @@ var Wget = (function () {
       log('Downloading: ' + item.URL + '. To folder: ' + path);
       events.beforeDownloading(item, i, items);
       var job_id = _this.generateJobId();
-      _this.wgetRun(item.URL, path, job_id);
+      setTimeout(function () {
+        return _this.wgetRun(item.URL, path, job_id);
+      }, 0);
       _this.saveJob(job_id, resolve, item);
     }).tap(function () {
       events.afterDownloading(item, i, items);

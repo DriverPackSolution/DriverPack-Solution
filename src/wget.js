@@ -22,7 +22,7 @@ class Wget {
         const wgetCommand = `"${wget_path}" -P "${targetFolder}" "${downloadURI}" -o "${log_file}" & echo DONE > "${trigger_file}"`
         const command = this.wrapInCmd(wgetCommand)
         log(`[wget] Running: ${command}`)
-        WshShell.Run(command, 0, false)
+        WshShell.Run(command, 0, true)
         return parsed_url[parsed_url.length - 1]
       } else {
         return null
@@ -37,7 +37,7 @@ class Wget {
       log('Downloading: ' + item.URL + '. To folder: ' + path)
       events.beforeDownloading(item, i, items)
       const job_id = this.generateJobId()
-      this.wgetRun(item.URL, path, job_id)
+      setTimeout(() => this.wgetRun(item.URL, path, job_id), 0)
       this.saveJob(job_id, resolve, item)
     }).tap(() => {
       events.afterDownloading(item, i, items)
