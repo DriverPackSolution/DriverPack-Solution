@@ -75,7 +75,7 @@ function htaError(msg, url, linenumber, lfnE) {
 	myObject.linenumber = linenumber;
 	myObject.lfnE = lfnE;
 
-	showModelessDialog("tools/modules/bugreport.hta",myObject,"status:false;dialogWidth:470px;dialogHeight:350px;scroll:no;");
+	showModelessDialog("Tools/modules/bugreport.hta",myObject,"status:false;dialogWidth:470px;dialogHeight:350px;scroll:no;");
 }
 
 

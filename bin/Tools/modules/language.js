@@ -199,69 +199,69 @@ switch(locale){
 
 	case 0x0406: // Danish (Denmark)
 		lang = "da";break;
-	
+
 	case 0x0423: // Belarusian
 		lang = "be";break;
-	
+
 	case 0x0416: // Portuguese - Brazil
 	case 0x0816: // Portuguese - Portugal
 		lang = "pt";break;
-	
+
 	case 0x0804: // Chinese - People's Republic of China
 	case 0x1004: // Chinese - Singapore
 	case 0x0404: // Chinese - Taiwan
 	case 0x0c04: // Chinese - Hong Kong SAR
 	case 0x1404: // Chinese - Macao SAR
 		lang = "zh";break;
-	
+
 	case 0x0429: // Farsi (Persian)
 		lang = "fa";break;
-		
+
 	case 0x0408: // Greek
 		lang = "el";break;
-	
+
 	case 0x040d: // Hebrew
 		lang = "he";break;
-	
+
 	case 0x040E: // Hungarian
 		lang = "hu";break;
-	
+
 	case 0x0421: // Indonesian
 		lang = "id";break;
-	
+
 	case 0x0410: // Italiano
 		lang = "it";break;
-	
+
 	case 0x0492: // Central Kurdish (ku)
 		lang = "ku";break;
-	
+
 	case 0x0427: // Lithuanian
 		lang = "lt";break;
-		
+
 	case 0x0424: // Slovenian
 		lang = "sl";break;
-	
+
 	case 0x041B: // Slovak
 		lang = "sk";break;
-	
+
 	case 0x0418: // Romanian
 	case 0x0818: // Romanian - Moldava
 		lang = "ro";break;
-	
+
 	case 0x0444: // Tatar
 		lang = "tt";break;
-	
+
 	case 0x041a: // Croatian
 	case 0x101a: // Croatian (Bosnia/Herzegovina)
 		lang = "hr";break;
 
 	case 0x0425: // Estonian
 		lang = "vi";break;
-	
+
 	case 0x042a: // Vietnamese
 		lang = "vi";break;
-	
-	
+
+
 	default:
 		lang = "en";
 }
@@ -274,11 +274,11 @@ if ((lang=='ru')||(lang=='uk')||(lang=='az')||(lang=='by')||(lang=='am')){ rusLa
 
 
 // Load language files
-document.write('<script type="text/javascript" src="tools\\language\\ru.js"><\/script>');
+document.write('<script type="text/javascript" src="Tools/language/ru.js"><\/script>');
 if (!rusLang){	//If not RusLang
-	document.write('<script type="text/javascript" src="tools\\language\\en.js"><\/script>');
+	document.write('<script type="text/javascript" src="Tools/language/en.js"><\/script>');
 }
-document.write('<script type="text/javascript" src="tools\\language\\' + lang + '.js"><\/script>');
+document.write('<script type="text/javascript" src="Tools/language/' + lang + '.js"><\/script>');
 
 
 //function l(text) { document.write(text); }
@@ -310,7 +310,7 @@ function language_list() {
 		var langFileName = fc.item().name;
 		if (langFileName.indexOf('.js') != -1){
 			langFileName = langFileName.replace(/.js/i,"");
-			
+
 			//Manual priority
 			if (langFileName=='en') { r=0; i--; }
 			else if (langFileName=='ru') { r=1; i--; }
@@ -318,7 +318,7 @@ function language_list() {
 			else if (langFileName=='de') { r=3; i--; }
 			else { r=i; }
 			//Manual priority
-			
+
 			lanSelect.options[r] = new Option((lang_support[langFileName]?lang_support[langFileName]:langFileName), langFileName);
 			lanSelect.options[r].title = 'tools/language/ico/' + langFileName + '.gif';
 			if (langFileName == lang) lanSelect.options[r].selected=true;
