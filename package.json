@@ -10,7 +10,11 @@
   "devDependencies": {
     "babel": "5.8.20",
     "babel-eslint": "4.0.5",
+    "bluebird": "2.9.34",
     "browser-sync": "^2.7.13",
+    "gulp": "3.9.0",
+    "gulp-git": "1.2.4",
+    "gulp-util": "3.0.6",
     "standard": "5.0.2"
   },
   "standard": {
