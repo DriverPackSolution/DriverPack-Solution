@@ -55,7 +55,6 @@
 		<script type="text/javascript" src="Tools/modules/error.js"></script>
 		<script type="text/javascript" src="Tools/modules/logs.js"></script>
         <!-- https://code.google.com/p/css3-mediaqueries-js/ -->
-        <script type="text/javascript" src="js/css3-mediaqueries.js"></script>
 
         <!-- debug mode -->
         <script type="text/javascript" src="js/emulator-patcher.js"></script>
@@ -470,7 +469,7 @@ setTimeout(function(){
 
 	var onReady = function(){
 
-		if ((typeof(DriverPack)=='undefined') || (typeof(SoftPack)=='undefined') || (typeof(logs)=='undefined') || (typeof(statistics)=='undefined')){
+		if ((typeof(DriverPack)=='undefined') || (typeof(SoftPack)=='undefined') || (typeof(logs)=='undefined') || (typeof(statistics)=='undefined') || !document.body){
 			setTimeout(onReady,100);
 			return false;
 		}
@@ -522,12 +521,13 @@ setTimeout(function(){
 				}
 
 			},
-			15000
+			120000
 		);
 	}
 
 	setTimeout(onReady,100);
 </script>
+<script type="text/javascript" src="js/css3-mediaqueries.js"></script>
 
 </body>
 </html>
