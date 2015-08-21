@@ -456,7 +456,6 @@ var SoftPack = {
 
 
 		getDownloadInstall = function(onComplite){
-		    News.html();
 
 			onComplite = onComplite || function(){};
 
@@ -634,7 +633,6 @@ var SoftPack = {
 
 
 									document.getElementById('loader').style.backgroundImage = "none";
-									News.hide();
 									document.getElementById('progressDescription').innerHTML = infobar_infoProgramm + ' <br><button onclick="DriverPack.init(function () { DriverPack.html(); })">' + button_finish + '</button>';
 									//document.getElementById('loader').style.display = 'none';
 									//alert('Установка завершена!');

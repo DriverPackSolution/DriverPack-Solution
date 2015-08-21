@@ -30,10 +30,8 @@
         <!-- { STYLES } -->
         <link rel="stylesheet" type="text/css" href="css/normalize.min.css" />
         <link rel="stylesheet" type="text/css" href="css/open-sans.css" />
-        <link rel="stylesheet" type="text/css" href="css/fonts.css" />
         <link rel="stylesheet" type="text/css" href="css/style.css" />
         <link rel="stylesheet" type="text/css" href="css/start.css" />
-        <link rel="stylesheet" type="text/css" href="css/news.css" />
         <link rel="stylesheet" type="text/css" href="css/ui2.css" />
         <link rel="stylesheet" type="text/css" href="css/media-queries.css" />
 
@@ -61,13 +59,10 @@
 
         <script type="text/javascript" src="Tools/modules/wpi.js"></script>
 
-        <script type="text/javascript" src="js/jquery.js"></script>
-
         <!-- { MODULES } -->
         <script type="text/javascript" src="js/wget.js"></script>
         <script type="text/javascript" src="Tools/modules/DriverPack.js"></script>
         <script type="text/javascript" src="Tools/modules/SoftPack.js"></script>
-        <script type="text/javascript" src="Tools/modules/News.js"></script>
         <script type="text/javascript" src="Tools/modules/StartPack.js"></script>
         <script type="text/javascript" src="Tools/modules/statistics.js"></script>
         <script type="text/javascript" src="Tools/modules/onunload.js"></script>
@@ -192,65 +187,6 @@ setTimeout(function(){
 
 		<div id="loader">
             <a href="#"></a>&nbsp; <div id="progress"><span id="progressCounter"></span> <br><span id="progressDescription"><br><script>l(infobar_titleLoading)</script></span></div>
-
-            <div id="News" style="width: 100%; display: none;"><table align="center" style="margin: 60px auto 0px auto; border: 1px solid #DCDCDC; width: 650px; heigth: 100%;"><tr><td style="padding: 0;">
-                <div class="news">
-                    <div class="news_head">Новости Hi-Tech.Mail.Ru</div>
-                    <div class="news_feed-wrapper">
-                        <table class="news_feed" onMouseOver="News.pause()">
-                            <tr class="news_item">
-                                <td class="news_item-image-holder"><a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/fas-mts-beeline-megafon.html'); return false" href="https://hi-tech.mail.ru/news/fas-mts-beeline-megafon.html" class="news_item-image-link" target="_blank"><img src="img/news/img1.jpg" class="news_item-image"></a><td>
-                                <td class="news_item-text">
-                                    <a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/fas-mts-beeline-megafon.html'); return false" href="https://hi-tech.mail.ru/news/fas-mts-beeline-megafon.html" class="news_item-title" target="_blank">ФАС оштрафовала МТС, Мегафон и ВымпелКом</a>
-                                    <a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/fas-mts-beeline-megafon.html'); return false" href="https://hi-tech.mail.ru/news/fas-mts-beeline-megafon.html" class="news_item-lead" target="_blank">Операторы «большой тройки» распространяли на ТВ рекламные сообщения, обманывавшие абонентов</a>
-                                    <a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/fas-mts-beeline-megafon.html'); return false" href="https://hi-tech.mail.ru/news/fas-mts-beeline-megafon.html" target="_blank" class="news_item-button">Читать дальше →</a>
-                                </td>
-                            </tr>
-                            <tr class="news_item">
-                                <td class="news_item-image-holder"><a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/souz-solar-battery.html'); return false" href="https://hi-tech.mail.ru/news/souz-solar-battery.html" class="news_item-image-link" target="_blank"><img src="img/news/img2.jpg" class="news_item-image"></a><td>
-                                <td class="news_item-text">
-                                    <a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/souz-solar-battery.html'); return false" href="https://hi-tech.mail.ru/news/souz-solar-battery.html" class="news_item-title" target="_blank">Солнечная батарея корабля «Союз» снова не раскрылась</a>
-                                    <a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/souz-solar-battery.html'); return false" href="https://hi-tech.mail.ru/news/souz-solar-battery.html" class="news_item-lead" target="_blank">Но на стыковку с МКС это не повлияло</a>
-                                    <a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/souz-solar-battery.html'); return false" href="https://hi-tech.mail.ru/news/souz-solar-battery.html" target="_blank" class="news_item-button">Читать дальше →</a>
-                                </td>
-                            </tr>
-                            <tr class="news_item">
-                                <td class="news_item-image-holder"><a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/smart-watches-q2-2015.html'); return false" href="https://hi-tech.mail.ru/news/smart-watches-q2-2015.html" class="news_item-image-link" target="_blank"><img src="img/news/img3.jpg" class="news_item-image"></a><td>
-                                <td class="news_item-text">
-                                    <a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/smart-watches-q2-2015.html'); return false" href="https://hi-tech.mail.ru/news/smart-watches-q2-2015.html" class="news_item-title" target="_blank">Apple оккупировала рынок носимой электроники</a>
-                                    <a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/smart-watches-q2-2015.html'); return false" href="https://hi-tech.mail.ru/news/smart-watches-q2-2015.html" class="news_item-lead" target="_blank">Компания из Купертино продала 75,5% всех смарт-часов за второй квартал 2015 года</a>
-                                    <a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/smart-watches-q2-2015.html'); return false" href="https://hi-tech.mail.ru/news/smart-watches-q2-2015.html" target="_blank" class="news_item-button">Читать дальше →</a>
-                                </td>
-                            </tr>
-                            <tr class="news_item">
-                                <td class="news_item-image-holder"><a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/sony-android-concept.html'); return false" href="https://hi-tech.mail.ru/news/sony-android-concept.html" class="news_item-image-link" target="_blank"><img src="img/news/img4.jpg" class="news_item-image"></a><td>
-                                <td class="news_item-text">
-                                    <a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/sony-android-concept.html'); return false" href="https://hi-tech.mail.ru/news/sony-android-concept.html" class="news_item-title" target="_blank">Смартфоны Sony потеряют в индивидуальности</a>
-                                    <a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/sony-android-concept.html'); return false" href="https://hi-tech.mail.ru/news/sony-android-concept.html" class="news_item-lead" target="_blank">Японцы решили сделать фирменную оболочку ближе к стоковому Android</a>
-                                    <a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/sony-android-concept.html'); return false" href="https://hi-tech.mail.ru/news/sony-android-concept.html" target="_blank" class="news_item-button">Читать дальше →</a>
-                                </td>
-                            </tr>
-                            <tr class="news_item">
-                                <td class="news_item-image-holder"><a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/lg-flexible-displays-2017.html'); return false" href="https://hi-tech.mail.ru/news/lg-flexible-displays-2017.html" class="news_item-image-link" target="_blank"><img src="img/news/img5.jpg" class="news_item-image"></a><td>
-                                <td class="news_item-text">
-                                    <a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/lg-flexible-displays-2017.html'); return false" href="https://hi-tech.mail.ru/news/lg-flexible-displays-2017.html" class="news_item-title" target="_blank">Гибкие дисплеи для смартфонов — уже в 2017 году</a>
-                                    <a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/lg-flexible-displays-2017.html'); return false" href="https://hi-tech.mail.ru/news/lg-flexible-displays-2017.html" class="news_item-lead" target="_blank">LG инвестировала крупную сумму в строительство завода по массовому производству гибких дисплеев</a>
-                                    <a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/lg-flexible-displays-2017.html'); return false" href="https://hi-tech.mail.ru/news/lg-flexible-displays-2017.html" target="_blank" class="news_item-button">Читать дальше →</a>
-                                </td>
-                            </tr>
-                            <tr class="news_item">
-                                <td class="news_item-image-holder"><a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/lenovo-vibe-shot-rus-price.html'); return false" href="https://hi-tech.mail.ru/news/lenovo-vibe-shot-rus-price.html" class="news_item-image-link" target="_blank"><img src="img/news/img6.jpg" class="news_item-image"></a><td>
-                                <td class="news_item-text">
-                                    <a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/lenovo-vibe-shot-rus-price.html'); return false" href="https://hi-tech.mail.ru/news/lenovo-vibe-shot-rus-price.html" class="news_item-title" target="_blank">Названа российская цена камерофона Lenovo</a>
-                                    <a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/lenovo-vibe-shot-rus-price.html'); return false" href="https://hi-tech.mail.ru/news/lenovo-vibe-shot-rus-price.html" class="news_item-lead" target="_blank">Китайцы решили привезти Lenovo Vibe Shot для россиян</a>
-                                    <a onclick="statistics.event( { action: 'Loader Ad Clicked' } ); WshShell.Run('https://hi-tech.mail.ru/news/lenovo-vibe-shot-rus-price.html'); return false" href="https://hi-tech.mail.ru/news/lenovo-vibe-shot-rus-price.html" target="_blank" class="news_item-button">Читать дальше →</a>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </td></tr></table></div>
-
         </div>
         <div id="Start" style="display: none; text-align: center; position: absolute; top: 0; left: 0; right: 0; bottom: 0; height: 100%;">
             <div class="start_wrapper">
@@ -449,7 +385,6 @@ setTimeout(function(){
 
 						setTimeout(
                             function(){
-                                News.hide();
                                 document.getElementById('progressDescription').innerHTML = '<div style="font-size:36px;">' + infobar_titleAllInst + '<br>' + infobar_titleProgramm + '</div> <button onclick="DriverPack.init(function () { DriverPack.html(); })">' + button_finish + '</button>';
 							},
 							10
