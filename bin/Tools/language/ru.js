@@ -9,8 +9,6 @@ start_counterLabels = "Драйверы: {{DRIVERS}}, программы: {{SOFT
 start_or = "или";
 start_installManuallyButton = "Установить вручную";
 
-ui2_singleDriver = "Драйверы";
-
 button_prev = "Назад";
 button_next = "Вперед";
 button_finish = "Готово";
