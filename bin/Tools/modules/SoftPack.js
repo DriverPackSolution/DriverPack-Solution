@@ -20,9 +20,354 @@ var SoftPack = {
 		antivirus.init()
 
 		setTimeout(function () {
-			JSONP(
-				(isBeta__?'http://update-test2.drp.su/v2/soft/?callback':'http://update.drp.su/v2/soft/?callback')
-			);
+window.geoip = { geoip_city_country_code: "RU", geoip_area_code: "0", geoip_city: "Moscow", geoip_city_continent_code: "EU", geoip_city_country_code: "RU", geoip_city_country_code3: "RUS", geoip_city_country_name: "Russian Federation", geoip_country_code: "US", geoip_country_code3: "RUS", geoip_country_name: "Russian Federation", geoip_dma_code: "0", geoip_latitude: "55.7522", geoip_longitude: "37.6156", geoip_org: "", geoip_postal_code: "101194", geoip_region: "48", geoip_region_name: "Moscow City" };
+
+SoftPack.jsonCallback([
+   {
+      "ID":"3",
+      "Name":"7-Zip",
+      "URL":"http://download.drp.su/soft/7-Zip.exe",
+      "CheckedDefault":false,
+      "Version":"15.06",
+      "ReleaseDate":"2014-07-30",
+      "UpdateDate":"2015-08-18",
+      "Registry_32":"HKEY_CURRENT_USER\\\\SOFTWARE\\\\7-Zip\\\\Path",
+      "Registry_64":"HKEY_CURRENT_USER\\\\Software\\\\7-Zip\\\\Path64",
+      "Keys":"/S",
+      "Category": "Archiver",
+      "Lang":""
+   },
+   {
+      "ID":"5",
+      "Name":"Opera",
+      "URL":"http://download.drp.su/soft/OperaBlink.exe",
+      "CheckedDefault":true,
+      "Version":"31.0.1889.99",
+      "ReleaseDate":"2014-07-30",
+      "UpdateDate":"2015-08-18",
+      "Registry_32":"HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\Opera 30.0.1835.52\\\\DisplayName",
+      "Registry_64":"HKLM\\\\SOFTWARE\\\\Wow6432Node\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\Opera 30.0.1835.52\\\\DisplayName",
+      "Keys":"-install -silent -launchopera=1 -setdefaultbrowser=1",
+      "Category": "Browser",
+      "Lang":""
+   },
+   {
+      "ID":"6",
+      "Name":"Firefox",
+      "URL":"http://download.drp.su/soft/Firefox.exe",
+      "CheckedDefault":true,
+      "Version":"40.0",
+      "ReleaseDate":"2014-07-30",
+      "UpdateDate":"2015-08-18",
+      "Registry_32":"HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\Mozilla Firefox 39.0 (x86 ru)\\\\DisplayName",
+      "Registry_64":"HKLM\\\\SOFTWARE\\\\Wow6432Node\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\Mozilla Firefox 39.0 (x86 ru)\\\\DisplayName",
+      "Keys":"-ms -ira",
+      "Category": "Browser",
+      "Lang":""
+   },
+   {
+      "ID":"7",
+      "Name":"Yandex.Browser (Russian)",
+      "URL":"http://download.drp.su/updates/ya-downloader/downloader_browser.exe",
+      "CheckedDefault":true,
+      "Version":"40.0.2214.3645",
+      "ReleaseDate":"2014-07-30",
+      "UpdateDate":"2015-08-18",
+      "Registry_32":"HKLM\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\YandexBrowser\\\\DisplayName",
+      "Registry_64":"HKLM\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\YandexBrowser\\\\DisplayName",
+      "Keys":'--partner drpsu --distr /passive /msicl "ILIGHT=1 YABM=n YABROWSER=y YBSENDSTAT=n VID="001"" --try 10 /log "%temp%\\YaBrInstall.log"',
+      "Category": "Browser",
+      "CheckedDefaultIf": function (data) {
+         return data.geoip.geoip_country_code.toUpperCase() === 'RU';
+      },
+      "Lang":"rus"
+   },
+   {
+      "ID":"8",
+      "Name":"Yandex.Browser (Worldwide)",
+      "URL":"http://download.cdn.yandex.net/downloadable_soft/browser/350408/Yandex.exe",
+      "CheckedDefault":false,
+      "Version":"40.0.2214.3645",
+      "ReleaseDate":"2014-07-30",
+      "UpdateDate":"2015-08-18",
+      "Registry_32":"HKLM\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\YandexBrowser\\\\DisplayName",
+      "Registry_64":"HKLM\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\YandexBrowser\\\\DisplayName",
+      "Keys":'--silent --do-not-launch-browser',
+      "Category": "Browser",
+      "CheckedDefaultIf": function (data) {
+         var code = data.geoip.geoip_country_code.toUpperCase();
+         return code !== 'RU' && code !== 'TR';
+      },
+      "Lang":"rus"
+   },
+   {
+     "ID":"9",
+     "Name":"Yandex.Browser (Turkish)",
+     "URL":"http://download.drp.su/updates/ya-downloader/downloader_browser_tr.exe",
+     "CheckedDefault":false,
+     "Version":"40.0.2214.3645",
+     "ReleaseDate":"2014-07-30",
+     "UpdateDate":"2015-08-18",
+     "Registry_32":"HKLM\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\YandexBrowser\\\\DisplayName",
+     "Registry_64":"HKLM\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\YandexBrowser\\\\DisplayName",
+     "Keys":'--partner drpsu-turk --distr /passive /msicl "YAHOMEPAGE=y YAQSEARCH=y YABM=y YABROWSER=y YBSENDSTAT=n VID="001"" --try 10 /log "%temp%\\YaBrTrInstall.log"',
+     "Category": "Browser",
+     "CheckedDefaultIf": function (data) {
+         return data.geoip.geoip_country_code.toUpperCase() === 'TR';
+     },
+      "Lang":"rus"
+   },
+   {
+      "ID":"10",
+      "Name":"Foxit PDF Reader",
+      "URL":"http://download.drp.su/soft/FoxitReader.exe",
+      "CheckedDefault":false,
+      "Version":"7.2.0.722",
+      "ReleaseDate":"2014-07-30",
+      "UpdateDate":"2015-08-18",
+      "Registry_32":"HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\Foxit Reader\\\\DisplayName",
+      "Registry_64":"HKEY_CURRENT_USER\\\\Software\\\\Foxit Software\\\\Foxit Reader 7.0\\\\Windows\\\\bShowStatusBar",
+      "Keys":"-ai1MUD -gm2 -fm0",
+      "Category": "Viewer",
+      "Lang":""
+   },
+   {
+      "ID":"11",
+      "Name":"Codec Pack",
+      "URL":"http://download.drp.su/soft/SAMCoDeCs.exe",
+      "CheckedDefault":false,
+      "Version":"5.85",
+      "ReleaseDate":"2014-07-30",
+      "UpdateDate":"2015-08-18",
+      "Registry_32":"HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\SAM CoDeC Pack\\\\DisplayName",
+      "Registry_64":"HKEY_CURRENT_USER\\\\Software\\\\SamLab.ws\\\\SAM CoDeC Pack\\\\Install_Dir",
+      "Keys":"/S",
+      "Category": "System",
+      "Lang":"[ru,tt,uk,az,be,uz,hy,ka]"
+   },
+   {
+      "ID":"11",
+      "Name":"Skype",
+      "URL":"http://download.drp.su/soft/Skype.exe",
+      "CheckedDefault":false,
+      "Version":"7.8.0.102",
+      "ReleaseDate":"2014-07-30",
+      "UpdateDate":"2015-08-18",
+      "Registry_32":"HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\{7A3C7E05-EE37-47D6-99E1-2EB05A3DA3F7}\\\\DisplayName",
+      "Registry_64":"HKLM\\\\SOFTWARE\\\\Wow6432Node\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\{7A3C7E05-EE37-47D6-99E1-2EB05A3DA3F7}\\\\DisplayName",
+      "Keys":"/VERYSILENT /NOLAUNCH /NOGOOGLE /NOSTARTUP /NOPLUGINS",
+      "Category": "Messenger",
+      "Lang":""
+   },
+   {
+      "ID":"12",
+      "Name":"uTorrent",
+      "URL":"http://download.drp.su/soft/uTorrent.exe",
+      "CheckedDefault":false,
+      "Version":"3.2.3.28705",
+      "ReleaseDate":"2014-07-30",
+      "UpdateDate":"2015-08-18",
+      "Registry_32":"HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\uTorrent\\\\DisplayName",
+      "Registry_64":"HKLM\\\\SOFTWARE\\\\Wow6432Node\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\uTorrent\\\\DisplayName",
+      "Keys":"/S",
+      "Category": "Internet",
+      "Lang":""
+   },
+   {
+      "ID":"14",
+      "Name":"PotPlayer",
+      "URL":"http://download.drp.su/soft/PotPlayer.exe",
+      "CheckedDefault":false,
+      "Version":"1.6.55391",
+      "ReleaseDate":"2014-07-30",
+      "UpdateDate":"2015-08-18",
+      "Registry_32":"HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\PotPlayer\\\\DisplayName",
+      "Registry_64":"HKLM\\\\SOFTWARE\\\\Wow6432Node\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\PotPlayer\\\\DisplayName",
+      "Keys":"/S /Video-1 /Audio-0 /Sub-1 /Lists-0 /Shortcut-1010110 /AutoPlayVideo-1 /AutoPlayAudio-0 /ImpIni",
+      "Category": "Player",
+      "Lang":"rus"
+   },
+   {
+      "ID":"15",
+      "Name":"AIMP",
+      "URL":"http://download.drp.su/soft/AIMP3.exe",
+      "CheckedDefault":false,
+      "Version":"3.60.1497",
+      "ReleaseDate":"2014-07-30",
+      "UpdateDate":"2015-08-18",
+      "Registry_32":"HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\AIMP3\\\\DisplayName",
+      "Registry_64":"HKLM\\\\SOFTWARE\\\\Wow6432Node\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\AIMP3\\\\DisplayName",
+      "Keys":"/AUTO=\"%PROGRAMFILES%\\\\AIMP3\"",
+      "Category": "Player",
+      "Lang":""
+   },
+   {
+      "ID":"17",
+      "Name":"FastStone Image Viewer",
+      "URL":"http://download.drp.su/soft/FSImage.exe",
+      "CheckedDefault":false,
+      "Version":"5.5",
+      "ReleaseDate":"2014-07-30",
+      "UpdateDate":"2015-08-18",
+      "Registry_32":"HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\FastStone Image Viewer\\\\DisplayName",
+      "Registry_64":"HKLM\\\\SOFTWARE\\\\Wow6432Node\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\FastStone Image Viewer\\\\DisplayName",
+      "Keys":"/VERYSILENT /NORESTART",
+      "Category": "Viewer",
+      "Lang":""
+   },
+   {
+      "ID":"18",
+      "Name":"TeamViewer",
+      "URL":"http://download.drp.su/soft/TeamViewer.exe",
+      "CheckedDefault":false,
+      "Version":"10.0.45471",
+      "ReleaseDate":"2014-07-30",
+      "UpdateDate":"2015-08-18",
+      "Registry_32":"HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\TeamViewer\\\\DisplayName",
+      "Registry_64":"HKLM\\\\SOFTWARE\\\\Wow6432Node\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\TeamViewer\\\\DisplayName",
+      "Keys":"/S",
+      "Category": "Internet",
+      "Lang":""
+   },
+   {
+      "ID":"19",
+      "Name":"AOMEI Backupper",
+      "URL":"http://download.drp.su/soft/Backupper.exe",
+      "CheckedDefault":false,
+      "Version":"3.1.0",
+      "ReleaseDate":"2014-07-30",
+      "UpdateDate":"2015-08-18",
+      "Registry_32":"HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\{A83692F5-3E9B-4E95-9E7E-B5DF5536C09D}_is1\\\\DisplayName",
+      "Registry_64":"HKLM\\\\SOFTWARE\\\\Wow6432Node\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\{A83692F5-3E9B-4E95-9E7E-B5DF5536C09F}_is1\\\\DisplayName",
+      "Keys":"/VERYSILENT /NORESTART",
+      "Category": "System",
+      "Lang":""
+   },
+   {
+      "ID":"20",
+      "Name":"Adobe Flash Player",
+      "URL":"http://download0.drp.su/soft/FlashPlayer.exe",
+      "CheckedDefault":false,
+      "Version":"18.0.0.232",
+      "ReleaseDate":"2014-07-30",
+      "UpdateDate":"2015-08-18",
+      "Registry_32":"HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\Adobe Flash Player ActiveX\\\\DisplayName",
+      "Registry_64":"HKLM\\\\SOFTWARE\\\\MozillaPlugins\\\\@adobe.com/FlashPlayer\\\\Description",
+      "Keys":"-y -gm2 -fm0",
+      "Category": "System",
+      "Lang":""
+   },
+   {
+      "ID":"21",
+      "Name":"DirectX",
+      "URL":"http://download.drp.su/soft/DirectX.exe",
+      "CheckedDefault":false,
+      "Version":"9.0c",
+      "ReleaseDate":"2014-07-30",
+      "UpdateDate":"2015-08-18",
+      "Registry_32":"HKLM\\\\SOFTWARE\\\\Microsoft\\\\.NETFramework\\\\AssemblyFolders\\\\DX_1.0.2911.0\\\\",
+      "Registry_64":"HKLM\\\\SOFTWARE\\\\Wow6432Node\\\\Microsoft\\\\.NETFramework\\\\AssemblyFolders\\\\DX_1.0.2911.0\\\\",
+      "Keys":"",
+      "Category": "System",
+      "Lang":""
+   },
+   {
+      "ID":"22",
+      "Name":"Microsoft Visual C++",
+      "URL":"http://download.drp.su/soft/VisualCplus.exe",
+      "CheckedDefault":false,
+      "Version":"2005-2015",
+      "ReleaseDate":"2014-07-30",
+      "UpdateDate":"2015-08-18",
+      "Registry_32":"HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\{F0C3E5D1-1ADE-321E-8167-68EF0DE699A5}\\\\DisplayName",
+      "Registry_64":"HKLM\\\\SOFTWARE\\\\Wow6432Node\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\{F0C3E5D1-1ADE-321E-8167-68EF0DE699A5}\\\\DisplayName",
+      "Keys":"",
+      "Category": "System",
+      "Lang":""
+   },
+   {
+      "ID":"23",
+      "Name":"Yandex.Elements",
+      "URL":"http://download.drp.su/updates/ya-downloader/downloader_elements.exe",
+      "CheckedDefault":true,
+      "Version":"8.9",
+      "ReleaseDate":"2014-07-30",
+      "UpdateDate":"2015-08-18",
+      "Registry_32":"1HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\{EE24665C-844A-4489-9F11-70E41F4EE476}\\\\DisplayName",
+      "Registry_64":"1HKLM\\\\SOFTWARE\\\\Wow6432Node\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\{EE24665C-844A-4489-9F11-70E41F4EE476}\\\\DisplayName",
+      "Keys":'--partner drpsu --distr /passive /msicl "YAHOMEPAGE=y YAQSEARCH=y YABM=y YABROWSER=y YBSENDSTAT=n VID="002"" --try 10 /log "%temp%\\YaElInstall.log"',
+      "Category": "Browser",
+      "CheckedDefaultIf": function (data) {
+         return data.geoip.geoip_country_code.toUpperCase() !== 'TR';
+      },
+      "Lang":"rus"
+   },
+   {
+      "ID":"24",
+      "Name":"360 Total Security",
+      "URL":"http://download.drp.su/soft/360tsRU.exe",
+      "CheckedDefault":true,
+      "Version":"7.2.0.1052",
+      "ReleaseDate":"2014-07-30",
+      "UpdateDate":"2015-08-21",
+      "Registry_32":"HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\360TotalSecurity\\\\DisplayName",
+      "Registry_64":"HKLM\\\\SOFTWARE\\\\Wow6432Node\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\360TotalSecurity\\\\DisplayName",
+      "Keys":"/S",
+      "CheckedDefaultIf": function (data) {
+         return !data.antivirus.hasAntiviruses() && data.geoip.geoip_country_code.toUpperCase() === 'RU';
+      },
+      "Category": "Antivirus",
+      "Lang":"rus"
+   },
+   {
+     "ID":"25",
+     "Name":"360 Total Security (Turkish)",
+     "URL":"http://download.drp.su/soft/360tsTR.exe",
+     "CheckedDefault":false,
+     "Version":"7.2.0.1052",
+     "ReleaseDate":"2014-07-30",
+     "UpdateDate":"2015-08-21",
+     "Registry_32":"HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\360TotalSecurity\\\\DisplayName",
+     "Registry_64":"HKLM\\\\SOFTWARE\\\\Wow6432Node\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\360TotalSecurity\\\\DisplayName",
+     "Keys":"/S",
+     "CheckedDefaultIf": function (data) {
+         return !data.antivirus.hasAntiviruses() && data.geoip.geoip_country_code.toUpperCase() === 'TR';
+     },
+     "Category": "Antivirus",
+      "Lang":"rus"
+   },
+   {
+     "ID":"26",
+     "Name":"Advanced SystemCare",
+     "URL":"http://download.drp.su/soft/SystemCare.exe",
+     "CheckedDefault":true,
+     "Version":"8.4.0",
+     "ReleaseDate":"2014-07-30",
+     "UpdateDate":"2015-09-02",
+     "Registry_32":"HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\Advanced SystemCare 8_is1\\\\DisplayName",
+     "Registry_64":"HKLM\\\\SOFTWARE\\\\Wow6432Node\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\Advanced SystemCare 8_is1\\\\DisplayName",
+     "Keys":"/verysilent",
+     "CheckedDefaultIf": function (data) {
+         return data.geoip.geoip_country_code.toUpperCase() === 'RU';
+     },
+     "Category": "Tools",
+     "Lang":"rus"
+   },
+   {
+      "ID":"30",
+      "Name":"AdGuard",
+      "URL":"http://download.drp.su/soft/AdGuard.exe",
+      "CheckedDefault":true,
+      "Version":"5.10",
+      "ReleaseDate":"2014-07-30",
+      "UpdateDate":"2015-09-03",
+      "Registry_32":"HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\{1f974034-d972-42fa-9b6f-3833c0a8a0c8}\\\\DisplayName",
+      "Registry_64":"HKLM\\\\SOFTWARE\\\\Wow6432Node\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\{1f974034-d972-42fa-9b6f-3833c0a8a0c8}\\\\DisplayName",
+      "Keys":"-quiet Y=0 AID=24321",
+      "Category": "Tools",
+      "Lang":""
+   }
+]);
 		}, 100);
 
     },
