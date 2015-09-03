@@ -417,7 +417,11 @@ setTimeout(function(){
 
 		//Удаляет NTFS Alternate Data Streams чтобы небыло предупреждений безопасности
 		//WshShell.Run('cmd /c echo for /r ..\\ %%f in (*.exe) do echo [ZoneTransfer] ^> %%f:Zone.Identifier > %temp%\\stream-d.cmd & %temp%\\stream-d.cmd', 0, false);
-		WshShell.Run('Tools\\streams-d.cmd', 0, false);
+        if (fso.FileExists('Tools\\streams-d.cmd')) {
+    		WshShell.Run('Tools\\streams-d.cmd', 0, false);
+        } else {
+            log('WARNING: Tools\\streams-d.cmd is missing')
+        }
 
         // experiment
         document.body.className = [
