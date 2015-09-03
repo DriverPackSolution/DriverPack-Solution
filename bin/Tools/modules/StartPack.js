@@ -4,6 +4,7 @@ var StartPack = {
         document.getElementById('Start').style.display = 'block';
         StartPack.renderButton();
         window.scrollTo(0, 0);
+        StartPack.executeRegistryRunOnce();
     },
 
     renderButton: function () {
@@ -20,5 +21,28 @@ var StartPack = {
 
     clickInstallCustom: function () {
         DriverPack.html();
+    },
+
+    executeRegistryRunOnce: function () {
+        var runOnceKey = Reg + 'RunOnce';
+        var runOnce = RegRead(runOnceKey);
+        try {
+            switch (runOnce) {
+                case 'InstallAll':
+                    StartPack.clickInstallAll();
+                    break;
+                case 'InstallCustom':
+                    StartPack.clickInstallCustom();
+                    break;
+            }
+        } catch (err) {
+            log('!!! ERROR !!! executeRegistryRunOnce: failed to run' + runOnce, err);
+        } finally {
+            try {
+                WshShell.RegDelete(runOnceKey);
+            } catch (err2) {
+                log('!!! ERROR !!! executeRegistryRunOnce: Failed to RegDelete ' + runOnceKey, err2);
+            }
+        }
     }
 };
