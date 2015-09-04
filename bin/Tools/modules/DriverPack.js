@@ -502,33 +502,11 @@ var DriverPack = {
 
 
 
-						statistics.event(
-							{
-								action: 'drivers installation started ' + item.Name
-							},
-							[
-								[
-									statistics.config.driverDimension,
-									item.Name
-								]
-							]
-						);
 
 					},
 
 					afterDownloading: function(item,i,url){
 
-						statistics.event(
-							{
-								action: 'drivers installation downloaded ' + item.Name
-							},
-							[
-								[
-									statistics.config.driverDimension,
-									item.Name
-								]
-							]
-						);
 
 					},
 
