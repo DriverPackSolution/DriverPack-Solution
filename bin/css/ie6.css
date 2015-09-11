@@ -41,6 +41,11 @@
 	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/charms/apps.png');
 	background-position: center center;
 }
+* html #m-adapter{
+	background: none;
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/charms/android.png');
+	background-position: center center;
+}
 * html #m-toolkit{
 	background: none;
 	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/charms/toolkit.png');

@@ -412,6 +412,7 @@ var SoftPack = {
 
 		document.getElementById("menu-drivers").className = document.getElementById("menu-drivers").className.replace(/\b active\b/ig,'');
 		document.getElementById("menu-soft").className = document.getElementById("menu-soft").className + ' active';
+		document.getElementById("menu-adapter").className = document.getElementById("menu-adapter").className.replace(/\b active\b/ig,'');
 		document.getElementById('loader').style.display = 'block';
 		document.getElementById('loader').style.backgroundImage = 'url(Tools/load8.gif)';
 
@@ -662,6 +663,9 @@ var SoftPack = {
 		document.getElementById('getDownloadInstallTop').innerHTML = infobar_buttonInstAll;
 		document.getElementById('getDownloadInstallBottom').innerHTML = misc_inst5;
 		document.getElementById('loader').style.display = 'none';
+		document.getElementById('DriverSoft').style.display = 'block';
+		document.getElementById('AppDriversSoft').style.display = 'block';
+		document.getElementById('Adapter').style.display = 'none';
 		this.renderCounter();
     },
 

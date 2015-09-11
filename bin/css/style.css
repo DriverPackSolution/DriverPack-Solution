@@ -195,6 +195,12 @@ h2 {
     background-image: url('../img/charms/apps.png');
     background-position: center center;
 }
+#m-adapter{
+    background-image: url('../img/charms/android.png');
+    background-position: center center;
+    width: 64px;
+    height: 48px;
+}
 #m-toolkit{
     background-image: url('../img/charms/toolkit.png');
     background-position: center center;
@@ -430,4 +436,161 @@ button:active{
 	height:30px;
 	font-size:12px;
 	margin-top:7px;
+}
+
+/* Adapter */
+#menu-adapter {
+    display: none;
+}
+.adapter-experiment #menu-adapter {
+    display: block;
+}
+.adapter_list {
+    margin: 0 auto;
+    border-spacing: 7px;
+    border-collapse: separate;
+    color: #000000;
+    font-family: sans-serif;
+}
+.adapter_cell:hover {
+    background-color: #C2C2C2;
+}
+.adapter_card-content,
+.adapter_label {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.adapter_card-content {
+    table-layout: fixed;
+    width: 100%;
+    z-index: 0;
+}
+.adapter_cell {
+    position: relative;
+    table-layout: fixed;
+    width: 318px;
+    height: 89px;
+    background-color: #D8D8D8;
+}
+.adapter_list .adapter_cell.active {
+    background-color: #FFFFFF;
+}
+.adapter_label {
+    position: absolute;
+    width: 100%;
+    /* px for ie8 */
+    height: 100px;
+    z-index: 10;
+}
+.adapter_label-input {
+    padding: 0;
+    margin: 18px 15px;
+}
+.adapter_card-text,
+.adapter_card-image {
+    vertical-align: top;
+}
+.adapter_card-image {
+    text-align: center;
+}
+.adapter_card-image img {
+    margin-top: 13px;
+}
+.adapter_card-text {
+    padding-top: 8px;
+    padding-left: 6px;
+}
+.adapter_card-name {
+    width: 200px;
+    font-size: 18px;
+    line-height: 21px;
+}
+.adapter_card-developer {
+    padding-top: 5px;
+    font-size: 14px;
+    line-height: 16px;
+    color: #757575;
+}
+.adapter_list-title,
+.adapter_head {
+    text-align: center;
+    font-family: sans-serif;
+}
+.adapter_head {
+    width: 640px;
+    font-size: 24px;
+    line-height: 38px;
+    color: #000000;
+    margin: 67px auto 0 auto;
+}
+.adapter_list-title {
+    width: 600px;
+    margin: 62px auto 15px auto;
+    font-size: 18px;
+    color: #888888;
+}
+.adapter_button-large {
+    margin: 44px auto 0;
+    display: block;
+    width: 270px;
+    height: 56px;
+    font-size: 22px;
+}
+.adapter_device-img {
+    display: block;
+    width: 167px;
+    height: 228px;
+    margin: 91px auto 61px auto;
+}
+.adapter_progress {
+    display: block;
+    width: 65px;
+    margin: 218px auto 0 auto;
+}
+.adapter_form-text {
+    width: 510px;
+    font-size: 18px;
+    line-height: 21px;
+    text-align: center;
+    font-family: sans-serif;
+    margin: 128px auto 17px;
+}
+.adapter_form-controls {
+    width: 650px;
+    margin: 0 auto;
+    text-align: center;
+}
+.adapter_button-small {
+    width: 205px;
+    height: 48px;
+    margin-left: 10px;
+    font-size: 18px;
+    vertical-align: middle;
+}
+.adapter_button-arrow {
+    vertical-align: middle;
+    margin-left: 5px;
+}
+.adapter_form-input {
+    width: 363px;
+    height: 44px;
+    padding: 0 10px;
+    vertical-align: middle;
+}
+.adapter_btn {
+    background: none;
+    border: none;
+    background-color: #007701;
+    color: white;
+    font-family: 'Open Sans', 'Segoe UI',sans-serif;
+    outline: none;
+    cursor: pointer;
+}
+.adapter_btn:active {
+    background-color: black;
+}
+.adapter_card-label {
+    color: #118F11;
+    font-weight: bold;
 }

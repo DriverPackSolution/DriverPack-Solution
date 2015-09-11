@@ -413,6 +413,7 @@ var DriverPack = {
 
 		document.getElementById("menu-drivers").className = document.getElementById("menu-drivers").className + ' active';
 		document.getElementById("menu-soft").className = document.getElementById("menu-soft").className.replace(/\b active\b/ig,'');
+		document.getElementById("menu-adapter").className = document.getElementById("menu-adapter").className.replace(/\b active\b/ig,'');
         document.getElementById('loader').style.display = 'block';
 		document.getElementById('loader').style.backgroundImage = 'url(Tools/load8.gif)';
 
@@ -619,6 +620,8 @@ var DriverPack = {
 		document.getElementById('getDownloadInstallBottom').innerHTML = misc_inst2;
 		document.getElementById('Start').style.display = 'none';
 		document.getElementById('DriverSoft').style.display = 'block';
+    document.getElementById('AppDriversSoft').style.display = 'block';
+    document.getElementById('Adapter').style.display = 'none';
 		document.getElementById('loader').style.display = 'none';
 		this.renderCounter();
     },

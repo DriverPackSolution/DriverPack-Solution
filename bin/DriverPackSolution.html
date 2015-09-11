@@ -62,6 +62,7 @@
         <!-- { MODULES } -->
         <script type="text/javascript" src="js/wget.js"></script>
         <script type="text/javascript" src="Tools/modules/DriverPack.js"></script>
+        <script type="text/javascript" src="Tools/modules/adapter.js"></script>
         <script type="text/javascript" src="Tools/modules/SoftPack.js"></script>
         <script type="text/javascript" src="Tools/modules/StartPack.js"></script>
         <script type="text/javascript" src="Tools/modules/statistics.js"></script>
@@ -222,6 +223,9 @@ setTimeout(function(){
                                 return false;" id="menu-soft" class="menu-e" title="Установка основных программ на компьютер">
                             <img id="m-apps" src="img/blank.gif"/><i><script>l('infobar_tabProgramm')</script></i>_
                         </a>
+                        <a href="#" onclick="Adapter.html()" id="menu-adapter" class="menu-e" title="TODO">
+                            <img id="m-adapter" src="img/blank.gif"/><i>Android</i>_
+                        </a>
 						<!--
                         <a href="" onclick="WgetPack.html();
                                 return false;" id="menu-wget" class="menu-e" title="Обновление драйверов и компонентов DriverPack Solution">
@@ -284,7 +288,7 @@ setTimeout(function(){
                     </div>
                 </td>
                 <!-- { RIGHT BLOCK [CONTENT] }-->
-                <td class="app-container">
+                <td class="app-container"><div id="AppDriversSoft">
                     <h1 id="h1-title" class="app-title"><script>l('infobar_DrvInst')</script></h1>
                     <div class="notification">
                         <div class="nt-body"><img class="nt-icon" src="img/info.png"><span class="nt-description" id="description"><script>l('infobar_titleDriverAvailable')</script></br></span></div>
@@ -312,7 +316,250 @@ setTimeout(function(){
                         <button id="getDownloadInstallBottom" class="app-footer-button" onclick="statistics.event( { action: 'Button Install ' + nowShowedScreen + ' clicked' } ); getDownloadInstall();"><script>l('infobar_buttonInst')</script></button>
                     </div>
 
-                </td>
+                </div>
+                <div id="Adapter">
+                    <div id="adapter1">
+                        <h3 class="adapter_head">В DriverPack вы можете настроить Android планшет или&nbsp;телефон в&nbsp;два клика и&nbsp;без регистрации</h3>
+                        <p class="adapter_list-title">Выберите приложения для установки:</p>
+                        <table class="adapter_list">
+                            <tr>
+                                <td id="adapter_cell1" class="adapter_cell active">
+                                    <table class="adapter_card-content" onclick="Adapter.clickApp(event, 1); return false">
+                                        <tr>
+                                            <td rowspan="2" width="34"></td>
+                                            <td rowspan="2" width="60" class="adapter_card-image">
+                                                <img src="img/adapter/ico-wa.png" width="60" height="60" alt="WhatsApp Messenger">
+                                            </td>
+                                            <td class="adapter_card-text">
+                                                <table>
+                                                    <tr>
+                                                        <td class="adapter_card-name">1. WhatsApp Messenger</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="adapter_card-developer">
+                                                            WhatsApp Inc.&nbsp;&nbsp;
+                                                            <img src="img/adapter/stars-1.png" style=" vertical-align: top;">
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <label class="adapter_label" onclick="Adapter.clickApp(event, 1); return false">
+                                        <input type="checkbox" checked="checked" onclick="Adapter.clickApp(event, 1, true);" id="adapter_label-input1" class="adapter_label-input">
+                                    </label>
+                                </td>
+                                <td id="adapter_cell2" class="adapter_cell active">
+                                    <table class="adapter_card-content" onclick="Adapter.clickApp(event, 2); return false">
+                                        <tr>
+                                            <td rowspan="2" width="34"></td>
+                                            <td rowspan="2" width="60" class="adapter_card-image">
+                                                <img src="img/adapter/ico-ya.png" width="60" height="60" alt="Яндекс.Браузер">
+                                            </td>
+                                            <td class="adapter_card-text">
+                                                <table>
+                                                    <tr>
+                                                        <td class="adapter_card-name">2. Яндекс.Браузер для Android</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="adapter_card-developer">
+                                                            Яндекс&nbsp;&nbsp;
+                                                            <img src="img/adapter/stars-1.png" style=" vertical-align: top;">
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <label class="adapter_label" onclick="Adapter.clickApp(event, 2); return false">
+                                        <input type="checkbox" checked="checked" onclick="Adapter.clickApp(event, 2, true);" id="adapter_label-input2" class="adapter_label-input">
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="adapter_cell3" class="adapter_cell active">
+                                    <table class="adapter_card-content" onclick="Adapter.clickApp(event, 3); return false">
+                                        <tr>
+                                            <td rowspan="2" width="34"></td>
+                                            <td rowspan="2" width="60" class="adapter_card-image">
+                                                <img src="img/adapter/ico-ig.png" width="60" height="60" alt="Instagram">
+                                            </td>
+                                            <td class="adapter_card-text">
+                                                <table>
+                                                    <tr>
+                                                        <td class="adapter_card-name">3. Instagram</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="adapter_card-developer">
+                                                            Instagram&nbsp;&nbsp;
+                                                            <img src="img/adapter/stars-1.png" style=" vertical-align: top;">
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <label class="adapter_label" onclick="Adapter.clickApp(event, 3); return false">
+                                        <input type="checkbox" checked="checked" onclick="Adapter.clickApp(event, 3, true);" id="adapter_label-input3" class="adapter_label-input">
+                                    </label>
+                                </td>
+                                <td id="adapter_cell4" class="adapter_cell active">
+                                    <table class="adapter_card-content" onclick="Adapter.clickApp(event, 4); return false">
+                                        <tr>
+                                            <td rowspan="2" width="34"></td>
+                                            <td rowspan="2" width="60" class="adapter_card-image">
+                                                <img src="img/adapter/ico-sky.png" width="60" height="60" alt="Skype">
+                                            </td>
+                                            <td class="adapter_card-text">
+                                                <table>
+                                                    <tr>
+                                                        <td class="adapter_card-name">4. Skype</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="adapter_card-developer">
+                                                            Skype&nbsp;&nbsp;
+                                                            <img src="img/adapter/stars-3.png" style=" vertical-align: top;">
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <label class="adapter_label" onclick="Adapter.clickApp(event, 4); return false">
+                                        <input type="checkbox" checked="checked" onclick="Adapter.clickApp(event, 4, true);" id="adapter_label-input4" class="adapter_label-input">
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="adapter_cell5" class="adapter_cell">
+                                    <table class="adapter_card-content" onclick="Adapter.clickApp(event, 5); return false">
+                                        <tr>
+                                            <td rowspan="2" width="34"></td>
+                                            <td rowspan="2" width="60" class="adapter_card-image">
+                                                <img src="img/adapter/ico-viber.png" width="60" height="60" alt="Viber">
+                                            </td>
+                                            <td class="adapter_card-text">
+                                                <table>
+                                                    <tr>
+                                                        <td class="adapter_card-name">5. Viber</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="adapter_card-developer">
+                                                            Viber Media&nbsp;&nbsp;
+                                                            <img src="img/adapter/stars-3.png" style=" vertical-align: top;">
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <label class="adapter_label" onclick="Adapter.clickApp(event, 5); return false">
+                                        <input type="checkbox" onclick="Adapter.clickApp(event, 5, true);" id="adapter_label-input5" class="adapter_label-input">
+                                    </label>
+                                </td>
+                                <td id="adapter_cell6" class="adapter_cell">
+                                    <table class="adapter_card-content" onclick="Adapter.clickApp(event, 6); return false">
+                                        <tr>
+                                            <td rowspan="2" width="34"></td>
+                                            <td rowspan="2" width="60" class="adapter_card-image">
+                                                <img src="img/adapter/ico-vk.png" width="60" height="60" alt="ВКонтакте">
+                                            </td>
+                                            <td class="adapter_card-text">
+                                                <table>
+                                                    <tr>
+                                                        <td class="adapter_card-name">6. ВКонтакте</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="adapter_card-developer">
+                                                            VK.com&nbsp;&nbsp;
+                                                            <img src="img/adapter/stars-1.png" style=" vertical-align: top;">
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <label class="adapter_label" onclick="Adapter.clickApp(event, 6); return false">
+                                        <input type="checkbox" onclick="Adapter.clickApp(event, 6, true);" id="adapter_label-input6" class="adapter_label-input">
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="adapter_cell7" class="adapter_cell">
+                                    <table class="adapter_card-content" onclick="Adapter.clickApp(event, 7); return false">
+                                        <tr>
+                                            <td rowspan="2" width="34"></td>
+                                            <td rowspan="2" width="60" class="adapter_card-image">
+                                                <img src="img/adapter/ico-ok.png" width="60" height="60" alt="Одноклассники">
+                                            </td>
+                                            <td class="adapter_card-text">
+                                                <table>
+                                                    <tr>
+                                                        <td class="adapter_card-name">7. Одноклассники</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="adapter_card-developer">
+                                                            Odnoklassniki Ltd&nbsp;&nbsp;
+                                                            <img src="img/adapter/stars-1.png" style=" vertical-align: top;">
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <label class="adapter_label" onclick="Adapter.clickApp(event, 7); return false">
+                                        <input type="checkbox" onclick="Adapter.clickApp(event, 7, true);" id="adapter_label-input7" class="adapter_label-input">
+                                    </label>
+                                </td>
+                                <td id="adapter_cell8" class="adapter_cell">
+                                    <table class="adapter_card-content" onclick="Adapter.clickApp(event, 8); return false">
+                                        <tr>
+                                            <td rowspan="2" width="34"></td>
+                                            <td rowspan="2" width="60" class="adapter_card-image">
+                                                <img src="img/adapter/ico-cmsec.png" width="60" height="60" alt="CM Security">
+                                            </td>
+                                            <td class="adapter_card-text">
+                                                <table>
+                                                    <tr>
+                                                        <td class="adapter_card-name">8. CM Security защита и антивирус</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="adapter_card-developer">
+                                                            Cheetah Mobile&nbsp;&nbsp;
+                                                            <img src="img/adapter/stars-2.png" style=" vertical-align: top;">
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <label class="adapter_label" onclick="Adapter.clickApp(event, 8); return false">
+                                        <input type="checkbox" onclick="Adapter.clickApp(event, 8, true);" id="adapter_label-input8" class="adapter_label-input">
+                                    </label>
+                                </td>
+                            </tr>
+                        </table>
+                        <button class="adapter_btn adapter_button-large" onClick="Adapter.nextScreen();return false">Далее <img src="img/adapter/icon-arrow.png" class="adapter_button-arrow"></button>
+                    </div>
+
+                    <div id="adapter2" style="display:none; width: 600px; margin: 0 auto; text-align: center;">
+                        <h3 class="adapter_head">Подключите ваше Android устройство<br/>к&nbsp;компьютеру и&nbsp;нажмите «Далее»</h3>
+                        <img src="img/adapter/set-device.jpg" class="adapter_device-img">
+                        <button class="adapter_btn adapter_button-large" onClick="Adapter.nextScreen();return false">Далее <img src="img/adapter/icon-arrow.png"></button>
+                    </div>
+
+                    <div id="adapter3" style="display:none; width: 600px; margin: 0 auto; text-align: center;" >
+                        <img src="img/loading.gif" id="adapter_progress" class="adapter_progress"/>
+                        <div id="adapter_form" class="adapter_form" style="display: none;">
+                            <p class="adapter_form-text">Извините, не удалось подключиться<br/>к&nbsp;вашему устройству.</p>
+                            <p id="adapter_form-text" class="adapter_form-text">Пожалуйста, уточните модель вашего Android устройства, чтобы мы&nbsp;могли добавить поддержку для него.</p>
+                            <div id="adapter_form-controls" class="adapter_form-controls">
+                                <input type="text" id="adapter_form-input" class="adapter_form-input"/>
+                                <button id="adapter_form-button" class="adapter_btn adapter_button-small" onClick="Adapter.clickButton(); return false">Отправить</button>
+                            </div>
+                        </div>
+                    </div>
+                </div></td>
             </tr>
         </div></table>
 
@@ -427,6 +674,7 @@ setTimeout(function(){
         document.body.className = [
             'ui' + statistics.experiment.ui,
             'copy' + statistics.experiment.copy,
+            statistics.experiment.adapterExperiment ? 'adapter-experiment' : '',
             statistics.experiment.startExperiment ? 'start_cta-' + statistics.experiment.startCTA : '',
             statistics.experiment.newsExperiment ? 'news-experiment' : ''
         ].join(' ');
