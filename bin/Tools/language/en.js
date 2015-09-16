@@ -467,3 +467,9 @@ forTranslatorsButton = "Help with translation";
 
 ie_out_of_date = "<b>Warning!</b>Using an outdated version of Internet Explorer. This can affect your computer's security. <b>Recommended to updade!</b>";
 ie_out_of_date_button = "Update Internet Explorer";
+
+start_pageTitle = "Automatic system configuration";
+start_searchResult1 = "Found new and outdated drivers";
+start_installAllButton = "Install automatically";
+start_or = "or";
+start_installManuallyButton = "Manual installation";

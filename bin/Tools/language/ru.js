@@ -477,3 +477,9 @@ ie_out_of_date_button = "Обновить Internet Explorer";
 
 license_agreement = "Я согласен с лицензионным соглашением и политикой конфиденциальности";
 license_installDRP = "Я хочу установить DRP Online на мой компьютер";
+
+start_pageTitle = "Автоматическая настройка компьютера";
+start_searchResult1 = "Найдены драйверы для обновления и установки";
+start_installAllButton = "Установить автоматически";
+start_or = "или";
+start_installManuallyButton = "Установить вручную";
