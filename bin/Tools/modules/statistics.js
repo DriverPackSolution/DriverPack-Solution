@@ -246,8 +246,8 @@ var statistics = {
                 copy: 1,
                 adapterExperiment: false,
                 newsExperiment: false,
-                startExperiment: false,
-                startCTA: 0
+                startExperiment: true,
+                startCTA: 1
             };
         } else {
             return {
