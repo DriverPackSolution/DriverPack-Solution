@@ -39,7 +39,9 @@ var StartPack = {
             log('!!! ERROR !!! executeRegistryRunOnce: failed to run' + runOnce, err);
         } finally {
             try {
-                WshShell.RegDelete(runOnceKey);
+                if (runOnce) {
+                    WshShell.RegDelete(runOnceKey);
+                }
             } catch (err2) {
                 log('!!! ERROR !!! executeRegistryRunOnce: Failed to RegDelete ' + runOnceKey, err2);
             }
