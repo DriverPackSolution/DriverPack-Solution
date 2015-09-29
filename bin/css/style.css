@@ -594,3 +594,15 @@ button:active{
     color: #118F11;
     font-weight: bold;
 }
+.dws {
+    width: 200px;
+    color: white;
+    text-decoration: none;
+    display: block;
+    border: 1px solid white;
+    margin: 0 auto 15px;
+    padding: 5px 0;
+}
+.dws.disabled {
+    cursor: default;
+}

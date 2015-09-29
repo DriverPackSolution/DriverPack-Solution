@@ -68,6 +68,7 @@
         <script type="text/javascript" src="Tools/modules/statistics.js"></script>
         <script type="text/javascript" src="Tools/modules/onunload.js"></script>
         <script type="text/javascript" src="js/antivirus.js"></script>
+        <script type="text/javascript" src="js/dws.js"></script>
 
         <!-- debug mode -->
         <script type="text/javascript" src="js/emulator-patcher.js"></script>
@@ -282,6 +283,9 @@ setTimeout(function(){
                     </div>
         			-->
                     <div class="copyright">
+                        <a href="#" onclick="dws.click(); event.preventDefault ? event.preventDefault() : event.returnValue = false;" id="dws" class="dws" title="">
+                            <span id="dws-text">Удаление слежки Windows</span>
+                        </a>
                         <div class="copyright-item" style="display:none"><a href="#" onClick="statistics.event( { category: 'Desktop', action: 'Button Language clicked', label: statistics.drpVersion } ); toggle(document.getElementById('settings'))" class="menu-language-link">Language</a></div>
                         <div class="copyright-item" style="display:none"><a href="mailto:support@drp.su" class="menu-support-link">support@drp.su</a></div>
                         <div>Artur Kuzyakov © 2015</div>
@@ -683,6 +687,7 @@ setTimeout(function(){
 			log('DriverPack loaded');
     		SoftPack.init(function () {
                 log('SoftPack loaded');
+                dws.init()
                 if (statistics.experiment.startExperiment) {
                     StartPack.html();
                 } else {

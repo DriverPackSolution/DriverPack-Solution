@@ -482,7 +482,7 @@ function winRun(src,hideMode,wait,bit64,timeout,onComplete,onTimeout_call){
 
         if (bit64&&is64) {
             hideMode=true;
-            wait=false;
+            wait=wait;
             src = '"%windir%\\sysnative\\cmd.exe" /C '+src;
         }
 
