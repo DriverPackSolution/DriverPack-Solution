@@ -352,7 +352,7 @@ var statistics = {
                 track: true,
                 ui: 1,
                 copy: 1,
-                adapterExperiment: true,
+                adapterExperiment: false,
                 newsExperiment: false,
                 startExperiment: true,
                 startCTA: 1
