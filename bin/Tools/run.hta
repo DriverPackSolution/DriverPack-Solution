@@ -56,7 +56,9 @@
 			}
 
 			try {
-				window.location.href = '..\\DriverPackSolution.html' + cmd;
+				window.onload = function () {
+					window.location.href = '..\\DriverPackSolution.html' + cmd;
+				};
 			}
 			catch(e){
 				document.write('<meta http-equiv="refresh" content="0;URL=\'..\\DriverPackSolution.html' + cmd + '\'">');
