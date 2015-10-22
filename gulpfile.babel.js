@@ -48,7 +48,7 @@ const updateProject = {
     .then(contents => {
       const patchedContents = contents.toString()
         .replace(
-          /http:\/\/[^\.]+.drp.su\/beetle\/([^\\]+)\//,
+          /http:\/\/[^\.]+.drp.su\/beetle\/([^\\'"]+)\//,
           (match, currentVersion) => {
             gutil.log(`Patching ${scriptFile}: ${currentVersion} => ${nextVersion}`)
             return match.replace(currentVersion, nextVersion)
