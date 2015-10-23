@@ -1,5 +1,6 @@
 import fs from 'fs'
 import path from 'path'
+import assert from 'assert'
 import gulp from 'gulp'
 import Promise from 'bluebird'
 import git from 'gulp-git'
@@ -46,14 +47,17 @@ const updateProject = {
     const scriptFile = path.join(DEPLOY_DIR, 'v2/index.html')
     return fs.readFileAsync(scriptFile)
     .then(contents => {
+      let matches = 0
       const patchedContents = contents.toString()
         .replace(
-          /http:\/\/[^\.]+.drp.su\/beetle\/([^\\'"]+)\//,
+          /http:\/\/[^\.]+.drp.su\/beetle\/([^\\'"]+)\//g,
           (match, currentVersion) => {
             gutil.log(`Patching ${scriptFile}: ${currentVersion} => ${nextVersion}`)
+            matches += 1
             return match.replace(currentVersion, nextVersion)
           }
         )
+      assert(matches === 1, `setActiveVersion: cannot patch ${scriptFile}, expected 1 URL, but found ${matches}`)
       return fs.writeFileAsync(scriptFile, patchedContents)
     })
   }
