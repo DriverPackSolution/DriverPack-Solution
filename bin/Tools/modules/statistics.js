@@ -84,7 +84,7 @@
       var pos = text.indexOf("_");
       var lenght = text.indexOf(".exe");
       var id = text.substr(pos + 1, lenght - pos - 1);
-      this.clientId = id;
+      return id;
     },
 
     readClientIdFromFile: function readClientIdFromFile() {
