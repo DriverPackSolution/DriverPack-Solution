@@ -659,7 +659,7 @@ var SoftPack = {
 
 
 		document.getElementById('div-list').innerHTML = '<table id="list"><thead><tr><td></td><td>' + infobar_tabProgramm + '</td><td class="head-third">' + dev_hint_version + '</td><td></td></tr></thead><tbody class=>'+newTbody+'</tbody></table>';
-		document.getElementById('h1-title').innerHTML = drivSign_xp2;
+		document.getElementById('h1-title').innerHTML = (rusLang==true?'<center><img src="img/appeal_to_the_users.gif" width="80%"></center> <br>':'') + drivSign_xp2;
 		document.getElementById('getDownloadInstallTop').innerHTML = infobar_buttonInstAll;
 		document.getElementById('getDownloadInstallBottom').innerHTML = misc_inst5;
 		document.getElementById('loader').style.display = 'none';
